@@ -1,0 +1,168 @@
+{
+  "namespace": "PTC.PrincipalMgmt",
+  "description": "Principal Management Domain - Contains entities for managing users, groups, and organizations",
+  "entities": {
+    "User": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Windchill user account representing an individual user",
+      "properties": [
+        "ID",
+        "Name",
+        "FullName",
+        "Email",
+        "Phone",
+        "Department",
+        "Title",
+        "Organization",
+        "Description",
+        "Disabled",
+        "ServiceUser",
+        "ExternalDirectory",
+        "LastLogin",
+        "CreatedOn",
+        "LastModified",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Groups",
+          "type": "Collection(PTC.PrincipalMgmt.Group)",
+          "containsTarget": true,
+          "description": "Groups user belongs to"
+        },
+        {
+          "name": "Organization",
+          "type": "PTC.PrincipalMgmt.Organization",
+          "nullable": true,
+          "description": "User's organization"
+        }
+      ]
+    },
+    "Group": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "User group for organizing users and assigning permissions",
+      "properties": [
+        "ID",
+        "Name",
+        "Description",
+        "GroupType",
+        "ServiceGroup",
+        "CreatedOn",
+        "LastModified",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Members",
+          "type": "Collection(PTC.PrincipalMgmt.User)",
+          "containsTarget": true,
+          "description": "Users in this group"
+        },
+        {
+          "name": "ParentGroups",
+          "type": "Collection(PTC.PrincipalMgmt.Group)",
+          "containsTarget": true,
+          "description": "Parent groups"
+        },
+        {
+          "name": "ChildGroups",
+          "type": "Collection(PTC.PrincipalMgmt.Group)",
+          "containsTarget": true,
+          "description": "Child groups"
+        }
+      ]
+    },
+    "Organization": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Organization entity for company/department structure",
+      "properties": [
+        "ID",
+        "Name",
+        "Description",
+        "CreatedOn",
+        "LastModified",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Users",
+          "type": "Collection(PTC.PrincipalMgmt.User)",
+          "containsTarget": true,
+          "description": "Users in organization"
+        },
+        {
+          "name": "Groups",
+          "type": "Collection(PTC.PrincipalMgmt.Group)",
+          "containsTarget": true,
+          "description": "Groups in organization"
+        }
+      ]
+    },
+    "UserPrincipal": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "User principal object (extended user information)",
+      "properties": [
+        "ID",
+        "Name",
+        "PrincipalType",
+        "CreatedOn",
+        "LastModified"
+      ],
+      "navigationProperties": [
+        {
+          "name": "User",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": false,
+          "description": "Associated user"
+        }
+      ]
+    },
+    "GroupPrincipal": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Group principal object (extended group information)",
+      "properties": [
+        "ID",
+        "Name",
+        "PrincipalType",
+        "CreatedOn",
+        "LastModified"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Group",
+          "type": "PTC.PrincipalMgmt.Group",
+          "nullable": false,
+          "description": "Associated group"
+        }
+      ]
+    }
+  },
+  "entitySets": {
+    "Users": "User",
+    "Groups": "Group",
+    "Organizations": "Organization",
+    "UserPrincipals": "UserPrincipal",
+    "GroupPrincipals": "GroupPrincipal"
+  }
+}

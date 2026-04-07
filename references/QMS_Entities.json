@@ -1,0 +1,335 @@
+{
+  "namespace": "PTC.QMS",
+  "description": "Quality Management System Domain - Contains entities for managing quality actions, non-conformances, CAPA, and quality contacts",
+  "entities": {
+    "QualityAction": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Quality action for tracking corrective and preventive actions",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "Description",
+        "State",
+        "LifeCycleTemplateName",
+        "ActionType",
+        "Priority",
+        "DueDate",
+        "CompletionDate",
+        "RootCause",
+        "CorrectiveAction",
+        "PreventiveAction",
+        "VerificationMethod",
+        "Effectiveness",
+        "CreatedBy",
+        "CreatedOn",
+        "ModifiedBy",
+        "LastModified",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Creator",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who created"
+        },
+        {
+          "name": "Modifier",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who last modified"
+        },
+        {
+          "name": "Owner",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "Assigned owner"
+        },
+        {
+          "name": "RelatedQualityObject",
+          "type": "PTC.QMS.QualityObject",
+          "nullable": true,
+          "description": "Related quality object"
+        }
+      ]
+    },
+    "QualityObject": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Base quality object for quality management records",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "Description",
+        "State",
+        "LifeCycleTemplateName",
+        "QualityType",
+        "Severity",
+        "Status",
+        "CreatedBy",
+        "CreatedOn",
+        "ModifiedBy",
+        "LastModified",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Creator",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who created"
+        },
+        {
+          "name": "Modifier",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who last modified"
+        },
+        {
+          "name": "QualityActions",
+          "type": "Collection(PTC.QMS.QualityAction)",
+          "containsTarget": true,
+          "description": "Related quality actions"
+        }
+      ]
+    },
+    "Place": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Location/place for quality events",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "Description",
+        "Address",
+        "City",
+        "State",
+        "Country",
+        "PostalCode",
+        "PlaceType",
+        "CreatedBy",
+        "CreatedOn",
+        "LastModified",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        }
+      ]
+    },
+    "QualityContact": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Contact person or location related to quality events",
+      "properties": [
+        "ID",
+        "Name",
+        "ContactType",
+        "Email",
+        "Phone",
+        "Role",
+        "Organization",
+        "CreatedBy",
+        "CreatedOn",
+        "LastModified",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Place",
+          "type": "PTC.QMS.Place",
+          "nullable": true,
+          "description": "Associated place/location"
+        }
+      ]
+    },
+    "Subject": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Quality subject representing a product or item",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "SubjectType",
+        "Description",
+        "ProductNumber",
+        "ProductName",
+        "SerialNumber",
+        "LotNumber",
+        "CreatedBy",
+        "CreatedOn",
+        "LastModified",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        }
+      ]
+    },
+    "NonConformance": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Non-conformance record for tracking quality issues",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "Description",
+        "State",
+        "NCType",
+        "Severity",
+        "DiscoveryDate",
+        "DiscoveryLocation",
+        "QuantityAffected",
+        "Disposition",
+        "CreatedBy",
+        "CreatedOn",
+        "ModifiedBy",
+        "LastModified",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Creator",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who created"
+        },
+        {
+          "name": "Modifier",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who last modified"
+        },
+        {
+          "name": "Subject",
+          "type": "PTC.QMS.Subject",
+          "nullable": true,
+          "description": "Related product/subject"
+        },
+        {
+          "name": "CAPA",
+          "type": "PTC.QMS.QualityAction",
+          "nullable": true,
+          "description": "Related CAPA"
+        },
+        {
+          "name": "Place",
+          "type": "PTC.QMS.Place",
+          "nullable": true,
+          "description": "Location of discovery"
+        }
+      ]
+    },
+    "CAPA": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "CAPA record for corrective and preventive actions",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "Description",
+        "State",
+        "CAPAType",
+        "Priority",
+        "DueDate",
+        "CompletionDate",
+        "RootCauseAnalysis",
+        "CorrectiveAction",
+        "PreventiveAction",
+        "VerificationStatus",
+        "EffectivenessStatus",
+        "CreatedBy",
+        "CreatedOn",
+        "ModifiedBy",
+        "LastModified",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Creator",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who created"
+        },
+        {
+          "name": "Modifier",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who last modified"
+        },
+        {
+          "name": "Owner",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "Assigned owner"
+        },
+        {
+          "name": "Subject",
+          "type": "PTC.QMS.Subject",
+          "nullable": true,
+          "description": "Related product/subject"
+        },
+        {
+          "name": "NonConformance",
+          "type": "PTC.QMS.NonConformance",
+          "nullable": true,
+          "description": "Related non-conformance"
+        }
+      ]
+    }
+  },
+  "entitySets": {
+    "QualityActions": "QualityAction",
+    "QualityObjects": "QualityObject",
+    "Places": "Place",
+    "QualityContacts": "QualityContact",
+    "Subjects": "Subject",
+    "NonConformances": "NonConformance",
+    "CAPAs": "CAPA"
+  }
+}

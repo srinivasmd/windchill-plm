@@ -1,0 +1,656 @@
+{
+  "SupportingDocument": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.SupportingDocument",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "Method": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.Method",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "GarrettTRL": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.GarrettTRL",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [
+      "ComPtcGarrettProject: Edm.String"
+    ],
+    "navigations": []
+  },
+  "SoftwareConfigurationData": {
+    "base_type": "PTC.DocMgmt.SoftwareDocument",
+    "description": "Generated from type com.ptc.swlink.SoftwareConfigurationData",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "WorkRecord": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.WorkRecord",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [
+      "Applicable_Departments: Edm.String",
+      "Applicable_Roles: Edm.String",
+      "Business_Owner: Edm.String",
+      "Computer_System_Identifier: Edm.String",
+      "DHFCategory: Collection(PTC.EnumType)",
+      "Date_Obsolete: Edm.Date",
+      "DocumentClassification: Edm.String",
+      "Effective_Date: Collection(Edm.Date)",
+      "Equipment_Name: Edm.String",
+      "Equipment_Number: Edm.String",
+      "Expiration_Date: Edm.Date",
+      "Facility_Site: Edm.String",
+      "Language: Edm.String",
+      "Last_Periodic_Review_Date: Edm.DateTimeOffset",
+      "Legacy_Document_Number: Edm.String",
+      "Legacy_Document_Source: Edm.String",
+      "Manufacturer: Edm.String",
+      "Manufacturing_Process: Edm.String",
+      "Next_Periodic_Review_Date: Edm.DateTimeOffset",
+      "Product_Family: Edm.String",
+      "Product_Line: Edm.String",
+      "Product_Model: Edm.String",
+      "Quality_System_Reference_Number: Edm.String",
+      "Reason_for_Withdrawal: Edm.String",
+      "Training_Required: Edm.Boolean",
+      "Translated_Document_Name: Edm.String"
+    ],
+    "navigations": []
+  },
+  "SupplierQuality": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.SupplierQuality",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "ControlledDocument": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.ControlledDocument",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [
+      "Applicable_Departments: Edm.String",
+      "Applicable_Roles: Edm.String",
+      "Business_Owner: Edm.String",
+      "Computer_System_Identifier: Edm.String",
+      "DHFCategory: Collection(PTC.EnumType)",
+      "Date_Obsolete: Edm.Date",
+      "DocumentClassification: Edm.String",
+      "Effective_Date: Edm.Date",
+      "Equipment_Name: Edm.String",
+      "Equipment_Number: Edm.String",
+      "Expiration_Date: Edm.Date",
+      "Facility_Site: Edm.String",
+      "Language: Edm.String",
+      "Last_Periodic_Review_Date: Edm.DateTimeOffset",
+      "Legacy_Document_Number: Edm.String",
+      "Legacy_Document_Source: Edm.String",
+      "LinkToTraining: Edm.String",
+      "Manufacturer: Edm.String",
+      "Manufacturing_Process: Edm.String",
+      "Next_Periodic_Review_Date: Edm.DateTimeOffset",
+      "Product_Family: Edm.String",
+      "Product_Line: Edm.String",
+      "Product_Model: Edm.String",
+      "Quality_System_Reference_Number: Edm.String",
+      "Reason_for_Withdrawal: Edm.String",
+      "TrainingDeadline: Edm.String",
+      "TrainingInterval: Edm.Int64",
+      "TrainingIntervalLeadTime: Edm.Int64",
+      "TrainingOnRelease: Edm.Boolean",
+      "Training_Required: Edm.Boolean",
+      "Translated_Document_Name: Edm.String"
+    ],
+    "navigations": []
+  },
+  "DocumentUsageLink": {
+    "base_type": "",
+    "description": "Document usage link",
+    "operations": "READ",
+    "capabilities": "",
+    "properties": [
+      "CreatedOn: Edm.DateTimeOffset",
+      "ID: Edm.String",
+      "LastModified: Edm.DateTimeOffset",
+      "ObjectType: Edm.String",
+      "StructureOrder: Edm.Int64"
+    ],
+    "navigations": [
+      {
+        "name": "DocUsedBy",
+        "type": "PTC.DocMgmt.Document",
+        "contains_target": false,
+        "read_only": true
+      },
+      {
+        "name": "DocUses",
+        "type": "PTC.DocMgmt.Document",
+        "contains_target": false,
+        "read_only": true
+      }
+    ]
+  },
+  "ApprovedRecord": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.ApprovedRecord",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [
+      "Applicable_Departments: Edm.String",
+      "Applicable_Roles: Edm.String",
+      "Business_Owner: Edm.String",
+      "Computer_System_Identifier: Edm.String",
+      "DHFCategory: Collection(PTC.EnumType)",
+      "Date_Obsolete: Edm.Date",
+      "DocumentClassification: Edm.String",
+      "Effective_Date: Edm.Date",
+      "Equipment_Name: Edm.String",
+      "Equipment_Number: Edm.String",
+      "Expiration_Date: Edm.Date",
+      "Facility_Site: Edm.String",
+      "Language: Edm.String",
+      "Last_Periodic_Review_Date: Edm.DateTimeOffset",
+      "Legacy_Document_Number: Edm.String",
+      "Legacy_Document_Source: Edm.String",
+      "Manufacturer: Edm.String",
+      "Manufacturing_Process: Edm.String",
+      "Next_Periodic_Review_Date: Edm.DateTimeOffset",
+      "Product_Family: Edm.String",
+      "Product_Line: Edm.String",
+      "Product_Model: Edm.String",
+      "Quality_System_Reference_Number: Edm.String",
+      "Reason_for_Withdrawal: Edm.String",
+      "Training_Required: Edm.Boolean",
+      "Translated_Document_Name: Edm.String"
+    ],
+    "navigations": []
+  },
+  "PackagingAndLabeling": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.PackagingAndLabeling",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "ContentInfo": {
+    "base_type": "",
+    "description": "Content Info for stage 3 upload",
+    "operations": "READ",
+    "capabilities": "",
+    "properties": [
+      "StreamId: Edm.Int64",
+      "FileSize: Edm.Int64",
+      "EncodedInfo: Edm.String",
+      "FileName: Edm.String",
+      "MimeType: Edm.String",
+      "PrimaryContent: Edm.Boolean"
+    ],
+    "navigations": []
+  },
+  "Audit": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.Audit",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "DocumentUse": {
+    "base_type": "PTC.WindchillEntity",
+    "description": "Document usage link",
+    "operations": "READ",
+    "capabilities": "",
+    "properties": [
+      "ObjectType: Edm.String",
+      "StructureOrder: Edm.Int64"
+    ],
+    "navigations": []
+  },
+  "Document": {
+    "base_type": "PTC.WindchillEntity",
+    "description": "Documents",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [
+      "CabinetName: Edm.String",
+      "ChangeStatus: PTC.Icon",
+      "CheckOutStatus: Edm.String",
+      "CheckoutState: Edm.String",
+      "Classification: PTC.ClassificationInfo",
+      "Comments: Edm.String",
+      "CreatedBy: Edm.String",
+      "Description: Edm.String",
+      "DocTypeName: Edm.String",
+      "FolderLocation: Edm.String",
+      "FolderName: Edm.String",
+      "GeneralStatus: PTC.Icon",
+      "Identity: Edm.String",
+      "Latest: Edm.Boolean",
+      "LifeCycleTemplateName: Edm.String",
+      "MasterID: Edm.String",
+      "ModifiedBy: Edm.String",
+      "Name: Edm.String",
+      "Number: Edm.String",
+      "ObjectType: Edm.String",
+      "OrganizationName: Edm.String",
+      "Revision: Edm.String",
+      "ShareStatus: PTC.Icon",
+      "State: PTC.EnumType",
+      "Title: Edm.String",
+      "TypeIcon: PTC.Icon",
+      "USE_GOOGLE_EDITOR: Edm.Boolean",
+      "Version: Edm.String",
+      "VersionID: Edm.String",
+      "WorkInProgressState: PTC.WorkInProgressType"
+    ],
+    "navigations": [
+      {
+        "name": "DocUsageLinks",
+        "type": "Collection(PTC.DocMgmt.DocumentUsageLink)",
+        "contains_target": true,
+        "read_only": true
+      },
+      {
+        "name": "Context",
+        "type": "PTC.DataAdmin.Container",
+        "contains_target": false,
+        "read_only": false
+      },
+      {
+        "name": "Organization",
+        "type": "PTC.PrincipalMgmt.Organization",
+        "contains_target": false,
+        "read_only": false
+      },
+      {
+        "name": "ReferencedByEngMatCatalogReferenceLink",
+        "type": "Collection(PTC.ConfigurableLinks.EngMatCatalogReferenceLink)",
+        "contains_target": false,
+        "read_only": true
+      },
+      {
+        "name": "PrimaryContent",
+        "type": "PTC.ContentItem",
+        "contains_target": true,
+        "read_only": false
+      },
+      {
+        "name": "Thumbnails",
+        "type": "Collection(PTC.ContentItem)",
+        "contains_target": true,
+        "read_only": false
+      },
+      {
+        "name": "Creator",
+        "type": "PTC.PrincipalMgmt.User",
+        "contains_target": false,
+        "read_only": true
+      },
+      {
+        "name": "Folder",
+        "type": "PTC.DataAdmin.Folder",
+        "contains_target": false,
+        "read_only": false
+      },
+      {
+        "name": "Revisions",
+        "type": "Collection(PTC.DocMgmt.Document)",
+        "contains_target": false,
+        "read_only": true
+      },
+      {
+        "name": "Attachments",
+        "type": "Collection(PTC.ContentItem)",
+        "contains_target": true,
+        "read_only": false
+      },
+      {
+        "name": "Versions",
+        "type": "Collection(PTC.DocMgmt.Document)",
+        "contains_target": false,
+        "read_only": true
+      },
+      {
+        "name": "DescribesEngMatCatalogDescribeLink",
+        "type": "Collection(PTC.ConfigurableLinks.EngMatCatalogDescribeLink)",
+        "contains_target": false,
+        "read_only": true
+      },
+      {
+        "name": "Representations",
+        "type": "Collection(PTC.Visualization.Representation)",
+        "contains_target": false,
+        "read_only": true
+      },
+      {
+        "name": "SmallThumbnails",
+        "type": "Collection(PTC.ContentItem)",
+        "contains_target": true,
+        "read_only": false
+      },
+      {
+        "name": "Modifier",
+        "type": "PTC.PrincipalMgmt.User",
+        "contains_target": false,
+        "read_only": true
+      }
+    ]
+  },
+  "General": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.General",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "MasterManufacturingRecord": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.MasterManufacturingRecord",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "Equipment": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.Equipment",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "MaterialRecordsAndCertificates": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.MaterialRecordsAndCertificates",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "Quality": {
+    "base_type": "PTC.DocMgmt.ControlledDocument",
+    "description": "Generated from type com.ptc.Quality",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "Agenda": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.Agenda",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "DocStructure": {
+    "base_type": "",
+    "description": "Doc Structure",
+    "operations": "READ",
+    "capabilities": "",
+    "properties": [
+      "DocumentID: Edm.String",
+      "DocumentUseID: Edm.String",
+      "HasChildren: Edm.Boolean",
+      "HasUnresolvedObjectsByAccessRights: Edm.Boolean",
+      "TreeId: Edm.String"
+    ],
+    "navigations": [
+      {
+        "name": "Document",
+        "type": "PTC.DocMgmt.Document",
+        "contains_target": false,
+        "read_only": false
+      },
+      {
+        "name": "DocumentUse",
+        "type": "PTC.DocMgmt.DocumentUse",
+        "contains_target": false,
+        "read_only": false
+      },
+      {
+        "name": "Structure",
+        "type": "Collection(PTC.DocMgmt.DocStructure)",
+        "contains_target": true,
+        "read_only": false
+      }
+    ]
+  },
+  "Specification": {
+    "base_type": "PTC.DocMgmt.ApprovedRecord",
+    "description": "Generated from type com.ptc.Specification",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "TestDocument": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.TestDocument",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "ReferenceDocument": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.ReferenceDocument",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "SoftwareDocument": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.swlink.SoftwareDocument",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "InterCommData": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.InterCommData",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "Record": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.Record",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [
+      "Applicable_Departments: Edm.String",
+      "Applicable_Roles: Edm.String",
+      "Business_Owner: Edm.String",
+      "Computer_System_Identifier: Edm.String",
+      "DHFCategory: Collection(PTC.EnumType)",
+      "Date_Obsolete: Edm.Date",
+      "DocumentClassification: Edm.String",
+      "Effective_Date: Collection(Edm.Date)",
+      "Equipment_Name: Edm.String",
+      "Equipment_Number: Edm.String",
+      "Expiration_Date: Edm.Date",
+      "Facility_Site: Edm.String",
+      "Language: Edm.String",
+      "Last_Periodic_Review_Date: Edm.DateTimeOffset",
+      "Legacy_Document_Number: Edm.String",
+      "Legacy_Document_Source: Edm.String",
+      "Manufacturer: Edm.String",
+      "Manufacturing_Process: Edm.String",
+      "Next_Periodic_Review_Date: Edm.DateTimeOffset",
+      "Product_Family: Edm.String",
+      "Product_Line: Edm.String",
+      "Product_Model: Edm.String",
+      "Quality_System_Reference_Number: Edm.String",
+      "Reason_for_Withdrawal: Edm.String",
+      "Training_Required: Edm.Boolean",
+      "Translated_Document_Name: Edm.String"
+    ],
+    "navigations": []
+  },
+  "GovernanceDocument": {
+    "base_type": "PTC.DocMgmt.ControlledDocument",
+    "description": "Generated from type com.ptc.GovernanceDocument",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "Training": {
+    "base_type": "PTC.DocMgmt.ApprovedRecord",
+    "description": "Generated from type com.ptc.Training",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "Presentation": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.Presentation",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "ProductRecordsAndCertificates": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.ProductRecordsAndCertificates",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "SoftwareBuild": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.swlink.SoftwareBuild",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [
+      "ComPtcIesAdapterName: Edm.String",
+      "ComPtcIesBuildDate: Edm.DateTimeOffset",
+      "ComPtcIesBuildDescription: Edm.String",
+      "ComPtcIesBuildLabel: Edm.String",
+      "ComPtcIesBuildStatus: Edm.String",
+      "ComPtcIesBuildVersion: Edm.String",
+      "ComPtcIesFileActivity: Edm.String",
+      "ComPtcIesLinesOfCode: Edm.String",
+      "ComPtcIesRevisionHolder: Edm.String",
+      "ComPtcIesSourceCodeArea: Edm.String"
+    ],
+    "navigations": []
+  },
+  "Msds": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.msds",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "PublishedContent": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.PublishedContent",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "Minutes": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.Minutes",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "WorkInstruction": {
+    "base_type": "PTC.DocMgmt.ControlledDocument",
+    "description": "Generated from type com.ptc.WorkInstruction",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "QMSDocument": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.QMSDocument",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "Manual": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.Manual",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "QualityProductReport": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.QualityProductReport",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "TranslationDocument": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.tml.TranslationDocument",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "Plan": {
+    "base_type": "PTC.DocMgmt.Document",
+    "description": "Generated from type com.ptc.Plan",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "StandardOperatingProcedure": {
+    "base_type": "PTC.DocMgmt.ControlledDocument",
+    "description": "Generated from type com.ptc.StandardOperatingProcedure",
+    "operations": "READ,CREATE,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "FacilityRecordsAndCertificates": {
+    "base_type": "PTC.DocMgmt.Record",
+    "description": "Generated from type com.ptc.FacilityRecordsAndCertificates",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  },
+  "WorkRequest": {
+    "base_type": "PTC.DocMgmt.WorkRecord",
+    "description": "Generated from type com.ptc.WorkRequest",
+    "operations": "READ,UPDATE,DELETE",
+    "capabilities": "Notifiable,Workable",
+    "properties": [],
+    "navigations": []
+  }
+}

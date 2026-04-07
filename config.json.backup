@@ -1,0 +1,1 @@
+{"server_url": "https://pp-2601081959j0.portal.ptc.io/Windchill", "odata_base_url": "https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/", "auth_type": "basic", "basic": {"username": "pat", "password": "ptc"}, "verify_ssl": true, "timeout": 30}

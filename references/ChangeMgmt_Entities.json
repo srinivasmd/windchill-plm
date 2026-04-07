@@ -1,0 +1,279 @@
+{
+  "namespace": "PTC.ChangeMgmt",
+  "description": "Change Management Domain - Contains entities for managing engineering changes, change requests, change notices, and change tasks",
+  "entities": {
+    "ChangeNotice": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Change Notice (ECN) - Formal documentation of approved changes to be implemented",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "Description",
+        "State",
+        "LifeCycleTemplateName",
+        "FolderLocation",
+        "CreatedBy",
+        "CreatedOn",
+        "ModifiedBy",
+        "LastModified",
+        "NeedDate",
+        "ApprovalDate",
+        "CustomerName",
+        "ChangeType",
+        "ChangeReason",
+        "MasterID",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Creator",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who created the change notice"
+        },
+        {
+          "name": "Modifier",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who last modified the change notice"
+        },
+        {
+          "name": "ChangeRequests",
+          "type": "Collection(PTC.ChangeMgmt.ChangeRequest)",
+          "containsTarget": true,
+          "description": "Linked change requests"
+        },
+        {
+          "name": "ChangeTasks",
+          "type": "Collection(PTC.ChangeMgmt.ChangeTask)",
+          "containsTarget": true,
+          "description": "Child change tasks"
+        },
+        {
+          "name": "ResultingObjects",
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "containsTarget": true,
+          "description": "Objects created or modified by this change"
+        },
+        {
+          "name": "AffectedObjects",
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "containsTarget": true,
+          "description": "Objects impacted by this change"
+        },
+        {
+          "name": "Folder",
+          "type": "PTC.DataAdmin.Folder",
+          "nullable": true,
+          "description": "Containing folder"
+        }
+      ]
+    },
+    "ChangeRequest": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Change Request (ECR) - Request for change to be evaluated and approved",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "Description",
+        "State",
+        "LifeCycleTemplateName",
+        "FolderLocation",
+        "CreatedBy",
+        "CreatedOn",
+        "ModifiedBy",
+        "LastModified",
+        "NeedDate",
+        "Justification",
+        "Urgency",
+        "ChangeType",
+        "MasterID",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Creator",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who created the change request"
+        },
+        {
+          "name": "Modifier",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who last modified the change request"
+        },
+        {
+          "name": "ChangeNotices",
+          "type": "Collection(PTC.ChangeMgmt.ChangeNotice)",
+          "containsTarget": true,
+          "description": "Linked change notices"
+        },
+        {
+          "name": "AffectedObjects",
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "containsTarget": true,
+          "description": "Objects impacted by this change request"
+        },
+        {
+          "name": "Folder",
+          "type": "PTC.DataAdmin.Folder",
+          "nullable": true,
+          "description": "Containing folder"
+        }
+      ]
+    },
+    "ChangeTask": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Change Task - Individual task within a Change Notice for implementation",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "Description",
+        "State",
+        "LifeCycleTemplateName",
+        "FolderLocation",
+        "CreatedBy",
+        "CreatedOn",
+        "ModifiedBy",
+        "LastModified",
+        "DueDate",
+        "CompletionDate",
+        "Assignee",
+        "MasterID",
+        "TypeIcon",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Creator",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who created the change task"
+        },
+        {
+          "name": "Modifier",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who last modified the change task"
+        },
+        {
+          "name": "ChangeNotice",
+          "type": "PTC.ChangeMgmt.ChangeNotice",
+          "nullable": false,
+          "description": "Parent change notice"
+        },
+        {
+          "name": "ResultingObjects",
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "containsTarget": true,
+          "description": "Objects created or modified by this task"
+        },
+        {
+          "name": "Folder",
+          "type": "PTC.DataAdmin.Folder",
+          "nullable": true,
+          "description": "Containing folder"
+        }
+      ]
+    },
+    "Changeable": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Base type for objects that can be affected by or result from a change",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "State",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Creator",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who created the object"
+        },
+        {
+          "name": "Modifier",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who last modified the object"
+        }
+      ]
+    },
+    "ChangeOrder": {
+      "baseType": "PTC.WindchillEntity",
+      "description": "Change Order - Order for implementing changes",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "Description",
+        "State",
+        "LifeCycleTemplateName",
+        "CreatedBy",
+        "CreatedOn",
+        "ModifiedBy",
+        "LastModified",
+        "MasterID",
+        "ObjectType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Context",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": true,
+          "description": "Container context"
+        },
+        {
+          "name": "Creator",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who created"
+        },
+        {
+          "name": "Modifier",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who last modified"
+        }
+      ]
+    }
+  },
+  "entitySets": {
+    "ChangeNotices": "ChangeNotice",
+    "ChangeRequests": "ChangeRequest",
+    "ChangeTasks": "ChangeTask",
+    "ChangeOrders": "ChangeOrder"
+  }
+}

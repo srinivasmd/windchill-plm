@@ -1,0 +1,217 @@
+{
+  "namespace": "PTC",
+  "description": "Common PTC entities shared across Windchill OData domains",
+  "entities": {
+    "WindchillEntity": {
+      "description": "Base type for most Windchill entities",
+      "properties": [
+        "ID",
+        "Name",
+        "Number",
+        "ObjectType",
+        "TypeIcon",
+        "CreatedOn",
+        "LastModified"
+      ],
+      "navigationProperties": []
+    },
+    "Container": {
+      "namespace": "PTC.DataAdmin",
+      "baseType": "PTC.WindchillEntity",
+      "description": "Container entity representing Products, Libraries, and Projects",
+      "properties": [
+        "ID",
+        "Name",
+        "Description",
+        "ContainerType",
+        "CreatedOn",
+        "LastModified"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Creator",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who created"
+        },
+        {
+          "name": "Modifier",
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true,
+          "description": "User who last modified"
+        }
+      ]
+    },
+    "Folder": {
+      "namespace": "PTC.DataAdmin",
+      "baseType": "PTC.WindchillEntity",
+      "description": "Folder entity for organizing objects within containers",
+      "properties": [
+        "ID",
+        "Name",
+        "Path",
+        "Description"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Container",
+          "type": "PTC.DataAdmin.Container",
+          "nullable": false,
+          "description": "Containing container"
+        },
+        {
+          "name": "ParentFolder",
+          "type": "PTC.DataAdmin.Folder",
+          "nullable": true,
+          "description": "Parent folder"
+        }
+      ]
+    },
+    "User": {
+      "namespace": "PTC.PrincipalMgmt",
+      "baseType": "PTC.WindchillEntity",
+      "description": "User entity referenced across all domains",
+      "properties": [
+        "ID",
+        "Name",
+        "FullName",
+        "Email",
+        "Phone",
+        "Department",
+        "Disabled"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Groups",
+          "type": "Collection(PTC.PrincipalMgmt.Group)",
+          "containsTarget": true,
+          "description": "Groups user belongs to"
+        },
+        {
+          "name": "Organization",
+          "type": "PTC.PrincipalMgmt.Organization",
+          "nullable": true,
+          "description": "User's organization"
+        }
+      ]
+    },
+    "Group": {
+      "namespace": "PTC.PrincipalMgmt",
+      "baseType": "PTC.WindchillEntity",
+      "description": "Group entity for organizing users",
+      "properties": [
+        "ID",
+        "Name",
+        "Description",
+        "GroupType"
+      ],
+      "navigationProperties": [
+        {
+          "name": "Members",
+          "type": "Collection(PTC.PrincipalMgmt.User)",
+          "containsTarget": true,
+          "description": "Users in this group"
+        },
+        {
+          "name": "ParentGroups",
+          "type": "Collection(PTC.PrincipalMgmt.Group)",
+          "containsTarget": true,
+          "description": "Parent groups"
+        },
+        {
+          "name": "ChildGroups",
+          "type": "Collection(PTC.PrincipalMgmt.Group)",
+          "containsTarget": true,
+          "description": "Child groups"
+        }
+      ]
+    }
+  },
+  "commonNavigationProperties": {
+    "Context": {
+      "type": "PTC.DataAdmin.Container",
+      "description": "Container context (Product, Library, Project)",
+      "usedBy": ["Part", "Document", "ChangeNotice", "ChangeRequest", "Supplier", "QualityAction", "Regulation"]
+    },
+    "Creator": {
+      "type": "PTC.PrincipalMgmt.User",
+      "description": "User who created the object",
+      "usedBy": ["Part", "Document", "ChangeNotice", "ChangeRequest", "Supplier", "QualityAction", "Regulation"]
+    },
+    "Modifier": {
+      "type": "PTC.PrincipalMgmt.User",
+      "description": "User who last modified the object",
+      "usedBy": ["Part", "Document", "ChangeNotice", "ChangeRequest", "Supplier", "QualityAction", "Regulation"]
+    },
+    "Owner": {
+      "type": "PTC.PrincipalMgmt.User",
+      "description": "Assigned owner of the object",
+      "usedBy": ["QualityAction", "CAPA", "ChangeTask"]
+    },
+    "Folder": {
+      "type": "PTC.DataAdmin.Folder",
+      "description": "Containing folder",
+      "usedBy": ["Part", "Document", "ChangeNotice", "ChangeRequest"]
+    }
+  },
+  "crossDomainReferences": [
+    {
+      "source": "Part",
+      "sourceDomain": "ProdMgmt",
+      "navigation": "DescribedByDocuments",
+      "target": "Document",
+      "targetDomain": "DocMgmt"
+    },
+    {
+      "source": "ChangeNotice",
+      "sourceDomain": "ChangeMgmt",
+      "navigation": "AffectedObjects",
+      "target": "Changeable",
+      "targetDomain": "ChangeMgmt"
+    },
+    {
+      "source": "ChangeNotice",
+      "sourceDomain": "ChangeMgmt",
+      "navigation": "ResultingObjects",
+      "target": "Changeable",
+      "targetDomain": "ChangeMgmt"
+    },
+    {
+      "source": "NonConformance",
+      "sourceDomain": "QMS",
+      "navigation": "Subject",
+      "target": "Subject",
+      "targetDomain": "QMS"
+    },
+    {
+      "source": "CAPA",
+      "sourceDomain": "QMS",
+      "navigation": "NonConformance",
+      "target": "NonConformance",
+      "targetDomain": "QMS"
+    },
+    {
+      "source": "RegulatoryRequirement",
+      "sourceDomain": "RegMstr",
+      "navigation": "Regulation",
+      "target": "Regulation",
+      "targetDomain": "RegMstr"
+    },
+    {
+      "source": "ComplianceRecord",
+      "sourceDomain": "RegMstr",
+      "navigation": "RegulatoryRequirement",
+      "target": "RegulatoryRequirement",
+      "targetDomain": "RegMstr"
+    }
+  ],
+  "oidFormats": {
+    "Part": "OR:wt.part.WTPart:{id}",
+    "Document": "OR:wt.doc.WTDocument:{id}",
+    "ChangeNotice": "OR:wt.change2.WTChangeOrder2:{id}",
+    "ChangeRequest": "OR:wt.change2.WTChangeRequest2:{id}",
+    "User": "OR:wt.org.WTUser:{id}",
+    "Group": "OR:wt.org.WTGroup:{id}",
+    "Container": "OR:wt.inf.container.WTContainer:{id}"
+  }
+}
