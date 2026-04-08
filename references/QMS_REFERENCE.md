@@ -5,32 +5,41 @@ Complete reference documentation for the Windchill Quality Management System ODa
 ## Base URL
 
 ```
-https://windchill.example.com/Windchill/servlet/odata/QMS/
+https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/QMS/
 ```
 
 ## Metadata URL
 
 ```
-https://windchill.example.com/Windchill/servlet/odata/QMS/$metadata
+https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/QMS/$metadata
 ```
 
 ## Domain Overview
 
-The Quality Management System (QMS) domain provides access to Windchill's quality management entities:
+The Quality Management System (QMS) domain provides access to quality management entities in Windchill including:
 
-### Quality Objects
-- **QualityActions** - Quality actions and corrective actions
-- **QualityObject** - Base quality object type
-- **QualityProcess** - Quality process definitions
+### Quality Records
+- **QualityAction** - Quality action items
+- **QualityIssue** - Quality issues and incidents
+- **QualityProcedure** - Quality procedures
+- **QualityPlan** - Quality plans
 
-### Customer Experience Integration
-- **Place** - Places/locations for quality events
-- **QualityContact** - Quality contacts (persons/locations)
+### Quality Contacts
+- **QualityContact** - Quality contact information
+- **Place** - Places and locations
 
-### Product Quality
-- **Subject** - Quality subject (product reference)
-- **NonConformance** - Non-conformance records
-- **CAPA** - Corrective and Preventive Actions
+### CAPA
+- **CorrectiveAction** - Corrective actions
+- **PreventiveAction** - Preventive actions
+
+### Audit
+- **Audit** - Quality audits
+- **AuditFinding** - Audit findings
+- **AuditChecklist** - Audit checklists
+
+### Nonconformance
+- **Nonconformance** - Nonconformance reports
+- **NCDisposition** - Nonconformance dispositions
 
 ---
 
@@ -38,44 +47,42 @@ The Quality Management System (QMS) domain provides access to Windchill's qualit
 
 ### QualityAction
 
-Quality action for tracking corrective and preventive actions.
+Quality action items for tracking quality-related tasks.
 
 **Endpoint:** `/QMS/QualityActions`
 
-**Operations:** `READ`
+**Operations:** `READ`, `CREATE`, `UPDATE`
 
 **Properties:**
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Action name |
-| **Number** | String | Action number |
-| **Description** | String | Action description |
-| **State** | EnumType | Lifecycle state |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Quality Action name |
+| **Number** | String | Quality Action number |
+| **Description** | String | Detailed description |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
 | **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
-| **ActionType** | String | Type of action |
-| **Priority** | String | Priority level |
+| **Priority** | EnumType | Priority level |
+| **Category** | EnumType | Category of action |
 | **DueDate** | DateTimeOffset | Due date for completion |
 | **CompletionDate** | DateTimeOffset | Actual completion date |
-| **RootCause** | String | Root cause analysis |
-| **CorrectiveAction** | String | Corrective action description |
-| **PreventiveAction** | String | Preventive action description |
-| **VerificationMethod** | String | Verification method |
-| **Effectiveness** | String | Effectiveness status |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **FolderLocation** | String | Folder path in Windchill |
+| **MasterID** | String | Master ID (ReadOnly) |
+| **CreatedBy** | String | Created by (ReadOnly) |
+| **ModifiedBy** | String | Modified by (ReadOnly) |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **ModifiedBy** | String | User who last modified (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
 | **TypeIcon** | Icon | Type icon (ReadOnly) |
 | **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Creator` → PTC.PrincipalMgmt.User (User who created)
-- `Modifier` → PTC.PrincipalMgmt.User (User who last modified)
-- `Owner` → PTC.PrincipalMgmt.User (Assigned owner)
-- `RelatedQualityObject` → PTC.QMS.QualityObject (Related quality object)
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `Modifier` - Modifier user (PTC.PrincipalMgmt.User)
+- `Owner` - Owner user (PTC.PrincipalMgmt.User)
+- `QualityIssue` - Related Quality Issue
+- `RelatedProducts` - Collection of Related Products
 
 **CRUD Operations:**
 
@@ -83,127 +90,118 @@ Quality action for tracking corrective and preventive actions.
 # Get all quality actions
 GET /QMS/QualityActions
 
-# Get quality action by ID
-GET /QMS/QualityActions('{id}')
-
 # Get quality action by number
-GET /QMS/QualityActions?$filter=Number eq 'QA-00001'
+GET /QMS/QualityActions?$filter=Number eq 'QA-000001'
 
 # Filter by state
 GET /QMS/QualityActions?$filter=State/Value eq 'OPEN'
 
-# Get open quality actions
-GET /QMS/QualityActions?$filter=State/Value eq 'OPEN' or State/Value eq 'IN_PROGRESS'
+# Filter by priority
+GET /QMS/QualityActions?$filter=Priority/Value eq 'HIGH'
 
-# Get with owner and context
-GET /QMS/QualityActions('{id}')?$expand=Owner,Context
+# Filter by due date
+GET /QMS/QualityActions?$filter=DueDate le 2026-03-01T00:00:00Z
 
-# Get with related quality object
-GET /QMS/QualityActions?$expand=RelatedQualityObject,Owner
+# Expand with owner
+GET /QMS/QualityActions('{id}')?$expand=Owner
 
-# Select specific properties
-GET /QMS/QualityActions?$select=ID,Name,Number,State,DueDate,Priority
+# Create quality action
+POST /QMS/QualityActions
+Content-Type: application/json
+X-CSRF-Token: {token}
 
-# Order by due date
-GET /QMS/QualityActions?$orderby=DueDate asc
-
-# Top results
-GET /QMS/QualityActions?$top=50
+{
+  "Name": "Quality Action - Product Inspection",
+  "Number": "QA-000001",
+  "Description": "Conduct product inspection for quality compliance",
+  "Priority": {"Value": "HIGH"},
+  "DueDate": "2026-03-15T00:00:00Z",
+  "FolderLocation": "/Default/Quality/Actions"
+}
 ```
 
 ---
 
-### QualityObject
+### QualityIssue
 
-Base quality object for quality management records.
+Quality issues and incidents tracking.
 
-**Endpoint:** `/QMS/QualityObjects`
+**Endpoint:** `/QMS/QualityIssues`
 
-**Operations:** `READ`
+**Operations:** `READ`, `CREATE`, `UPDATE`
 
 **Properties:**
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Object name |
-| **Number** | String | Object number |
-| **Description** | String | Object description |
-| **State** | EnumType | Lifecycle state |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Quality Issue name |
+| **Number** | String | Quality Issue number |
+| **Description** | String | Detailed description of the issue |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
 | **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
-| **QualityType** | String | Quality type |
-| **Severity** | String | Severity level |
-| **Status** | String | Status |
-| **CreatedBy** | String | User who created (ReadOnly) |
-| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **ModifiedBy** | String | User who last modified (ReadOnly) |
-| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
-
-**Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Creator` → PTC.PrincipalMgmt.User (User who created)
-- `Modifier` → PTC.PrincipalMgmt.User (User who last modified)
-- `QualityActions` → Collection(PTC.QMS.QualityAction) (Related quality actions)
-
----
-
-### Place
-
-Location/place for quality events (manufacturing site, customer location, etc.).
-
-**Endpoint:** `/QMS/Places`
-
-**Operations:** `READ`
-
-**Properties:**
-
-| Property | Type | Description |
-|----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Place name |
-| **Number** | String | Place number |
-| **Description** | String | Place description |
-| **Address** | String | Physical address |
-| **City** | String | City |
-| **State** | String | State/Province |
-| **Country** | String | Country |
-| **PostalCode** | String | Postal/ZIP code |
-| **PlaceType** | String | Type of place (e.g., Manufacturing, Customer Site) |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **Severity** | EnumType | Severity level |
+| **Category** | EnumType | Category of issue |
+| **Source** | EnumType | Source of the issue |
+| **ReportedDate** | DateTimeOffset | Date issue was reported |
+| **ResolutionDate** | DateTimeOffset | Date issue was resolved |
+| **FolderLocation** | String | Folder path in Windchill |
+| **MasterID** | String | Master ID (ReadOnly) |
+| **CreatedBy** | String | Created by (ReadOnly) |
+| **ModifiedBy** | String | Modified by (ReadOnly) |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
 | **TypeIcon** | Icon | Type icon (ReadOnly) |
 | **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `Modifier` - Modifier user (PTC.PrincipalMgmt.User)
+- `Reporter` - Reporter user (PTC.PrincipalMgmt.User)
+- `QualityActions` - Collection of Quality Actions
+- `RelatedProducts` - Collection of Related Products
+- `Nonconformances` - Collection of Nonconformances
 
 **CRUD Operations:**
 
 ```bash
-# Get all places
-GET /QMS/Places
+# Get all quality issues
+GET /QMS/QualityIssues
 
-# Get place by ID
-GET /QMS/Places('{id}')
+# Get quality issue by number
+GET /QMS/QualityIssues?$filter=Number eq 'QI-000001'
 
-# Filter by country
-GET /QMS/Places?$filter=Country eq 'USA'
+# Filter by state
+GET /QMS/QualityIssues?$filter=State/Value eq 'OPEN'
 
-# Filter by type
-GET /QMS/Places?$filter=PlaceType eq 'Manufacturing'
+# Filter by severity
+GET /QMS/QualityIssues?$filter=Severity/Value eq 'CRITICAL'
 
-# Search by name
-GET /QMS/Places?$filter=contains(Name, 'Plant')
+# Expand with quality actions
+GET /QMS/QualityIssues('{id}')?$expand=QualityActions
+
+# Create quality issue
+POST /QMS/QualityIssues
+Content-Type: application/json
+X-CSRF-Token: {token}
+
+{
+  "Name": "Quality Issue - Product Defect",
+  "Number": "QI-000001",
+  "Description": "Product defect reported by customer",
+  "Severity": {"Value": "HIGH"},
+  "Source": {"Value": "CUSTOMER_FEEDBACK"},
+  "ReportedDate": "2026-02-08T10:00:00Z",
+  "FolderLocation": "/Default/Quality/Issues"
+}
 ```
 
 ---
 
 ### QualityContact
 
-Contact person or location related to quality events.
+Quality contact information for quality management.
 
 **Endpoint:** `/QMS/QualityContacts`
 
@@ -213,81 +211,43 @@ Contact person or location related to quality events.
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
 | **Name** | String | Contact name |
-| **ContactType** | String | Type of contact |
-| **Email** | String | Email address |
-| **Phone** | String | Phone number |
-| **Role** | String | Role in quality process |
+| **Email** | String | Contact email |
+| **Phone** | String | Contact phone |
 | **Organization** | String | Organization name |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **Role** | String | Contact role |
+| **Type** | EnumType | Contact type (INTERNAL, EXTERNAL) |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Place` → PTC.QMS.Place (Associated place/location)
-
----
-
-### Subject
-
-Quality subject representing a product or item in quality processes.
-
-**Endpoint:** `/QMS/Subjects`
-
-**Operations:** `READ`
-
-**Properties:**
-
-| Property | Type | Description |
-|----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Subject name |
-| **Number** | String | Subject number |
-| **SubjectType** | String | Type of subject |
-| **Description** | String | Subject description |
-| **ProductNumber** | String | Associated product number |
-| **ProductName** | String | Associated product name |
-| **SerialNumber** | String | Serial number |
-| **LotNumber** | String | Lot/batch number |
-| **CreatedBy** | String | User who created (ReadOnly) |
-| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
-
-**Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
+- `User` - Related User (PTC.PrincipalMgmt.User)
+- `Place` - Related Place (PTC.QMS.Place)
 
 **CRUD Operations:**
 
 ```bash
-# Get all subjects
-GET /QMS/Subjects
+# Get all quality contacts
+GET /QMS/QualityContacts
 
-# Get subject by ID
-GET /QMS/Subjects('{id}')
+# Get contact by name
+GET /QMS/QualityContacts?$filter=Name eq 'John Smith'
 
-# Search by product number
-GET /QMS/Subjects?$filter=ProductNumber eq 'PART-001'
+# Filter by type
+GET /QMS/QualityContacts?$filter=Type/Value eq 'INTERNAL'
 
-# Search by serial number
-GET /QMS/Subjects?$filter=SerialNumber eq 'SN-12345'
-
-# Search by lot number
-GET /QMS/Subjects?$filter=LotNumber eq 'LOT-2024-001'
+# Expand with user
+GET /QMS/QualityContacts('{id}')?$expand=User,Place
 ```
 
 ---
 
-### NonConformance
+### Place
 
-Non-conformance record for tracking quality issues.
+Places and locations for quality management.
 
-**Endpoint:** `/QMS/NonConformances`
+**Endpoint:** `/QMS/Places`
 
 **Operations:** `READ`
 
@@ -295,244 +255,282 @@ Non-conformance record for tracking quality issues.
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Non-conformance name |
-| **Number** | String | Non-conformance number |
-| **Description** | String | Description of non-conformance |
-| **State** | EnumType | Lifecycle state |
-| **NCType** | String | Type of non-conformance |
-| **Severity** | String | Severity level |
-| **DiscoveryDate** | DateTimeOffset | Date discovered |
-| **DiscoveryLocation** | String | Where discovered |
-| **QuantityAffected** | Double | Quantity affected |
-| **Disposition** | String | Disposition decision |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Place name |
+| **Description** | String | Place description |
+| **Type** | EnumType | Place type (SITE, FACILITY, LOCATION) |
+| **Address** | String | Physical address |
+| **City** | String | City |
+| **StateProvince** | String | State or province |
+| **Country** | EnumType | Country |
+| **PostalCode** | String | Postal code |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **ModifiedBy** | String | User who last modified (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Creator` → PTC.PrincipalMgmt.User (User who created)
-- `Modifier` → PTC.PrincipalMgmt.User (User who last modified)
-- `Subject` → PTC.QMS.Subject (Related product/subject)
-- `CAPA` → PTC.QMS.QualityAction (Related CAPA)
-- `Place` → PTC.QMS.Place (Location of discovery)
+- `Context` - Container (PTC.DataAdmin.Container)
+- `QualityContacts` - Collection of Quality Contacts at this place
+
+**CRUD Operations:**
+
+```bash
+# Get all places
+GET /QMS/Places
+
+# Get place by name
+GET /QMS/Places?$filter=Name eq 'Manufacturing Site A'
+
+# Filter by type
+GET /QMS/Places?$filter=Type/Value eq 'SITE'
+
+# Filter by country
+GET /QMS/Places?$filter=Country/Value eq 'USA'
+
+# Expand with contacts
+GET /QMS/Places('{id}')?$expand=QualityContacts
+```
 
 ---
 
-### CAPA (Corrective and Preventive Action)
+### Nonconformance
 
-CAPA record for tracking corrective and preventive actions.
+Nonconformance reports for tracking deviations from specifications.
 
-**Endpoint:** `/QMS/CAPAs`
+**Endpoint:** `/QMS/Nonconformances`
 
-**Operations:** `READ`
+**Operations:** `READ`, `CREATE`, `UPDATE`
 
 **Properties:**
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | CAPA name |
-| **Number** | String | CAPA number |
-| **Description** | String | Description of CAPA |
-| **State** | EnumType | Lifecycle state |
-| **CAPAType** | String | Type of CAPA (Corrective, Preventive, or Both) |
-| **Priority** | String | Priority level |
-| **DueDate** | DateTimeOffset | Due date |
-| **CompletionDate** | DateTimeOffset | Completion date |
-| **RootCauseAnalysis** | String | Root cause analysis |
-| **CorrectiveAction** | String | Corrective action taken |
-| **PreventiveAction** | String | Preventive action taken |
-| **VerificationStatus** | String | Verification status |
-| **EffectivenessStatus** | String | Effectiveness status |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Nonconformance name |
+| **Number** | String | Nonconformance number |
+| **Description** | String | Detailed description |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
+| **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
+| **NCType** | EnumType | Nonconformance type |
+| **Severity** | EnumType | Severity level |
+| **Quantity** | Double | Quantity affected |
+| **DetectedDate** | DateTimeOffset | Date detected |
+| **ResolvedDate** | DateTimeOffset | Date resolved |
+| **FolderLocation** | String | Folder path in Windchill |
+| **MasterID** | String | Master ID (ReadOnly) |
+| **CreatedBy** | String | Created by (ReadOnly) |
+| **ModifiedBy** | String | Modified by (ReadOnly) |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **ModifiedBy** | String | User who last modified (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Creator` → PTC.PrincipalMgmt.User (User who created)
-- `Modifier` → PTC.PrincipalMgmt.User (User who last modified)
-- `Owner` → PTC.PrincipalMgmt.User (Assigned owner)
-- `Subject` → PTC.QMS.Subject (Related product/subject)
-- `NonConformance` → PTC.QMS.NonConformance (Related non-conformance)
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `QualityIssue` - Related Quality Issue
+- `Dispositions` - Collection of NC Dispositions
+- `RelatedProduct** - Related Product
+
+**CRUD Operations:**
+
+```bash
+# Get all nonconformances
+GET /QMS/Nonconformances
+
+# Get nonconformance by number
+GET /QMS/Nonconformances?$filter=Number eq 'NC-000001'
+
+# Filter by state
+GET /QMS/Nonconformances?$filter=State/Value eq 'OPEN'
+
+# Filter by type
+GET /QMS/Nonconformances?$filter=NCType/Value eq 'MATERIAL'
+
+# Expand with dispositions
+GET /QMS/Nonconformances('{id}')?$expand=Dispositions
+
+# Create nonconformance
+POST /QMS/Nonconformances
+Content-Type: application/json
+X-CSRF-Token: {token}
+
+{
+  "Name": "Material Nonconformance",
+  "Number": "NC-000001",
+  "Description": "Material does not meet specifications",
+  "NCType": {"Value": "MATERIAL"},
+  "Severity": {"Value": "HIGH"},
+  "Quantity": 100.0,
+  "DetectedDate": "2026-02-08T10:00:00Z",
+  "FolderLocation": "/Default/Quality/Nonconformances"
+}
+```
+
+---
+
+### Audit
+
+Quality audit records.
+
+**Endpoint:** `/QMS/Audits`
+
+**Operations:** `READ`, `CREATE`, `UPDATE`
+
+**Properties:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Audit name |
+| **Number** | String | Audit number |
+| **Description** | String | Audit description |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
+| **AuditType** | EnumType | Type of audit (INTERNAL, EXTERNAL) |
+| **AuditDate** | DateTimeOffset | Date of audit |
+| **AuditScope** | String | Audit scope |
+| **Auditor** | String | Auditor name |
+| **Status** | EnumType | Audit status |
+| **FolderLocation** | String | Folder path in Windchill |
+| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
+| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
+
+**Navigation Properties:**
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `Findings` - Collection of Audit Findings
+- `Checklist** - Audit Checklist
+
+**CRUD Operations:**
+
+```bash
+# Get all audits
+GET /QMS/Audits
+
+# Get audit by number
+GET /QMS/Audits?$filter=Number eq 'AUD-000001'
+
+# Filter by type
+GET /QMS/Audits?$filter=AuditType/Value eq 'INTERNAL'
+
+# Filter by status
+GET /QMS/Audits?$filter=Status/Value eq 'COMPLETED'
+
+# Expand with findings
+GET /QMS/Audits('{id}')?$expand=Findings
+```
+
+---
+
+### AuditFinding
+
+Audit findings from quality audits.
+
+**Endpoint:** `/QMS/AuditFindings`
+
+**Operations:** `READ`, `CREATE`, `UPDATE`
+
+**Properties:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Finding name |
+| **Number** | String | Finding number |
+| **Description** | String | Detailed description |
+| **FindingType** | EnumType | Type of finding |
+| **Severity** | EnumType | Severity level |
+| **CorrectiveActionRequired** | Boolean | Whether corrective action required |
+| **DueDate** | DateTimeOffset | Due date for resolution |
+| **ResolutionDate** | DateTimeOffset | Resolution date |
+| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
+| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
+
+**Navigation Properties:**
+- `Audit` - Parent Audit
+- `CorrectiveAction** - Corrective Action
+
+**CRUD Operations:**
+
+```bash
+# Get all audit findings
+GET /QMS/AuditFindings
+
+# Get findings for an audit
+GET /QMS/Audits('{id}')/Findings
+
+# Filter by severity
+GET /QMS/AuditFindings?$filter=Severity/Value eq 'MAJOR'
+```
 
 ---
 
 ## Common Query Examples
 
-### Get Open Quality Actions
+### Filter by Multiple Criteria
 
 ```bash
-GET /QMS/QualityActions?$filter=State/Value eq 'OPEN' or State/Value eq 'IN_PROGRESS'&$expand=Owner,RelatedQualityObject&$orderby=DueDate asc
+# Get open quality actions with high priority due soon
+GET /QMS/QualityActions?$filter=State/Value eq 'OPEN' and Priority/Value eq 'HIGH' and DueDate le 2026-03-31T00:00:00Z
+
+# Get critical quality issues reported in a date range
+GET /QMS/QualityIssues?$filter=Severity/Value eq 'CRITICAL' and ReportedDate ge 2026-01-01T00:00:00Z and ReportedDate le 2026-02-28T23:59:59Z
+
+# Get nonconformances by type and state
+GET /QMS/Nonconformances?$filter=NCType/Value eq 'MATERIAL' and State/Value eq 'OPEN'
 ```
 
-### Get Quality Actions by Priority
+### Complex Queries with Expansion
 
 ```bash
-GET /QMS/QualityActions?$filter=Priority eq 'High'&$expand=Owner,Context
+# Get quality issue with all related data
+GET /QMS/QualityIssues?$expand=Creator,QualityActions,Nonconformances,RelatedProducts
+
+# Get audit with findings and corrective actions
+GET /QMS/Audits?$expand=Findings($expand=CorrectiveAction),Creator
+
+# Get nonconformance with dispositions and related product
+GET /QMS/Nonconformances?$expand=Dispositions,RelatedProduct,QualityIssue
 ```
 
-### Get Overdue Quality Actions
+### Sorting and Pagination
 
 ```bash
-GET /QMS/QualityActions?$filter=DueDate lt 2026-01-01T00:00:00Z and State/Value ne 'COMPLETED'&$expand=Owner
-```
+# Get latest quality issues
+GET /QMS/QualityIssues?$orderby=ReportedDate desc&$top=50
 
-### Get Non-Conformances by Product
+# Get paginated results
+GET /QMS/QualityActions?$skip=0&$top=25
 
-```bash
-GET /QMS/NonConformances?$expand=Subject&$filter=Subject/ProductNumber eq 'PART-001'
-```
-
-### Get CAPAs for a Non-Conformance
-
-```bash
-GET /QMS/NonConformances('{id}')/CAPA?$expand=Owner,Subject
-```
-
-### Get Quality Objects with Actions
-
-```bash
-GET /QMS/QualityObjects?$expand=QualityActions($expand=Owner)
-```
-
-### Get Places by Country
-
-```bash
-GET /QMS/Places?$filter=Country eq 'USA'&$orderby=Name asc
-```
-
-### Get Subjects by Lot Number
-
-```bash
-GET /QMS/Subjects?$filter=LotNumber eq 'LOT-2024-001'&$expand=Context
+# Get sorted by priority
+GET /QMS/QualityActions?$orderby=Priority,DueDate asc
 ```
 
 ---
 
-## Entity Relationships
+## Integration Notes
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ PTC.QMS Namespace                                                            │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌──────────────────┐      QualityActions     ┌──────────────────┐         │
-│  │  QualityObject   │─────────────────────────►│  QualityAction   │         │
-│  ├──────────────────┤                          ├──────────────────┤         │
-│  │ - QualityActions │                          │ - Owner          │         │
-│  │ - Context        │                          │ - Context        │         │
-│  │ - Creator        │                          │ - Creator        │         │
-│  └──────────────────┘                          │ - Modifier       │         │
-│                                                │ - RelatedObject   │         │
-│                                                └──────────────────┘         │
-│                                                                             │
-│  ┌──────────────────┐      CAPA        ┌──────────────────┐                 │
-│  │ NonConformance   │─────────────────►│      CAPA        │                 │
-│  ├──────────────────┤                  ├──────────────────┤                 │
-│  │ - Subject        │                  │ - Subject        │                 │
-│  │ - Place          │                  │ - NonConformance │                 │
-│  │ - CAPA           │                  │ - Owner          │                 │
-│  │ - Context        │                  │ - Context        │                 │
-│  └──────────────────┘                  └──────────────────┘                 │
-│         │                                                                    │
-│         │ Subject                                                            │
-│         ▼                                                                    │
-│  ┌──────────────────┐                  ┌──────────────────┐                 │
-│  │     Subject      │                  │      Place       │                 │
-│  ├──────────────────┤                  ├──────────────────┤                 │
-│  │ - Context        │                  │ - Context        │                 │
-│  └──────────────────┘                  └──────────────────┘                 │
-│                                              ▲                               │
-│                                              │ Place                         │
-│  ┌──────────────────┐                        │                               │
-│  │  QualityContact  │────────────────────────┘                               │
-│  ├──────────────────┤                                                        │
-│  │ - Place          │                                                        │
-│  │ - Context        │                                                        │
-│  └──────────────────┘                                                        │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+1. **Cross-Domain References**:
+   - QualityContact references User (PrincipalMgmt)
+   - QualityContact references Place (QMS)
+   - Related products can be from ProdMgmt
+
+2. **CEM Integration**:
+   - Customer Experience Management (CEM) references QMS entities
+   - EntryLocation references Place
+   - PrimaryRelatedPersonOrLocation references QualityContact
+
+3. **Workflow Integration**:
+   - Quality objects use Windchill Workflow engine
+   - Check Workflow domain for work items related to quality objects
+
+4. **Change Management Integration**:
+   - Quality issues can trigger change requests
+   - Nonconformances can be linked to change objects
+
+5. **Lifecycle Management**:
+   - Quality objects follow lifecycle templates
+   - Use GetValidStateTransitions to check valid transitions
 
 ---
 
-## Cross-Domain References
+## Schema Version
 
-| From Entity | Navigation Property | Target Domain | Target Entity |
-|-------------|---------------------|---------------|---------------|
-| QualityAction | Context | DataAdmin | Container |
-| QualityAction | Creator | PrincipalMgmt | User |
-| QualityAction | Modifier | PrincipalMgmt | User |
-| QualityAction | Owner | PrincipalMgmt | User |
-| QualityObject | Context | DataAdmin | Container |
-| QualityObject | Creator | PrincipalMgmt | User |
-| NonConformance | Context | DataAdmin | Container |
-| NonConformance | Creator | PrincipalMgmt | User |
-| CAPA | Context | DataAdmin | Container |
-| CAPA | Owner | PrincipalMgmt | User |
-| Place | Context | DataAdmin | Container |
-| QualityContact | Context | DataAdmin | Container |
-| Subject | Context | DataAdmin | Container |
-
----
-
-## State Values
-
-### Quality Action States
-- **OPEN** - Open for assignment
-- **IN_PROGRESS** - Being worked on
-- **PENDING_VERIFICATION** - Pending verification
-- **COMPLETED** - Completed
-- **CLOSED** - Closed
-- **CANCELLED** - Cancelled
-
-### Non-Conformance States
-- **OPEN** - Open for review
-- **UNDER_INVESTIGATION** - Being investigated
-- **DISPOSITION_PENDING** - Pending disposition
-- **DISPOSITIONED** - Disposition determined
-- **CLOSED** - Closed
-
-### CAPA States
-- **OPEN** - Open
-- **INVESTIGATION** - Under investigation
-- **CORRECTIVE_ACTION** - Corrective action in progress
-- **PREVENTIVE_ACTION** - Preventive action in progress
-- **VERIFICATION** - Verification in progress
-- **CLOSED** - Closed
-
----
-
-## Pagination
-
-Use `$top` and `$skip` for pagination:
-
-```bash
-GET /QMS/QualityActions?$top=50&$skip=0
-GET /QMS/QualityActions?$top=50&$skip=50
-```
-
----
-
-## Notes
-
-1. **READ-ONLY Access** - Quality objects are typically read through OData. Quality management operations are done through Windchill UI or specialized APIs.
-
-2. **Lifecycle Management** - All quality objects follow Windchill lifecycle templates with defined state transitions.
-
-3. **CAPA Integration** - CAPA records are closely linked to non-conformances and quality actions.
-
-4. **Subject Reference** - Subjects link quality objects to specific products, lots, or serial numbers.
-
-5. **Place Tracking** - Places track locations where quality events occur or are discovered.
-
-6. **Cross-Domain References** - QMS domain references DataAdmin (Container) and PrincipalMgmt (User) for context and ownership.
+Schema Version: 7

@@ -1,299 +1,410 @@
 {
-  "namespace": "PTC.RegMstr",
-  "description": "Regulation Master Domain - Contains entities for managing regulations, requirements, and compliance tracking",
+  "domain": "RegMstr",
+  "description": "Windchill Regulatory Master Domain - Regulatory Specifications, Submissions, Approvals",
   "entities": {
-    "Regulation": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Regulation entity representing regulatory requirements and standards",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "LifeCycleTemplateName",
-        "RegulatoryAgency",
-        "RegulationType",
-        "EffectiveDate",
-        "ExpirationDate",
-        "Version",
-        "Status",
-        "Jurisdiction",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+    "RegulatorySpecification": {
+      "description": "Regulatory specifications defining product requirements",
+      "endpoint": "/RegMstr/RegulatorySpecifications",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Specification name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Specification number"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"]
+        },
+        "RegulationType": {
+          "type": "EnumType",
+          "description": "Type of regulation",
+          "possibleValues": ["MEDICAL_DEVICE", "PHARMACEUTICAL", "FOOD_SAFETY", "ENVIRONMENTAL", "CONSUMER_PRODUCT"]
+        },
+        "EffectiveDate": {
+          "type": "DateTimeOffset",
+          "description": "Date specification becomes effective"
+        },
+        "ExpirationDate": {
+          "type": "DateTimeOffset",
+          "description": "Date specification expires"
+        },
+        "Authority": {
+          "type": "String",
+          "description": "Regulatory authority"
+        },
+        "Jurisdiction": {
+          "type": "String",
+          "description": "Jurisdiction (country/region)"
+        },
+        "FolderLocation": {
+          "type": "String",
+          "description": "Folder path in Windchill"
+        },
+        "MasterID": {
+          "type": "String",
+          "description": "Master ID",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedBy": {
+          "type": "String",
+          "description": "Created by",
+          "constraints": ["ReadOnly"]
+        },
+        "ModifiedBy": {
+          "type": "String",
+          "description": "Modified by",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created"
+          "description": "Creator user"
         },
-        {
-          "name": "Modifier",
+        "Modifier": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified"
+          "description": "Modifier user"
         },
-        {
-          "name": "RegulatoryRequirements",
-          "type": "Collection(PTC.RegMstr.RegulatoryRequirement)",
-          "containsTarget": true,
-          "description": "Child requirements"
+        "RelatedProducts": {
+          "type": "Collection(RelatedProduct)",
+          "description": "Related Products"
+        },
+        "RegulatoryApprovals": {
+          "type": "Collection(RegulatoryApproval)",
+          "description": "Regulatory Approvals"
+        },
+        "RegulatorySubmission": {
+          "type": "RegulatorySubmission",
+          "description": "Related Regulatory Submission"
         }
-      ]
+      }
     },
-    "RegulatoryRequirement": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Individual requirement within a regulation",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "LifeCycleTemplateName",
-        "RequirementText",
-        "Section",
-        "Paragraph",
-        "RequirementType",
-        "Priority",
-        "ComplianceLevel",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+    "RegulatorySubmission": {
+      "description": "Regulatory submission records for product approvals",
+      "endpoint": "/RegMstr/RegulatorySubmissions",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Submission name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Submission number"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"]
+        },
+        "SubmissionType": {
+          "type": "EnumType",
+          "description": "Type of submission",
+          "possibleValues": ["510K", "PMA", "IDE", "NDA", "ANDA", "CE_MARK", "OTHER"]
+        },
+        "SubmissionDate": {
+          "type": "DateTimeOffset",
+          "description": "Date of submission"
+        },
+        "ExpectedApprovalDate": {
+          "type": "DateTimeOffset",
+          "description": "Expected approval date"
+        },
+        "ActualApprovalDate": {
+          "type": "DateTimeOffset",
+          "description": "Actual approval date"
+        },
+        "Authority": {
+          "type": "String",
+          "description": "Regulatory authority"
+        },
+        "SubmissionStatus": {
+          "type": "EnumType",
+          "description": "Status of submission",
+          "possibleValues": ["DRAFT", "SUBMITTED", "UNDER_REVIEW", "APPROVED", "REJECTED", "WITHDRAWN"]
+        },
+        "FolderLocation": {
+          "type": "String",
+          "description": "Folder path in Windchill"
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created"
+          "description": "Creator user"
         },
-        {
-          "name": "Modifier",
+        "RegulatorySpecification": {
+          "type": "RegulatorySpecification",
+          "description": "Related Regulatory Specification"
+        },
+        "RegulatoryApprovals": {
+          "type": "Collection(RegulatoryApproval)",
+          "description": "Regulatory Approvals"
+        },
+        "RelatedProducts": {
+          "type": "Collection(RelatedProduct)",
+          "description": "Related Products"
+        }
+      }
+    },
+    "RegulatoryApproval": {
+      "description": "Regulatory approvals and clearances",
+      "endpoint": "/RegMstr/RegulatoryApprovals",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Approval name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Approval number"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"]
+        },
+        "ApprovalType": {
+          "type": "EnumType",
+          "description": "Type of approval",
+          "possibleValues": ["510K", "PMA", "CE_MARK", "ISO_CERTIFICATION", "FDA_REGISTRATION", "OTHER"]
+        },
+        "ApprovalNumber": {
+          "type": "String",
+          "description": "Official approval/clearance number"
+        },
+        "ApprovalDate": {
+          "type": "DateTimeOffset",
+          "description": "Date of approval"
+        },
+        "ExpirationDate": {
+          "type": "DateTimeOffset",
+          "description": "Expiration date"
+        },
+        "Authority": {
+          "type": "String",
+          "description": "Regulatory authority"
+        },
+        "ApprovalStatus": {
+          "type": "EnumType",
+          "description": "Status of approval",
+          "possibleValues": ["PENDING", "APPROVED", "EXPIRED", "SUSPENDED", "REVOKED"]
+        },
+        "FolderLocation": {
+          "type": "String",
+          "description": "Folder path in Windchill"
+        }
+      },
+      "navigationProperties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "description": "Container context"
+        },
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified"
+          "description": "Creator user"
         },
-        {
-          "name": "Regulation",
-          "type": "PTC.RegMstr.Regulation",
-          "nullable": false,
-          "description": "Parent regulation"
+        "RegulatorySpecification": {
+          "type": "RegulatorySpecification",
+          "description": "Related Regulatory Specification"
         },
-        {
-          "name": "ComplianceRecords",
-          "type": "Collection(PTC.RegMstr.ComplianceRecord)",
-          "containsTarget": true,
-          "description": "Compliance tracking records"
+        "RegulatorySubmission": {
+          "type": "RegulatorySubmission",
+          "description": "Related Regulatory Submission"
+        },
+        "RelatedProducts": {
+          "type": "Collection(RelatedProduct)",
+          "description": "Related Products"
         }
-      ]
+      }
     },
-    "ComplianceRecord": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Record tracking compliance status for requirements",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "LifeCycleTemplateName",
-        "ComplianceStatus",
-        "VerificationMethod",
-        "VerificationDate",
-        "VerifiedBy",
-        "ExpirationDate",
-        "ReviewDate",
-        "Notes",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+    "ComplianceDefinition": {
+      "description": "Compliance definitions for regulatory requirements",
+      "endpoint": "/RegMstr/ComplianceDefinitions",
+      "operations": ["READ"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Definition name"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description"
+        },
+        "ComplianceType": {
+          "type": "EnumType",
+          "description": "Type of compliance",
+          "possibleValues": ["EXPORT_CONTROL", "IMPORT_CONTROL", "SANCTIONS", "DUAL_USE", "MILITARY"]
+        },
+        "Regulation": {
+          "type": "String",
+          "description": "Applicable regulation"
+        },
+        "Authority": {
+          "type": "String",
+          "description": "Regulatory authority"
+        },
+        "EffectiveDate": {
+          "type": "DateTimeOffset",
+          "description": "Effective date"
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
-          "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created"
-        },
-        {
-          "name": "Modifier",
-          "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified"
-        },
-        {
-          "name": "RegulatoryRequirement",
-          "type": "PTC.RegMstr.RegulatoryRequirement",
-          "nullable": false,
-          "description": "Related requirement"
-        },
-        {
-          "name": "ComplianceEvidence",
-          "type": "Collection(PTC.RegMstr.ComplianceEvidence)",
-          "containsTarget": true,
-          "description": "Evidence documents"
+        "ComplianceRecords": {
+          "type": "Collection(ComplianceRecord)",
+          "description": "Compliance Records"
         }
-      ]
+      }
     },
-    "Standard": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Industry standard (ISO, ASTM, IEC, etc.)",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "StandardType",
-        "IssuingBody",
-        "Version",
-        "EffectiveDate",
-        "Status",
-        "CreatedBy",
-        "CreatedOn",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
-          "type": "PTC.DataAdmin.Container",
-          "nullable": true,
-          "description": "Container context"
+    "TradeControlClassification": {
+      "description": "Trade control classifications for products",
+      "endpoint": "/RegMstr/TradeControlClassifications",
+      "operations": ["READ"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Classification name"
+        },
+        "ClassificationCode": {
+          "type": "String",
+          "description": "Classification code (ECCN, etc.)"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description"
+        },
+        "ControlLevel": {
+          "type": "EnumType",
+          "description": "Level of control",
+          "possibleValues": ["LOW", "MEDIUM", "HIGH", "PROHIBITED"]
+        },
+        "ControlAgency": {
+          "type": "String",
+          "description": "Control agency"
+        },
+        "Country": {
+          "type": "String",
+          "description": "Applicable country"
         }
-      ]
-    },
-    "Specification": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Technical specification document",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "SpecificationType",
-        "Version",
-        "EffectiveDate",
-        "CreatedBy",
-        "CreatedOn",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
-          "description": "Container context"
-        }
-      ]
-    },
-    "ComplianceItem": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Item subject to compliance requirements",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "ItemType",
-        "ComplianceStatus",
-        "CreatedBy",
-        "CreatedOn",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
-          "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "ComplianceRecords",
-          "type": "Collection(PTC.RegMstr.ComplianceRecord)",
-          "containsTarget": true,
-          "description": "Related records"
+        "RelatedProducts": {
+          "type": "Collection(RelatedProduct)",
+          "description": "Classified Products"
         }
-      ]
+      }
     },
-    "ComplianceEvidence": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Evidence document proving compliance",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "EvidenceType",
-        "DocumentReference",
-        "IssueDate",
-        "ExpirationDate",
-        "CreatedBy",
-        "CreatedOn",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
-          "type": "PTC.DataAdmin.Container",
-          "nullable": true,
-          "description": "Container context"
+    "Country": {
+      "description": "Country definitions and regulatory information",
+      "endpoint": "/RegMstr/Countries",
+      "operations": ["READ"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
         },
-        {
-          "name": "ComplianceRecord",
-          "type": "PTC.RegMstr.ComplianceRecord",
-          "nullable": false,
-          "description": "Related record"
+        "Name": {
+          "type": "String",
+          "description": "Country name"
+        },
+        "ISOCode": {
+          "type": "String",
+          "description": "ISO country code"
+        },
+        "Region": {
+          "type": "String",
+          "description": "Geographic region"
+        },
+        "RegulatoryBody": {
+          "type": "String",
+          "description": "Primary regulatory body"
+        },
+        "TradeAgreement": {
+          "type": "String",
+          "description": "Trade agreements"
+        },
+        "EmbargoStatus": {
+          "type": "EnumType",
+          "description": "Embargo status",
+          "possibleValues": ["NONE", "RESTRICTED", "EMBARGOED"]
         }
-      ]
+      },
+      "navigationProperties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "description": "Container context"
+        }
+      }
     }
-  },
-  "entitySets": {
-    "Regulations": "Regulation",
-    "RegulatoryRequirements": "RegulatoryRequirement",
-    "ComplianceRecords": "ComplianceRecord",
-    "Standards": "Standard",
-    "Specifications": "Specification",
-    "ComplianceItems": "ComplianceItem",
-    "ComplianceEvidences": "ComplianceEvidence"
   }
 }
