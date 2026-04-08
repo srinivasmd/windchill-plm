@@ -1,279 +1,549 @@
 {
-  "namespace": "PTC.ChangeMgmt",
-  "description": "Change Management Domain - Contains entities for managing engineering changes, change requests, change notices, and change tasks",
+  "domain": "ChangeMgmt",
+  "description": "Windchill Change Management Domain - Engineering Change Control",
   "entities": {
     "ChangeNotice": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Change Notice (ECN) - Formal documentation of approved changes to be implemented",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "LifeCycleTemplateName",
-        "FolderLocation",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "NeedDate",
-        "ApprovalDate",
-        "CustomerName",
-        "ChangeType",
-        "ChangeReason",
-        "MasterID",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+      "description": "Engineering Change Notice (ECN) - Formal documentation of a proposed change",
+      "endpoint": "/ChangeMgmt/ChangeNotices",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Change Notice name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Change Notice number (unique identifier)"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description of the change"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"],
+          "possibleValues": ["OPEN", "IN_WORK", "SUBMITTED", "APPROVED", "RELEASED", "CANCELLED", "CLOSED"]
+        },
+        "LifeCycleTemplateName": {
+          "type": "String",
+          "description": "Lifecycle template name",
+          "constraints": ["ReadOnly"]
+        },
+        "FolderLocation": {
+          "type": "String",
+          "description": "Folder path in Windchill"
+        },
+        "Version": {
+          "type": "String",
+          "description": "Version information (A.1, A.2, etc.)"
+        },
+        "Iteration": {
+          "type": "String",
+          "description": "Iteration information"
+        },
+        "MasterID": {
+          "type": "String",
+          "description": "Master ID",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedBy": {
+          "type": "String",
+          "description": "Created by",
+          "constraints": ["ReadOnly"]
+        },
+        "ModifiedBy": {
+          "type": "String",
+          "description": "Modified by",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "TypeIcon": {
+          "type": "Icon",
+          "description": "Type icon",
+          "constraints": ["ReadOnly", "NonFilterable", "NonSortable"]
+        },
+        "ObjectType": {
+          "type": "String",
+          "description": "Object type",
+          "constraints": ["ReadOnly", "NonFilterable", "NonSortable"]
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created the change notice"
+          "description": "Creator user"
         },
-        {
-          "name": "Modifier",
+        "Modifier": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified the change notice"
+          "description": "Modifier user"
         },
-        {
-          "name": "ChangeRequests",
-          "type": "Collection(PTC.ChangeMgmt.ChangeRequest)",
-          "containsTarget": true,
-          "description": "Linked change requests"
+        "ChangeRequest": {
+          "type": "ChangeRequest",
+          "description": "Related Change Request"
         },
-        {
-          "name": "ChangeTasks",
-          "type": "Collection(PTC.ChangeMgmt.ChangeTask)",
-          "containsTarget": true,
-          "description": "Child change tasks"
+        "ChangeTasks": {
+          "type": "Collection(ChangeTask)",
+          "description": "Collection of Change Tasks"
         },
-        {
-          "name": "ResultingObjects",
-          "type": "Collection(PTC.ChangeMgmt.Changeable)",
-          "containsTarget": true,
-          "description": "Objects created or modified by this change"
+        "AffectedObjects": {
+          "type": "Collection(AffectedObject)",
+          "description": "Objects affected by this change"
         },
-        {
-          "name": "AffectedObjects",
-          "type": "Collection(PTC.ChangeMgmt.Changeable)",
-          "containsTarget": true,
-          "description": "Objects impacted by this change"
+        "ResultingObjects": {
+          "type": "Collection(ResultingObject)",
+          "description": "Objects resulting from this change"
         },
-        {
-          "name": "Folder",
-          "type": "PTC.DataAdmin.Folder",
-          "nullable": true,
-          "description": "Containing folder"
+        "ChangeActivities": {
+          "type": "Collection(ChangeActivity2)",
+          "description": "Related Change Activities"
         }
-      ]
+      }
     },
     "ChangeRequest": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Change Request (ECR) - Request for change to be evaluated and approved",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "LifeCycleTemplateName",
-        "FolderLocation",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "NeedDate",
-        "Justification",
-        "Urgency",
-        "ChangeType",
-        "MasterID",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+      "description": "Change Request (ECR) - Request for a change before formal approval",
+      "endpoint": "/ChangeMgmt/ChangeRequests",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Change Request name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Change Request number (unique identifier)"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description of the requested change"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"],
+          "possibleValues": ["OPEN", "SUBMITTED", "REVIEWED", "APPROVED", "REJECTED", "CANCELLED"]
+        },
+        "LifeCycleTemplateName": {
+          "type": "String",
+          "description": "Lifecycle template name",
+          "constraints": ["ReadOnly"]
+        },
+        "FolderLocation": {
+          "type": "String",
+          "description": "Folder path in Windchill"
+        },
+        "NeedDate": {
+          "type": "DateTimeOffset",
+          "description": "Date by which change is needed"
+        },
+        "Justification": {
+          "type": "String",
+          "description": "Business justification for the change"
+        },
+        "MasterID": {
+          "type": "String",
+          "description": "Master ID",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedBy": {
+          "type": "String",
+          "description": "Created by",
+          "constraints": ["ReadOnly"]
+        },
+        "ModifiedBy": {
+          "type": "String",
+          "description": "Modified by",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created the change request"
+          "description": "Creator user"
         },
-        {
-          "name": "Modifier",
+        "Modifier": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified the change request"
+          "description": "Modifier user"
         },
-        {
-          "name": "ChangeNotices",
-          "type": "Collection(PTC.ChangeMgmt.ChangeNotice)",
-          "containsTarget": true,
-          "description": "Linked change notices"
+        "ChangeNotices": {
+          "type": "Collection(ChangeNotice)",
+          "description": "Related Change Notices"
         },
-        {
-          "name": "AffectedObjects",
-          "type": "Collection(PTC.ChangeMgmt.Changeable)",
-          "containsTarget": true,
-          "description": "Objects impacted by this change request"
+        "AffectedObjects": {
+          "type": "Collection(AffectedObject)",
+          "description": "Objects affected by this request"
         },
-        {
-          "name": "Folder",
-          "type": "PTC.DataAdmin.Folder",
-          "nullable": true,
-          "description": "Containing folder"
+        "ChangeActivities": {
+          "type": "Collection(ChangeActivity2)",
+          "description": "Related Change Activities"
         }
-      ]
+      }
     },
     "ChangeTask": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Change Task - Individual task within a Change Notice for implementation",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "LifeCycleTemplateName",
-        "FolderLocation",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "DueDate",
-        "CompletionDate",
-        "Assignee",
-        "MasterID",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+      "description": "Change Task - Individual task within a Change Notice",
+      "endpoint": "/ChangeMgmt/ChangeTasks",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Change Task name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Change Task number"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Task description"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"],
+          "possibleValues": ["OPEN", "IN_WORK", "COMPLETED", "CANCELLED"]
+        },
+        "LifeCycleTemplateName": {
+          "type": "String",
+          "description": "Lifecycle template name",
+          "constraints": ["ReadOnly"]
+        },
+        "FolderLocation": {
+          "type": "String",
+          "description": "Folder path in Windchill"
+        },
+        "MasterID": {
+          "type": "String",
+          "description": "Master ID",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedBy": {
+          "type": "String",
+          "description": "Created by",
+          "constraints": ["ReadOnly"]
+        },
+        "ModifiedBy": {
+          "type": "String",
+          "description": "Modified by",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created the change task"
+          "description": "Creator user"
         },
-        {
-          "name": "Modifier",
+        "Modifier": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified the change task"
+          "description": "Modifier user"
         },
-        {
-          "name": "ChangeNotice",
-          "type": "PTC.ChangeMgmt.ChangeNotice",
-          "nullable": false,
-          "description": "Parent change notice"
+        "ChangeNotice": {
+          "type": "ChangeNotice",
+          "description": "Parent Change Notice"
         },
-        {
-          "name": "ResultingObjects",
-          "type": "Collection(PTC.ChangeMgmt.Changeable)",
-          "containsTarget": true,
-          "description": "Objects created or modified by this task"
+        "AffectedObjects": {
+          "type": "Collection(AffectedObject)",
+          "description": "Objects affected by this task"
         },
-        {
-          "name": "Folder",
-          "type": "PTC.DataAdmin.Folder",
-          "nullable": true,
-          "description": "Containing folder"
+        "ResultingObjects": {
+          "type": "Collection(ResultingObject)",
+          "description": "Objects resulting from this task"
         }
-      ]
+      }
     },
-    "Changeable": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Base type for objects that can be affected by or result from a change",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "State",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+    "ChangeActivity2": {
+      "description": "Change Activity - Detailed activity within a change process",
+      "endpoint": "/ChangeMgmt/ChangeActivities",
+      "operations": ["READ"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Activity name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Activity number"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Activity description"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"]
+        },
+        "LifeCycleTemplateName": {
+          "type": "String",
+          "description": "Lifecycle template name",
+          "constraints": ["ReadOnly"]
+        },
+        "MasterID": {
+          "type": "String",
+          "description": "Master ID",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedBy": {
+          "type": "String",
+          "description": "Created by",
+          "constraints": ["ReadOnly"]
+        },
+        "ModifiedBy": {
+          "type": "String",
+          "description": "Modified by",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created the object"
+          "description": "Creator user"
         },
-        {
-          "name": "Modifier",
+        "Modifier": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified the object"
+          "description": "Modifier user"
+        },
+        "ChangeNotice": {
+          "type": "ChangeNotice",
+          "description": "Related Change Notice"
+        },
+        "ChangeRequest": {
+          "type": "ChangeRequest",
+          "description": "Related Change Request"
+        },
+        "AffectedObjects": {
+          "type": "Collection(AffectedObject)",
+          "description": "Objects affected by this activity"
+        },
+        "ResultingObjects": {
+          "type": "Collection(ResultingObject)",
+          "description": "Objects resulting from this activity"
         }
-      ]
+      }
     },
-    "ChangeOrder": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Change Order - Order for implementing changes",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "LifeCycleTemplateName",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "MasterID",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
-          "type": "PTC.DataAdmin.Container",
-          "nullable": true,
-          "description": "Container context"
+    "AffectedObject": {
+      "description": "Objects affected by a change (parts, documents, etc.)",
+      "endpoint": "Navigation property from Change entities",
+      "operations": ["READ", "CREATE", "DELETE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
         },
-        {
-          "name": "Creator",
-          "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created"
+        "ObjectType": {
+          "type": "String",
+          "description": "Type of affected object"
         },
-        {
-          "name": "Modifier",
-          "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified"
+        "Name": {
+          "type": "String",
+          "description": "Object name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Object number"
+        },
+        "Version": {
+          "type": "String",
+          "description": "Version information"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Object state"
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
         }
-      ]
+      },
+      "navigationProperties": {
+        "Changeable": {
+          "type": "PTC.ProdMgmt.Part or PTC.DocMgmt.Document",
+          "description": "The actual object being affected"
+        },
+        "ChangeActivity2": {
+          "type": "ChangeActivity2",
+          "description": "Related Change Activity"
+        },
+        "ChangeNotice": {
+          "type": "ChangeNotice",
+          "description": "Related Change Notice"
+        }
+      }
+    },
+    "ResultingObject": {
+      "description": "Objects created or modified as a result of a change",
+      "endpoint": "Navigation property from Change entities",
+      "operations": ["READ"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "ObjectType": {
+          "type": "String",
+          "description": "Type of resulting object"
+        },
+        "Name": {
+          "type": "String",
+          "description": "Object name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Object number"
+        },
+        "Version": {
+          "type": "String",
+          "description": "Version information"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Object state"
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
+        }
+      },
+      "navigationProperties": {
+        "ResultingChangeable": {
+          "type": "PTC.ProdMgmt.Part or PTC.DocMgmt.Document",
+          "description": "The actual resulting object"
+        },
+        "ChangeActivity2": {
+          "type": "ChangeActivity2",
+          "description": "Related Change Activity"
+        },
+        "ChangeNotice": {
+          "type": "ChangeNotice",
+          "description": "Related Change Notice"
+        }
+      }
     }
   },
-  "entitySets": {
-    "ChangeNotices": "ChangeNotice",
-    "ChangeRequests": "ChangeRequest",
-    "ChangeTasks": "ChangeTask",
-    "ChangeOrders": "ChangeOrder"
+  "actions": {
+    "SetState": {
+      "description": "Set the lifecycle state for a change object",
+      "parameters": {
+        "lifecycleManaged": {
+          "type": "ChangeObject",
+          "description": "Change object to update"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Target state"
+        }
+      },
+      "returnType": "ChangeObject"
+    }
+  },
+  "functions": {
+    "GetLifeCycleTemplate": {
+      "description": "Get the lifecycle template for a change object",
+      "parameters": {
+        "lifecycleManaged": {
+          "type": "ChangeObject",
+          "description": "Change object"
+        }
+      },
+      "returnType": "LifeCycleTemplate"
+    },
+    "GetValidStateTransitions": {
+      "description": "Get valid state transitions for a change object",
+      "parameters": {
+        "lifecycleManaged": {
+          "type": "ChangeObject",
+          "description": "Change object"
+        }
+      },
+      "returnType": "EnumTypeList"
+    }
   }
 }

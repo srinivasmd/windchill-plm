@@ -5,28 +5,30 @@ Complete reference documentation for the Windchill Change Management OData domai
 ## Base URL
 
 ```
-https://windchill.example.com/Windchill/servlet/odata/ChangeMgmt/
+https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/ChangeMgmt/
 ```
 
 ## Metadata URL
 
 ```
-https://windchill.example.com/Windchill/servlet/odata/ChangeMgmt/$metadata
+https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/ChangeMgmt/$metadata
 ```
 
 ## Domain Overview
 
-The Change Management (ChangeMgmt) domain provides access to Windchill's change management objects including:
+The Change Management domain provides access to change control objects in Windchill including:
 
 ### Change Objects
-- **ChangeNotices** - Change Notices (ECN - Engineering Change Notices)
-- **ChangeRequests** - Change Requests (ECR - Engineering Change Requests)
-- **ChangeTasks** - Change Tasks (Activities within a Change Notice)
-- **ChangeOrders** - Change Orders
+- **ChangeNotice** - Engineering Change Notices (ECN)
+- **ChangeRequest** - Change Requests (ECR)
+- **ChangeTask** - Change Tasks
+- **ChangeActivity2** - Change Activities
+- **ChangeOrder** - Change Orders
 
 ### Related Objects
-- **ResultingObjects** - Objects created or modified by a change
-- **AffectedObjects** - Objects impacted by a change
+- **AffectedObject** - Objects affected by changes
+- **ResultingObject** - Objects resulting from changes
+- **Changeable** - Objects that can be changed (parts, documents)
 
 ---
 
@@ -34,45 +36,42 @@ The Change Management (ChangeMgmt) domain provides access to Windchill's change 
 
 ### ChangeNotice
 
-Change Notice (ECN) - Formal documentation of approved changes to be implemented.
+Engineering Change Notice (ECN) - Formal documentation of a proposed change.
 
 **Endpoint:** `/ChangeMgmt/ChangeNotices`
 
-**Operations:** `READ`
+**Operations:** `READ`, `CREATE`, `UPDATE`
 
 **Properties:**
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
 | **Name** | String | Change Notice name |
-| **Number** | String | Change Notice number |
-| **Description** | String | Description of the change |
-| **State** | EnumType | Lifecycle state (e.g., OPEN, IN_WORK, CLOSED) |
+| **Number** | String | Change Notice number (unique identifier) |
+| **Description** | String | Detailed description of the change |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
 | **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
-| **FolderLocation** | String | Folder path location |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **FolderLocation** | String | Folder path in Windchill |
+| **Version** | String | Version information (A.1, A.2, etc.) |
+| **Iteration** | String | Iteration information |
+| **MasterID** | String | Master ID (ReadOnly) |
+| **CreatedBy** | String | Created by (ReadOnly) |
+| **ModifiedBy** | String | Modified by (ReadOnly) |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **ModifiedBy** | String | User who last modified (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **NeedDate** | DateTimeOffset | Need date for implementation |
-| **ApprovalDate** | DateTimeOffset | Approval date |
-| **CustomerName** | String | Customer name if applicable |
-| **ChangeType** | String | Type of change |
-| **ChangeReason** | String | Reason for change |
-| **MasterID** | String | Master object ID (ReadOnly) |
 | **TypeIcon** | Icon | Type icon (ReadOnly) |
 | **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Creator` → PTC.PrincipalMgmt.User (User who created)
-- `Modifier` → PTC.PrincipalMgmt.User (User who last modified)
-- `ChangeRequests` → Collection(PTC.ChangeMgmt.ChangeRequest) (Linked change requests)
-- `ChangeTasks` → Collection(PTC.ChangeMgmt.ChangeTask) (Child change tasks)
-- `ResultingObjects` → Collection(PTC.ChangeMgmt.Changeable) (Objects created/modified)
-- `AffectedObjects` → Collection(PTC.ChangeMgmt.Changeable) (Objects impacted)
-- `Folder` → PTC.DataAdmin.Folder (Containing folder)
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `Modifier` - Modifier user (PTC.PrincipalMgmt.User)
+- `ChangeRequest` - Related Change Request
+- `ChangeTasks` - Collection of Change Tasks
+- `AffectedObjects` - Objects affected by this change
+- `ResultingObjects` - Objects resulting from this change
+- `ChangeActivities` - Related Change Activities
 
 **CRUD Operations:**
 
@@ -84,76 +83,99 @@ GET /ChangeMgmt/ChangeNotices
 GET /ChangeMgmt/ChangeNotices('{id}')
 
 # Get change notice by number
-GET /ChangeMgmt/ChangeNotices?$filter=Number eq 'CN-00001'
+GET /ChangeMgmt/ChangeNotices?$filter=Number eq 'CN-000001'
 
 # Get change notice by name
-GET /ChangeMgmt/ChangeNotices?$filter=contains(Name, 'Design Change')
+GET /ChangeMgmt/ChangeNotices?$filter=Name eq 'Engine Assembly Change'
+
+# Search by number or name
+GET /ChangeMgmt/ChangeNotices?$filter=contains(Number, 'CN') or contains(Name, 'Assembly')
 
 # Filter by state
 GET /ChangeMgmt/ChangeNotices?$filter=State/Value eq 'OPEN'
 
-# Expand with change tasks
-GET /ChangeMgmt/ChangeNotices('{id}')?$expand=ChangeTasks,ChangeRequests
+# Expand with context
+GET /ChangeMgmt/ChangeNotices('{id}')?$expand=Context
 
-# Expand with resulting objects
-GET /ChangeMgmt/ChangeNotices('{id}')?$expand=ResultingObjects
+# Expand with change tasks
+GET /ChangeMgmt/ChangeNotices('{id}')?$expand=ChangeTasks
 
 # Expand with affected objects
 GET /ChangeMgmt/ChangeNotices('{id}')?$expand=AffectedObjects
 
-# Get with context and creator
-GET /ChangeMgmt/ChangeNotices?$expand=Context,Creator
+# Expand with resulting objects
+GET /ChangeMgmt/ChangeNotices('{id}')?$expand=ResultingObjects
+
+# Expand all navigation properties
+GET /ChangeMgmt/ChangeNotices('{id}')?$expand=Context,Creator,Modifier,ChangeTasks,AffectedObjects,ResultingObjects
 
 # Select specific properties
-GET /ChangeMgmt/ChangeNotices?$select=ID,Name,Number,State,NeedDate
+GET /ChangeMgmt/ChangeNotices?$select=ID,Name,Number,State,Description
 
-# Order by creation date
+# Order by
 GET /ChangeMgmt/ChangeNotices?$orderby=CreatedOn desc
+GET /ChangeMgmt/ChangeNotices?$orderby=Number asc
 
-# Top results
-GET /ChangeMgmt/ChangeNotices?$top=50
+# Create change notice
+POST /ChangeMgmt/ChangeNotices
+Content-Type: application/json
+X-CSRF-Token: {token}
+
+{
+  "Name": "Engine Assembly Design Change",
+  "Number": "CN-000001",
+  "Description": "Update engine assembly to incorporate new piston design",
+  "FolderLocation": "/Default/Engineering/Changes"
+}
+
+# Update change notice
+PATCH /ChangeMgmt/ChangeNotices('{id}')
+Content-Type: application/json
+X-CSRF-Token: {token}
+
+{
+  "Description": "Updated description with additional details"
+}
 ```
 
 ---
 
 ### ChangeRequest
 
-Change Request (ECR) - Request for change to be evaluated and approved.
+Change Request (ECR) - Request for a change before formal approval.
 
 **Endpoint:** `/ChangeMgmt/ChangeRequests`
 
-**Operations:** `READ`
+**Operations:** `READ`, `CREATE`, `UPDATE`
 
 **Properties:**
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
 | **Name** | String | Change Request name |
-| **Number** | String | Change Request number |
-| **Description** | String | Description of the requested change |
-| **State** | EnumType | Lifecycle state (e.g., OPEN, UNDER_REVIEW, APPROVED, REJECTED) |
+| **Number** | String | Change Request number (unique identifier) |
+| **Description** | String | Detailed description of the requested change |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
 | **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
-| **FolderLocation** | String | Folder path location |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **FolderLocation** | String | Folder path in Windchill |
+| **NeedDate** | DateTimeOffset | Date by which change is needed |
+| **Justification** | String | Business justification for the change |
+| **MasterID** | String | Master ID (ReadOnly) |
+| **CreatedBy** | String | Created by (ReadOnly) |
+| **ModifiedBy** | String | Modified by (ReadOnly) |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **ModifiedBy** | String | User who last modified (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **NeedDate** | DateTimeOffset | Need date for implementation |
-| **Justification** | String | Business justification |
-| **Urgency** | String | Urgency level |
-| **ChangeType** | String | Type of change |
-| **MasterID** | String | Master object ID (ReadOnly) |
 | **TypeIcon** | Icon | Type icon (ReadOnly) |
 | **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Creator` → PTC.PrincipalMgmt.User (User who created)
-- `Modifier` → PTC.PrincipalMgmt.User (User who last modified)
-- `ChangeNotices` → Collection(PTC.ChangeMgmt.ChangeNotice) (Linked change notices)
-- `AffectedObjects` → Collection(PTC.ChangeMgmt.Changeable) (Objects impacted)
-- `Folder` → PTC.DataAdmin.Folder (Containing folder)
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `Modifier` - Modifier user (PTC.PrincipalMgmt.User)
+- `ChangeNotices` - Related Change Notices
+- `AffectedObjects` - Objects affected by this request
+- `ChangeActivities` - Related Change Activities
 
 **CRUD Operations:**
 
@@ -161,67 +183,72 @@ Change Request (ECR) - Request for change to be evaluated and approved.
 # Get all change requests
 GET /ChangeMgmt/ChangeRequests
 
-# Get change request by ID
-GET /ChangeMgmt/ChangeRequests('{id}')
-
 # Get change request by number
-GET /ChangeMgmt/ChangeRequests?$filter=Number eq 'CR-00001'
+GET /ChangeMgmt/ChangeRequests?$filter=Number eq 'CR-000001'
 
 # Filter by state
-GET /ChangeMgmt/ChangeRequests?$filter=State/Value eq 'OPEN'
+GET /ChangeMgmt/ChangeRequests?$filter=State/Value eq 'SUBMITTED'
 
-# Get open or under review requests
-GET /ChangeMgmt/ChangeRequests?$filter=State/Value eq 'OPEN' or State/Value eq 'UNDER_REVIEW'
+# Filter by need date
+GET /ChangeMgmt/ChangeRequests?$filter=NeedDate ge 2026-03-01T00:00:00Z
 
 # Expand with change notices
 GET /ChangeMgmt/ChangeRequests('{id}')?$expand=ChangeNotices
 
-# Get with affected objects
-GET /ChangeMgmt/ChangeRequests?$expand=AffectedObjects
+# Expand with affected objects
+GET /ChangeMgmt/ChangeRequests('{id}')?$expand=AffectedObjects
 
-# Order by need date
-GET /ChangeMgmt/ChangeRequests?$orderby=NeedDate asc
+# Create change request
+POST /ChangeMgmt/ChangeRequests
+Content-Type: application/json
+X-CSRF-Token: {token}
+
+{
+  "Name": "Piston Material Change Request",
+  "Number": "CR-000001",
+  "Description": "Request to change piston material from aluminum to titanium",
+  "Justification": "Weight reduction and improved durability",
+  "NeedDate": "2026-04-01T00:00:00Z",
+  "FolderLocation": "/Default/Engineering/Changes"
+}
 ```
 
 ---
 
 ### ChangeTask
 
-Change Task - Individual task within a Change Notice for implementation.
+Change Task - Individual task within a Change Notice.
 
 **Endpoint:** `/ChangeMgmt/ChangeTasks`
 
-**Operations:** `READ`
+**Operations:** `READ`, `CREATE`, `UPDATE`
 
 **Properties:**
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
 | **Name** | String | Change Task name |
 | **Number** | String | Change Task number |
 | **Description** | String | Task description |
-| **State** | EnumType | Lifecycle state (e.g., NOT_STARTED, IN_PROGRESS, COMPLETED) |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
 | **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
-| **FolderLocation** | String | Folder path location |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **FolderLocation** | String | Folder path in Windchill |
+| **MasterID** | String | Master ID (ReadOnly) |
+| **CreatedBy** | String | Created by (ReadOnly) |
+| **ModifiedBy** | String | Modified by (ReadOnly) |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **ModifiedBy** | String | User who last modified (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **DueDate** | DateTimeOffset | Due date for completion |
-| **CompletionDate** | DateTimeOffset | Actual completion date |
-| **Assignee** | String | Assigned user |
-| **MasterID** | String | Master object ID (ReadOnly) |
 | **TypeIcon** | Icon | Type icon (ReadOnly) |
 | **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Creator` → PTC.PrincipalMgmt.User (User who created)
-- `Modifier` → PTC.PrincipalMgmt.User (User who last modified)
-- `ChangeNotice` → PTC.ChangeMgmt.ChangeNotice (Parent change notice)
-- `ResultingObjects` → Collection(PTC.ChangeMgmt.Changeable) (Objects created/modified)
-- `Folder` → PTC.DataAdmin.Folder (Containing folder)
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `Modifier` - Modifier user (PTC.PrincipalMgmt.User)
+- `ChangeNotice` - Parent Change Notice
+- `AffectedObjects` - Objects affected by this task
+- `ResultingObjects` - Objects resulting from this task
 
 **CRUD Operations:**
 
@@ -229,187 +256,336 @@ Change Task - Individual task within a Change Notice for implementation.
 # Get all change tasks
 GET /ChangeMgmt/ChangeTasks
 
-# Get change task by ID
-GET /ChangeMgmt/ChangeTasks('{id}')
-
 # Get change task by number
-GET /ChangeMgmt/ChangeTasks?$filter=Number eq 'CT-00001'
-
-# Filter by state
-GET /ChangeMgmt/ChangeTasks?$filter=State/Value eq 'IN_PROGRESS'
+GET /ChangeMgmt/ChangeTasks?$filter=Number eq 'CT-000001'
 
 # Get tasks for a specific change notice
-GET /ChangeMgmt/ChangeTasks?$filter=ChangeNotice/Number eq 'CN-00001'
+GET /ChangeMgmt/ChangeNotices('{id}')/ChangeTasks
 
 # Expand with change notice
 GET /ChangeMgmt/ChangeTasks('{id}')?$expand=ChangeNotice
 
-# Get with resulting objects
-GET /ChangeMgmt/ChangeTasks?$expand=ResultingObjects
+# Create change task (via change notice)
+POST /ChangeMgmt/ChangeNotices('{id}')/ChangeTasks
+Content-Type: application/json
+X-CSRF-Token: {token}
 
-# Order by due date
-GET /ChangeMgmt/ChangeTasks?$orderby=DueDate asc
+{
+  "Name": "Update Part Design",
+  "Number": "CT-000001",
+  "Description": "Modify the part design according to change requirements"
+}
 ```
 
 ---
 
-### Changeable (Affected/Resulting Objects)
+### ChangeActivity2
 
-Base type for objects that can be affected by or result from a change.
+Change Activity - Detailed activity within a change process.
+
+**Endpoint:** `/ChangeMgmt/ChangeActivities`
+
+**Operations:** `READ`
+
+**Properties:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Activity name |
+| **Number** | String | Activity number |
+| **Description** | String | Activity description |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
+| **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
+| **MasterID** | String | Master ID (ReadOnly) |
+| **CreatedBy** | String | Created by (ReadOnly) |
+| **ModifiedBy** | String | Modified by (ReadOnly) |
+| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
+| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container
-- `Creator` → PTC.PrincipalMgmt.User
-- `Modifier` → PTC.PrincipalMgmt.User
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `Modifier` - Modifier user (PTC.PrincipalMgmt.User)
+- `ChangeNotice` - Related Change Notice
+- `ChangeRequest` - Related Change Request
+- `AffectedObjects` - Objects affected by this activity
+- `ResultingObjects` - Objects resulting from this activity
+
+**CRUD Operations:**
+
+```bash
+# Get all change activities
+GET /ChangeMgmt/ChangeActivities
+
+# Get change activity by ID
+GET /ChangeMgmt/ChangeActivities('{id}')
+
+# Filter by state
+GET /ChangeMgmt/ChangeActivities?$filter=State/Value eq 'COMPLETED'
+
+# Expand with affected objects
+GET /ChangeMgmt/ChangeActivities('{id}')?$expand=AffectedObjects,ResultingObjects
+```
+
+---
+
+### AffectedObject
+
+Objects affected by a change (parts, documents, etc.).
+
+**Endpoint:** Navigation property from Change entities
+
+**Operations:** `READ`, `CREATE`, `DELETE`
+
+**Properties:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **ObjectType** | String | Type of affected object |
+| **Name** | String | Object name |
+| **Number** | String | Object number |
+| **Version** | String | Version information |
+| **State** | EnumType | Object state |
+| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
+| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
+
+**Navigation Properties:**
+- `Changeable` - The actual object being affected
+- `ChangeActivity2` - Related Change Activity
+- `ChangeNotice` - Related Change Notice
+
+**CRUD Operations:**
+
+```bash
+# Get affected objects for a change notice
+GET /ChangeMgmt/ChangeNotices('{id}')/AffectedObjects
+
+# Get affected objects for a change activity
+GET /ChangeMgmt/ChangeActivities('{id}')/AffectedObjects
+
+# Expand with the actual object
+GET /ChangeMgmt/ChangeNotices('{id}')/AffectedObjects?$expand=Changeable
+```
+
+---
+
+### ResultingObject
+
+Objects created or modified as a result of a change.
+
+**Endpoint:** Navigation property from Change entities
+
+**Operations:** `READ`
+
+**Properties:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **ObjectType** | String | Type of resulting object |
+| **Name** | String | Object name |
+| **Number** | String | Object number |
+| **Version** | String | Version information |
+| **State** | EnumType | Object state |
+| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
+| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
+
+**Navigation Properties:**
+- `ResultingChangeable` - The actual resulting object
+- `ChangeActivity2` - Related Change Activity
+- `ChangeNotice` - Related Change Notice
+
+**CRUD Operations:**
+
+```bash
+# Get resulting objects for a change notice
+GET /ChangeMgmt/ChangeNotices('{id}')/ResultingObjects
+
+# Get resulting objects for a change activity
+GET /ChangeMgmt/ChangeActivities('{id}')/ResultingObjects
+
+# Expand with the actual object
+GET /ChangeMgmt/ChangeNotices('{id}')/ResultingObjects?$expand=ResultingChangeable
+```
+
+---
+
+## Actions
+
+### SetState
+
+Set the lifecycle state for a change object.
+
+**Action Signature:**
+```
+PTC.ChangeMgmt.SetState(lifecycleManaged, State) -> ChangeObject
+```
+
+**Parameters:**
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| **lifecycleManaged** | ChangeObject | Change object to update |
+| **State** | EnumType | Target state |
+
+**Usage Example:**
+
+```bash
+POST /ChangeMgmt/ChangeNotices('{id}')/PTC.ChangeMgmt.SetState
+Content-Type: application/json
+X-CSRF-Token: {token}
+
+{
+  "State": {"Value": "RELEASED"}
+}
+```
+
+---
+
+## Functions
+
+### GetLifeCycleTemplate
+
+Get the lifecycle template for a change object.
+
+**Function Signature:**
+```
+PTC.ChangeMgmt.GetLifeCycleTemplate(lifecycleManaged) -> LifeCycleTemplate
+```
+
+**Usage Example:**
+
+```bash
+GET /ChangeMgmt/ChangeNotices('{id}')/PTC.ChangeMgmt.GetLifeCycleTemplate
+```
+
+---
+
+### GetValidStateTransitions
+
+Get valid state transitions for a change object.
+
+**Function Signature:**
+```
+PTC.ChangeMgmt.GetValidStateTransitions(lifecycleManaged) -> EnumTypeList
+```
+
+**Usage Example:**
+
+```bash
+GET /ChangeMgmt/ChangeNotices('{id}')/PTC.ChangeMgmt.GetValidStateTransitions
+```
+
+**Response:**
+```json
+{
+  "@odata.context": "...",
+  "value": ["IN_WORK", "SUBMITTED", "APPROVED", "RELEASED", "CANCELLED"]
+}
+```
 
 ---
 
 ## Common Query Examples
 
-### Get Change Notice with Full Details
+### Filter by Multiple Criteria
 
 ```bash
-GET /ChangeMgmt/ChangeNotices('OR:wt.change2.WTChangeOrder2:12345')?$expand=ChangeTasks,ChangeRequests,AffectedObjects,ResultingObjects,Context,Creator
+# Get open change notices created in a date range
+GET /ChangeMgmt/ChangeNotices?$filter=State/Value eq 'OPEN' and CreatedOn ge 2026-02-01T00:00:00Z and CreatedOn le 2026-02-28T23:59:59Z
+
+# Get change requests by state
+GET /ChangeMgmt/ChangeRequests?$filter=State/Value eq 'SUBMITTED'
+
+# Get change tasks by state
+GET /ChangeMgmt/ChangeTasks?$filter=State/Value eq 'IN_WORK'
 ```
 
-### Find Open Change Requests
+### Complex Queries with Expansion
 
 ```bash
-GET /ChangeMgmt/ChangeRequests?$filter=State/Value eq 'OPEN'&$expand=AffectedObjects&$orderby=CreatedOn desc
+# Get change notice with all related data
+GET /ChangeMgmt/ChangeNotices?$expand=Context,Creator,ChangeTasks,AffectedObjects,ResultingObjects
+
+# Get change request with change notices
+GET /ChangeMgmt/ChangeRequests?$expand=ChangeNotices,AffectedObjects
+
+# Get change activity with affected and resulting objects
+GET /ChangeMgmt/ChangeActivities?$expand=AffectedObjects,ResultingObjects,ChangeNotice,ChangeRequest
 ```
 
-### Get Change Tasks Due This Week
+### Sorting and Pagination
 
 ```bash
-GET /ChangeMgmt/ChangeTasks?$filter=DueDate ge 2026-01-01T00:00:00Z and DueDate le 2026-01-07T23:59:59Z&$expand=ChangeNotice,Creator
-```
+# Get latest change notices
+GET /ChangeMgmt/ChangeNotices?$orderby=CreatedOn desc&$top=50
 
-### Get Change Notices for a Specific Product/Container
+# Get paginated results
+GET /ChangeMgmt/ChangeNotices?$skip=0&$top=25
 
-```bash
-GET /ChangeMgmt/ChangeNotices?$filter=Context/Name eq 'Product Name'&$expand=ChangeTasks
-```
-
-### Search by Description
-
-```bash
-GET /ChangeMgmt/ChangeNotices?$filter=contains(Description, 'material')
-```
-
-### Get Change Notice with Affected Parts
-
-```bash
-GET /ChangeMgmt/ChangeNotices('{id}')/AffectedObjects?$expand=Context
-```
-
-### Count Open Change Notices
-
-```bash
-GET /ChangeMgmt/ChangeNotices/$count?$filter=State/Value eq 'OPEN'
+# Get sorted by name with pagination
+GET /ChangeMgmt/ChangeNotices?$orderby=Name asc&$skip=25&$top=25
 ```
 
 ---
 
-## State Values
+## Change Process Workflow
 
-### Change Notice States
-- **OPEN** - Open for editing
-- **IN_WORK** - Being processed
-- **UNDER_REVIEW** - Under review
-- **APPROVED** - Approved for implementation
-- **IMPLEMENTING** - Being implemented
-- **CLOSED** - Completed and closed
-- **CANCELLED** - Cancelled
+Typical change management workflow in Windchill:
 
-### Change Request States
-- **OPEN** - Open for submission
-- **UNDER_REVIEW** - Being reviewed
-- **APPROVED** - Approved to proceed
-- **REJECTED** - Rejected
-- **CLOSED** - Closed
+1. **Create Change Request (ECR)**
+   - Submit request with justification
+   - Add affected objects
+   - Route for review
 
-### Change Task States
-- **NOT_STARTED** - Not yet started
-- **IN_PROGRESS** - In progress
-- **COMPLETED** - Completed
-- **CANCELLED** - Cancelled
+2. **Review Change Request**
+   - Reviewers evaluate request
+   - Approve or reject
+   - Add comments
 
----
+3. **Create Change Notice (ECN)**
+   - Create from approved request
+   - Define change tasks
+   - Assign to implementers
 
-## Entity Relationships
+4. **Execute Change Tasks**
+   - Update affected objects
+   - Create new versions
+   - Document changes
 
-```
-┌─────────────────────────────────────────────────────────────────────────┐
-│ PTC.ChangeMgmt Namespace                                                │
-├─────────────────────────────────────────────────────────────────────────┤
-│                                                                         │
-│  ┌──────────────┐      ChangeTasks     ┌──────────────┐                │
-│  │ ChangeNotice │──────────────────────►│  ChangeTask  │                │
-│  ├──────────────┤                       ├──────────────┤                │
-│  │ - ChangeTasks│                       │ - Resulting  │                │
-│  │ - ChangeReq. │                       │ - ChangeNote │                │
-│  │ - Affected   │                       └──────┬───────┘                │
-│  │ - Resulting  │                              │                        │
-│  └──────┬───────┘                              │                        │
-│         │                                      │                        │
-│         │ ChangeRequests                       │ ResultingObjects       │
-│         │                                      │                        │
-│         ▼                                      ▼                        │
-│  ┌──────────────┐                       ┌──────────────┐                │
-│  │ChangeRequest │                       │  Changeable  │                │
-│  ├──────────────┤                       ├──────────────┤                │
-│  │ - ChangeNoti│                       │ - Context    │                │
-│  │ - Affected   │                       │ - Creator    │                │
-│  └──────┬───────┘                       └──────────────┘                │
-│         │                                                                │
-│         │ AffectedObjects                                                │
-│         │                                                                │
-│         ▼                                                                │
-│  ┌──────────────┐                                                        │
-│  │  Changeable  │                                                        │
-│  └──────────────┘                                                        │
-│                                                                         │
-└─────────────────────────────────────────────────────────────────────────┘
-```
+5. **Review and Release**
+   - Review all changes
+   - Approve and release
+   - Update resulting objects
 
 ---
 
-## Cross-Domain References
+## Integration Notes
 
-| From Entity | Navigation Property | Target Domain | Target Entity |
-|-------------|---------------------|---------------|---------------|
-| ChangeNotice | Context | DataAdmin | Container |
-| ChangeNotice | Creator | PrincipalMgmt | User |
-| ChangeNotice | Modifier | PrincipalMgmt | User |
-| ChangeNotice | Folder | DataAdmin | Folder |
-| ChangeRequest | Context | DataAdmin | Container |
-| ChangeRequest | Creator | PrincipalMgmt | User |
-| ChangeTask | ChangeNotice | ChangeMgmt | ChangeNotice |
-| ChangeTask | Context | DataAdmin | Container |
+1. **Object Relationships**:
+   - ChangeNotice can have multiple ChangeTasks
+   - ChangeRequest can have multiple ChangeNotices
+   - Each task affects specific objects
 
----
+2. **Lifecycle Management**:
+   - Change objects follow lifecycle templates
+   - State transitions vary by template
+   - Use GetValidStateTransitions to check valid transitions
 
-## Pagination
+3. **Cross-Domain References**:
+   - Affected/Resulting objects can be Parts (ProdMgmt)
+   - Documents (DocMgmt) can be affected
+   - CAD Documents (CADDocumentMgmt) can be affected
 
-Use `$top` and `$skip` for pagination:
-
-```bash
-GET /ChangeMgmt/ChangeNotices?$top=50&$skip=0
-GET /ChangeMgmt/ChangeNotices?$top=50&$skip=50
-```
+4. **Workflow Integration**:
+   - Change objects use Windchill Workflow engine
+   - Check Workflow domain for work items
+   - Activities track workflow progress
 
 ---
 
-## Notes
+## Schema Version
 
-1. **READ-ONLY Access** - Change objects are typically read through OData. Creation and modification are done through Windchill UI or other API endpoints.
-
-2. **Lifecycle Management** - All change objects follow Windchill lifecycle templates with defined state transitions.
-
-3. **Workflow Integration** - Change objects are closely tied to Windchill workflow processes.
-
-4. **Object Identifiers** - IDs are OIDs in format `OR:wt.change2.WTChangeOrder2:xxxxx` for Change Notices.
-
-5. **Affected vs Resulting**:
-   - **Affected Objects**: Items that will be impacted by the change
-   - **Resulting Objects**: New versions or items created by the change
+Schema Version: 7

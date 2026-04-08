@@ -1,335 +1,558 @@
 {
-  "namespace": "PTC.QMS",
-  "description": "Quality Management System Domain - Contains entities for managing quality actions, non-conformances, CAPA, and quality contacts",
+  "domain": "QMS",
+  "description": "Windchill Quality Management System Domain - Quality Records, Audits, Nonconformances",
   "entities": {
     "QualityAction": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Quality action for tracking corrective and preventive actions",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "LifeCycleTemplateName",
-        "ActionType",
-        "Priority",
-        "DueDate",
-        "CompletionDate",
-        "RootCause",
-        "CorrectiveAction",
-        "PreventiveAction",
-        "VerificationMethod",
-        "Effectiveness",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+      "description": "Quality action items for tracking quality-related tasks",
+      "endpoint": "/QMS/QualityActions",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Quality Action name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Quality Action number"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"],
+          "possibleValues": ["OPEN", "IN_PROGRESS", "COMPLETED", "CANCELLED"]
+        },
+        "LifeCycleTemplateName": {
+          "type": "String",
+          "description": "Lifecycle template name",
+          "constraints": ["ReadOnly"]
+        },
+        "Priority": {
+          "type": "EnumType",
+          "description": "Priority level",
+          "possibleValues": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+        },
+        "Category": {
+          "type": "EnumType",
+          "description": "Category of action"
+        },
+        "DueDate": {
+          "type": "DateTimeOffset",
+          "description": "Due date for completion"
+        },
+        "CompletionDate": {
+          "type": "DateTimeOffset",
+          "description": "Actual completion date"
+        },
+        "FolderLocation": {
+          "type": "String",
+          "description": "Folder path in Windchill"
+        },
+        "MasterID": {
+          "type": "String",
+          "description": "Master ID",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedBy": {
+          "type": "String",
+          "description": "Created by",
+          "constraints": ["ReadOnly"]
+        },
+        "ModifiedBy": {
+          "type": "String",
+          "description": "Modified by",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created"
+          "description": "Creator user"
         },
-        {
-          "name": "Modifier",
+        "Modifier": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified"
+          "description": "Modifier user"
         },
-        {
-          "name": "Owner",
+        "Owner": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "Assigned owner"
+          "description": "Owner user"
         },
-        {
-          "name": "RelatedQualityObject",
-          "type": "PTC.QMS.QualityObject",
-          "nullable": true,
-          "description": "Related quality object"
+        "QualityIssue": {
+          "type": "QualityIssue",
+          "description": "Related Quality Issue"
+        },
+        "RelatedProducts": {
+          "type": "Collection(RelatedProduct)",
+          "description": "Related Products"
         }
-      ]
+      }
     },
-    "QualityObject": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Base quality object for quality management records",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "LifeCycleTemplateName",
-        "QualityType",
-        "Severity",
-        "Status",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+    "QualityIssue": {
+      "description": "Quality issues and incidents tracking",
+      "endpoint": "/QMS/QualityIssues",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Quality Issue name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Quality Issue number"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description of the issue"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"],
+          "possibleValues": ["OPEN", "INVESTIGATION", "RESOLVED", "CLOSED", "CANCELLED"]
+        },
+        "LifeCycleTemplateName": {
+          "type": "String",
+          "description": "Lifecycle template name",
+          "constraints": ["ReadOnly"]
+        },
+        "Severity": {
+          "type": "EnumType",
+          "description": "Severity level",
+          "possibleValues": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]
+        },
+        "Category": {
+          "type": "EnumType",
+          "description": "Category of issue"
+        },
+        "Source": {
+          "type": "EnumType",
+          "description": "Source of the issue",
+          "possibleValues": ["CUSTOMER_FEEDBACK", "INTERNAL_AUDIT", "EXTERNAL_AUDIT", "SUPPLIER", "MANUFACTURING", "INSPECTION"]
+        },
+        "ReportedDate": {
+          "type": "DateTimeOffset",
+          "description": "Date issue was reported"
+        },
+        "ResolutionDate": {
+          "type": "DateTimeOffset",
+          "description": "Date issue was resolved"
+        },
+        "FolderLocation": {
+          "type": "String",
+          "description": "Folder path in Windchill"
+        },
+        "MasterID": {
+          "type": "String",
+          "description": "Master ID",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedBy": {
+          "type": "String",
+          "description": "Created by",
+          "constraints": ["ReadOnly"]
+        },
+        "ModifiedBy": {
+          "type": "String",
+          "description": "Modified by",
+          "constraints": ["ReadOnly"]
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created"
+          "description": "Creator user"
         },
-        {
-          "name": "Modifier",
+        "Modifier": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified"
+          "description": "Modifier user"
         },
-        {
-          "name": "QualityActions",
-          "type": "Collection(PTC.QMS.QualityAction)",
-          "containsTarget": true,
-          "description": "Related quality actions"
+        "Reporter": {
+          "type": "PTC.PrincipalMgmt.User",
+          "description": "Reporter user"
+        },
+        "QualityActions": {
+          "type": "Collection(QualityAction)",
+          "description": "Quality Actions"
+        },
+        "RelatedProducts": {
+          "type": "Collection(RelatedProduct)",
+          "description": "Related Products"
+        },
+        "Nonconformances": {
+          "type": "Collection(Nonconformance)",
+          "description": "Nonconformances"
         }
-      ]
-    },
-    "Place": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Location/place for quality events",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "Address",
-        "City",
-        "State",
-        "Country",
-        "PostalCode",
-        "PlaceType",
-        "CreatedBy",
-        "CreatedOn",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
-          "type": "PTC.DataAdmin.Container",
-          "nullable": true,
-          "description": "Container context"
-        }
-      ]
+      }
     },
     "QualityContact": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Contact person or location related to quality events",
-      "properties": [
-        "ID",
-        "Name",
-        "ContactType",
-        "Email",
-        "Phone",
-        "Role",
-        "Organization",
-        "CreatedBy",
-        "CreatedOn",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
-          "type": "PTC.DataAdmin.Container",
-          "nullable": true,
-          "description": "Container context"
+      "description": "Quality contact information for quality management",
+      "endpoint": "/QMS/QualityContacts",
+      "operations": ["READ"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
         },
-        {
-          "name": "Place",
-          "type": "PTC.QMS.Place",
-          "nullable": true,
-          "description": "Associated place/location"
+        "Name": {
+          "type": "String",
+          "description": "Contact name"
+        },
+        "Email": {
+          "type": "String",
+          "description": "Contact email"
+        },
+        "Phone": {
+          "type": "String",
+          "description": "Contact phone"
+        },
+        "Organization": {
+          "type": "String",
+          "description": "Organization name"
+        },
+        "Role": {
+          "type": "String",
+          "description": "Contact role"
+        },
+        "Type": {
+          "type": "EnumType",
+          "description": "Contact type",
+          "possibleValues": ["INTERNAL", "EXTERNAL"]
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
         }
-      ]
+      },
+      "navigationProperties": {
+        "User": {
+          "type": "PTC.PrincipalMgmt.User",
+          "description": "Related User"
+        },
+        "Place": {
+          "type": "Place",
+          "description": "Related Place"
+        }
+      }
     },
-    "Subject": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Quality subject representing a product or item",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "SubjectType",
-        "Description",
-        "ProductNumber",
-        "ProductName",
-        "SerialNumber",
-        "LotNumber",
-        "CreatedBy",
-        "CreatedOn",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
-          "type": "PTC.DataAdmin.Container",
-          "nullable": true,
-          "description": "Container context"
+    "Place": {
+      "description": "Places and locations for quality management",
+      "endpoint": "/QMS/Places",
+      "operations": ["READ"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Place name"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Place description"
+        },
+        "Type": {
+          "type": "EnumType",
+          "description": "Place type",
+          "possibleValues": ["SITE", "FACILITY", "LOCATION", "CUSTOMER_SITE"]
+        },
+        "Address": {
+          "type": "String",
+          "description": "Physical address"
+        },
+        "City": {
+          "type": "String",
+          "description": "City"
+        },
+        "StateProvince": {
+          "type": "String",
+          "description": "State or province"
+        },
+        "Country": {
+          "type": "EnumType",
+          "description": "Country"
+        },
+        "PostalCode": {
+          "type": "String",
+          "description": "Postal code"
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "description": "Creation timestamp",
+          "constraints": ["ReadOnly"]
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "description": "Last modification timestamp",
+          "constraints": ["ReadOnly"]
         }
-      ]
+      },
+      "navigationProperties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "description": "Container context"
+        },
+        "QualityContacts": {
+          "type": "Collection(QualityContact)",
+          "description": "Quality Contacts at this place"
+        }
+      }
     },
-    "NonConformance": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "Non-conformance record for tracking quality issues",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "NCType",
-        "Severity",
-        "DiscoveryDate",
-        "DiscoveryLocation",
-        "QuantityAffected",
-        "Disposition",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+    "Nonconformance": {
+      "description": "Nonconformance reports for tracking deviations from specifications",
+      "endpoint": "/QMS/Nonconformances",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Nonconformance name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Nonconformance number"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"],
+          "possibleValues": ["OPEN", "DISPOSITION", "IN_PROGRESS", "RESOLVED", "CLOSED"]
+        },
+        "NCType": {
+          "type": "EnumType",
+          "description": "Nonconformance type",
+          "possibleValues": ["MATERIAL", "PROCESS", "PRODUCT", "DOCUMENTATION", "PACKAGING"]
+        },
+        "Severity": {
+          "type": "EnumType",
+          "description": "Severity level",
+          "possibleValues": ["MINOR", "MAJOR", "CRITICAL"]
+        },
+        "Quantity": {
+          "type": "Double",
+          "description": "Quantity affected"
+        },
+        "DetectedDate": {
+          "type": "DateTimeOffset",
+          "description": "Date detected"
+        },
+        "ResolvedDate": {
+          "type": "DateTimeOffset",
+          "description": "Date resolved"
+        },
+        "FolderLocation": {
+          "type": "String",
+          "description": "Folder path in Windchill"
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created"
+          "description": "Creator user"
         },
-        {
-          "name": "Modifier",
-          "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified"
+        "QualityIssue": {
+          "type": "QualityIssue",
+          "description": "Related Quality Issue"
         },
-        {
-          "name": "Subject",
-          "type": "PTC.QMS.Subject",
-          "nullable": true,
-          "description": "Related product/subject"
+        "Dispositions": {
+          "type": "Collection(NCDisposition)",
+          "description": "Nonconformance Dispositions"
         },
-        {
-          "name": "CAPA",
-          "type": "PTC.QMS.QualityAction",
-          "nullable": true,
-          "description": "Related CAPA"
-        },
-        {
-          "name": "Place",
-          "type": "PTC.QMS.Place",
-          "nullable": true,
-          "description": "Location of discovery"
+        "RelatedProduct": {
+          "type": "RelatedProduct",
+          "description": "Related Product"
         }
-      ]
+      }
     },
-    "CAPA": {
-      "baseType": "PTC.WindchillEntity",
-      "description": "CAPA record for corrective and preventive actions",
-      "properties": [
-        "ID",
-        "Name",
-        "Number",
-        "Description",
-        "State",
-        "CAPAType",
-        "Priority",
-        "DueDate",
-        "CompletionDate",
-        "RootCauseAnalysis",
-        "CorrectiveAction",
-        "PreventiveAction",
-        "VerificationStatus",
-        "EffectivenessStatus",
-        "CreatedBy",
-        "CreatedOn",
-        "ModifiedBy",
-        "LastModified",
-        "TypeIcon",
-        "ObjectType"
-      ],
-      "navigationProperties": [
-        {
-          "name": "Context",
+    "Audit": {
+      "description": "Quality audit records",
+      "endpoint": "/QMS/Audits",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Audit name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Audit number"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Audit description"
+        },
+        "State": {
+          "type": "EnumType",
+          "description": "Lifecycle state",
+          "constraints": ["ReadOnly"]
+        },
+        "AuditType": {
+          "type": "EnumType",
+          "description": "Type of audit",
+          "possibleValues": ["INTERNAL", "EXTERNAL", "SUPPLIER", "REGULATORY"]
+        },
+        "AuditDate": {
+          "type": "DateTimeOffset",
+          "description": "Date of audit"
+        },
+        "AuditScope": {
+          "type": "String",
+          "description": "Audit scope"
+        },
+        "Auditor": {
+          "type": "String",
+          "description": "Auditor name"
+        },
+        "Status": {
+          "type": "EnumType",
+          "description": "Audit status",
+          "possibleValues": ["PLANNED", "IN_PROGRESS", "COMPLETED", "CANCELLED"]
+        },
+        "FolderLocation": {
+          "type": "String",
+          "description": "Folder path in Windchill"
+        }
+      },
+      "navigationProperties": {
+        "Context": {
           "type": "PTC.DataAdmin.Container",
-          "nullable": true,
           "description": "Container context"
         },
-        {
-          "name": "Creator",
+        "Creator": {
           "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who created"
+          "description": "Creator user"
         },
-        {
-          "name": "Modifier",
-          "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "User who last modified"
+        "Findings": {
+          "type": "Collection(AuditFinding)",
+          "description": "Audit Findings"
         },
-        {
-          "name": "Owner",
-          "type": "PTC.PrincipalMgmt.User",
-          "nullable": true,
-          "description": "Assigned owner"
-        },
-        {
-          "name": "Subject",
-          "type": "PTC.QMS.Subject",
-          "nullable": true,
-          "description": "Related product/subject"
-        },
-        {
-          "name": "NonConformance",
-          "type": "PTC.QMS.NonConformance",
-          "nullable": true,
-          "description": "Related non-conformance"
+        "Checklist": {
+          "type": "AuditChecklist",
+          "description": "Audit Checklist"
         }
-      ]
+      }
+    },
+    "AuditFinding": {
+      "description": "Audit findings from quality audits",
+      "endpoint": "/QMS/AuditFindings",
+      "operations": ["READ", "CREATE", "UPDATE"],
+      "properties": {
+        "ID": {
+          "type": "String",
+          "description": "Object identifier (OID)",
+          "constraints": ["ReadOnly", "Key"]
+        },
+        "Name": {
+          "type": "String",
+          "description": "Finding name"
+        },
+        "Number": {
+          "type": "String",
+          "description": "Finding number"
+        },
+        "Description": {
+          "type": "String",
+          "description": "Detailed description"
+        },
+        "FindingType": {
+          "type": "EnumType",
+          "description": "Type of finding",
+          "possibleValues": ["OBSERVATION", "MINOR_NC", "MAJOR_NC", "OPPORTUNITY"]
+        },
+        "Severity": {
+          "type": "EnumType",
+          "description": "Severity level",
+          "possibleValues": ["MINOR", "MAJOR", "CRITICAL"]
+        },
+        "CorrectiveActionRequired": {
+          "type": "Boolean",
+          "description": "Whether corrective action required"
+        },
+        "DueDate": {
+          "type": "DateTimeOffset",
+          "description": "Due date for resolution"
+        },
+        "ResolutionDate": {
+          "type": "DateTimeOffset",
+          "description": "Resolution date"
+        }
+      },
+      "navigationProperties": {
+        "Audit": {
+          "type": "Audit",
+          "description": "Parent Audit"
+        },
+        "CorrectiveAction": {
+          "type": "QualityAction",
+          "description": "Corrective Action"
+        }
+      }
     }
-  },
-  "entitySets": {
-    "QualityActions": "QualityAction",
-    "QualityObjects": "QualityObject",
-    "Places": "Place",
-    "QualityContacts": "QualityContact",
-    "Subjects": "Subject",
-    "NonConformances": "NonConformance",
-    "CAPAs": "CAPA"
   }
 }

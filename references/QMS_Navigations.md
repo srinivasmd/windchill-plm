@@ -1,254 +1,375 @@
-# QMS Domain - Navigation Properties
+# QMS Domain Navigation Properties
 
-This document describes all navigation properties and entity relationships in the QMS domain.
+## Navigation Relationships
 
-## Entity Relationship Diagram
+This document describes the navigation properties between entities in the QMS domain and cross-domain references.
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ PTC.QMS Namespace                                                            │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌──────────────────┐      QualityActions     ┌──────────────────┐         │
-│  │  QualityObject   │─────────────────────────►│  QualityAction   │         │
-│  ├──────────────────┤                          ├──────────────────┤         │
-│  │ - QualityActions │                          │ - Owner          │         │
-│  │ - Context        │                          │ - Context        │         │
-│  │ - Creator        │                          │ - Creator        │         │
-│  │ - Modifier       │                          │ - Modifier       │         │
-│  └──────────────────┘                          │ - RelatedObject   │         │
-│                                                └──────────────────┘         │
-│                                                                             │
-│  ┌──────────────────┐      CAPA        ┌──────────────────┐                 │
-│  │ NonConformance   │─────────────────►│      CAPA        │                 │
-│  ├──────────────────┤                  ├──────────────────┤                 │
-│  │ - Subject        │                  │ - Subject        │                 │
-│  │ - Place          │                  │ - NonConformance │                 │
-│  │ - CAPA           │                  │ - Owner          │                 │
-│  │ - Context        │                  │ - Context        │                 │
-│  │ - Creator        │                  │ - Creator        │                 │
-│  └────────┬─────────┘                  └────────┬─────────┘                 │
-│           │                                     │                           │
-│           │ Subject                             │ Subject                   │
-│           ▼                                     ▼                           │
-│  ┌──────────────────┐                  ┌──────────────────┐               │
-│  │     Subject      │◄─────────────────┤                  │               │
-│  ├──────────────────┤                  │                  │               │
-│  │ - Context        │                  │                  │               │
-│  └──────────────────┘                  └──────────────────┘               │
-│                                              ▲                               │
-│                                              │ Place                         │
-│  ┌──────────────────┐                        │                               │
-│  │  QualityContact  │────────────────────────┘                               │
-│  ├──────────────────┤                                                        │
-│  │ - Place          │                                                        │
-│  │ - Context        │                                                        │
-│  └──────────────────┘                                                        │
-│                                                                             │
-│  ┌──────────────────┐                                                        │
-│  │      Place       │                                                        │
-│  ├──────────────────┤                                                        │
-│  │ - Context        │                                                        │
-│  └──────────────────┘                                                        │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+---
+
+## QualityAction Navigations
+
+### Outbound Navigations
+
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `Context` | Container | DataAdmin | Container context |
+| `Creator` | User | PrincipalMgmt | Creator user |
+| `Modifier` | User | PrincipalMgmt | Modifier user |
+| `Owner` | User | PrincipalMgmt | Owner user |
+| `QualityIssue` | QualityIssue | QMS | Related Quality Issue |
+| `RelatedProducts` | Collection(RelatedProduct) | QMS | Related Products |
+
+### Navigation Examples
+
+```bash
+# Get owner
+GET /QMS/QualityActions('{id}')/Owner
+
+# Get related quality issue
+GET /QMS/QualityActions('{id}')/QualityIssue
+
+# Get related products
+GET /QMS/QualityActions('{id}')/RelatedProducts
+
+# Expand all navigations
+GET /QMS/QualityActions('{id}')?$expand=Owner,QualityIssue,RelatedProducts
+
+# Nested expansion
+GET /QMS/QualityActions('{id}')?$expand=QualityIssue($expand=Nonconformances),Owner
 ```
 
-## Navigation Properties by Entity
+---
 
-### QualityAction
+## QualityIssue Navigations
 
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Context | PTC.DataAdmin.Container | Container context (Product, Library, Project) |
-| Creator | PTC.PrincipalMgmt.User | User who created the action |
-| Modifier | PTC.PrincipalMgmt.User | User who last modified the action |
-| Owner | PTC.PrincipalMgmt.User | Assigned owner of the action |
-| RelatedQualityObject | PTC.QMS.QualityObject | Related quality object |
+### Outbound Navigations
 
-### QualityObject
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `Context` | Container | DataAdmin | Container context |
+| `Creator` | User | PrincipalMgmt | Creator user |
+| `Modifier` | User | PrincipalMgmt | Modifier user |
+| `Reporter` | User | PrincipalMgmt | Reporter user |
+| `QualityActions` | Collection(QualityAction) | QMS | Quality Actions |
+| `RelatedProducts` | Collection(RelatedProduct) | QMS | Related Products |
+| `Nonconformances` | Collection(Nonconformance) | QMS | Nonconformances |
 
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Context | PTC.DataAdmin.Container | Container context |
-| Creator | PTC.PrincipalMgmt.User | User who created |
-| Modifier | PTC.PrincipalMgmt.User | User who last modified |
-| QualityActions | Collection(PTC.QMS.QualityAction) | Related quality actions |
+### Navigation Examples
 
-### NonConformance
+```bash
+# Get reporter
+GET /QMS/QualityIssues('{id}')/Reporter
 
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Context | PTC.DataAdmin.Container | Container context |
-| Creator | PTC.PrincipalMgmt.User | User who created |
-| Modifier | PTC.PrincipalMgmt.User | User who last modified |
-| Subject | PTC.QMS.Subject | Related product/subject |
-| CAPA | PTC.QMS.QualityAction | Related CAPA |
-| Place | PTC.QMS.Place | Location of discovery |
+# Get quality actions
+GET /QMS/QualityIssues('{id}')/QualityActions
 
-### CAPA
+# Get nonconformances
+GET /QMS/QualityIssues('{id}')/Nonconformances
 
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Context | PTC.DataAdmin.Container | Container context |
-| Creator | PTC.PrincipalMgmt.User | User who created |
-| Modifier | PTC.PrincipalMgmt.User | User who last modified |
-| Owner | PTC.PrincipalMgmt.User | Assigned owner |
-| Subject | PTC.QMS.Subject | Related product/subject |
-| NonConformance | PTC.QMS.NonConformance | Related non-conformance |
+# Get related products
+GET /QMS/QualityIssues('{id}')/RelatedProducts
 
-### Place
+# Expand all navigations
+GET /QMS/QualityIssues('{id}')?$expand=Creator,Reporter,QualityActions,Nonconformances
 
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Context | PTC.DataAdmin.Container | Container context |
-
-### QualityContact
-
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Context | PTC.DataAdmin.Container | Container context |
-| Place | PTC.QMS.Place | Associated place/location |
-
-### Subject
-
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Context | PTC.DataAdmin.Container | Container context |
-
-## Cross-Domain References
-
-| From Entity | Navigation Property | Target Domain | Target Entity |
-|-------------|---------------------|---------------|---------------|
-| QualityAction | Context | DataAdmin | Container |
-| QualityAction | Creator | PrincipalMgmt | User |
-| QualityAction | Modifier | PrincipalMgmt | User |
-| QualityAction | Owner | PrincipalMgmt | User |
-| QualityObject | Context | DataAdmin | Container |
-| QualityObject | Creator | PrincipalMgmt | User |
-| QualityObject | Modifier | PrincipalMgmt | User |
-| NonConformance | Context | DataAdmin | Container |
-| NonConformance | Creator | PrincipalMgmt | User |
-| NonConformance | Modifier | PrincipalMgmt | User |
-| CAPA | Context | DataAdmin | Container |
-| CAPA | Creator | PrincipalMgmt | User |
-| CAPA | Modifier | PrincipalMgmt | User |
-| CAPA | Owner | PrincipalMgmt | User |
-| Place | Context | DataAdmin | Container |
-| QualityContact | Context | DataAdmin | Container |
-| Subject | Context | DataAdmin | Container |
-
-## OData Query Examples
-
-### Get quality action with full details
-
-```
-GET /QMS/QualityActions('{id}')?$expand=Owner,Context,Creator,Modifier,RelatedQualityObject
+# Nested expansion with actions
+GET /QMS/QualityIssues('{id}')?$expand=QualityActions($expand=Owner),Nonconformances($expand=Dispositions)
 ```
 
-### Get quality object with actions
+---
 
-```
-GET /QMS/QualityObjects('{id}')?$expand=QualityActions($expand=Owner),Creator,Context
-```
+## QualityContact Navigations
 
-### Get non-conformance with CAPA
+### Outbound Navigations
 
-```
-GET /QMS/NonConformances('{id}')?$expand=CAPA($expand=Owner,Subject),Subject,Place,Context
-```
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `User` | User | PrincipalMgmt | Related User |
+| `Place` | Place | QMS | Related Place |
 
-### Get CAPA with non-conformance and subject
+### Navigation Examples
 
-```
-GET /QMS/CAPAs('{id}')?$expand=NonConformance($expand=Place),Subject,Owner,Context
-```
+```bash
+# Get user
+GET /QMS/QualityContacts('{id}')/User
 
-### Get quality contact with place
+# Get place
+GET /QMS/QualityContacts('{id}')/Place
 
-```
-GET /QMS/QualityContacts('{id}')?$expand=Place,Context
-```
-
-### Get quality actions for a quality object
-
-```
-GET /QMS/QualityObjects('{id}')/QualityActions?$expand=Owner
+# Expand both
+GET /QMS/QualityContacts('{id}')?$expand=User,Place
 ```
 
-### Get non-conformances by subject
+---
 
-```
-GET /QMS/NonConformances?$expand=Subject&$filter=Subject/Number eq 'SUBJ-001'
-```
+## Place Navigations
 
-### Multi-level expansion
+### Outbound Navigations
 
-```
-GET /QMS/NonConformances('{id}')?$expand=
-  CAPA($expand=Owner,Subject($expand=Context)),
-  Subject($expand=Context),
-  Place,
-  Context,
-  Creator
-```
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `Context` | Container | DataAdmin | Container context |
+| `QualityContacts` | Collection(QualityContact) | QMS | Quality Contacts at this place |
 
-## Entity Sets
+### Navigation Examples
 
-| Entity Set | Entity Type | Description |
-|------------|-------------|-------------|
-| QualityActions | QualityAction | All quality actions |
-| QualityObjects | QualityObject | All quality objects |
-| Places | Place | All places/locations |
-| QualityContacts | QualityContact | All quality contacts |
-| Subjects | Subject | All subjects |
-| NonConformances | NonConformance | All non-conformances |
-| CAPAs | CAPA | All CAPA records |
+```bash
+# Get quality contacts at this place
+GET /QMS/Places('{id}')/QualityContacts
 
-## Common Query Patterns
-
-### Get open quality actions with owner details
-
-```
-GET /QMS/QualityActions?$filter=State/Value eq 'OPEN'&$expand=Owner,Context&$orderby=DueDate asc
+# Expand with contacts
+GET /QMS/Places('{id}')?$expand=QualityContacts($expand=User)
 ```
 
-### Get overdue actions
+---
+
+## Nonconformance Navigations
+
+### Outbound Navigations
+
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `Context` | Container | DataAdmin | Container context |
+| `Creator` | User | PrincipalMgmt | Creator user |
+| `QualityIssue` | QualityIssue | QMS | Related Quality Issue |
+| `Dispositions` | Collection(NCDisposition) | QMS | Dispositions |
+| `RelatedProduct` | RelatedProduct | QMS | Related Product |
+
+### Navigation Examples
+
+```bash
+# Get related quality issue
+GET /QMS/Nonconformances('{id}')/QualityIssue
+
+# Get dispositions
+GET /QMS/Nonconformances('{id}')/Dispositions
+
+# Get related product
+GET /QMS/Nonconformances('{id}')/RelatedProduct
+
+# Expand all navigations
+GET /QMS/Nonconformances('{id}')?$expand=QualityIssue,Dispositions,RelatedProduct
+
+# Nested expansion
+GET /QMS/Nonconformances('{id}')?$expand=QualityIssue($expand=QualityActions),Dispositions
+```
+
+---
+
+## Audit Navigations
+
+### Outbound Navigations
+
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `Context` | Container | DataAdmin | Container context |
+| `Creator` | User | PrincipalMgmt | Creator user |
+| `Findings` | Collection(AuditFinding) | QMS | Audit Findings |
+| `Checklist` | AuditChecklist | QMS | Audit Checklist |
+
+### Navigation Examples
+
+```bash
+# Get findings
+GET /QMS/Audits('{id}')/Findings
+
+# Get checklist
+GET /QMS/Audits('{id}')/Checklist
+
+# Expand with findings
+GET /QMS/Audits('{id}')?$expand=Findings,Creator
+
+# Nested expansion with corrective actions
+GET /QMS/Audits('{id}')?$expand=Findings($expand=CorrectiveAction)
+```
+
+---
+
+## AuditFinding Navigations
+
+### Outbound Navigations
+
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `Audit` | Audit | QMS | Parent Audit |
+| `CorrectiveAction` | QualityAction | QMS | Corrective Action |
+
+### Navigation Examples
+
+```bash
+# Get parent audit
+GET /QMS/AuditFindings('{id}')/Audit
+
+# Get corrective action
+GET /QMS/AuditFindings('{id}')/CorrectiveAction
+
+# Expand both
+GET /QMS/AuditFindings('{id}')?$expand=Audit,CorrectiveAction
+```
+
+---
+
+## Cross-Domain Navigation Paths
+
+### QMS to PrincipalMgmt
+
+```bash
+# Path: QualityAction -> Owner (User)
+GET /QMS/QualityActions('{id}')/Owner
+
+# Path: QualityIssue -> Reporter (User)
+GET /QMS/QualityIssues('{id}')/Reporter
+
+# Path: QualityContact -> User
+GET /QMS/QualityContacts('{id}')/User
+
+# Expand with user details
+GET /QMS/QualityActions?$expand=Owner($select=Name,FullName,Email)
+```
+
+### QMS to CEM
+
+```bash
+# CEM references QMS entities
+# Path: CustomerExperience -> EntryLocation (Place)
+GET /CEM/CustomerExperiences('{id}')/EntryLocation
+
+# Path: CustomerExperience -> PrimaryRelatedPersonOrLocation (QualityContact)
+GET /CEM/CustomerExperiences('{id}')/PrimaryRelatedPersonOrLocation
+
+# Expand CEM with QMS entities
+GET /CEM/CustomerExperiences?$expand=EntryLocation,PrimaryRelatedPersonOrLocation
+```
+
+### QMS to Workflow
+
+```bash
+# Get work items for quality objects
+GET /Workflow/WorkItems?$filter=Subject/Type eq 'wt.quality.QualityAction'
+
+# Get work items for a specific quality issue
+GET /Workflow/WorkItems?$filter=contains(Subject/SubjectName, 'QI-')
+```
+
+---
+
+## Relationship Diagram
 
 ```
-GET /QMS/QualityActions?$filter=DueDate lt 2026-01-01T00:00:00Z and State/Value ne 'COMPLETED'&$expand=Owner,Context
+┌─────────────────┐
+│ QualityIssue    │
+│                 │
+└────────┬────────┘
+         │
+         │ QualityActions, Nonconformances
+         ▼
+┌─────────────────┐        ┌─────────────────┐
+│ QualityAction   │        │ Nonconformance  │
+│                 │        │                 │
+└────────┬────────┘        └────────┬────────┘
+         │                          │
+         │ Owner                    │ Dispositions
+         ▼                          ▼
+┌─────────────────┐        ┌─────────────────┐
+│ User            │        │ NCDisposition   │
+│ (PrincipalMgmt) │        │                 │
+└─────────────────┘        └─────────────────┘
+
+Audit Hierarchy:
+┌─────────────────┐
+│ Audit           │
+│                 │
+└────────┬────────┘
+         │
+         │ Findings
+         ▼
+┌─────────────────┐        ┌─────────────────┐
+│ AuditFinding    │───────►│ QualityAction   │
+│                 │        │ (Corrective)    │
+└─────────────────┘        └─────────────────┘
+
+Contact/Place:
+┌─────────────────┐        ┌─────────────────┐
+│ QualityContact  │◄──────►│ Place           │
+│                 │        │                 │
+└────────┬────────┘        └─────────────────┘
+         │
+         │ User
+         ▼
+┌─────────────────┐
+│ User            │
+│ (PrincipalMgmt) │
+└─────────────────┘
 ```
 
-### Get non-conformances by place
+---
 
-```
-GET /QMS/NonConformances?$expand=Place,Subject&$filter=Place/Name eq 'Manufacturing Site A'
-```
+## Common Navigation Patterns
 
-### Get CAPAs by owner
+### Get Quality Issue with Full Context
 
-```
-GET /QMS/CAPAs?$expand=Owner,Subject&$filter=Owner/Name eq 'jdoe'
-```
-
-### Get quality objects with pending actions
-
-```
-GET /QMS/QualityObjects?$expand=QualityActions($filter=State/Value eq 'OPEN' or State/Value eq 'IN_PROGRESS')
+```bash
+GET /QMS/QualityIssues('{id}')?$expand=
+    Creator,
+    Reporter,
+    QualityActions($expand=Owner),
+    Nonconformances($expand=Dispositions),
+    RelatedProducts
 ```
 
-## Navigation Property Notes
+### Get Audit with Findings and Actions
 
-1. **QualityObject → QualityActions**: One-to-Many. A quality object can have multiple related quality actions.
+```bash
+GET /QMS/Audits('{id}')?$expand=
+    Creator,
+    Findings($expand=CorrectiveAction($expand=Owner))
+```
 
-2. **NonConformance → CAPA**: One-to-One. A non-conformance can have one associated CAPA.
+### Get Nonconformance with Resolution Path
 
-3. **CAPA → NonConformance**: One-to-One. A CAPA is linked to its source non-conformance.
+```bash
+GET /QMS/Nonconformances('{id}')?$expand=
+    QualityIssue($expand=QualityActions),
+    Dispositions,
+    RelatedProduct
+```
 
-4. **NonConformance → Subject**: Many-to-One. Multiple non-conformances can reference the same subject.
+### Get Place with All Contacts
 
-5. **CAPA → Subject**: Many-to-One. Multiple CAPAs can reference the same subject.
+```bash
+GET /QMS/Places('{id}')?$expand=
+    QualityContacts($expand=User)
+```
 
-6. **QualityContact → Place**: Many-to-One. Multiple contacts can be associated with a place.
+---
 
-7. **NonConformance → Place**: Many-to-One. Multiple non-conformances can be discovered at the same place.
+## Cross-Domain Reference Summary
+
+| Source Domain | Source Entity | Navigation | Target Domain | Target Entity |
+|---------------|---------------|------------|---------------|---------------|
+| QMS | QualityAction | Owner | PrincipalMgmt | User |
+| QMS | QualityAction | Creator | PrincipalMgmt | User |
+| QMS | QualityIssue | Reporter | PrincipalMgmt | User |
+| QMS | QualityContact | User | PrincipalMgmt | User |
+| CEM | CustomerExperience | EntryLocation | QMS | Place |
+| CEM | CustomerExperience | PrimaryRelatedPersonOrLocation | QMS | QualityContact |
+| CEM | RelatedProduct | ManufacturingLocation | QMS | Place |
+
+---
+
+## Notes
+
+1. **Quality Issue Hierarchy**: QualityIssue is the central entity that links to QualityActions and Nonconformances.
+
+2. **Audit Findings**: Audit findings can link to QualityActions for corrective actions.
+
+3. **Cross-Domain Integration**:
+   - CEM domain references QMS Place and QualityContact
+   - Workflow domain tracks work items for quality objects
+   - ChangeMgmt can be triggered by quality issues
+
+4. **Navigation Performance**: Expand only the navigation properties you need for optimal performance.
+
+5. **Contact Information**: QualityContact provides a flexible way to track both internal and external contacts.
+
+6. **Location Hierarchy**: Place entities can represent sites, facilities, or specific locations.

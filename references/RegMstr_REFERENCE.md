@@ -1,544 +1,475 @@
-# Regulation Master (RegMstr) Domain Reference
+# Regulatory Master (RegMstr) Domain Reference
 
-Complete reference documentation for the Windchill Regulation Master OData domain.
+Complete reference documentation for the Windchill Regulatory Master OData domain.
 
 ## Base URL
 
 ```
-https://windchill.example.com/Windchill/servlet/odata/RegMstr/
+https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/RegMstr/
 ```
 
 ## Metadata URL
 
 ```
-https://windchill.example.com/Windchill/servlet/odata/RegMstr/$metadata
+https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/RegMstr/$metadata
 ```
 
 ## Domain Overview
 
-The Regulation Master (RegMstr) domain provides access to Windchill's regulatory compliance and regulation management entities:
+The Regulatory Master domain provides access to regulatory and compliance management entities in Windchill including:
 
-### Regulation Objects
-- **Regulations** - Regulatory requirements and standards
-- **RegulatoryRequirements** - Individual requirements within regulations
-- **ComplianceRecords** - Compliance tracking records
+### Regulatory Records
+- **RegulatorySpecification** - Regulatory specifications and requirements
+- **RegulatorySubmission** - Regulatory submission records
+- **RegulatoryApproval** - Regulatory approvals and clearances
 
-### Standards and Specifications
-- **Standards** - Industry standards (ISO, ASTM, etc.)
-- **Specifications** - Technical specifications
+### Trade Compliance
+- **ComplianceDefinition** - Compliance definitions
+- **TradeControlClassification** - Trade control classifications
+- **Country** - Country definitions and regulations
 
-### Compliance Tracking
-- **ComplianceItems** - Items subject to compliance
-- **ComplianceEvidence** - Evidence of compliance
+### Compliance Objects
+- **ComplianceObject** - Objects subject to compliance
+- **ComplianceRecord** - Compliance tracking records
 
 ---
 
 ## Entity Types
 
-### Regulation
+### RegulatorySpecification
 
-Regulation entity representing regulatory requirements and standards.
+Regulatory specifications defining product requirements.
 
-**Endpoint:** `/RegMstr/Regulations`
+**Endpoint:** `/RegMstr/RegulatorySpecifications`
 
-**Operations:** `READ`
-
-**Properties:**
-
-| Property | Type | Description |
-|----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Regulation name |
-| **Number** | String | Regulation number/identifier |
-| **Description** | String | Regulation description |
-| **State** | EnumType | Lifecycle state |
-| **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
-| **RegulatoryAgency** | String | Issuing regulatory agency (e.g., FDA, EMA, ISO) |
-| **RegulationType** | String | Type of regulation (e.g., Medical Device, Automotive) |
-| **EffectiveDate** | DateTimeOffset | Date regulation takes effect |
-| **ExpirationDate** | DateTimeOffset | Date regulation expires (if applicable) |
-| **Version** | String | Regulation version |
-| **Status** | String | Current status (Active, Draft, Obsolete) |
-| **Jurisdiction** | String | Geographic jurisdiction (e.g., US, EU, Global) |
-| **CreatedBy** | String | User who created (ReadOnly) |
-| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **ModifiedBy** | String | User who last modified (ReadOnly) |
-| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
-
-**Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Creator` → PTC.PrincipalMgmt.User (User who created)
-- `Modifier` → PTC.PrincipalMgmt.User (User who last modified)
-- `RegulatoryRequirements` → Collection(PTC.RegMstr.RegulatoryRequirement) (Child requirements)
-
-**CRUD Operations:**
-
-```bash
-# Get all regulations
-GET /RegMstr/Regulations
-
-# Get regulation by ID
-GET /RegMstr/Regulations('{id}')
-
-# Get regulation by number
-GET /RegMstr/Regulations?$filter=Number eq 'FDA-21CFR820'
-
-# Filter by agency
-GET /RegMstr/Regulations?$filter=RegulatoryAgency eq 'FDA'
-
-# Filter by jurisdiction
-GET /RegMstr/Regulations?$filter=Jurisdiction eq 'EU'
-
-# Get active regulations
-GET /RegMstr/Regulations?$filter=Status eq 'Active'
-
-# Get with requirements
-GET /RegMstr/Regulations('{id}')?$expand=RegulatoryRequirements
-
-# Select specific properties
-GET /RegMstr/Regulations?$select=ID,Name,Number,RegulatoryAgency,Status
-
-# Order by effective date
-GET /RegMstr/Regulations?$orderby=EffectiveDate desc
-
-# Top results
-GET /RegMstr/Regulations?$top=50
-```
-
----
-
-### RegulatoryRequirement
-
-Individual requirement within a regulation.
-
-**Endpoint:** `/RegMstr/RegulatoryRequirements`
-
-**Operations:** `READ`
+**Operations:** `READ`, `CREATE`, `UPDATE`
 
 **Properties:**
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Requirement name |
-| **Number** | String | Requirement number/identifier |
-| **Description** | String | Requirement description |
-| **State** | EnumType | Lifecycle state |
-| **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
-| **RequirementText** | String | Full text of the requirement |
-| **Section** | String | Section reference |
-| **Paragraph** | String | Paragraph reference |
-| **RequirementType** | String | Type of requirement |
-| **Priority** | String | Priority level |
-| **ComplianceLevel** | String | Required compliance level (Mandatory, Recommended) |
-| **CreatedBy** | String | User who created (ReadOnly) |
-| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **ModifiedBy** | String | User who last modified (ReadOnly) |
-| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
-
-**Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Creator` → PTC.PrincipalMgmt.User (User who created)
-- `Modifier` → PTC.PrincipalMgmt.User (User who last modified)
-- `Regulation` → PTC.RegMstr.Regulation (Parent regulation)
-- `ComplianceRecords` → Collection(PTC.RegMstr.ComplianceRecord) (Compliance tracking)
-
-**CRUD Operations:**
-
-```bash
-# Get all requirements
-GET /RegMstr/RegulatoryRequirements
-
-# Get requirement by ID
-GET /RegMstr/RegulatoryRequirements('{id}')
-
-# Get requirements for a regulation
-GET /RegMstr/RegulatoryRequirements?$filter=Regulation/Number eq 'FDA-21CFR820'
-
-# Filter by section
-GET /RegMstr/RegulatoryRequirements?$filter=Section eq '820.30'
-
-# Get with regulation
-GET /RegMstr/RegulatoryRequirements('{id}')?$expand=Regulation
-
-# Get with compliance records
-GET /RegMstr/RegulatoryRequirements?$expand=ComplianceRecords
-```
-
----
-
-### ComplianceRecord
-
-Record tracking compliance status for requirements.
-
-**Endpoint:** `/RegMstr/ComplianceRecords`
-
-**Operations:** `READ`
-
-**Properties:**
-
-| Property | Type | Description |
-|----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Compliance record name |
-| **Number** | String | Compliance record number |
-| **Description** | String | Description |
-| **State** | EnumType | Lifecycle state |
-| **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
-| **ComplianceStatus** | String | Compliance status (Compliant, Non-Compliant, Partial, Pending) |
-| **VerificationMethod** | String | Method used for verification |
-| **VerificationDate** | DateTimeOffset | Date of verification |
-| **VerifiedBy** | String | User who verified |
-| **ExpirationDate** | DateTimeOffset | Expiration date for compliance |
-| **ReviewDate** | DateTimeOffset | Scheduled review date |
-| **Notes** | String | Additional notes |
-| **CreatedBy** | String | User who created (ReadOnly) |
-| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **ModifiedBy** | String | User who last modified (ReadOnly) |
-| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
-
-**Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `Creator` → PTC.PrincipalMgmt.User (User who created)
-- `Modifier` → PTC.PrincipalMgmt.User (User who last modified)
-- `RegulatoryRequirement` → PTC.RegMstr.RegulatoryRequirement (Related requirement)
-- `ComplianceEvidence` → Collection(PTC.RegMstr.ComplianceEvidence) (Evidence documents)
-
-**CRUD Operations:**
-
-```bash
-# Get all compliance records
-GET /RegMstr/ComplianceRecords
-
-# Get compliance record by ID
-GET /RegMstr/ComplianceRecords('{id}')
-
-# Filter by status
-GET /RegMstr/ComplianceRecords?$filter=ComplianceStatus eq 'Compliant'
-
-# Get non-compliant records
-GET /RegMstr/ComplianceRecords?$filter=ComplianceStatus eq 'Non-Compliant'
-
-# Get pending review
-GET /RegMstr/ComplianceRecords?$filter=ReviewDate le 2026-02-01T00:00:00Z
-
-# Get with requirement
-GET /RegMstr/ComplianceRecords('{id}')?$expand=RegulatoryRequirement
-
-# Get with evidence
-GET /RegMstr/ComplianceRecords?$expand=ComplianceEvidence
-```
-
----
-
-### Standard
-
-Industry standard (ISO, ASTM, IEC, etc.).
-
-**Endpoint:** `/RegMstr/Standards`
-
-**Operations:** `READ`
-
-**Properties:**
-
-| Property | Type | Description |
-|----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Standard name |
-| **Number** | String | Standard number (e.g., ISO 13485) |
-| **Description** | String | Standard description |
-| **State** | EnumType | Lifecycle state |
-| **StandardType** | String | Type of standard |
-| **IssuingBody** | String | Issuing organization (ISO, ASTM, IEC) |
-| **Version** | String | Standard version |
-| **EffectiveDate** | DateTimeOffset | Effective date |
-| **Status** | String | Current status |
-| **CreatedBy** | String | User who created (ReadOnly) |
-| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
-| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
-
-**Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-
-**CRUD Operations:**
-
-```bash
-# Get all standards
-GET /RegMstr/Standards
-
-# Get standard by number
-GET /RegMstr/Standards?$filter=Number eq 'ISO 13485'
-
-# Filter by issuing body
-GET /RegMstr/Standards?$filter=IssuingBody eq 'ISO'
-
-# Get active standards
-GET /RegMstr/Standards?$filter=Status eq 'Active'
-```
-
----
-
-### Specification
-
-Technical specification document.
-
-**Endpoint:** `/RegMstr/Specifications`
-
-**Operations:** `READ`
-
-**Properties:**
-
-| Property | Type | Description |
-|----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
 | **Name** | String | Specification name |
 | **Number** | String | Specification number |
-| **Description** | String | Specification description |
-| **State** | EnumType | Lifecycle state |
-| **SpecificationType** | String | Type of specification |
-| **Version** | String | Version |
-| **EffectiveDate** | DateTimeOffset | Effective date |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **Description** | String | Detailed description |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
+| **LifeCycleTemplateName** | String | Lifecycle template name (ReadOnly) |
+| **RegulationType** | EnumType | Type of regulation |
+| **EffectiveDate** | DateTimeOffset | Date specification becomes effective |
+| **ExpirationDate** | DateTimeOffset | Date specification expires |
+| **Authority** | String | Regulatory authority |
+| **Jurisdiction** | String | Jurisdiction (country/region) |
+| **FolderLocation** | String | Folder path in Windchill |
+| **MasterID** | String | Master ID (ReadOnly) |
+| **CreatedBy** | String | Created by (ReadOnly) |
+| **ModifiedBy** | String | Modified by (ReadOnly) |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
 | **TypeIcon** | Icon | Type icon (ReadOnly) |
 | **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `Modifier` - Modifier user (PTC.PrincipalMgmt.User)
+- `RelatedProducts` - Collection of Related Products
+- `RegulatoryApprovals` - Collection of Regulatory Approvals
+- **RegulatorySubmission** - Related Regulatory Submissions
+
+**CRUD Operations:**
+
+```bash
+# Get all regulatory specifications
+GET /RegMstr/RegulatorySpecifications
+
+# Get specification by number
+GET /RegMstr/RegulatorySpecifications?$filter=Number eq 'RS-000001'
+
+# Filter by authority
+GET /RegMstr/RegulatorySpecifications?$filter=Authority eq 'FDA'
+
+# Filter by jurisdiction
+GET /RegMstr/RegulatorySpecifications?$filter=Jurisdiction eq 'USA'
+
+# Filter by effective date range
+GET /RegMstr/RegulatorySpecifications?$filter=EffectiveDate ge 2026-01-01T00:00:00Z and EffectiveDate le 2026-12-31T23:59:59Z
+
+# Expand with related products
+GET /RegMstr/RegulatorySpecifications('{id}')?$expand=RelatedProducts
+
+# Create regulatory specification
+POST /RegMstr/RegulatorySpecifications
+Content-Type: application/json
+X-CSRF-Token: {token}
+
+{
+  "Name": "FDA 510(k) Specification",
+  "Number": "RS-000001",
+  "Description": "FDA 510(k) premarket notification requirements",
+  "RegulationType": {"Value": "MEDICAL_DEVICE"},
+  "Authority": "FDA",
+  "Jurisdiction": "USA",
+  "EffectiveDate": "2026-01-01T00:00:00Z",
+  "FolderLocation": "/Default/Regulatory/Specifications"
+}
+```
 
 ---
 
-### ComplianceItem
+### RegulatorySubmission
 
-Item subject to compliance requirements.
+Regulatory submission records for product approvals.
 
-**Endpoint:** `/RegMstr/ComplianceItems`
+**Endpoint:** `/RegMstr/RegulatorySubmissions`
 
-**Operations:** `READ`
+**Operations:** `READ`, `CREATE`, `UPDATE`
 
 **Properties:**
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Item name |
-| **Number** | String | Item number |
-| **Description** | String | Item description |
-| **ItemType** | String | Type of item |
-| **ComplianceStatus** | String | Overall compliance status |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Submission name |
+| **Number** | String | Submission number |
+| **Description** | String | Detailed description |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
+| **SubmissionType** | EnumType | Type of submission |
+| **SubmissionDate** | DateTimeOffset | Date of submission |
+| **ExpectedApprovalDate** | DateTimeOffset | Expected approval date |
+| **ActualApprovalDate** | DateTimeOffset | Actual approval date |
+| **Authority** | String | Regulatory authority |
+| **SubmissionStatus** | EnumType | Status of submission |
+| **FolderLocation** | String | Folder path in Windchill |
+| **MasterID** | String | Master ID (ReadOnly) |
+| **CreatedBy** | String | Created by (ReadOnly) |
+| **ModifiedBy** | String | Modified by (ReadOnly) |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `ComplianceRecords` → Collection(PTC.RegMstr.ComplianceRecord) (Related records)
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `RegulatorySpecification` - Related Regulatory Specification
+- `RegulatoryApprovals` - Collection of Regulatory Approvals
+- `RelatedProducts` - Collection of Related Products
+
+**CRUD Operations:**
+
+```bash
+# Get all regulatory submissions
+GET /RegMstr/RegulatorySubmissions
+
+# Get submission by number
+GET /RegMstr/RegulatorySubmissions?$filter=Number eq 'RSUB-000001'
+
+# Filter by status
+GET /RegMstr/RegulatorySubmissions?$filter=SubmissionStatus/Value eq 'SUBMITTED'
+
+# Filter by authority
+GET /RegMstr/RegulatorySubmissions?$filter=Authority eq 'FDA'
+
+# Filter by submission date range
+GET /RegMstr/RegulatorySubmissions?$filter=SubmissionDate ge 2026-01-01T00:00:00Z
+
+# Expand with regulatory approvals
+GET /RegMstr/RegulatorySubmissions('{id}')?$expand=RegulatoryApprovals,RelatedProducts
+
+# Create regulatory submission
+POST /RegMstr/RegulatorySubmissions
+Content-Type: application/json
+X-CSRF-Token: {token}
+
+{
+  "Name": "510(k) Submission - Device X",
+  "Number": "RSUB-000001",
+  "SubmissionType": {"Value": "510K"},
+  "Authority": "FDA",
+  "SubmissionDate": "2026-02-08T00:00:00Z",
+  "ExpectedApprovalDate": "2026-05-08T00:00:00Z",
+  "FolderLocation": "/Default/Regulatory/Submissions"
+}
+```
 
 ---
 
-### ComplianceEvidence
+### RegulatoryApproval
 
-Evidence document proving compliance.
+Regulatory approvals and clearances.
 
-**Endpoint:** `/RegMstr/ComplianceEvidences`
+**Endpoint:** `/RegMstr/RegulatoryApprovals`
 
-**Operations:** `READ`
+**Operations:** `READ`, `CREATE`, `UPDATE`
 
 **Properties:**
 
 | Property | Type | Description |
 |----------|------|-------------|
-| **ID** | String | Object identifier (OID) (Key, ReadOnly) |
-| **Name** | String | Evidence name |
-| **Number** | String | Evidence number |
-| **Description** | String | Evidence description |
-| **EvidenceType** | String | Type of evidence (Test Report, Certificate, Document) |
-| **DocumentReference** | String | Reference to supporting document |
-| **IssueDate** | DateTimeOffset | Date evidence was issued |
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Approval name |
+| **Number** | String | Approval number |
+| **Description** | String | Detailed description |
+| **State** | EnumType | Lifecycle state (ReadOnly) |
+| **ApprovalType** | EnumType | Type of approval |
+| **ApprovalNumber** | String | Official approval/clearance number |
+| **ApprovalDate** | DateTimeOffset | Date of approval |
 | **ExpirationDate** | DateTimeOffset | Expiration date |
-| **CreatedBy** | String | User who created (ReadOnly) |
+| **Authority** | String | Regulatory authority |
+| **ApprovalStatus** | EnumType | Status of approval |
+| **FolderLocation** | String | Folder path in Windchill |
+| **MasterID** | String | Master ID (ReadOnly) |
+| **CreatedBy** | String | Created by (ReadOnly) |
+| **ModifiedBy** | String | Modified by (ReadOnly) |
 | **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
 | **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
-| **TypeIcon** | Icon | Type icon (ReadOnly) |
-| **ObjectType** | String | Object type (ReadOnly) |
 
 **Navigation Properties:**
-- `Context` → PTC.DataAdmin.Container (Container context)
-- `ComplianceRecord` → PTC.RegMstr.ComplianceRecord (Related record)
+- `Context` - Container (PTC.DataAdmin.Container)
+- `Creator` - Creator user (PTC.PrincipalMgmt.User)
+- `RegulatorySpecification` - Related Regulatory Specification
+- `RegulatorySubmission` - Related Regulatory Submission
+- `RelatedProducts` - Collection of Related Products
+
+**CRUD Operations:**
+
+```bash
+# Get all regulatory approvals
+GET /RegMstr/RegulatoryApprovals
+
+# Get approval by number
+GET /RegMstr/RegulatoryApprovals?$filter=Number eq 'RA-000001'
+
+# Filter by approval number (official)
+GET /RegMstr/RegulatoryApprovals?$filter=ApprovalNumber eq 'K123456'
+
+# Filter by authority
+GET /RegMstr/RegulatoryApprovals?$filter=Authority eq 'FDA'
+
+# Filter by status
+GET /RegMstr/RegulatoryApprovals?$filter=ApprovalStatus/Value eq 'APPROVED'
+
+# Filter expiring soon
+GET /RegMstr/RegulatoryApprovals?$filter=ExpirationDate le 2026-12-31T23:59:59Z and ExpirationDate ge 2026-01-01T00:00:00Z
+
+# Expand with related products
+GET /RegMstr/RegulatoryApprovals('{id}')?$expand=RelatedProducts,RegulatorySubmission
+
+# Create regulatory approval
+POST /RegMstr/RegulatoryApprovals
+Content-Type: application/json
+X-CSRF-Token: {token}
+
+{
+  "Name": "FDA 510(k) Clearance",
+  "Number": "RA-000001",
+  "ApprovalType": {"Value": "510K"},
+  "ApprovalNumber": "K123456",
+  "Authority": "FDA",
+  "ApprovalDate": "2026-02-08T00:00:00Z",
+  "ExpirationDate": "2029-02-08T00:00:00Z",
+  "FolderLocation": "/Default/Regulatory/Approvals"
+}
+```
+
+---
+
+### ComplianceDefinition
+
+Compliance definitions for regulatory requirements.
+
+**Endpoint:** `/RegMstr/ComplianceDefinitions`
+
+**Operations:** `READ`
+
+**Properties:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Definition name |
+| **Description** | String | Detailed description |
+| **ComplianceType** | EnumType | Type of compliance |
+| **Regulation** | String | Applicable regulation |
+| **Authority** | String | Regulatory authority |
+| **EffectiveDate** | DateTimeOffset | Effective date |
+| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
+| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
+
+**Navigation Properties:**
+- `Context` - Container (PTC.DataAdmin.Container)
+- `ComplianceRecords` - Collection of Compliance Records
+
+**CRUD Operations:**
+
+```bash
+# Get all compliance definitions
+GET /RegMstr/ComplianceDefinitions
+
+# Filter by compliance type
+GET /RegMstr/ComplianceDefinitions?$filter=ComplianceType/Value eq 'EXPORT_CONTROL'
+
+# Filter by regulation
+GET /RegMstr/ComplianceDefinitions?$filter=Regulation eq 'EAR'
+
+# Expand with compliance records
+GET /RegMstr/ComplianceDefinitions('{id}')?$expand=ComplianceRecords
+```
+
+---
+
+### TradeControlClassification
+
+Trade control classifications for products.
+
+**Endpoint:** `/RegMstr/TradeControlClassifications`
+
+**Operations:** `READ`
+
+**Properties:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Classification name |
+| **ClassificationCode** | String | Classification code (ECCN, etc.) |
+| **Description** | String | Detailed description |
+| **ControlLevel** | EnumType | Level of control |
+| **ControlAgency** | String | Control agency |
+| **Country** | String | Applicable country |
+| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
+| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
+
+**Navigation Properties:**
+- `Context` - Container (PTC.DataAdmin.Container)
+- `RelatedProducts` - Collection of Classified Products
+
+**CRUD Operations:**
+
+```bash
+# Get all trade control classifications
+GET /RegMstr/TradeControlClassifications
+
+# Filter by classification code
+GET /RegMstr/TradeControlClassifications?$filter=ClassificationCode eq 'EAR99'
+
+# Filter by control level
+GET /RegMstr/TradeControlClassifications?$filter=ControlLevel/Value eq 'HIGH'
+
+# Expand with related products
+GET /RegMstr/TradeControlClassifications('{id}')?$expand=RelatedProducts
+```
+
+---
+
+### Country
+
+Country definitions and regulatory information.
+
+**Endpoint:** `/RegMstr/Countries`
+
+**Operations:** `READ`
+
+**Properties:**
+
+| Property | Type | Description |
+|----------|------|-------------|
+| **ID** | String | Object identifier (OID) (ReadOnly) |
+| **Name** | String | Country name |
+| **ISOCode** | String | ISO country code |
+| **Region** | String | Geographic region |
+| **RegulatoryBody** | String | Primary regulatory body |
+| **TradeAgreement** | String | Trade agreements |
+| **EmbargoStatus** | EnumType | Embargo status |
+| **CreatedOn** | DateTimeOffset | Creation timestamp (ReadOnly) |
+| **LastModified** | DateTimeOffset | Last modification timestamp (ReadOnly) |
+
+**Navigation Properties:**
+- `Context` - Container (PTC.DataAdmin.Container)
+
+**CRUD Operations:**
+
+```bash
+# Get all countries
+GET /RegMstr/Countries
+
+# Filter by ISO code
+GET /RegMstr/Countries?$filter=ISOCode eq 'US'
+
+# Filter by region
+GET /RegMstr/Countries?$filter=Region eq 'EUROPE'
+
+# Filter by embargo status
+GET /RegMstr/Countries?$filter=EmbargoStatus/Value eq 'EMBARGOED'
+```
 
 ---
 
 ## Common Query Examples
 
-### Get Active FDA Regulations
+### Filter by Multiple Criteria
 
 ```bash
-GET /RegMstr/Regulations?$filter=RegulatoryAgency eq 'FDA' and Status eq 'Active'&$expand=RegulatoryRequirements
+# Get FDA submissions pending approval
+GET /RegMstr/RegulatorySubmissions?$filter=Authority eq 'FDA' and SubmissionStatus/Value eq 'SUBMITTED'
+
+# Get approved regulations by jurisdiction
+GET /RegMstr/RegulatoryApprovals?$filter=Authority eq 'FDA' and ApprovalStatus/Value eq 'APPROVED'
+
+# Get expiring approvals
+GET /RegMstr/RegulatoryApprovals?$filter=ExpirationDate le 2026-06-30T23:59:59Z and ApprovalStatus/Value eq 'APPROVED'
+
+# Get specifications by type and authority
+GET /RegMstr/RegulatorySpecifications?$filter=RegulationType/Value eq 'MEDICAL_DEVICE' and Authority eq 'FDA'
 ```
 
-### Get Requirements for EU MDR
+### Complex Queries with Expansion
 
 ```bash
-GET /RegMstr/Regulations?$filter=contains(Name, 'MDR') and Jurisdiction eq 'EU'&$expand=RegulatoryRequirements
+# Get specification with approvals and products
+GET /RegMstr/RegulatorySpecifications?$expand=RegulatoryApprovals,RelatedProducts
+
+# Get submission with full context
+GET /RegMstr/RegulatorySubmissions?$expand=RegulatorySpecification,RegulatoryApprovals,RelatedProducts,Creator
+
+# Get approval with submission and specification
+GET /RegMstr/RegulatoryApprovals?$expand=RegulatorySubmission($expand=RegulatorySpecification),RelatedProducts
 ```
 
-### Get Non-Compliant Records
+### Sorting and Pagination
 
 ```bash
-GET /RegMstr/ComplianceRecords?$filter=ComplianceStatus eq 'Non-Compliant'&$expand=RegulatoryRequirement,ComplianceEvidence
-```
+# Get latest submissions
+GET /RegMstr/RegulatorySubmissions?$orderby=SubmissionDate desc&$top=50
 
-### Get Compliance Records Due for Review
+# Get approvals sorted by expiration
+GET /RegMstr/RegulatoryApprovals?$orderby=ExpirationDate asc
 
-```bash
-GET /RegMstr/ComplianceRecords?$filter=ReviewDate le 2026-02-01T00:00:00Z&$expand=RegulatoryRequirement($expand=Regulation)
-```
-
-### Get ISO Standards
-
-```bash
-GET /RegMstr/Standards?$filter=IssuingBody eq 'ISO' and Status eq 'Active'
-```
-
-### Get Full Regulation Structure
-
-```bash
-GET /RegMstr/Regulations('{id}')?$expand=
-  RegulatoryRequirements($expand=
-    ComplianceRecords($expand=
-      ComplianceEvidence
-    )
-  ),
-  Context,
-  Creator
+# Paginated results
+GET /RegMstr/RegulatorySpecifications?$skip=0&$top=25
 ```
 
 ---
 
-## Entity Relationships
+## Integration Notes
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│ PTC.RegMstr Namespace                                                        │
-├─────────────────────────────────────────────────────────────────────────────┤
-│                                                                             │
-│  ┌──────────────────┐   RegulatoryRequirements   ┌──────────────────┐       │
-│  │    Regulation    │────────────────────────────►│ Regulatory       │       │
-│  ├──────────────────┤                             │ Requirement      │       │
-│  │ - RegulatoryReqs │                             ├──────────────────┤       │
-│  │ - Context        │                             │ - Regulation     │       │
-│  │ - Creator        │                             │ - ComplianceRecs │       │
-│  └──────────────────┘                             │ - Context        │       │
-│                                                   └────────┬─────────┘       │
-│                                                            │                  │
-│                                                            │ ComplianceRecs   │
-│                                                            ▼                  │
-│                                                   ┌──────────────────┐       │
-│                                                   │ ComplianceRecord │       │
-│                                                   ├──────────────────┤       │
-│                                                   │ - RegulatoryReq  │       │
-│                                                   │ - ComplianceEv   │       │
-│                                                   │ - Context        │       │
-│                                                   └────────┬─────────┘       │
-│                                                            │                  │
-│                                                            │ Evidence         │
-│                                                            ▼                  │
-│                                                   ┌──────────────────┐       │
-│                                                   │ Compliance       │       │
-│                                                   │ Evidence         │       │
-│                                                   ├──────────────────┤       │
-│                                                   │ - ComplianceRec  │       │
-│                                                   │ - Context        │       │
-│                                                   └──────────────────┘       │
-│                                                                             │
-│  ┌──────────────────┐                  ┌──────────────────┐                 │
-│  │     Standard     │                  │  Specification   │                 │
-│  ├──────────────────┤                  ├──────────────────┤                 │
-│  │ - Context        │                  │ - Context        │                 │
-│  └──────────────────┘                  └──────────────────┘                 │
-│                                                                             │
-│  ┌──────────────────┐      ComplianceRecords   ┌──────────────────┐        │
-│  │ ComplianceItem   │─────────────────────────►│ ComplianceRecord │        │
-│  ├──────────────────┤                          ├──────────────────┤        │
-│  │ - ComplianceRecs │                          │ - Context        │        │
-│  │ - Context        │                          └──────────────────┘        │
-│  └──────────────────┘                                                      │
-│                                                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+1. **Cross-Domain References**:
+   - RegulatoryApprovals link to Products (ProdMgmt)
+   - TradeControlClassifications link to Products
+   - Countries are referenced by Places (QMS)
+
+2. **Workflow Integration**:
+   - Regulatory objects use Windchill Workflow engine
+   - Check Workflow domain for work items
+
+3. **Product Management Integration**:
+   - Products can have regulatory specifications
+   - Products have trade control classifications
+
+4. **Lifecycle Management**:
+   - Regulatory objects follow lifecycle templates
+   - Track approval and expiration dates
 
 ---
 
-## Cross-Domain References
+## Schema Version
 
-| From Entity | Navigation Property | Target Domain | Target Entity |
-|-------------|---------------------|---------------|---------------|
-| Regulation | Context | DataAdmin | Container |
-| Regulation | Creator | PrincipalMgmt | User |
-| Regulation | Modifier | PrincipalMgmt | User |
-| RegulatoryRequirement | Context | DataAdmin | Container |
-| RegulatoryRequirement | Creator | PrincipalMgmt | User |
-| ComplianceRecord | Context | DataAdmin | Container |
-| ComplianceRecord | Creator | PrincipalMgmt | User |
-| Standard | Context | DataAdmin | Container |
-| Specification | Context | DataAdmin | Container |
-| ComplianceItem | Context | DataAdmin | Container |
-| ComplianceEvidence | Context | DataAdmin | Container |
-
----
-
-## Compliance Status Values
-
-### ComplianceRecord.Status Values
-- **Compliant** - Meets all requirements
-- **Non-Compliant** - Does not meet requirements
-- **Partial** - Partially meets requirements
-- **Pending** - Under review
-- **Not_Applicable** - Not applicable to this item
-
-### Regulation.Status Values
-- **Active** - Currently in effect
-- **Draft** - Under development
-- **Proposed** - Proposed but not yet effective
-- **Obsolete** - No longer in effect
-- **Withdrawn** - Withdrawn by issuing agency
-
----
-
-## Pagination
-
-Use `$top` and `$skip` for pagination:
-
-```bash
-GET /RegMstr/Regulations?$top=50&$skip=0
-GET /RegMstr/Regulations?$top=50&$skip=50
-```
-
----
-
-## Notes
-
-1. **READ-ONLY Access** - Regulation objects are typically read through OData. Regulation management is done through Windchill UI.
-
-2. **Hierarchy Structure** - Regulations contain RegulatoryRequirements, which are linked to ComplianceRecords.
-
-3. **Evidence Tracking** - ComplianceEvidence documents provide proof of compliance for ComplianceRecords.
-
-4. **Standards Integration** - Standards (ISO, ASTM) are separate entities that may be referenced by regulations.
-
-5. **Jurisdiction Support** - Regulations can be filtered by jurisdiction (US, EU, Global, etc.) for regulatory compliance management.
-
-6. **Review Scheduling** - ComplianceRecords have ReviewDate for scheduling periodic compliance reviews.
-
-7. **Object Identifiers** - IDs are OIDs in format `OR:wt.regulation.Regulation:xxxxx`.
+Schema Version: 6

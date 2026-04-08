@@ -1,261 +1,305 @@
-# PrincipalMgmt Domain - Navigation Properties
+# PrincipalMgmt Domain Navigation Properties
 
-This document describes all navigation properties and entity relationships in the PrincipalMgmt domain.
+## Navigation Relationships
 
-## Entity Relationship Diagram
+This document describes the navigation properties between entities in the PrincipalMgmt domain and cross-domain references.
 
-```
-┌───────────────────────────────────────────────────────────────────────────────┐
-│ PTC.PrincipalMgmt Namespace                                                    │
-├───────────────────────────────────────────────────────────────────────────────┤
-│                                                                               │
-│  ┌──────────────────┐      Members      ┌──────────────────┐                 │
-│  │      Group       │◄─────────────────►│       User       │                 │
-│  ├──────────────────┤                   ├──────────────────┤                 │
-│  │ - Members        │                   │ - Groups         │                 │
-│  │ - ParentGroups   │                   │ - Organization   │                 │
-│  │ - ChildGroups    │                   │ - Context        │                 │
-│  │ - Context        │                   └──────────────────┘                 │
-│  └────────┬─────────┘                           ▲                            │
-│           │                                     │                            │
-│           │ ParentGroups                        │ Organization               │
-│           │                                     │                            │
-│           ▼                                     │                            │
-│  ┌──────────────────┐                           │                            │
-│  │      Group       │                           │                            │
-│  │  (Parent Group)  │                           │                            │
-│  └──────────────────┘                           │                            │
-│                                                 │                            │
-│  ┌──────────────────┐      Users        ┌──────┴─────────┐                  │
-│  │   Organization   │───────────────────►│      User      │                  │
-│  ├──────────────────┤                    └────────────────┘                  │
-│  │ - Users          │                                                        │
-│  │ - Groups         │                                                        │
-│  │ - Context        │                                                        │
-│  └──────────────────┘                                                        │
-│                                                                               │
-│  ┌──────────────────┐                  ┌──────────────────┐                  │
-│  │  UserPrincipal   │──────────────────►│      User        │                  │
-│  ├──────────────────┤      User        ├──────────────────┤                  │
-│  │ - User           │                  │                  │                  │
-│  └──────────────────┘                  └──────────────────┘                  │
-│                                                                               │
-│  ┌──────────────────┐                  ┌──────────────────┐                  │
-│  │ GroupPrincipal   │──────────────────►│      Group       │                  │
-│  ├──────────────────┤      Group       ├──────────────────┤                  │
-│  │ - Group          │                  │                  │                  │
-│  └──────────────────┘                  └──────────────────┘                  │
-│                                                                               │
-└───────────────────────────────────────────────────────────────────────────────┘
+---
+
+## User Navigations
+
+### Outbound Navigations
+
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `Context` | Container | DataAdmin | Container context |
+| `Organization` | Organization | PrincipalMgmt | Organization the user belongs to |
+| `Groups` | Collection(Group) | PrincipalMgmt | Groups the user belongs to |
+| `Roles` | Collection(Role) | PrincipalMgmt | Roles assigned to the user |
+
+### Navigation Examples
+
+```bash
+# Get user's organization
+GET /PrincipalMgmt/Users('{id}')/Organization
+
+# Get user's groups
+GET /PrincipalMgmt/Users('{id}')/Groups
+
+# Get user's roles
+GET /PrincipalMgmt/Users('{id}')/Roles
+
+# Expand all navigations
+GET /PrincipalMgmt/Users('{id}')?$expand=Organization,Groups,Roles
+
+# Nested expansion
+GET /PrincipalMgmt/Users('{id}')?$expand=Groups($expand=Roles)
 ```
 
-## Navigation Properties by Entity
+---
 
-### User
+## Group Navigations
 
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Context | PTC.DataAdmin.Container | Container context (Product, Library, Project) |
-| Groups | Collection(PTC.PrincipalMgmt.Group) | Groups the user belongs to |
-| Organization | PTC.PrincipalMgmt.Organization | User's organization |
+### Outbound Navigations
 
-### Group
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `Context` | Container | DataAdmin | Container context |
+| `ParentGroup` | Group | PrincipalMgmt | Parent group (nested groups) |
+| `ChildGroups` | Collection(Group) | PrincipalMgmt | Child groups |
+| `Members` | Collection(User) | PrincipalMgmt | Users in this group |
+| `Roles` | Collection(Role) | PrincipalMgmt | Roles assigned to this group |
 
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Context | PTC.DataAdmin.Container | Container context |
-| Members | Collection(PTC.PrincipalMgmt.User) | Users in this group |
-| ParentGroups | Collection(PTC.PrincipalMgmt.Group) | Parent groups (group hierarchy) |
-| ChildGroups | Collection(PTC.PrincipalMgmt.Group) | Child groups (group hierarchy) |
+### Navigation Examples
 
-### Organization
+```bash
+# Get parent group
+GET /PrincipalMgmt/Groups('{id}')/ParentGroup
 
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Context | PTC.DataAdmin.Container | Container context |
-| Users | Collection(PTC.PrincipalMgmt.User) | Users in organization |
-| Groups | Collection(PTC.PrincipalMgmt.Group) | Groups in organization |
+# Get child groups
+GET /PrincipalMgmt/Groups('{id}')/ChildGroups
 
-### UserPrincipal
+# Get group members
+GET /PrincipalMgmt/Groups('{id}')/Members
 
-| Navigation | Type | Description |
-|------------|------|-------------|
-| User | PTC.PrincipalMgmt.User | Associated user |
+# Get group roles
+GET /PrincipalMgmt/Groups('{id}')/Roles
 
-### GroupPrincipal
+# Expand all navigations
+GET /PrincipalMgmt/Groups('{id}')?$expand=ParentGroup,ChildGroups,Members,Roles
 
-| Navigation | Type | Description |
-|------------|------|-------------|
-| Group | PTC.PrincipalMgmt.Group | Associated group |
-
-## Cross-Domain References
-
-The PrincipalMgmt domain has navigation properties that reference entities from other domains:
-
-| From Entity | Navigation Property | Target Domain | Target Entity |
-|-------------|---------------------|---------------|---------------|
-| User | Context | DataAdmin | Container |
-| Group | Context | DataAdmin | Container |
-| Organization | Context | DataAdmin | Container |
-
-## OData Query Examples
-
-### Get user with groups
-
-```
-GET /PrincipalMgmt/Users('{id}')?$expand=Groups
+# Nested expansion with member details
+GET /PrincipalMgmt/Groups('{id}')?$expand=Members($expand=Organization,Roles),ChildGroups($expand=Members)
 ```
 
-### Get user with organization
+---
 
-```
-GET /PrincipalMgmt/Users('{id}')?$expand=Organization
-```
+## Organization Navigations
 
-### Get user with full details
+### Outbound Navigations
 
-```
-GET /PrincipalMgmt/Users('{id}')?$expand=Groups($expand=ParentGroups),Organization,Context
-```
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `Context` | Container | DataAdmin | Container context |
+| `ParentOrganization` | Organization | PrincipalMgmt | Parent organization |
+| `ChildOrganizations` | Collection(Organization) | PrincipalMgmt | Child organizations |
+| `Users` | Collection(User) | PrincipalMgmt | Users in this organization |
+| `Groups` | Collection(Group) | PrincipalMgmt | Groups in this organization |
 
-### Get group with members
+### Navigation Examples
 
-```
-GET /PrincipalMgmt/Groups('{id}')?$expand=Members
-```
+```bash
+# Get parent organization
+GET /PrincipalMgmt/Organizations('{id}')/ParentOrganization
 
-### Get group with parent and child groups
+# Get child organizations
+GET /PrincipalMgmt/Organizations('{id}')/ChildOrganizations
 
-```
-GET /PrincipalMgmt/Groups('{id}')?$expand=ParentGroups,ChildGroups,Members
-```
+# Get organization users
+GET /PrincipalMgmt/Organizations('{id}')/Users
 
-### Get organization with users
+# Get organization groups
+GET /PrincipalMgmt/Organizations('{id}')/Groups
 
-```
-GET /PrincipalMgmt/Organizations('{id}')?$expand=Users
-```
+# Expand all navigations
+GET /PrincipalMgmt/Organizations('{id}')?$expand=ParentOrganization,ChildOrganizations,Users,Groups
 
-### Get organization with groups
-
-```
-GET /PrincipalMgmt/Organizations('{id}')?$expand=Groups($expand=Members)
-```
-
-### Get users in a group
-
-```
-GET /PrincipalMgmt/Groups('{id}')/Members?$expand=Organization
+# Nested expansion
+GET /PrincipalMgmt/Organizations('{id}')?$expand=Users($expand=Groups,Roles),ChildOrganizations($expand=Users)
 ```
 
-### Get groups for a user
+---
+
+## Role Navigations
+
+### Outbound Navigations
+
+| Navigation Property | Target Entity | Target Domain | Description |
+|---------------------|---------------|---------------|-------------|
+| `Context` | Container | DataAdmin | Container context |
+| `Users` | Collection(User) | PrincipalMgmt | Users with this role |
+| `Groups` | Collection(Group) | PrincipalMgmt | Groups with this role |
+
+### Navigation Examples
+
+```bash
+# Get users with a role
+GET /PrincipalMgmt/Roles('{id}')/Users
+
+# Get groups with a role
+GET /PrincipalMgmt/Roles('{id}')/Groups
+
+# Expand all navigations
+GET /PrincipalMgmt/Roles('{id}')?$expand=Users,Groups
+```
+
+---
+
+## Cross-Domain Navigation Paths
+
+### Workflow to User
+
+```bash
+# Path: WorkItem -> Owner (User)
+GET /Workflow/WorkItems('{id}')/Owner
+
+# Path: WorkItem -> CompletedBy (User)
+GET /Workflow/WorkItems('{id}')/CompletedBy
+
+# Path: Activity -> Context -> Creator
+GET /Workflow/Activities('{id}')?$expand=CompletedBy
+```
+
+### Change Management to User
+
+```bash
+# Path: ChangeNotice -> Creator (User)
+GET /ChangeMgmt/ChangeNotices('{id}')/Creator
+
+# Path: ChangeNotice -> Modifier (User)
+GET /ChangeMgmt/ChangeNotices('{id}')/Modifier
+
+# Expand with user details
+GET /ChangeMgmt/ChangeNotices?$expand=Creator,Modifier
+```
+
+### Product Management to User
+
+```bash
+# Path: Part -> Creator (User)
+GET /ProdMgmt/Parts('{id}')/Creator
+
+# Path: Document -> Modifier (User)
+GET /DocMgmt/Documents('{id}')/Modifier
+```
+
+---
+
+## Relationship Diagram
 
 ```
-GET /PrincipalMgmt/Users('{id}')/Groups?$expand=ParentGroups
+┌─────────────────┐
+│ Organization    │
+│                 │
+└────────┬────────┘
+         │
+         │ Users, Groups
+         ▼
+┌─────────────────┐       ┌─────────────────┐
+│ User            │◄─────►│ Group           │
+│                 │       │                 │
+└────────┬────────┘       └────────┬────────┘
+         │                         │
+         │ Roles                   │ Roles
+         ▼                         ▼
+┌─────────────────────────────────────────┐
+│              Role                        │
+│                                          │
+└──────────────────────────────────────────┘
+
+Group Hierarchy:
+┌─────────────────┐
+│ ParentGroup     │
+│                 │
+└────────┬────────┘
+         │
+         │ ChildGroups
+         ▼
+┌─────────────────┐
+│ ChildGroup      │
+│                 │
+└─────────────────┘
+
+Organization Hierarchy:
+┌────────────────────┐
+│ ParentOrganization │
+│                    │
+└────────┬───────────┘
+         │
+         │ ChildOrganizations
+         ▼
+┌────────────────────┐
+│ ChildOrganization  │
+│                    │
+└────────────────────┘
 ```
 
-### Multi-level expansion
+---
 
-```
+## Common Navigation Patterns
+
+### Get User with Full Context
+
+```bash
 GET /PrincipalMgmt/Users('{id}')?$expand=
-  Groups($expand=ParentGroups($expand=Members),ChildGroups($expand=Members)),
-  Organization($expand=Groups($expand=Members))
+    Organization,
+    Groups($expand=Roles),
+    Roles
 ```
 
-### Get users by group name
+### Get Group Hierarchy
 
-```
-GET /PrincipalMgmt/Users?$expand=Groups&$filter=Groups/any(g: g/Name eq 'Designers')
-```
+```bash
+# Get full group tree
+GET /PrincipalMgmt/Groups?$expand=ParentGroup,ChildGroups
 
-### Get group hierarchy
-
-```
-GET /PrincipalMgmt/Groups?$expand=ParentGroups,ChildGroups,Members
-```
-
-## Entity Sets
-
-| Entity Set | Entity Type | Description |
-|------------|-------------|-------------|
-| Users | User | All users |
-| Groups | Group | All groups |
-| Organizations | Organization | All organizations |
-| UserPrincipals | UserPrincipal | All user principals |
-| GroupPrincipals | GroupPrincipal | All group principals |
-
-## Common Query Patterns
-
-### Get user by username
-
-```
-GET /PrincipalMgmt/Users?$filter=Name eq 'jdoe'&$expand=Groups,Organization
+# Get nested groups with members
+GET /PrincipalMgmt/Groups('{id}')?$expand=
+    ParentGroup,
+    ChildGroups($expand=Members),
+    Members($expand=Organization)
 ```
 
-### Get user by email
+### Get Organization with All Users
 
-```
-GET /PrincipalMgmt/Users?$filter=Email eq 'john.doe@company.com'&$expand=Groups
-```
-
-### Get all users in a department
-
-```
-GET /PrincipalMgmt/Users?$filter=Department eq 'Engineering'&$expand=Organization
+```bash
+# Get organization with users and their groups
+GET /PrincipalMgmt/Organizations('{id}')?$expand=
+    Users($expand=Groups,Roles),
+    Groups($expand=Members)
 ```
 
-### Get active users
+### Find All Users in Group Hierarchy
 
-```
-GET /PrincipalMgmt/Users?$filter=Disabled eq false&$expand=Groups&$orderby=Name asc
-```
-
-### Get service accounts
-
-```
-GET /PrincipalMgmt/Users?$filter=ServiceUser eq true&$expand=Groups
+```bash
+# Get group with nested groups and all members
+GET /PrincipalMgmt/Groups('{id}')?$expand=
+    Members,
+    ChildGroups($expand=Members,ChildGroups($expand=Members))
 ```
 
-### Get group with full member details
+---
 
-```
-GET /PrincipalMgmt/Groups('{id}')?$expand=Members($expand=Organization,Groups)
-```
+## Cross-Domain Reference Summary
 
-### Get nested group hierarchy
+| Source Domain | Source Entity | Navigation | Target Domain | Target Entity |
+|---------------|---------------|------------|---------------|---------------|
+| Workflow | WorkItem | Owner | PrincipalMgmt | User |
+| Workflow | WorkItem | CompletedBy | PrincipalMgmt | User |
+| Workflow | WorkItem | OriginalOwner | PrincipalMgmt | User |
+| ChangeMgmt | ChangeNotice | Creator | PrincipalMgmt | User |
+| ChangeMgmt | ChangeNotice | Modifier | PrincipalMgmt | User |
+| ChangeMgmt | ChangeRequest | Creator | PrincipalMgmt | User |
+| ProdMgmt | Part | Creator | PrincipalMgmt | User |
+| ProdMgmt | Part | Modifier | PrincipalMgmt | User |
+| DocMgmt | Document | Creator | PrincipalMgmt | User |
+| DocMgmt | Document | Modifier | PrincipalMgmt | User |
+| CEM | CustomerExperience | Creator | PrincipalMgmt | User |
+| Workflow | WorkItemProcessTemplate | Creator | PrincipalMgmt | User |
+| QMS | QualityContact | User | PrincipalMgmt | User |
 
-```
-GET /PrincipalMgmt/Groups?$expand=ParentGroups($expand=ParentGroups),ChildGroups($expand=ChildGroups)
-```
+---
 
-### Count members in a group
+## Notes
 
-```
-GET /PrincipalMgmt/Groups('{id}')/Members/$count
-```
+1. **READ-ONLY Access**: The PrincipalMgmt domain is read-only through OData. User and group management requires Windchill UI or admin tools.
 
-### Get users in organization
+2. **Nested Hierarchies**: Both Groups and Organizations support nesting. Use ParentGroup/ChildGroups and ParentOrganization/ChildOrganizations for traversal.
 
-```
-GET /PrincipalMgmt/Organizations('{id}')/Users?$filter=Disabled eq false&$expand=Groups
-```
+3. **Performance Consideration**: Expanding large collections (Users, Members) can impact performance. Use `$top` and `$filter` to limit results.
 
-## Navigation Property Notes
+4. **Bidirectional Relationships**: User <-> Group is bidirectional. You can navigate from either direction.
 
-1. **User → Groups**: Many-to-Many. A user can belong to multiple groups.
+5. **Role Assignment**: Users can have roles directly or through groups. Check both User/Roles and Group/Roles.
 
-2. **Group → Members**: Many-to-Many. A group can have multiple members.
-
-3. **Group → ParentGroups**: Many-to-Many. Groups can have multiple parent groups for hierarchy.
-
-4. **Group → ChildGroups**: Many-to-Many. Groups can have multiple child groups for hierarchy.
-
-5. **User → Organization**: Many-to-One. A user belongs to one organization.
-
-6. **Organization → Users**: One-to-Many. An organization can have multiple users.
-
-7. **Organization → Groups**: One-to-Many. An organization can have multiple groups.
-
-8. **UserPrincipal → User**: One-to-One. Principal to user reference.
-
-9. **GroupPrincipal → Group**: One-to-One. Principal to group reference.
+6. **Cross-Domain Performance**: When navigating from other domains to User, the system may cache results. For the latest information, query PrincipalMgmt directly.
