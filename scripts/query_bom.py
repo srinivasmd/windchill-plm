@@ -1,141 +1,131 @@
 #!/usr/bin/env python3
-"""Query Windchill Bill of Materials (BOM) for a part"""
+"""Query Bill of Materials (BOM) from Windchill PLM with formatted output.
+
+Usage:
+    python query_bom.py PART-001
+    python query_bom.py --number PART-001 --output bom.json
+"""
 
 import sys
-import os
 import json
+import argparse
+from pathlib import Path
+import requests
 
-# Add parent directory to path for imports
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, str(Path(__file__).parent))
 
 from windchill_client import WindchillClient
+from output_formatter import OutputFormatter
 
 
-def query_bom(
-    base_url: str,
-    username: str,
-    password: str,
-    part_number: str,
-    expand_children: bool = True,
-    expand_parents: bool = True,
-    output_file: str = None
-):
-    """
-    Query BOM for a part including children and parents.
-
-    Args:
-        base_url: Windchill OData base URL
-        username: Windchill username
-        password: Windchill password
-        part_number: Part number to query
-        expand_children: Whether to fetch child part details
-        expand_parents: Whether to fetch parent part details
-        output_file: Optional file path to save results
-
-    Returns:
-        dict: BOM results with part, children, and parents
-    """
-    client = WindchillClient(base_url=base_url, username=username, password=password)
-
-    # Get the part
-    part = client.get_part_by_number(part_number)
-    if not part:
-        raise ValueError(f"Part {part_number} not found")
-
-    part_id = part.get('ID')
-
-    result = {
-        'part': part,
-        'children': [],
-        'parents': []
-    }
-
-    # Get Children (Uses)
-    if expand_children:
-        children = client.get_part_children(part_id)
-        result['children'] = children
-
-    # Get Parents (UsedBy)
-    if expand_parents:
-        parents = client.get_part_parents(part_id)
-        result['parents'] = parents
-
-    # Save to file if specified
-    if output_file:
-        with open(output_file, 'w') as f:
-            json.dump(result, f, indent=2)
-        print(f"Results saved to: {output_file}")
-
-    return result
-
-
-def print_bom_summary(result: dict):
-    """Print a summary of BOM results"""
-    part = result.get('part', {})
-    children = result.get('children', [])
-    parents = result.get('parents', [])
-
-    print(f"\n{'='*60}")
-    print(f"PART: {part.get('Number', 'N/A')} - {part.get('Name', 'N/A')}")
-    print(f"ID: {part.get('ID', 'N/A')}")
-    print(f"State: {part.get('State', {}).get('Display', 'N/A')}")
-    print(f"{'='*60}")
-
-    # Print children
-    if children:
-        print(f"\nCHILDREN ({len(children)}):")
-        for child in children:
-            usage = child.get('usage', {})
-            child_part = child.get('child_part', {})
-
-            qty = usage.get('Quantity', 0)
-            unit = usage.get('Unit', '')
-            child_num = child_part.get('Number', 'N/A')
-            child_name = child_part.get('Name', 'N/A')
-            child_state = child_part.get('State', {}).get('Display', 'N/A')
-
-            print(f"  ├─ {child_num}: {child_name}")
-            print(f"  │   Qty: {qty} {unit} | State: {child_state}")
-
-    # Print parents
-    if parents:
-        print(f"\nPARENTS ({len(parents)}):")
-        for parent in parents:
-            parent_num = parent.get('Number', 'N/A')
-            parent_name = parent.get('Name', 'N/A')
-            parent_state = parent.get('State', {}).get('Display', 'N/A')
-
-            print(f"  ├─ {parent_num}: {parent_name}")
-            print(f"  │   State: {parent_state}")
+def query_bom(part_number, output_file=None, raw=False):
+    """Query BOM for a part with formatted output."""
+    formatter = OutputFormatter()
+    client = WindchillClient()
+    
+    odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
+    
+    # First get the part ID
+    formatter.print_info(f"Looking up part: {part_number}")
+    
+    parts_url = f"{odata_base_url.rstrip('/')}/ProdMgmt/Parts"
+    params = {'$filter': f"Number eq '{part_number}'", '$select': 'ID,Name,Number'}
+    
+    try:
+        response = client.session.get(parts_url, params=params)
+        response.raise_for_status()
+        parts_data = response.json()
+        parts = parts_data.get('value', [])
+        
+        if not parts:
+            formatter.print_error(f"Part not found: {part_number}")
+            formatter.flush()
+            return None
+        
+        part = parts[0]
+        part_id = part['ID']
+        part_name = part.get('Name', part_number)
+        
+        formatter.print_success(f"Found: {part_name}")
+        
+    except requests.RequestException as e:
+        formatter.print_error("Failed to lookup part", str(e))
+        formatter.flush()
+        return None
+    
+    # Now get BOM (Uses relationship)
+    bom_url = f"{odata_base_url.rstrip('/')}/ProdMgmt/PartUses"
+    params = {'$filter': f"PartID eq '{part_id}'", '$expand': 'Part'}
+    
+    try:
+        response = client.session.get(bom_url, params=params)
+        response.raise_for_status()
+        bom_data = response.json()
+        
+        bom_items = bom_data.get('value', [])
+        
+        if raw:
+            formatter.print_json(bom_data)
+        else:
+            formatter.print_header(f"BOM: {part_number}", '📊')
+            formatter.print_info(f"Parent: {part_name}")
+            formatter.divider()
+            
+            if bom_items:
+                rows = []
+                for item in bom_items:
+                    child_part = item.get('Part', {})
+                    rows.append([
+                        child_part.get('Number', 'N/A'),
+                        child_part.get('Name', 'N/A'),
+                        str(item.get('Quantity', 1)),
+                        child_part.get('State', {}).get('Display', 'N/A') if isinstance(child_part.get('State'), dict) else child_part.get('State', 'N/A')
+                    ])
+                
+                formatter.print_table(['Number', 'Name', 'Qty', 'State'], rows, f"Components ({len(bom_items)} items)")
+            else:
+                formatter.print_warning("No BOM items found - part may be a leaf component")
+        
+        if output_file:
+            full_data = {
+                'parent': part,
+                'bom': bom_data
+            }
+            with open(output_file, 'w') as f:
+                json.dump(full_data, f, indent=2)
+            formatter.print_success(f"Saved to: {output_file}")
+        
+        formatter.flush()
+        return bom_items
+        
+    except requests.RequestException as e:
+        formatter.print_error("Failed to query BOM", str(e))
+        formatter.flush()
+        return None
 
 
 def main():
-    """Command-line interface for querying BOM"""
-    import argparse
-
-    parser = argparse.ArgumentParser(description='Query Windchill BOM')
-    parser.add_argument('--url', default='https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/')
-    parser.add_argument('--username', default='pat')
-    parser.add_argument('--password', default='ptc')
-    parser.add_argument('part_number', help='Part number to query')
-    parser.add_argument('--no-children', action='store_true', help='Do not fetch children')
-    parser.add_argument('--no-parents', action='store_true', help='Do not fetch parents')
-    parser.add_argument('--output', help='Output file path (JSON)')
-
+    parser = argparse.ArgumentParser(description="Query BOM for a part")
+    parser.add_argument('part_number', nargs='?', help='Part number')
+    parser.add_argument('--number', '-n', help='Part number (alternative)')
+    parser.add_argument('--output', '-o', help='Output file for JSON')
+    parser.add_argument('--raw', '-r', action='store_true', help='Raw JSON output')
+    
     args = parser.parse_args()
-
+    
+    part_number = args.part_number or args.number
+    if not part_number:
+        parser.print_help()
+        return 1
+    
     result = query_bom(
-        base_url=args.url,
-        username=args.username,
-        password=args.password,
-        part_number=args.part_number,
-        expand_children=not args.no_children,
-        expand_parents=not args.no_parents,
-        output_file=args.output
+        part_number=part_number,
+        output_file=args.output,
+        raw=args.raw
     )
-
-    print_bom_summary(result)
+    
+    return 0 if result is not None else 1
 
 
 if __name__ == '__main__':
-    main()
+    sys.exit(main())

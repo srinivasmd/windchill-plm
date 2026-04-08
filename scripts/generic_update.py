@@ -2,16 +2,15 @@
 """Generic UPDATE script for Windchill entities.
 
 This script provides a unified interface to update any entity type
-that supports UPDATE operations in Windchill PLM.
+in Windchill PLM with formatted output for Telegram gateway.
 
 Usage:
     python generic_update.py --entity Document --id "OR:..." --name "New Name"
     python generic_update.py --entity Part --number "PART-001" --description "Updated"
-    python generic_update.py --entity Quality --id "OR:..." --description "Updated desc"
+    python generic_update.py --entity ChangeNotice --id "OR:..." --props '{"Priority": "High"}'
 
-Supported entities for UPDATE (most entities support this):
-    Document, Part, Folder, Container, ChangeNotice, ChangeRequest,
-    QualityAction, NonConformance, CAPA, CustomerExperience, etc.
+Supported entities:
+    All Windchill entities that support UPDATE operation.
 """
 
 import sys
@@ -24,146 +23,170 @@ import requests
 sys.path.insert(0, str(Path(__file__).parent))
 
 from windchill_client import WindchillClient
+from output_formatter import OutputFormatter
 
 
 # Entity to domain mapping
 ENTITY_DOMAIN_MAP = {
     'Document': 'DocMgmt',
+    'ControlledDocument': 'DocMgmt',
+    'Quality': 'DocMgmt',
     'Part': 'ProdMgmt',
     'Folder': 'DataAdmin',
-    'Container': 'DataAdmin',
     'ChangeNotice': 'ChangeMgmt',
     'ChangeRequest': 'ChangeMgmt',
     'ChangeTask': 'ChangeMgmt',
     'QualityAction': 'QMS',
-    'QualityObject': 'QMS',
     'NonConformance': 'QMS',
     'CAPA': 'QMS',
-    'Place': 'QMS',
-    'QualityContact': 'QMS',
-    'Subject': 'QMS',
     'CustomerExperience': 'CEM',
-    'RelatedProduct': 'CEM',
     'User': 'PrincipalMgmt',
     'Group': 'PrincipalMgmt',
-    'Organization': 'PrincipalMgmt',
 }
 
 
-def get_entity_id_by_number(entity_type, number):
-    """Look up entity ID by number."""
+def get_entity_id(entity_type, number):
+    """Get entity ID by number."""
     client = WindchillClient()
-    
     domain = ENTITY_DOMAIN_MAP.get(entity_type)
     if not domain:
         return None
     
     odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
     url = f"{odata_base_url.rstrip('/')}/{domain}/{entity_type}s"
-    
-    params = {"$filter": f"Number eq '{number}'", "$select": "ID,Name,Number"}
+    params = {'$filter': f"Number eq '{number}'", '$select': 'ID'}
     
     try:
         response = client.session.get(url, params=params)
         response.raise_for_status()
         data = response.json()
-        
-        if data.get("value"):
-            entity = data["value"][0]
-            return entity.get("ID")
+        entities = data.get('value', [])
+        if entities:
+            return entities[0].get('ID')
     except:
         pass
     
     return None
 
 
-def update_entity(entity_type, entity_id=None, entity_number=None, properties=None, output_file=None, raw_output=False):
+def update_entity(entity_type, entity_id=None, number=None, name=None, 
+                  description=None, props=None, output_file=None, raw_output=False):
     """
-    Update an entity in Windchill PLM.
+    Update an existing entity in Windchill PLM with formatted output.
     
     Args:
         entity_type: Type of entity to update
-        entity_id: Entity ID to update (preferred)
-        entity_number: Entity number to update (will lookup ID)
-        properties: Dictionary of properties to update
+        entity_id: Entity ID to update
+        number: Entity number (will lookup ID if not provided)
+        name: New name
+        description: New description
+        props: Additional properties as dict
         output_file: Optional file to save JSON response
         raw_output: If True, output raw JSON
         
     Returns:
-        dict: Updated entity data or None on failure
+        dict: Updated entity or None on failure
     """
-    if properties is None:
-        properties = {}
-    
+    formatter = OutputFormatter()
     client = WindchillClient()
     
     # Get domain for entity type
     domain = ENTITY_DOMAIN_MAP.get(entity_type)
     if not domain:
-        print(f"[ERROR] Unknown entity type: {entity_type}")
-        print(f"Supported types: {', '.join(ENTITY_DOMAIN_MAP.keys())}")
+        formatter.print_error(f"Unknown entity type: {entity_type}")
+        formatter.print_info("Supported entity types for UPDATE:")
+        for domain_name in sorted(set(ENTITY_DOMAIN_MAP.values())):
+            entities = [e for e, d in ENTITY_DOMAIN_MAP.items() if d == domain_name]
+            formatter.print_list(entities, domain_name, bullet='📁')
         return None
     
-    # Resolve entity ID
-    if not entity_id and entity_number:
-        entity_id = get_entity_id_by_number(entity_type, entity_number)
+    # Get entity ID if not provided
+    if not entity_id and number:
+        formatter.print_info(f"Looking up {entity_type} with number: {number}")
+        entity_id = get_entity_id(entity_type, number)
         if not entity_id:
-            print(f"[ERROR] Could not find {entity_type} with number: {entity_number}")
+            formatter.print_error(f"Entity not found", f"{entity_type} with number '{number}'")
             return None
-        print(f"[INFO] Found ID: {entity_id}")
     
     if not entity_id:
-        print("[ERROR] Either --id or --number must be provided")
+        formatter.print_error("Entity ID or number is required")
+        return None
+    
+    # Build update data
+    update_data = {}
+    
+    if name:
+        update_data['Name'] = name
+    if description:
+        update_data['Description'] = description
+    
+    # Add additional properties
+    if props:
+        if isinstance(props, str):
+            try:
+                props = json.loads(props)
+            except json.JSONDecodeError:
+                formatter.print_error("Invalid JSON in props")
+                return None
+        update_data.update(props)
+    
+    if not update_data:
+        formatter.print_warning("No properties to update")
         return None
     
     # Build URL
     odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
     url = f"{odata_base_url.rstrip('/')}/{domain}/{entity_type}s('{entity_id}')"
     
-    # Get CSRF token for write operation
-    csrf_token = client.get_csrf_token()
-    headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    }
-    if csrf_token:
-        headers['CSRF_NONCE'] = csrf_token
-    
     try:
-        response = client.session.patch(url, json=properties, headers=headers)
+        # Get CSRF token for write operations
+        headers = {'Content-Type': 'application/json'}
+        if hasattr(client, 'csrf_token') and client.csrf_token:
+            headers['X-CSRF-Token'] = client.csrf_token
+        else:
+            # Try to get CSRF token
+            try:
+                csrf_url = f"{odata_base_url.rstrip('/')}/$csrf"
+                csrf_resp = client.session.get(csrf_url)
+                if csrf_resp.status_code == 200:
+                    csrf_data = csrf_resp.json()
+                    client.csrf_token = csrf_data.get('value', {}).get('token')
+                    if client.csrf_token:
+                        headers['X-CSRF-Token'] = client.csrf_token
+            except:
+                pass
+        
+        response = client.session.patch(url, json=update_data, headers=headers)
         response.raise_for_status()
         data = response.json()
         
         if raw_output:
-            print(json.dumps(data, indent=2))
+            formatter.print_json(data)
         else:
-            print(f"\n[OK] {entity_type} updated successfully!")
-            print(f"  ID: {data.get('ID', 'N/A')}")
-            print(f"  Name: {data.get('Name', 'N/A')}")
-            print(f"  Number: {data.get('Number', 'N/A')}")
-            if 'State' in data:
-                state = data['State']
-                if isinstance(state, dict):
-                    print(f"  State: {state.get('Display', 'N/A')}")
-                else:
-                    print(f"  State: {state}")
+            # Show success message
+            entity_name = data.get('Name', data.get('Number', number or entity_id))
+            formatter.print_operation_result("Updated", entity_type, entity_name, True)
+            
+            # Show updated entity details
+            formatter.print_entity_detail(data, entity_type)
         
         if output_file:
             with open(output_file, 'w') as f:
                 json.dump(data, f, indent=2)
-            print(f"  Saved to: {output_file}")
+            formatter.print_success(f"Saved to: {output_file}")
         
+        formatter.flush()
         return data
         
     except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to update {entity_type}: {e}")
+        formatter.print_error(f"Failed to update {entity_type}", str(e))
         if hasattr(e, 'response') and e.response is not None:
-            print(f"Status: {e.response.status_code}")
             try:
                 error_data = e.response.json()
-                print(f"Error: {json.dumps(error_data, indent=2)}")
+                formatter.print_json(error_data, "Error Details")
             except:
-                print(f"Response: {e.response.text}")
+                formatter.print_info(f"Status: {e.response.status_code}")
+        formatter.flush()
         return None
 
 
@@ -190,38 +213,19 @@ Examples:
     
     args = parser.parse_args()
     
-    # Build properties dictionary
-    properties = {}
-    
-    if args.name:
-        properties['Name'] = args.name
-    if args.description:
-        properties['Description'] = args.description
-    
-    # Parse additional properties
-    if args.props:
-        try:
-            additional_props = json.loads(args.props)
-            properties.update(additional_props)
-        except json.JSONDecodeError as e:
-            print(f"[ERROR] Invalid JSON in --props: {e}")
-            return 1
-    
-    if not properties:
-        print("[ERROR] No properties to update. Provide --name, --description, or --props")
-        return 1
-    
     # Update entity
     result = update_entity(
         entity_type=args.entity,
         entity_id=args.id,
-        entity_number=args.number,
-        properties=properties,
+        number=args.number,
+        name=args.name,
+        description=args.description,
+        props=args.props,
         output_file=args.output,
         raw_output=args.raw
     )
     
-    return 0 if result else 1
+    return 0 if result is not None else 1
 
 
 if __name__ == '__main__':

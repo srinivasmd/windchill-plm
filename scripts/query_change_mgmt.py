@@ -1,449 +1,129 @@
 #!/usr/bin/env python3
-"""Query Change Management objects from Windchill ChangeMgmt domain"""
+"""Query Change Management entities from Windchill PLM with formatted output.
+
+Usage:
+    python query_change_mgmt.py --type ChangeNotice --top 10
+    python query_change_mgmt.py --type ChangeRequest --state OPEN
+    python query_change_mgmt.py --type ChangeTask --number CT-001
+"""
 
 import sys
 import json
+import argparse
 from pathlib import Path
 import requests
 
-# Add parent directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 
 from windchill_client import WindchillClient
+from output_formatter import OutputFormatter
 
 
-def get_change_notice_by_number(notice_number, expand=None, select=None):
-    """
-    Get a Change Notice by its number.
+ENTITY_TYPES = {
+    'ChangeNotice': 'ChangeNotices',
+    'ChangeRequest': 'ChangeRequests',
+    'ChangeTask': 'ChangeTasks',
+    'ChangeOrder': 'ChangeOrders'
+}
 
-    Args:
-        notice_number: Change Notice Number
-        expand: Optional navigation properties to expand (comma-separated)
-        select: Optional properties to select (comma-separated)
+ENTITY_DISPLAY_PROPS = {
+    'ChangeNotice': ['Number', 'Name', 'State', 'NeedDate', 'CreatedBy'],
+    'ChangeRequest': ['Number', 'Name', 'State', 'Urgency', 'CreatedBy'],
+    'ChangeTask': ['Number', 'Name', 'State', 'DueDate', 'Assignee'],
+    'ChangeOrder': ['Number', 'Name', 'State', 'CreatedOn']
+}
 
-    Returns:
-        dict: Change Notice data or None if not found
-    """
+
+def query_change_mgmt(entity_type, number=None, name=None, state=None, top=50, output_file=None, raw=False, detail=False):
+    """Query change management entities with formatted output."""
+    formatter = OutputFormatter()
     client = WindchillClient()
-
-    odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
-    url = f"{odata_base_url.rstrip('/')}/ChangeMgmt/ChangeNotices"
-
-    params = {"$filter": f"Number eq '{notice_number}'"}
-    if expand:
-        params["$expand"] = expand
-    if select:
-        params["$select"] = select
-
-    try:
-        response = client.session.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
-        notices = data.get("value", [])
-
-        if notices:
-            print(f"\n[OK] Found {len(notices)} Change Notice(s):")
-            for notice in notices:
-                print(f"\n  Number: {notice.get('Number')}")
-                print(f"  Name: {notice.get('Name')}")
-                print(f"  ID: {notice.get('ID')}")
-                print(f"  State: {notice.get('State', {}).get('Display', 'N/A')}")
-                print(f"  Folder: {notice.get('FolderLocation', 'N/A')}")
-                print(f"  CreatedBy: {notice.get('CreatedBy', 'N/A')}")
-                print(f"  CreatedOn: {notice.get('CreatedOn', 'N/A')}")
-                print(f"  ModifiedBy: {notice.get('ModifiedBy', 'N/A')}")
-                print(f"  LastModified: {notice.get('LastModified', 'N/A')}")
-            return notices[0] if len(notices) == 1 else notices
-        else:
-            print(f"\n[INFO] No Change Notice found with Number: {notice_number}")
-            return None
-    except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to query change notice: {e}")
-        if hasattr(e, 'response') and e.response:
-            print(f"Response: {e.response.text}")
+    
+    if entity_type not in ENTITY_TYPES:
+        formatter.print_error(f"Unknown entity type: {entity_type}")
+        formatter.print_info("Supported types: ChangeNotice, ChangeRequest, ChangeTask, ChangeOrder")
         return None
-
-
-def get_change_request_by_number(request_number, expand=None, select=None):
-    """
-    Get a Change Request by its number.
-
-    Args:
-        request_number: Change Request Number
-        expand: Optional navigation properties to expand (comma-separated)
-        select: Optional properties to select (comma-separated)
-
-    Returns:
-        dict: Change Request data or None if not found
-    """
-    client = WindchillClient()
-
+    
+    # Build URL
     odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
-    url = f"{odata_base_url.rstrip('/')}/ChangeMgmt/ChangeRequests"
-
-    params = {"$filter": f"Number eq '{request_number}'"}
-    if expand:
-        params["$expand"] = expand
-    if select:
-        params["$select"] = select
-
+    endpoint = ENTITY_TYPES[entity_type]
+    url = f"{odata_base_url.rstrip('/')}/ChangeMgmt/{endpoint}"
+    
+    params = {'$top': top}
+    
+    # Build filter
+    filter_parts = []
+    if number:
+        filter_parts.append(f"Number eq '{number}'")
+    if name:
+        filter_parts.append(f"contains(Name, '{name}')")
+    if state:
+        filter_parts.append(f"State/Display eq '{state}'")
+    
+    if filter_parts:
+        params['$filter'] = ' and '.join(filter_parts)
+    
     try:
         response = client.session.get(url, params=params)
         response.raise_for_status()
         data = response.json()
-        requests_data = data.get("value", [])
-
-        if requests_data:
-            print(f"\n[OK] Found {len(requests_data)} Change Request(s):")
-            for req in requests_data:
-                print(f"\n  Number: {req.get('Number')}")
-                print(f"  Name: {req.get('Name')}")
-                print(f"  ID: {req.get('ID')}")
-                print(f"  State: {req.get('State', {}).get('Display', 'N/A')}")
-                print(f"  Folder: {req.get('FolderLocation', 'N/A')}")
-                print(f"  CreatedBy: {req.get('CreatedBy', 'N/A')}")
-                print(f"  CreatedOn: {req.get('CreatedOn', 'N/A')}")
-                print(f"  ModifiedBy: {req.get('ModifiedBy', 'N/A')}")
-                print(f"  LastModified: {req.get('LastModified', 'N/A')}")
-                print(f"  Description: {req.get('Description', 'N/A')[:100]}...")
-            return requests_data[0] if len(requests_data) == 1 else requests_data
+        
+        entities = data.get('value', [])
+        
+        if raw:
+            formatter.print_json(data)
+        elif detail and entities:
+            formatter.print_entity_header(entity_type, len(entities))
+            for entity in entities[:10]:
+                formatter.print_entity_detail(entity, entity_type, ENTITY_DISPLAY_PROPS.get(entity_type))
+                formatter.divider()
         else:
-            print(f"\n[INFO] No Change Request found with Number: {request_number}")
-            return None
+            if entities:
+                formatter.print_entity_table(entities, entity_type, ENTITY_DISPLAY_PROPS.get(entity_type, ['Number', 'Name', 'State']))
+            else:
+                formatter.print_warning(f"No {entity_type}(s) found matching criteria")
+        
+        if output_file:
+            with open(output_file, 'w') as f:
+                json.dump(data, f, indent=2)
+            formatter.print_success(f"Saved to: {output_file}")
+        
+        formatter.flush()
+        return entities
+        
     except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to query change request: {e}")
-        if hasattr(e, 'response') and e.response:
-            print(f"Response: {e.response.text}")
+        formatter.print_error(f"Failed to query {entity_type}", str(e))
+        formatter.flush()
         return None
-
-
-def get_change_task_by_number(task_number, expand=None, select=None):
-    """
-    Get a Change Task by its number.
-
-    Args:
-        task_number: Change Task Number
-        expand: Optional navigation properties to expand (comma-separated)
-        select: Optional properties to select (comma-separated)
-
-    Returns:
-        dict: Change Task data or None if not found
-    """
-    client = WindchillClient()
-
-    odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
-    url = f"{odata_base_url.rstrip('/')}/ChangeMgmt/ChangeTasks"
-
-    params = {"$filter": f"Number eq '{task_number}'"}
-    if expand:
-        params["$expand"] = expand
-    if select:
-        params["$select"] = select
-
-    try:
-        response = client.session.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
-        tasks = data.get("value", [])
-
-        if tasks:
-            print(f"\n[OK] Found {len(tasks)} Change Task(s):")
-            for task in tasks:
-                print(f"\n  Number: {task.get('Number')}")
-                print(f"  Name: {task.get('Name')}")
-                print(f"  ID: {task.get('ID')}")
-                print(f"  State: {task.get('State', {}).get('Display', 'N/A')}")
-                print(f"  Folder: {task.get('FolderLocation', 'N/A')}")
-                print(f"  CreatedBy: {task.get('CreatedBy', 'N/A')}")
-                print(f"  CreatedOn: {task.get('CreatedOn', 'N/A')}")
-            return tasks[0] if len(tasks) == 1 else tasks
-        else:
-            print(f"\n[INFO] No Change Task found with Number: {task_number}")
-            return None
-    except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to query change task: {e}")
-        if hasattr(e, 'response') and e.response:
-            print(f"Response: {e.response.text}")
-        return None
-
-
-def query_change_notices(filter_expr=None, top=None, select=None, expand=None):
-    """
-    Query Change Notices with optional filter.
-
-    Args:
-        filter_expr: OData filter expression
-        top: Maximum number of results
-        select: Properties to select (comma-separated)
-        expand: Navigation properties to expand (comma-separated)
-
-    Returns:
-        list: Change Notices data or empty list
-    """
-    client = WindchillClient()
-
-    odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
-    url = f"{odata_base_url.rstrip('/')}/ChangeMgmt/ChangeNotices"
-
-    params = {}
-    if filter_expr:
-        params["$filter"] = filter_expr
-    if top:
-        params["$top"] = top
-    if select:
-        params["$select"] = select
-    if expand:
-        params["$expand"] = expand
-
-    try:
-        response = client.session.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
-        notices = data.get("value", [])
-
-        print(f"\n[OK] Found {len(notices)} Change Notice(s):")
-        for notice in notices:
-            print(f"  - {notice.get('Number', 'N/A')}: {notice.get('Name', 'N/A')} | " +
-                  f"{notice.get('State', {}).get('Display', 'N/A')}")
-        return notices
-    except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to query change notices: {e}")
-        if hasattr(e, 'response') and e.response:
-            print(f"Response: {e.response.text}")
-        return []
-
-
-def query_change_requests(filter_expr=None, top=None, select=None, expand=None):
-    """
-    Query Change Requests with optional filter.
-
-    Args:
-        filter_expr: OData filter expression
-        top: Maximum number of results
-        select: Properties to select (comma-separated)
-        expand: Navigation properties to expand (comma-separated)
-
-    Returns:
-        list: Change Requests data or empty list
-    """
-    client = WindchillClient()
-
-    odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
-    url = f"{odata_base_url.rstrip('/')}/ChangeMgmt/ChangeRequests"
-
-    params = {}
-    if filter_expr:
-        params["$filter"] = filter_expr
-    if top:
-        params["$top"] = top
-    if select:
-        params["$select"] = select
-    if expand:
-        params["$expand"] = expand
-
-    try:
-        response = client.session.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
-        requests_data = data.get("value", [])
-
-        print(f"\n[OK] Found {len(requests_data)} Change Request(s):")
-        for req in requests_data:
-            print(f"  - {req.get('Number', 'N/A')}: {req.get('Name', 'N/A')} | " +
-                  f"{req.get('State', {}).get('Display', 'N/A')}")
-        return requests_data
-    except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to query change requests: {e}")
-        if hasattr(e, 'response') and e.response:
-            print(f"Response: {e.response.text}")
-        return []
-
-
-def query_change_tasks(filter_expr=None, top=None, select=None, expand=None):
-    """
-    Query Change Tasks with optional filter.
-
-    Args:
-        filter_expr: OData filter expression
-        top: Maximum number of results
-        select: Properties to select (comma-separated)
-        expand: Navigation properties to expand (comma-separated)
-
-    Returns:
-        list: Change Tasks data or empty list
-    """
-    client = WindchillClient()
-
-    odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
-    url = f"{odata_base_url.rstrip('/')}/ChangeMgmt/ChangeTasks"
-
-    params = {}
-    if filter_expr:
-        params["$filter"] = filter_expr
-    if top:
-        params["$top"] = top
-    if select:
-        params["$select"] = select
-    if expand:
-        params["$expand"] = expand
-
-    try:
-        response = client.session.get(url, params=params)
-        response.raise_for_status()
-        data = response.json()
-        tasks = data.get("value", [])
-
-        print(f"\n[OK] Found {len(tasks)} Change Task(s):")
-        for task in tasks:
-            print(f"  - {task.get('Number', 'N/A')}: {task.get('Name', 'N/A')} | " +
-                  f"{task.get('State', {}).get('Display', 'N/A')}")
-        return tasks
-    except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to query change tasks: {e}")
-        if hasattr(e, 'response') and e.response:
-            print(f"Response: {e.response.text}")
-        return []
-
-
-def get_resulting_objects(change_id):
-    """
-    Get resulting objects (parts, documents, etc.) from a change object.
-
-    Args:
-        change_id: Change object ID
-
-    Returns:
-        list: Resulting objects data or empty list
-    """
-    client = WindchillClient()
-
-    odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
-    url = f"{odata_base_url.rstrip('/')}/ChangeMgmt/ChangeNotices('{change_id}')/ResultingObjects"
-
-    try:
-        response = client.session.get(url)
-        response.raise_for_status()
-        data = response.json()
-        results = data.get("value", [])
-
-        print(f"\n[OK] Found {len(results)} Resulting Objects:")
-        for result in results:
-            print(f"  - {result.get('ID', 'N/A')}: {result.get('ObjectType', 'N/A')}")
-        return results
-    except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to get resulting objects: {e}")
-        if hasattr(e, 'response') and e.response:
-            print(f"Response: {e.response.text}")
-        return []
-
-
-def get_affected_objects(change_id):
-    """
-    Get affected objects from a change object.
-
-    Args:
-        change_id: Change object ID
-
-    Returns:
-        list: Affected objects data or empty list
-    """
-    client = WindchillClient()
-
-    odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
-    url = f"{odata_base_url.rstrip('/')}/ChangeMgmt/ChangeNotices('{change_id}')/AffectedObjects"
-
-    try:
-        response = client.session.get(url)
-        response.raise_for_status()
-        data = response.json()
-        results = data.get("value", [])
-
-        print(f"\n[OK] Found {len(results)} Affected Objects:")
-        for result in results:
-            print(f"  - {result.get('ID', 'N/A')}: {result.get('ObjectType', 'N/A')}")
-        return results
-    except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to get affected objects: {e}")
-        if hasattr(e, 'response') and e.response:
-            print(f"Response: {e.response.text}")
-        return []
 
 
 def main():
-    """Command-line interface for querying change management objects"""
-    import argparse
-
-    parser = argparse.ArgumentParser(description="Query Change Management from Windchill")
-    subparsers = parser.add_subparsers(dest="command", help="Command to execute")
-
-    # Get Change Notice
-    cn_parser = subparsers.add_parser("notice", help="Get Change Notice by number")
-    cn_parser.add_argument("--number", required=True, help="Change Notice Number")
-    cn_parser.add_argument("--expand", help="Expand navigation properties")
-    cn_parser.add_argument("--select", help="Select properties")
-
-    # Get Change Request
-    cr_parser = subparsers.add_parser("request", help="Get Change Request by number")
-    cr_parser.add_argument("--number", required=True, help="Change Request Number")
-    cr_parser.add_argument("--expand", help="Expand navigation properties")
-    cr_parser.add_argument("--select", help="Select properties")
-
-    # Get Change Task
-    ct_parser = subparsers.add_parser("task", help="Get Change Task by number")
-    ct_parser.add_argument("--number", required=True, help="Change Task Number")
-    ct_parser.add_argument("--expand", help="Expand navigation properties")
-    ct_parser.add_argument("--select", help="Select properties")
-
-    # Query Change Notices
-    qcn_parser = subparsers.add_parser("query-notices", help="Query Change Notices")
-    qcn_parser.add_argument("--filter", help="OData filter expression")
-    qcn_parser.add_argument("--top", type=int, help="Limit results")
-    qcn_parser.add_argument("--select", help="Select properties")
-    qcn_parser.add_argument("--expand", help="Expand navigation properties")
-
-    # Query Change Requests
-    qcr_parser = subparsers.add_parser("query-requests", help="Query Change Requests")
-    qcr_parser.add_argument("--filter", help="OData filter expression")
-    qcr_parser.add_argument("--top", type=int, help="Limit results")
-    qcr_parser.add_argument("--select", help="Select properties")
-    qcr_parser.add_argument("--expand", help="Expand navigation properties")
-
-    # Query Change Tasks
-    qct_parser = subparsers.add_parser("query-tasks", help="Query Change Tasks")
-    qct_parser.add_argument("--filter", help="OData filter expression")
-    qct_parser.add_argument("--top", type=int, help="Limit results")
-    qct_parser.add_argument("--select", help="Select properties")
-    qct_parser.add_argument("--expand", help="Expand navigation properties")
-
-    # Get Resulting Objects
-    ro_parser = subparsers.add_parser("resulting", help="Get Resulting Objects")
-    ro_parser.add_argument("--id", required=True, help="Change object ID")
-
-    # Get Affected Objects
-    ao_parser = subparsers.add_parser("affected", help="Get Affected Objects")
-    ao_parser.add_argument("--id", required=True, help="Change object ID")
-
+    parser = argparse.ArgumentParser(description="Query change management entities")
+    parser.add_argument('--type', '-t', required=True, choices=['ChangeNotice', 'ChangeRequest', 'ChangeTask', 'ChangeOrder'],
+                        help='Entity type to query')
+    parser.add_argument('--number', '-n', help='Entity number')
+    parser.add_argument('--name', '-m', help='Entity name (contains)')
+    parser.add_argument('--state', '-s', help='State filter')
+    parser.add_argument('--top', type=int, default=50, help='Max results')
+    parser.add_argument('--output', '-o', help='Output file for JSON')
+    parser.add_argument('--raw', '-r', action='store_true', help='Raw JSON output')
+    parser.add_argument('--detail', '-d', action='store_true', help='Detailed view')
+    
     args = parser.parse_args()
-
-    if args.command == "notice":
-        get_change_notice_by_number(args.number, args.expand, args.select)
-    elif args.command == "request":
-        get_change_request_by_number(args.number, args.expand, args.select)
-    elif args.command == "task":
-        get_change_task_by_number(args.number, args.expand, args.select)
-    elif args.command == "query-notices":
-        query_change_notices(args.filter, args.top, args.select, args.expand)
-    elif args.command == "query-requests":
-        query_change_requests(args.filter, args.top, args.select, args.expand)
-    elif args.command == "query-tasks":
-        query_change_tasks(args.filter, args.top, args.select, args.expand)
-    elif args.command == "resulting":
-        get_resulting_objects(args.id)
-    elif args.command == "affected":
-        get_affected_objects(args.id)
-    else:
-        parser.print_help()
+    
+    result = query_change_mgmt(
+        entity_type=args.type,
+        number=args.number,
+        name=args.name,
+        state=args.state,
+        top=args.top,
+        output_file=args.output,
+        raw=args.raw,
+        detail=args.detail
+    )
+    
+    return 0 if result is not None else 1
 
 
-if __name__ == "__main__":
-    main()
+if __name__ == '__main__':
+    sys.exit(main())

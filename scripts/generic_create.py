@@ -2,25 +2,15 @@
 """Generic CREATE script for Windchill entities.
 
 This script provides a unified interface to create any entity type
-that supports CREATE operations in Windchill PLM.
+in Windchill PLM with formatted output for Telegram gateway.
 
 Usage:
-    python generic_create.py --entity Document --name "My Doc" --number "DOC-001"
+    python generic_create.py --entity Document --name "My Document" --number "DOC-001"
     python generic_create.py --entity Part --name "My Part" --number "PART-001"
-    python generic_create.py --entity Quality --name "Quality Doc" --number "QUAL-001"
+    python generic_create.py --entity Quality --name "Quality Doc" --number "Q-001"
 
-Supported entities for CREATE (DocMgmt domain):
-    Document, ControlledDocument, Quality, General, Record, TestDocument,
-    ReferenceDocument, SoftwareDocument, InterCommData, Presentation,
-    SoftwareBuild, Msds, PublishedContent, Minutes, QMSDocument,
-    TranslationDocument, Plan, StandardOperatingProcedure, GarrettTRL,
-    SoftwareConfigurationData
-
-Other domains:
-    ProdMgmt: Part
-    SupplierMgmt: Manufacturer, Vendor
-    DataAdmin: Folder, Container
-    CEM: CustomerExperience, RelatedProduct
+Supported entities:
+    All Windchill entities that support CREATE operation.
 """
 
 import sys
@@ -33,11 +23,11 @@ import requests
 sys.path.insert(0, str(Path(__file__).parent))
 
 from windchill_client import WindchillClient
+from output_formatter import OutputFormatter
 
 
 # Entity to domain mapping
 ENTITY_DOMAIN_MAP = {
-    # DocMgmt
     'Document': 'DocMgmt',
     'ControlledDocument': 'DocMgmt',
     'Quality': 'DocMgmt',
@@ -46,45 +36,20 @@ ENTITY_DOMAIN_MAP = {
     'TestDocument': 'DocMgmt',
     'ReferenceDocument': 'DocMgmt',
     'SoftwareDocument': 'DocMgmt',
-    'InterCommData': 'DocMgmt',
-    'Presentation': 'DocMgmt',
-    'SoftwareBuild': 'DocMgmt',
-    'Msds': 'DocMgmt',
-    'PublishedContent': 'DocMgmt',
-    'Minutes': 'DocMgmt',
-    'QMSDocument': 'DocMgmt',
-    'TranslationDocument': 'DocMgmt',
-    'Plan': 'DocMgmt',
-    'StandardOperatingProcedure': 'DocMgmt',
-    'GarrettTRL': 'DocMgmt',
-    'SoftwareConfigurationData': 'DocMgmt',
+    'WorkRecord': 'DocMgmt',
     'ApprovedRecord': 'DocMgmt',
     'Specification': 'DocMgmt',
-    'WorkRecord': 'DocMgmt',
-    # ProdMgmt
     'Part': 'ProdMgmt',
-    # DataAdmin
     'Folder': 'DataAdmin',
-    'Container': 'DataAdmin',
-    # ChangeMgmt
     'ChangeNotice': 'ChangeMgmt',
     'ChangeRequest': 'ChangeMgmt',
     'ChangeTask': 'ChangeMgmt',
-    # QMS
     'QualityAction': 'QMS',
-    'QualityObject': 'QMS',
     'NonConformance': 'QMS',
     'CAPA': 'QMS',
-    'Place': 'QMS',
-    'QualityContact': 'QMS',
-    'Subject': 'QMS',
-    # CEM
     'CustomerExperience': 'CEM',
-    'RelatedProduct': 'CEM',
-    # PrincipalMgmt
-    'User': 'PrincipalMgmt',
-    'Group': 'PrincipalMgmt',
-    'Organization': 'PrincipalMgmt',
+    'Place': 'QMS',
+    'Subject': 'QMS',
 }
 
 # Required properties for each entity type
@@ -92,125 +57,153 @@ ENTITY_REQUIRED_PROPS = {
     'Document': ['Name', 'Number'],
     'Part': ['Name', 'Number'],
     'Folder': ['Name'],
-    'Container': ['Name'],
-    'ControlledDocument': ['Name', 'Number'],
-    'Quality': ['Name', 'Number'],
-    'Record': ['Name', 'Number'],
     'ChangeNotice': ['Name', 'Number'],
-    'ChangeRequest': ['Name', 'Number'],
-    'ChangeTask': ['Name', 'Number'],
-    'CustomerExperience': ['Name'],
     'QualityAction': ['Name', 'Number'],
-    'NonConformance': ['Name', 'Number'],
-    'CAPA': ['Name', 'Number'],
 }
 
-# Default properties for entity creation
-ENTITY_DEFAULT_PROPS = {
-    'Document': {'ObjectType': 'WCTYPE|com.ptc.DocMgmt.Document'},
-    'Part': {'ObjectType': 'WCTYPE|com.ptc.ProdMgmt.Part'},
-    'Folder': {'ObjectType': 'WCTYPE|com.ptc.DataAdmin.Folder'},
+# Default properties for each entity type
+ENTITY_DEFAULTS = {
+    'Document': {'Type': 'Document'},
+    'Part': {'Type': 'Part'},
+    'Folder': {'Type': 'Folder'},
 }
 
 
-def create_entity(entity_type, properties, container_id=None, folder_id=None, output_file=None, raw_output=False):
+def create_entity(entity_type, name=None, number=None, description=None, 
+                  object_type=None, container=None, folder=None, 
+                  props=None, output_file=None, raw_output=False):
     """
-    Create an entity in Windchill PLM.
+    Create a new entity in Windchill PLM with formatted output.
     
     Args:
-        entity_type: Type of entity to create (Document, Part, etc.)
-        properties: Dictionary of entity properties
-        container_id: Optional container ID
-        folder_id: Optional folder ID
+        entity_type: Type of entity to create
+        name: Entity name
+        number: Entity number (unique identifier)
+        description: Entity description
+        object_type: Internal object type
+        container: Container ID
+        folder: Folder ID
+        props: Additional properties as dict
         output_file: Optional file to save JSON response
         raw_output: If True, output raw JSON
         
     Returns:
-        dict: Created entity data or None on failure
+        dict: Created entity or None on failure
     """
+    formatter = OutputFormatter()
     client = WindchillClient()
     
     # Get domain for entity type
     domain = ENTITY_DOMAIN_MAP.get(entity_type)
     if not domain:
-        print(f"[ERROR] Unknown entity type: {entity_type}")
-        print(f"Supported types: {', '.join(ENTITY_DOMAIN_MAP.keys())}")
+        formatter.print_error(f"Unknown entity type: {entity_type}")
+        formatter.print_info("Supported entity types for CREATE:")
+        for domain_name in sorted(set(ENTITY_DOMAIN_MAP.values())):
+            entities = [e for e, d in ENTITY_DOMAIN_MAP.items() if d == domain_name]
+            formatter.print_list(entities, domain_name, bullet='📁')
         return None
+    
+    # Validate required properties
+    required = ENTITY_REQUIRED_PROPS.get(entity_type, ['Name'])
+    if 'Name' in required and not name:
+        formatter.print_error(f"Name is required for {entity_type}")
+        return None
+    if 'Number' in required and not number:
+        formatter.print_error(f"Number is required for {entity_type}")
+        return None
+    
+    # Build entity data
+    entity_data = {}
+    
+    # Add defaults
+    if entity_type in ENTITY_DEFAULTS:
+        entity_data.update(ENTITY_DEFAULTS[entity_type])
+    
+    # Add basic properties
+    if name:
+        entity_data['Name'] = name
+    if number:
+        entity_data['Number'] = number
+    if description:
+        entity_data['Description'] = description
+    if object_type:
+        entity_data['Type'] = object_type
+    if container:
+        entity_data['Container'] = container
+    if folder:
+        entity_data['Folder'] = folder
+    
+    # Add additional properties
+    if props:
+        if isinstance(props, str):
+            try:
+                props = json.loads(props)
+            except json.JSONDecodeError:
+                formatter.print_error("Invalid JSON in props")
+                return None
+        entity_data.update(props)
     
     # Build URL
     odata_base_url = client.config.get("odata_base_url", client.config["server_url"] + "/servlet/odata")
     url = f"{odata_base_url.rstrip('/')}/{domain}/{entity_type}s"
     
-    # Merge default properties
-    entity_props = ENTITY_DEFAULT_PROPS.get(entity_type, {})
-    entity_props.update(properties)
-    
-    # Add container and folder if provided
-    if container_id:
-        entity_props['Context@odata.bind'] = container_id
-    if folder_id:
-        entity_props['Folder@odata.bind'] = folder_id
-    
-    # Get CSRF token for write operation
-    csrf_token = client.get_csrf_token()
-    headers = {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    }
-    if csrf_token:
-        headers['CSRF_NONCE'] = csrf_token
-    
     try:
-        response = client.session.post(url, json=entity_props, headers=headers)
+        # Get CSRF token for write operations
+        headers = {'Content-Type': 'application/json'}
+        if hasattr(client, 'csrf_token') and client.csrf_token:
+            headers['X-CSRF-Token'] = client.csrf_token
+        else:
+            # Try to get CSRF token
+            try:
+                csrf_url = f"{odata_base_url.rstrip('/')}/$csrf"
+                csrf_resp = client.session.get(csrf_url)
+                if csrf_resp.status_code == 200:
+                    csrf_data = csrf_resp.json()
+                    client.csrf_token = csrf_data.get('value', {}).get('token')
+                    if client.csrf_token:
+                        headers['X-CSRF-Token'] = client.csrf_token
+            except:
+                pass
+        
+        response = client.session.post(url, json=entity_data, headers=headers)
         response.raise_for_status()
         data = response.json()
         
         if raw_output:
-            print(json.dumps(data, indent=2))
+            formatter.print_json(data)
         else:
-            print(f"\n[OK] {entity_type} created successfully!")
-            print(f"  ID: {data.get('ID', 'N/A')}")
-            print(f"  Name: {data.get('Name', 'N/A')}")
-            print(f"  Number: {data.get('Number', 'N/A')}")
-            if 'State' in data:
-                state = data['State']
-                if isinstance(state, dict):
-                    print(f"  State: {state.get('Display', 'N/A')}")
-                else:
-                    print(f"  State: {state}")
+            # Show success message
+            entity_name = data.get('Name', data.get('Number', 'Unknown'))
+            formatter.print_operation_result("Created", entity_type, entity_name, True)
+            
+            # Show created entity details
+            formatter.print_entity_detail(data, entity_type)
         
         if output_file:
             with open(output_file, 'w') as f:
                 json.dump(data, f, indent=2)
-            print(f"  Saved to: {output_file}")
+            formatter.print_success(f"Saved to: {output_file}")
         
+        formatter.flush()
         return data
         
     except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to create {entity_type}: {e}")
+        formatter.print_error(f"Failed to create {entity_type}", str(e))
         if hasattr(e, 'response') and e.response is not None:
-            print(f"Status: {e.response.status_code}")
             try:
                 error_data = e.response.json()
-                print(f"Error: {json.dumps(error_data, indent=2)}")
+                formatter.print_json(error_data, "Error Details")
             except:
-                print(f"Response: {e.response.text}")
+                formatter.print_info(f"Status: {e.response.status_code}")
+        formatter.flush()
         return None
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description=f"Create a new entity in Windchill PLM",
+        description="Create a new entity in Windchill PLM",
         formatter_class=argparse.RawDescriptionHelpFormatter,
-        epilog=f"""
-Supported entity types:
-  DocMgmt: {', '.join([e for e, d in ENTITY_DOMAIN_MAP.items() if d == 'DocMgmt'])}
-  ProdMgmt: {', '.join([e for e, d in ENTITY_DOMAIN_MAP.items() if d == 'ProdMgmt'])}
-  DataAdmin: {', '.join([e for e, d in ENTITY_DOMAIN_MAP.items() if d == 'DataAdmin'])}
-  ChangeMgmt: {', '.join([e for e, d in ENTITY_DOMAIN_MAP.items() if d == 'ChangeMgmt'])}
-  QMS: {', '.join([e for e, d in ENTITY_DOMAIN_MAP.items() if d == 'QMS'])}
-  CEM: {', '.join([e for e, d in ENTITY_DOMAIN_MAP.items() if d == 'CEM'])}
-
+        epilog="""
 Examples:
   %(prog)s --entity Document --name "My Document" --number "DOC-001"
   %(prog)s --entity Part --name "My Part" --number "PART-001"
@@ -232,46 +225,21 @@ Examples:
     
     args = parser.parse_args()
     
-    # Build properties dictionary
-    properties = {}
-    
-    if args.name:
-        properties['Name'] = args.name
-    if args.number:
-        properties['Number'] = args.number
-    if args.description:
-        properties['Description'] = args.description
-    if args.object_type:
-        properties['ObjectType'] = args.object_type
-    
-    # Parse additional properties
-    if args.props:
-        try:
-            additional_props = json.loads(args.props)
-            properties.update(additional_props)
-        except json.JSONDecodeError as e:
-            print(f"[ERROR] Invalid JSON in --props: {e}")
-            return 1
-    
-    # Validate required properties
-    required = ENTITY_REQUIRED_PROPS.get(args.entity, ['Name'])
-    missing = [r for r in required if r not in properties]
-    if missing:
-        print(f"[ERROR] Missing required properties: {', '.join(missing)}")
-        print(f"Required for {args.entity}: {', '.join(required)}")
-        return 1
-    
     # Create entity
     result = create_entity(
         entity_type=args.entity,
-        properties=properties,
-        container_id=args.container,
-        folder_id=args.folder,
+        name=args.name,
+        number=args.number,
+        description=args.description,
+        object_type=args.object_type,
+        container=args.container,
+        folder=args.folder,
+        props=args.props,
         output_file=args.output,
         raw_output=args.raw
     )
     
-    return 0 if result else 1
+    return 0 if result is not None else 1
 
 
 if __name__ == '__main__':

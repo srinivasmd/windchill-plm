@@ -2,7 +2,7 @@
 """Generic QUERY script for Windchill entities.
 
 This script provides a unified interface to query any entity type
-from Windchill PLM.
+from Windchill PLM with formatted output for Telegram gateway.
 
 Usage:
     python generic_query.py --entity Document --top 10
@@ -24,6 +24,7 @@ import requests
 sys.path.insert(0, str(Path(__file__).parent))
 
 from windchill_client import WindchillClient
+from output_formatter import OutputFormatter
 
 
 # Entity to domain mapping
@@ -82,39 +83,31 @@ ENTITY_DOMAIN_MAP = {
 
 # Properties to display for each entity type
 ENTITY_DISPLAY_PROPS = {
-    'Document': ['ID', 'Name', 'Number', 'State', 'CreatedBy', 'CreatedOn'],
-    'Part': ['ID', 'Name', 'Number', 'State', 'CreatedBy', 'CreatedOn'],
-    'ChangeNotice': ['ID', 'Name', 'Number', 'State', 'NeedDate', 'CreatedBy'],
-    'ChangeRequest': ['ID', 'Name', 'Number', 'State', 'Urgency', 'CreatedBy'],
-    'ChangeTask': ['ID', 'Name', 'Number', 'State', 'DueDate', 'Assignee'],
-    'QualityAction': ['ID', 'Name', 'Number', 'State', 'ActionType', 'Priority'],
-    'NonConformance': ['ID', 'Name', 'Number', 'State', 'NCType', 'Severity'],
-    'CAPA': ['ID', 'Name', 'Number', 'State', 'CAPAType', 'Priority'],
-    'QualityObject': ['ID', 'Name', 'Number', 'State', 'QualityType', 'Severity'],
-    'Place': ['ID', 'Name', 'Address', 'City', 'Country', 'PlaceType'],
-    'QualityContact': ['ID', 'Name', 'ContactType', 'Email', 'Phone', 'Role'],
-    'Subject': ['ID', 'Name', 'Number', 'SubjectType', 'ProductNumber', 'SerialNumber'],
-    'CustomerExperience': ['ID', 'Name', 'Number', 'State', 'PrimaryCode', 'Date'],
-    'User': ['ID', 'Name', 'FullName', 'Email', 'Organization', 'Disabled'],
-    'Group': ['ID', 'Name', 'Description', 'GroupType'],
-    'Organization': ['ID', 'Name', 'Description'],
-    'Folder': ['ID', 'Name', 'Description', 'CreatedBy'],
-    'Container': ['ID', 'Name', 'Description', 'OrganizationName'],
+    'Document': ['Number', 'Name', 'State', 'CreatedBy', 'CreatedOn'],
+    'Part': ['Number', 'Name', 'State', 'CreatedBy', 'CreatedOn'],
+    'ChangeNotice': ['Number', 'Name', 'State', 'NeedDate', 'CreatedBy'],
+    'ChangeRequest': ['Number', 'Name', 'State', 'Urgency', 'CreatedBy'],
+    'ChangeTask': ['Number', 'Name', 'State', 'DueDate', 'Assignee'],
+    'QualityAction': ['Number', 'Name', 'State', 'ActionType', 'Priority'],
+    'NonConformance': ['Number', 'Name', 'State', 'NCType', 'Severity'],
+    'CAPA': ['Number', 'Name', 'State', 'CAPAType', 'Priority'],
+    'QualityObject': ['Number', 'Name', 'State', 'QualityType', 'Severity'],
+    'Place': ['Name', 'Address', 'City', 'Country', 'PlaceType'],
+    'QualityContact': ['Name', 'ContactType', 'Email', 'Phone', 'Role'],
+    'Subject': ['Number', 'Name', 'SubjectType', 'ProductNumber', 'SerialNumber'],
+    'CustomerExperience': ['Number', 'Name', 'State', 'PrimaryCode', 'Date'],
+    'User': ['Name', 'FullName', 'Email', 'Organization', 'Disabled'],
+    'Group': ['Name', 'Description', 'GroupType'],
+    'Organization': ['Name', 'Description'],
+    'Folder': ['Name', 'Description', 'CreatedBy'],
+    'Container': ['Name', 'Description', 'OrganizationName'],
 }
 
 
-def format_state(state_obj):
-    """Format state object for display."""
-    if state_obj is None:
-        return 'N/A'
-    if isinstance(state_obj, dict):
-        return state_obj.get('Display', state_obj.get('Value', 'N/A'))
-    return str(state_obj)
-
-
-def query_entities(entity_type, filter_clause=None, expand=None, select=None, top=50, skip=0, output_file=None, raw_output=False):
+def query_entities(entity_type, filter_clause=None, expand=None, select=None, 
+                   top=50, skip=0, output_file=None, raw_output=False, detail=False):
     """
-    Query entities from Windchill PLM.
+    Query entities from Windchill PLM with formatted output.
     
     Args:
         entity_type: Type of entity to query
@@ -125,20 +118,22 @@ def query_entities(entity_type, filter_clause=None, expand=None, select=None, to
         skip: Number of results to skip
         output_file: Optional file to save JSON response
         raw_output: If True, output raw JSON
+        detail: If True, show detailed view for each entity
         
     Returns:
         list: Query results or None on failure
     """
+    formatter = OutputFormatter()
     client = WindchillClient()
     
     # Get domain for entity type
     domain = ENTITY_DOMAIN_MAP.get(entity_type)
     if not domain:
-        print(f"[ERROR] Unknown entity type: {entity_type}")
-        print(f"\nSupported entity types:")
+        formatter.print_error(f"Unknown entity type: {entity_type}")
+        formatter.print_info("Supported entity types:")
         for domain_name in sorted(set(ENTITY_DOMAIN_MAP.values())):
             entities = [e for e, d in ENTITY_DOMAIN_MAP.items() if d == domain_name]
-            print(f"  {domain_name}: {', '.join(entities)}")
+            formatter.print_list(entities, domain_name, bullet='📁')
         return None
     
     # Build URL
@@ -166,38 +161,40 @@ def query_entities(entity_type, filter_clause=None, expand=None, select=None, to
         entities = data.get('value', [])
         
         if raw_output:
-            print(json.dumps(data, indent=2))
+            formatter.print_json(data)
+        elif detail and entities:
+            # Show detailed view for each entity
+            formatter.print_entity_header(entity_type, len(entities))
+            for i, entity in enumerate(entities[:10], 1):
+                props = ENTITY_DISPLAY_PROPS.get(entity_type, ['Number', 'Name'])
+                formatter.print_entity_detail(entity, entity_type, props)
+                if i < len(entities[:10]):
+                    formatter.divider()
         else:
-            print(f"\n[OK] Found {len(entities)} {entity_type}(s)")
-            
+            # Show table view
             if entities:
-                display_props = ENTITY_DISPLAY_PROPS.get(entity_type, ['ID', 'Name', 'Number'])
-                
-                for i, entity in enumerate(entities, 1):
-                    print(f"\n--- {entity_type} #{i} ---")
-                    for prop in display_props:
-                        if prop in entity:
-                            value = entity[prop]
-                            if prop == 'State':
-                                value = format_state(value)
-                            print(f"  {prop}: {value}")
-            
+                display_props = ENTITY_DISPLAY_PROPS.get(entity_type, ['Number', 'Name', 'State'])
+                formatter.print_entity_table(entities, entity_type, display_props)
+            else:
+                formatter.print_warning(f"No {entity_type}(s) found matching criteria")
+        
         if output_file:
             with open(output_file, 'w') as f:
                 json.dump(data, f, indent=2)
-            print(f"\nSaved to: {output_file}")
+            formatter.print_success(f"Saved to: {output_file}")
         
+        formatter.flush()
         return entities
         
     except requests.RequestException as e:
-        print(f"\n[ERROR] Failed to query {entity_type}: {e}")
+        formatter.print_error(f"Failed to query {entity_type}", str(e))
         if hasattr(e, 'response') and e.response is not None:
-            print(f"Status: {e.response.status_code}")
             try:
                 error_data = e.response.json()
-                print(f"Error: {json.dumps(error_data, indent=2)}")
+                formatter.print_json(error_data, "Error Details")
             except:
-                print(f"Response: {e.response.text}")
+                pass
+        formatter.flush()
         return None
 
 
@@ -212,6 +209,7 @@ Examples:
   %(prog)s --entity QualityAction --number "QA-001"
   %(prog)s --entity User --name "john"
   %(prog)s --entity Part --filter "contains(Name, 'Test')" --top 20
+  %(prog)s --entity Part --number "PART-001" --detail
 """
     )
     
@@ -225,6 +223,7 @@ Examples:
     parser.add_argument('--skip', '-k', type=int, default=0, help='Skip N results')
     parser.add_argument('--output', '-o', help='Output file for JSON response')
     parser.add_argument('--raw', '-r', action='store_true', help='Output raw JSON response')
+    parser.add_argument('--detail', '-d', action='store_true', help='Show detailed view for each entity')
     
     args = parser.parse_args()
     
@@ -251,7 +250,8 @@ Examples:
         top=args.top,
         skip=args.skip,
         output_file=args.output,
-        raw_output=args.raw
+        raw_output=args.raw,
+        detail=args.detail
     )
     
     return 0 if result is not None else 1
