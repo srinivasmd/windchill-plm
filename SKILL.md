@@ -494,6 +494,62 @@ python scripts/generic_delete.py --entity Document --number "DOC-001" --dry-run
 | MfgProcMgmt | ProcessPlan, Operation |
 | ServiceInfoMgmt | SIMDocument, InformationStructure |
 
+## Telegram Formatted Output
+
+The scripts now support rich Markdown formatting for Telegram gateway responses:
+
+### Output Features
+- **Markdown Tables**: Properly aligned columns with headers
+- **Entity Emojis**: Document, Part, Supplier, ChangeNotice, etc.
+- **State Indicators**: RELEASED, INWORK, REVIEW, REJECTED, CANCELLED
+- **Bold Headers**: `*Entity Type*` for clear section separation
+- **Code Blocks**: IDs displayed as `inline code`
+- **Success/Error Messages**: Visual indicators with emojis
+
+### Usage Example
+
+```bash
+# Table view (default)
+python scripts/generic_query.py --entity Part --top 5
+
+# Detailed view for single entity
+python scripts/generic_query.py --entity Part --number "PART-001" --detail
+
+# Raw JSON output
+python scripts/generic_query.py --entity Part --raw
+```
+
+### Formatted Output Example
+
+```
+*🔧 Part* `3 found`
+
+| Number | Name | State |
+|--------|------|-------|
+| ENG-001 | Engine Assembly | 🟢 RELEASED |
+| PIS-001 | Piston Component | 🔵 INWORK |
+| CYL-001 | Cylinder Head | 🟡 REVIEW |
+
+✅ *Created* 🔧 *Part*: `ENG-001`
+```
+
+### Using output_formatter.py
+
+```python
+from output_formatter import OutputFormatter
+
+formatter = OutputFormatter()
+
+# Print entity table
+formatter.print_entity_table(entities, "Part", ["Number", "Name", "State"])
+
+# Print entity detail
+formatter.print_entity_detail(entity, "Part")
+
+# Print operation result
+formatter.print_operation_result("Created", "Part", "PART-001", True)
+```
+
 ## Available Operations
 
 **Object Operations:**
