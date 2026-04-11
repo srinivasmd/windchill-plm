@@ -61,11 +61,18 @@ temp/
 tmp/
 
 # =============================================================================
+# Ignore metadata XML files (not used by scripts, can be regenerated)
+# =============================================================================
+
+# OData metadata XML files in references folder
+references/**/*_Metadata.xml
+references/**/*Metadata.xml
+
+# =============================================================================
 # Keep these directories (do not ignore)
 # =============================================================================
 
-# Keep reference metadata XML files
-!references/**/*.xml
+# Keep reference documentation files
 !references/**/*.md
 !references/**/*.json
 
