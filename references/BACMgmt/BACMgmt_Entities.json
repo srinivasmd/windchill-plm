@@ -1,0 +1,176 @@
+{
+  "domain": "BACMgmt",
+  "entities": {
+    "BACReceivedDelivery": {
+      "name": "BACReceivedDelivery",
+      "base_type": "",
+      "properties": {
+        "Actions": {
+          "type": "PTC.BACMgmt.ReceivedDeliveryAction",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ImportStatus": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "LocalizedModifiedDate": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PackageName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RDNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "BACReceivedDeliveries",
+      "entity_type": "PTC.BACMgmt.BACReceivedDelivery"
+    }
+  ],
+  "actions": [
+    {
+      "name": "GetBACHistoryRecord",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "types",
+          "type": "Edm.String"
+        },
+        {
+          "name": "startDate",
+          "type": "Edm.DateTimeOffset"
+        },
+        {
+          "name": "endDate",
+          "type": "Edm.DateTimeOffset"
+        },
+        {
+          "name": "contextOID",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BACMgmt.BACHistoryData)"
+    },
+    {
+      "name": "Preview",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "types",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "startDate",
+          "type": "Edm.DateTimeOffset"
+        },
+        {
+          "name": "endDate",
+          "type": "Edm.DateTimeOffset"
+        }
+      ],
+      "return_type": "Collection(PTC.BACMgmt.Delta)"
+    },
+    {
+      "name": "Export",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "name",
+          "type": "Edm.String"
+        },
+        {
+          "name": "description",
+          "type": "Edm.String"
+        },
+        {
+          "name": "types",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "objects",
+          "type": "Collection(PTC.BACMgmt.BACItem)"
+        },
+        {
+          "name": "startDate",
+          "type": "Edm.DateTimeOffset"
+        },
+        {
+          "name": "endDate",
+          "type": "Edm.DateTimeOffset"
+        },
+        {
+          "name": "isAutoCollectAllDependentsRequest",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Edm.String"
+    },
+    {
+      "name": "ImportStage1Action",
+      "is_bound": false,
+      "parameters": [],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "ImportStage3Action",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.DocMgmt.ContentInfo)"
+        },
+        {
+          "name": "UseBundledMappings",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "UseBundledResolutions",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.BACMgmt.ImportResponse"
+    },
+    {
+      "name": "SaveImportMappings",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ImportMappings",
+          "type": "Collection(PTC.BACMgmt.ImportMapping)"
+        }
+      ],
+      "return_type": "Edm.Boolean"
+    },
+    {
+      "name": "DeleteBACReceivedDeliveries",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "BACReceivedDeliveries",
+          "type": "Collection(PTC.BACMgmt.BACReceivedDelivery)"
+        }
+      ],
+      "return_type": null
+    }
+  ]
+}

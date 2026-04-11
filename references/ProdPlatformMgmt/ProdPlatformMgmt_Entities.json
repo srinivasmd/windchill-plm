@@ -1,0 +1,1534 @@
+{
+  "domain": "ProdPlatformMgmt",
+  "namespace": "PTC.ProdPlatformMgmt",
+  "generated": "2026-04-10T23:18:19.070729",
+  "source": "ProdPlatformMgmt_Metadata.xml",
+  "entities": {
+    "DesignChoice": {
+      "name": "DesignChoice",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "PTC.ProdPlatformMgmt.Choice",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {
+        "DesignOption": {
+          "type": "PTC.ProdPlatformMgmt.DesignOption",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "OptionGroup": {
+      "name": "OptionGroup",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "PTC.ProdPlatformMgmt.OptionPoolItem",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {
+        "Options": {
+          "type": "Collection(PTC.ProdPlatformMgmt.Option)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "SalesChoice": {
+      "name": "SalesChoice",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "PTC.ProdPlatformMgmt.Choice",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {
+        "SalesOption": {
+          "type": "PTC.ProdPlatformMgmt.SalesOption",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "Choice": {
+      "name": "Choice",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "DisplayName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "Option": {
+          "type": "PTC.ProdPlatformMgmt.Option",
+          "partner": "",
+          "contains_target": false
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "ModuleVariantInformationLink": {
+      "name": "ModuleVariantInformationLink",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "LinkedTo": {
+          "type": "PTC.ProdPlatformMgmt.VariantSpecification",
+          "partner": "",
+          "contains_target": false
+        },
+        "LinkedFrom": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "Option": {
+      "name": "Option",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "PTC.ProdPlatformMgmt.OptionPoolItem",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "AllowFalseChoices": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "Required": {
+          "type": "Edm.Boolean",
+          "nullable": false,
+          "annotations": []
+        },
+        "SingleChoiceSelection": {
+          "type": "Edm.Boolean",
+          "nullable": false,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {
+        "OptionGroup": {
+          "type": "PTC.ProdPlatformMgmt.OptionGroup",
+          "partner": "",
+          "contains_target": false
+        },
+        "Choices": {
+          "type": "Collection(PTC.ProdPlatformMgmt.Choice)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "OptionPoolItem": {
+      "name": "OptionPoolItem",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "VariantSpecification": {
+      "name": "VariantSpecification",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "ManagedAs": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "TypeIcon": {
+          "type": "PTC.Icon",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "NavigationCriteria": {
+          "type": "PTC.NavCriteria.NavigationCriteria",
+          "partner": "",
+          "contains_target": false
+        },
+        "ConfigurableModule": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": "",
+          "contains_target": false
+        },
+        "OptionSet": {
+          "type": "PTC.ProdPlatformMgmt.OptionSet",
+          "partner": "",
+          "contains_target": false
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "ModuleVariantInformationLinks": {
+          "type": "Collection(PTC.ProdPlatformMgmt.ModuleVariantInformationLink)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Versions": {
+          "type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)",
+          "partner": "",
+          "contains_target": false
+        },
+        "PrimaryContent": {
+          "type": "PTC.ContentItem",
+          "partner": "",
+          "contains_target": true
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Revisions": {
+          "type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "OptionSetAssignableEntity": {
+      "name": "OptionSetAssignableEntity",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "AssignedOptionSet": {
+          "type": "PTC.ProdPlatformMgmt.OptionSet",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "ExpressionAlias": {
+      "name": "ExpressionAlias",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Definition": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpressionItems": {
+          "type": "Collection(PTC.ProdPlatformMgmt.AssignedExpressionItem)",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "TypeIcon": {
+          "type": "PTC.Icon",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "AssignedTo": {
+          "type": "PTC.WindchillEntity",
+          "partner": "",
+          "contains_target": false
+        },
+        "UsedIn": {
+          "type": "PTC.ProdPlatformMgmt.ExpressionAlias",
+          "partner": "",
+          "contains_target": false
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Versions": {
+          "type": "Collection(PTC.ProdPlatformMgmt.ExpressionAlias)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Revisions": {
+          "type": "Collection(PTC.ProdPlatformMgmt.ExpressionAlias)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "OptionSet": {
+      "name": "OptionSet",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "AllowDateEffectivityForChoices": {
+          "type": "Edm.Boolean",
+          "nullable": false,
+          "annotations": []
+        },
+        "AllowExcludeChoices": {
+          "type": "Edm.Boolean",
+          "nullable": false,
+          "annotations": []
+        },
+        "AllowExpressionsToNonConfigurableItems": {
+          "type": "Edm.Boolean",
+          "nullable": false,
+          "annotations": []
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "ManageLocalRuleChangesIndependentOfOptionSet": {
+          "type": "Edm.Boolean",
+          "nullable": false,
+          "annotations": []
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Merged": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonSortable"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "ReferenceOptionPoolRulesAutomatically": {
+          "type": "Edm.Boolean",
+          "nullable": false,
+          "annotations": []
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "Options": {
+          "type": "Collection(PTC.ProdPlatformMgmt.Option)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Versions": {
+          "type": "Collection(PTC.ProdPlatformMgmt.OptionSet)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Revisions": {
+          "type": "Collection(PTC.ProdPlatformMgmt.OptionSet)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "IndependentAssignedExpression": {
+      "name": "IndependentAssignedExpression",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "AssignmentType": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Definition": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpressionItems": {
+          "type": "Collection(PTC.ProdPlatformMgmt.AssignedExpressionItem)",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "IsBasic": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Versions": {
+          "type": "Collection(PTC.ProdPlatformMgmt.IndependentAssignedExpression)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Effectivities": {
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Revisions": {
+          "type": "Collection(PTC.ProdPlatformMgmt.IndependentAssignedExpression)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "DesignOption": {
+      "name": "DesignOption",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "PTC.ProdPlatformMgmt.Option",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {
+        "DesignChoices": {
+          "type": "Collection(PTC.ProdPlatformMgmt.DesignChoice)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "SalesOption": {
+      "name": "SalesOption",
+      "namespace": "PTC.ProdPlatformMgmt",
+      "base_type": "PTC.ProdPlatformMgmt.Option",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {
+        "SalesChoices": {
+          "type": "Collection(PTC.ProdPlatformMgmt.SalesChoice)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    }
+  },
+  "entity_sets": [
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "Options",
+      "entity_type": "PTC.ProdPlatformMgmt.Option"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "OptionSets",
+      "entity_type": "PTC.ProdPlatformMgmt.OptionSet"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "Choices",
+      "entity_type": "PTC.ProdPlatformMgmt.Choice"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "VariantSpecifications",
+      "entity_type": "PTC.ProdPlatformMgmt.VariantSpecification"
+    }
+  ],
+  "actions": [
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "GetAssignedExpressions",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "ExpressionAssignables",
+          "type": "Collection(PTC.WindchillEntity)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.AssignedExpression)"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "GetVariantSpecificationsLinkedFromMVIL",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Collection(PTC.ProdMgmt.Part)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.PartsToVariantSpecificationsListItem)"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "GetAssignedOptionSets",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "OptionSetAssignables",
+          "type": "Collection(PTC.ProdPlatformMgmt.OptionSetAssignableEntity)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.OptionSetAssignableListItem)"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "SetStateChoices",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Choices",
+          "type": "Collection(PTC.ProdPlatformMgmt.Choice)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.Choice)"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ProdPlatformMgmt.Choice",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.ProdPlatformMgmt.Choice"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "SetStateVariantSpecifications",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "VariantSpecifications",
+          "type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ProdPlatformMgmt.VariantSpecification",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.ProdPlatformMgmt.VariantSpecification"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "ReviseVariantSpecifications",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "VariantSpecifications",
+          "type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "Revise",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ProdPlatformMgmt.VariantSpecification",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.ProdPlatformMgmt.VariantSpecification"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "CheckIn",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ProdPlatformMgmt.VariantSpecification",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.ProdPlatformMgmt.VariantSpecification"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "CheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ProdPlatformMgmt.VariantSpecification",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.ProdPlatformMgmt.VariantSpecification"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ProdPlatformMgmt.VariantSpecification",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.ProdPlatformMgmt.VariantSpecification"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "CheckOutVariantSpecifications",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "CheckInVariantSpecifications",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "UndoCheckOutVariantSpecifications",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.VariantSpecification)"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ProdPlatformMgmt.OptionSet",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.ProdPlatformMgmt.OptionSet"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "SetStateOptionSets",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "OptionSets",
+          "type": "Collection(PTC.ProdPlatformMgmt.OptionSet)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.OptionSet)"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "Revise",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ProdPlatformMgmt.OptionSet",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.ProdPlatformMgmt.OptionSet"
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "ReviseOptionSets",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "OptionSets",
+          "type": "Collection(PTC.ProdPlatformMgmt.OptionSet)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ProdPlatformMgmt.OptionSet)"
+    }
+  ],
+  "complex_types": [
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "OptionSetAssignableListItem",
+      "properties": [
+        {
+          "name": "OptionSetAssignableId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "PartsToVariantSpecificationsListItem",
+      "properties": [
+        {
+          "name": "PartId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "AssignedExpression",
+      "properties": [
+        {
+          "name": "ExpressionAssignableID",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "Definition",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "DetailItems",
+          "type": "Collection(PTC.ProdPlatformMgmt.AssignedExpressionItem)",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.ProdPlatformMgmt",
+      "name": "AssignedExpressionItem",
+      "properties": [
+        {
+          "name": "Expression",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "Description",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    }
+  ],
+  "enumerations": []
+}

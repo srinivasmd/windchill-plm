@@ -1,0 +1,746 @@
+{
+  "domain": "QMS",
+  "entities": {
+    "MedicalProfessionalContact": {
+      "name": "MedicalProfessionalContact",
+      "base_type": "PTC.QMS.QualityContact",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "PersonCustomer": {
+      "name": "PersonCustomer",
+      "base_type": "PTC.QMS.Person",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Supplier": {
+      "name": "Supplier",
+      "base_type": "PTC.QMS.Place",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Relationship": {
+      "name": "Relationship",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "EndDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "RelationshipType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "StartDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Related": {
+          "type": "PTC.QMS.PersonPlace",
+          "partner": ""
+        }
+      }
+    },
+    "MPMProcessPlan": {
+      "name": "MPMProcessPlan",
+      "base_type": "PTC.QMS.Subject",
+      "properties": {},
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "RegulatoryAgencyContact": {
+      "name": "RegulatoryAgencyContact",
+      "base_type": "PTC.QMS.QualityContact",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Subject": {
+      "name": "Subject",
+      "base_type": "",
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "PersonPlace": {
+      "name": "PersonPlace",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "ActiveIndicator": {
+          "type": "Edm.Boolean",
+          "nullable": false
+        },
+        "AlternateIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Notes": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PrimaryResponsibility": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Status": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "StatusDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "PTC.Icon",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "AdditionalAddresses": {
+          "type": "Collection(PTC.QMS.Address)",
+          "partner": ""
+        },
+        "PrimaryAddress": {
+          "type": "PTC.QMS.Address",
+          "partner": ""
+        },
+        "AdditionalEmails": {
+          "type": "Collection(PTC.QMS.Email)",
+          "partner": ""
+        },
+        "PrimaryEmail": {
+          "type": "PTC.QMS.Email",
+          "partner": ""
+        },
+        "AdditionalPhoneNumbers": {
+          "type": "Collection(PTC.QMS.PhoneNumber)",
+          "partner": ""
+        },
+        "PrimaryPhoneNumber": {
+          "type": "PTC.QMS.PhoneNumber",
+          "partner": ""
+        },
+        "XReferences": {
+          "type": "Collection(PTC.QMS.XReference)",
+          "partner": ""
+        },
+        "Relationships": {
+          "type": "Collection(PTC.QMS.Relationship)",
+          "partner": ""
+        },
+        "RelatedSubjects": {
+          "type": "Collection(PTC.QMS.RelatedSubject)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "BusinessUnitOffice": {
+      "name": "BusinessUnitOffice",
+      "base_type": "PTC.QMS.Place",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "SupplierContact": {
+      "name": "SupplierContact",
+      "base_type": "PTC.QMS.QualityContact",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "XReference": {
+      "name": "XReference",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ReferenceType": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "ReferenceValue": {
+          "type": "Edm.String",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {}
+    },
+    "PartInstance": {
+      "name": "PartInstance",
+      "base_type": "PTC.QMS.Subject",
+      "properties": {},
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "MPMOperation": {
+      "name": "MPMOperation",
+      "base_type": "PTC.QMS.Subject",
+      "properties": {},
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "ManufacturerContact": {
+      "name": "ManufacturerContact",
+      "base_type": "PTC.QMS.QualityContact",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "PhoneNumber": {
+      "name": "PhoneNumber",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "PhoneNumber": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "PhoneNumberType": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "Primary": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Part": {
+      "name": "Part",
+      "base_type": "PTC.QMS.Subject",
+      "properties": {},
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "MPMResource": {
+      "name": "MPMResource",
+      "base_type": "PTC.QMS.Subject",
+      "properties": {},
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "MedicalProfessional": {
+      "name": "MedicalProfessional",
+      "base_type": "PTC.QMS.Person",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "PlaceDealership": {
+      "name": "PlaceDealership",
+      "base_type": "PTC.QMS.Place",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "EPMDocument": {
+      "name": "EPMDocument",
+      "base_type": "PTC.QMS.Subject",
+      "properties": {},
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "Distributor": {
+      "name": "Distributor",
+      "base_type": "PTC.QMS.Place",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Manufacturer": {
+      "name": "Manufacturer",
+      "base_type": "PTC.QMS.Place",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Address": {
+      "name": "Address",
+      "base_type": "",
+      "properties": {
+        "AddressLine1": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AddressLine2": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AddressLine3": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AddressLine4": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AddressStatus": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "City": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Country": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "MailingAddress": {
+          "type": "Edm.Boolean",
+          "nullable": false
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Primary": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "StateProvince": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "StatusDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Type": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {}
+    },
+    "PatientContact": {
+      "name": "PatientContact",
+      "base_type": "PTC.QMS.QualityContact",
+      "properties": {
+        "Age": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "AgeUnits": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "DateOfBirth": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "DateOfBirthApproximate": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Gender": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "PartOfStudy": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Weight": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "WeightUnits": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Quality": {
+      "name": "Quality",
+      "base_type": "PTC.DataAdmin.Container",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "RegulatoryAgency": {
+      "name": "RegulatoryAgency",
+      "base_type": "PTC.QMS.Place",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "DistributorContact": {
+      "name": "DistributorContact",
+      "base_type": "PTC.QMS.QualityContact",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "BusinessUnitOrOfficeContact": {
+      "name": "BusinessUnitOrOfficeContact",
+      "base_type": "PTC.QMS.QualityContact",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Place": {
+      "name": "Place",
+      "base_type": "PTC.QMS.PersonPlace",
+      "properties": {
+        "EntityTypeName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Person": {
+      "name": "Person",
+      "base_type": "PTC.QMS.PersonPlace",
+      "properties": {
+        "EntityTypeName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FirstName": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "LastName": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "MiddleName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PersonPrefix": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PersonSuffix": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ServiceCenter": {
+      "name": "ServiceCenter",
+      "base_type": "PTC.QMS.Place",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "FacilityHospital": {
+      "name": "FacilityHospital",
+      "base_type": "PTC.QMS.Place",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "InitialReporterContact": {
+      "name": "InitialReporterContact",
+      "base_type": "PTC.QMS.QualityContact",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "RelatedSubject": {
+      "name": "RelatedSubject",
+      "base_type": "",
+      "properties": {
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Related": {
+          "type": "PTC.QMS.Subject",
+          "partner": ""
+        }
+      }
+    },
+    "Document": {
+      "name": "Document",
+      "base_type": "PTC.QMS.Subject",
+      "properties": {},
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "FacilityContact": {
+      "name": "FacilityContact",
+      "base_type": "PTC.QMS.QualityContact",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Patient": {
+      "name": "Patient",
+      "base_type": "PTC.QMS.Person",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "QualityContact": {
+      "name": "QualityContact",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OtherInformation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Phone": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Primary": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Title": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Contact": {
+          "type": "PTC.QMS.PersonPlace",
+          "partner": ""
+        }
+      }
+    },
+    "Email": {
+      "name": "Email",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Email": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "EmailType": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Primary": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "MPMProcessPlans",
+      "entity_type": "PTC.QMS.MPMProcessPlan"
+    },
+    {
+      "name": "MPMResources",
+      "entity_type": "PTC.QMS.MPMResource"
+    },
+    {
+      "name": "People",
+      "entity_type": "PTC.QMS.Person"
+    },
+    {
+      "name": "Subjects",
+      "entity_type": "PTC.QMS.Subject"
+    },
+    {
+      "name": "PartInstances",
+      "entity_type": "PTC.QMS.PartInstance"
+    },
+    {
+      "name": "Places",
+      "entity_type": "PTC.QMS.Place"
+    },
+    {
+      "name": "Quality",
+      "entity_type": "PTC.QMS.Quality"
+    },
+    {
+      "name": "Documents",
+      "entity_type": "PTC.QMS.Document"
+    },
+    {
+      "name": "EPMDocuments",
+      "entity_type": "PTC.QMS.EPMDocument"
+    },
+    {
+      "name": "MPMOperations",
+      "entity_type": "PTC.QMS.MPMOperation"
+    },
+    {
+      "name": "PeopleOrPlaces",
+      "entity_type": "PTC.QMS.PersonPlace"
+    },
+    {
+      "name": "Parts",
+      "entity_type": "PTC.QMS.Part"
+    }
+  ],
+  "actions": []
+}

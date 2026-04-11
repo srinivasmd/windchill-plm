@@ -1,0 +1,861 @@
+{
+  "domain": "UDI",
+  "entities": {
+    "UDISuperSet2": {
+      "name": "UDISuperSet2",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "BrandName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "BrandNamePartofDeviceFamily": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ByDonationIdentificationNumber": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CatalogNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CombinationProduct": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ContainsHumanTissue": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ContainsLatex": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DeviceCount": {
+          "type": "Edm.Int16",
+          "nullable": true
+        },
+        "DeviceDescription": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DeviceIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DeviceIdentifierIssuingAgency": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "DirectPartMarkingDeviceIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DiscontinuedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ExpirationDateControlled": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "KitProduct": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LabeledAsNotMadeWithLatex": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LabelerDUNS": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LotControlled": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "MRISafetyStatus": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "ManufactureDateControlled": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModelNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModelNumberFamily": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OverTheCounterUse": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "PackagedSterile": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "PrescriptionUse": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "RequiresSterilization": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SerialControlled": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "SingleUse": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Templated": {
+          "type": "Edm.Boolean",
+          "nullable": false
+        },
+        "UnitOfUseDeviceIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpToDate": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Template": {
+          "type": "PTC.UDI.UDISuperSet2",
+          "partner": ""
+        },
+        "Subjects": {
+          "type": "Collection(PTC.UDI.SubjectLink)",
+          "partner": ""
+        },
+        "Details": {
+          "type": "Collection(PTC.UDI.Detail)",
+          "partner": ""
+        },
+        "PackagingConfigurations": {
+          "type": "Collection(PTC.UDI.PackagingConfiguration)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.UDI.UDISuperSet2)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.UDI.UDISuperSet2)",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "SubjectLink": {
+      "name": "SubjectLink",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Subject": {
+          "type": "PTC.UDI.UDISubject",
+          "partner": ""
+        }
+      }
+    },
+    "DeviceContact": {
+      "name": "DeviceContact",
+      "base_type": "PTC.UDI.Detail",
+      "properties": {
+        "EmailAddress": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PhoneExtension": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PhoneNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "FDAProductCode": {
+      "name": "FDAProductCode",
+      "base_type": "PTC.UDI.UDISuperSetDetail",
+      "properties": {
+        "Udiss_fdaProductCode": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "PackagingConfiguration": {
+      "name": "PackagingConfiguration",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DiscontinuedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PackageDeviceIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Contains": {
+          "type": "PTC.UDI.PackagingConfiguration",
+          "partner": ""
+        }
+      }
+    },
+    "UDISuperSet": {
+      "name": "UDISuperSet",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "BrandName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "BrandNamePartofDeviceFamily": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ByDonationIdentificationNumber": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "CatalogNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CombinationProduct": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ContainsHumanTissue": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ContainsLatex": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DeviceCount": {
+          "type": "Edm.Int16",
+          "nullable": true
+        },
+        "DeviceDescription": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DeviceIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DeviceIdentifierIssuingAgency": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "DeviceIdentifierRecordPublishDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "DirectPartMarkingDeviceIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DiscontinuedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ExemptFromDirectPartMarking": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ExemptFromPremarketAuthorization": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ExpirationDateControlled": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "KitProduct": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LabeledAsNotMadeWithLatex": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LabelerDUNS": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LotControlled": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "MRISafetyStatus": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "ManufactureDateControlled": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModelNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModelNumberFamily": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OverTheCounterUse": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "PackagedSterile": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "PrescriptionUse": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "RequiresSterilization": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "SerialControlled": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "SingleUse": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Templated": {
+          "type": "Edm.Boolean",
+          "nullable": false
+        },
+        "UnitOfUseDeviceIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpToDate": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "VersionNumber": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "setID": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Template": {
+          "type": "PTC.UDI.UDISuperSet",
+          "partner": ""
+        },
+        "Subject": {
+          "type": "PTC.UDI.UDISubject",
+          "partner": ""
+        },
+        "Details": {
+          "type": "Collection(PTC.UDI.Detail)",
+          "partner": ""
+        },
+        "PackagingConfigurations": {
+          "type": "Collection(PTC.UDI.PackagingConfiguration)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "FDAPremarketAuthorizationNumber": {
+      "name": "FDAPremarketAuthorizationNumber",
+      "base_type": "PTC.UDI.UDISuperSetDetail",
+      "properties": {
+        "Udiss_fdaPremarketAuthorizationNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Udiss_fdaSupplementNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "FDAListingNumber": {
+      "name": "FDAListingNumber",
+      "base_type": "PTC.UDI.UDISuperSetDetail",
+      "properties": {
+        "Udiss_fdaListingNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "SterilizationMethod": {
+      "name": "SterilizationMethod",
+      "base_type": "PTC.UDI.Detail",
+      "properties": {
+        "SterilizationMethod": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "DeviceSizeCharacteristic": {
+      "name": "DeviceSizeCharacteristic",
+      "base_type": "PTC.UDI.Detail",
+      "properties": {
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SizeType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "UnitOfMeasure": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Value": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "GMDNTermCode": {
+      "name": "GMDNTermCode",
+      "base_type": "PTC.UDI.Detail",
+      "properties": {
+        "GMDNTermCode": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "StorageAndHandlingRequirement": {
+      "name": "StorageAndHandlingRequirement",
+      "base_type": "PTC.UDI.Detail",
+      "properties": {
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "HighValue": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "LowValue": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "StorageType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "UnitOfMeasure": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "UDISubject": {
+      "name": "UDISubject",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "Detail": {
+      "name": "Detail",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "UDISuperSetDetail": {
+      "name": "UDISuperSetDetail",
+      "base_type": "PTC.UDI.Detail",
+      "properties": {
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "AlternateIdentifier": {
+      "name": "AlternateIdentifier",
+      "base_type": "PTC.UDI.Detail",
+      "properties": {
+        "DeviceIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DeviceIdentifierIssuingAgency": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "UDISuperSets",
+      "entity_type": "PTC.UDI.UDISuperSet"
+    },
+    {
+      "name": "UDISubjects",
+      "entity_type": "PTC.UDI.UDISubject"
+    },
+    {
+      "name": "UDISuperSets2",
+      "entity_type": "PTC.UDI.UDISuperSet2"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.UDI.UDISuperSet2"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.UDI.UDISuperSet2"
+    },
+    {
+      "name": "ReviseUDISuperSets2",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "UDISuperSets2",
+          "type": "Collection(PTC.UDI.UDISuperSet2)"
+        }
+      ],
+      "return_type": "Collection(PTC.UDI.UDISuperSet2)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.UDI.UDISuperSet2"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.UDI.UDISuperSet2"
+    },
+    {
+      "name": "SetStateUDISuperSets2",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "UDISuperSets2",
+          "type": "Collection(PTC.UDI.UDISuperSet2)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.UDI.UDISuperSet2)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.UDI.UDISuperSet"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.UDI.UDISuperSet"
+    },
+    {
+      "name": "SetStateUDISuperSets",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "UDISuperSets",
+          "type": "Collection(PTC.UDI.UDISuperSet)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.UDI.UDISuperSet)"
+    }
+  ]
+}

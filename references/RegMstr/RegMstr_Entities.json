@@ -1,0 +1,971 @@
+{
+  "domain": "RegMstr",
+  "entities": {
+    "Subject": {
+      "name": "Subject",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "RegulatoryProductSubmission": {
+      "name": "RegulatoryProductSubmission",
+      "base_type": "PTC.RegMstr.RegSubmission2",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "RegulatorySubmission": {
+      "name": "RegulatorySubmission",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "ApprovalDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "CertificateNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DueDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ExpirationDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Expired": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "FollowUpID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RejectedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "RemoteIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RemoteURL": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReportType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "ReservedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "SubjectDisplay": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SubmissionID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SubmissionMethod": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "SubmittedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "TerminatedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "submissionStage": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Subject": {
+          "type": "PTC.RegMstr.Subject",
+          "partner": ""
+        },
+        "SubjectLink": {
+          "type": "PTC.RegMstr.SubjectLink",
+          "partner": ""
+        },
+        "SubmittedTo": {
+          "type": "PTC.QMS.Place",
+          "partner": ""
+        },
+        "DriverLinks": {
+          "type": "Collection(PTC.RegMstr.DriverLink)",
+          "partner": ""
+        },
+        "Drivers": {
+          "type": "Collection(PTC.RegMstr.Driver)",
+          "partner": ""
+        },
+        "TableData": {
+          "type": "Collection(PTC.RegMstr.TableData)",
+          "partner": ""
+        },
+        "AcknowledgementMessages": {
+          "type": "Collection(PTC.RegMstr.AcknowledgementMessage)",
+          "partner": ""
+        },
+        "RegulatoryContent": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "PrimaryContent": {
+          "type": "PTC.ContentItem",
+          "partner": ""
+        },
+        "Thumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "SmallThumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "EstablishmentRegistrationSubmission": {
+      "name": "EstablishmentRegistrationSubmission",
+      "base_type": "PTC.RegMstr.RegSubmission2",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "AdverseEventRegulatorySubmission": {
+      "name": "AdverseEventRegulatorySubmission",
+      "base_type": "PTC.RegMstr.RegSubmission2",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "DriverLink": {
+      "name": "DriverLink",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Driver": {
+          "type": "PTC.RegMstr.Driver",
+          "partner": ""
+        }
+      }
+    },
+    "AcknowledgementMessage": {
+      "name": "AcknowledgementMessage",
+      "base_type": "",
+      "properties": {
+        "AcknowledgementCode": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AcknowledgementMessage": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Driver": {
+      "name": "Driver",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionNumber": {
+          "type": "Edm.Int64",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "SubjectLink": {
+      "name": "SubjectLink",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Subject": {
+          "type": "PTC.RegMstr.Subject",
+          "partner": ""
+        }
+      }
+    },
+    "UniqueDeviceIdentifierSubmission": {
+      "name": "UniqueDeviceIdentifierSubmission",
+      "base_type": "PTC.RegMstr.RegSubmission2",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ContentInfo": {
+      "name": "ContentInfo",
+      "base_type": "",
+      "properties": {
+        "StreamId": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "FileSize": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "EncodedInfo": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FileName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MimeType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PrimaryContent": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Role": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Category": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "TableData": {
+      "name": "TableData",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "RegSubmission2": {
+      "name": "RegSubmission2",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "ApprovalDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "CertificateNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DueDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ExpirationDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Expired": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "FollowUpID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RejectedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "RemoteIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RemoteURL": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReportType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "ReservedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "SubjectDisplay": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "SubmissionID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SubmissionMethod": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "SubmittedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "TerminatedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true
+        },
+        "submissionStage": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Subjects": {
+          "type": "Collection(PTC.RegMstr.Subject)",
+          "partner": ""
+        },
+        "SubjectLinks": {
+          "type": "Collection(PTC.RegMstr.SubjectLink)",
+          "partner": ""
+        },
+        "SubmittedTo": {
+          "type": "PTC.QMS.Place",
+          "partner": ""
+        },
+        "DriverLinks": {
+          "type": "Collection(PTC.RegMstr.DriverLink)",
+          "partner": ""
+        },
+        "Drivers": {
+          "type": "Collection(PTC.RegMstr.Driver)",
+          "partner": ""
+        },
+        "TableData": {
+          "type": "Collection(PTC.RegMstr.TableData)",
+          "partner": ""
+        },
+        "AcknowledgementMessages": {
+          "type": "Collection(PTC.RegMstr.AcknowledgementMessage)",
+          "partner": ""
+        },
+        "SubmissionAssignee": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "RegulatoryContent": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.RegMstr.RegSubmission2)",
+          "partner": ""
+        },
+        "PrimaryContent": {
+          "type": "PTC.ContentItem",
+          "partner": ""
+        },
+        "Thumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "SmallThumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.RegMstr.RegSubmission2)",
+          "partner": ""
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "Drivers",
+      "entity_type": "PTC.RegMstr.Driver"
+    },
+    {
+      "name": "RegulatorySubmissions",
+      "entity_type": "PTC.RegMstr.RegulatorySubmission"
+    },
+    {
+      "name": "RegSubmission2",
+      "entity_type": "PTC.RegMstr.RegSubmission2"
+    },
+    {
+      "name": "AcknowledgementMessages",
+      "entity_type": "PTC.RegMstr.AcknowledgementMessage"
+    },
+    {
+      "name": "Subjects",
+      "entity_type": "PTC.RegMstr.Subject"
+    }
+  ],
+  "actions": [
+    {
+      "name": "ProcessAcknowledgement",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "SubmissionType",
+          "type": "Edm.String"
+        },
+        {
+          "name": "AcknowledgementName",
+          "type": "Edm.String"
+        },
+        {
+          "name": "AcknowledgementBody",
+          "type": "Edm.Stream"
+        }
+      ],
+      "return_type": "PTC.ApplicationData"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "RegSubmission2",
+          "type": "PTC.RegMstr.RegSubmission2"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "RegSubmission2",
+          "type": "PTC.RegMstr.RegSubmission2"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.RegMstr.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "name": "Reserve",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.RegMstr.RegSubmission2"
+        },
+        {
+          "name": "Duration",
+          "type": "Edm.Int32"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegSubmission2"
+    },
+    {
+      "name": "UndoReservation",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.RegMstr.RegSubmission2"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegSubmission2"
+    },
+    {
+      "name": "SetStateRegSubmission2",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "RegSubmission2",
+          "type": "Collection(PTC.RegMstr.RegSubmission2)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.RegMstr.RegSubmission2)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.RegMstr.RegSubmission2"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegSubmission2"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.RegMstr.RegSubmission2"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegSubmission2"
+    },
+    {
+      "name": "ReviseRegSubmission2",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "RegSubmission2",
+          "type": "Collection(PTC.RegMstr.RegSubmission2)"
+        }
+      ],
+      "return_type": "Collection(PTC.RegMstr.RegSubmission2)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.RegMstr.RegSubmission2"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegSubmission2"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.RegMstr.RegSubmission2"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegSubmission2"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.RegMstr.RegSubmission2"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegSubmission2"
+    },
+    {
+      "name": "CheckOutRegSubmission2",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.RegMstr.RegSubmission2)"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.RegMstr.RegSubmission2)"
+    },
+    {
+      "name": "CheckInRegSubmission2",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.RegMstr.RegSubmission2)"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.RegMstr.RegSubmission2)"
+    },
+    {
+      "name": "UndoCheckOutRegSubmission2",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.RegMstr.RegSubmission2)"
+        }
+      ],
+      "return_type": "Collection(PTC.RegMstr.RegSubmission2)"
+    },
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "RegulatorySubmission",
+          "type": "PTC.RegMstr.RegulatorySubmission"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.RegMstr.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "name": "CreateFollowup",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "RegulatorySubmission",
+          "type": "PTC.RegMstr.RegulatorySubmission"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegulatorySubmission"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "RegulatorySubmission",
+          "type": "PTC.RegMstr.RegulatorySubmission"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.RegMstr.RegulatorySubmission"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegulatorySubmission"
+    },
+    {
+      "name": "SetStateRegulatorySubmissions",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "RegulatorySubmissions",
+          "type": "Collection(PTC.RegMstr.RegulatorySubmission)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.RegMstr.RegulatorySubmission)"
+    },
+    {
+      "name": "UndoReservation",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.RegMstr.RegulatorySubmission"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegulatorySubmission"
+    },
+    {
+      "name": "Reserve",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.RegMstr.RegulatorySubmission"
+        },
+        {
+          "name": "Duration",
+          "type": "Edm.Int32"
+        }
+      ],
+      "return_type": "PTC.RegMstr.RegulatorySubmission"
+    }
+  ]
+}

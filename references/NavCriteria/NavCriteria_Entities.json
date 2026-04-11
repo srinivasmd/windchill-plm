@@ -1,0 +1,908 @@
+{
+  "domain": "NavCriteria",
+  "namespace": "PTC.NavCriteria",
+  "generated": "2026-04-10T22:35:33.035476",
+  "source": "NavCriteria_Metadata.xml",
+  "entities": {
+    "NavigationCriteria": {
+      "name": "NavigationCriteria",
+      "namespace": "PTC.NavCriteria",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "ApplicableType": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "ApplicationName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable"
+          ]
+        },
+        "ApplyToTopLevelObject": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "Centricity": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "ConfigSpecs": {
+          "type": "Collection(PTC.NavCriteria.ConfigSpec)",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable"
+          ]
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Filters": {
+          "type": "Collection(PTC.NavCriteria.Filter)",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable"
+          ]
+        },
+        "HideUnresolvedDependents": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "SharedToAll": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "UseDefaultForUnresolved": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {}
+    },
+    "CachedNavigationCriteria": {
+      "name": "CachedNavigationCriteria",
+      "namespace": "PTC.NavCriteria",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ApplyToTopLevelObject": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "UseDefaultForUnresolved": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "SharedToAll": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "ApplicableType": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "Centricity": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "HideUnresolvedDependents": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "Filters": {
+          "type": "Collection(PTC.NavCriteria.Filter)",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable"
+          ]
+        },
+        "ConfigSpecs": {
+          "type": "Collection(PTC.NavCriteria.ConfigSpec)",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable"
+          ]
+        },
+        "ApplicationName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable"
+          ]
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "NavigationCriterias",
+      "entity_type": "PTC.NavCriteria.NavigationCriteria"
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "CachedNavigationCriterias",
+      "entity_type": "PTC.NavCriteria.CachedNavigationCriteria"
+    }
+  ],
+  "actions": [],
+  "complex_types": [
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PlantAttributeStructFilterRule",
+      "properties": [
+        {
+          "name": "RuleOrder",
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        {
+          "name": "ObjectTypeIdentifier",
+          "type": "Edm.String",
+          "nullable": false
+        },
+        {
+          "name": "LinkTypeIdentifier",
+          "type": "Edm.String",
+          "nullable": false
+        },
+        {
+          "name": "Expressions",
+          "type": "Collection(PTC.NavCriteria.PlantAttributeStructFilterRuleExpression)",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "ChangeConfigSpec",
+      "properties": [
+        {
+          "name": "Change",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "OccurrencePathFilter",
+      "properties": []
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "SelectedChoice",
+      "properties": [
+        {
+          "name": "ID",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "Name",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "EPMDocPromotionNoticeConfigSpec",
+      "properties": []
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PathFilterTableRowItem",
+      "properties": [
+        {
+          "name": "SelectedNodeIdentifier",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "DisplayPath",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "InternalPath",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "Selected",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "BoxSpatialFilter",
+      "properties": [
+        {
+          "name": "XMin",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "XMax",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "YMin",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "YMax",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "ZMin",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "ZMax",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "Unit",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "ConfigSpec",
+      "properties": []
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "EPMDocStandardConfigSpec",
+      "properties": [
+        {
+          "name": "WorkingIncluded",
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        {
+          "name": "LifeCycleState",
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "OptionFilterConfigSpec",
+      "properties": [
+        {
+          "name": "LifeCycleState",
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        {
+          "name": "LatestActive",
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        {
+          "name": "LifeCycleActive",
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        {
+          "name": "EffActive",
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        {
+          "name": "EffectiveDate",
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "WTPartEffectivityDateConfigSpec",
+      "properties": [
+        {
+          "name": "EffectiveDate",
+          "type": "Edm.DateTimeOffset",
+          "nullable": false
+        },
+        {
+          "name": "EffectiveContext",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "View",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "Variation1",
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        {
+          "name": "Variation2",
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "OptionFilter",
+      "properties": [
+        {
+          "name": "DisableRuleChecking",
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        {
+          "name": "OverrideOptionSetRevision",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "OptionFilterConfigSpecs",
+          "type": "Collection(PTC.NavCriteria.ConfigSpec)",
+          "nullable": true
+        },
+        {
+          "name": "FilterMode",
+          "type": "PTC.NavCriteria.OptionFilterMode",
+          "nullable": true
+        },
+        {
+          "name": "ChoiceValues",
+          "type": "Collection(PTC.NavCriteria.SelectedChoice)",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "Filter",
+      "properties": []
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "EPMDocChangeConfigSpec",
+      "properties": []
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "AttributeFilter",
+      "properties": [
+        {
+          "name": "Rules",
+          "type": "Collection(PTC.NavCriteria.AttributeStructFilterRule)",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "WTPartStandardConfigSpec",
+      "properties": [
+        {
+          "name": "WorkingIncluded",
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        {
+          "name": "View",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "LifeCycleState",
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        {
+          "name": "Variation1",
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        {
+          "name": "Variation2",
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PromotionNoticeConfigSpec",
+      "properties": [
+        {
+          "name": "PromotionNotice",
+          "type": "Edm.String",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "EPMDocBaselineConfigSpec",
+      "properties": []
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "BaselineConfigSpec",
+      "properties": [
+        {
+          "name": "Baseline",
+          "type": "Edm.String",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "UsesPathFilter",
+      "properties": []
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PartTagFilter",
+      "properties": [
+        {
+          "name": "Tags",
+          "type": "Collection(PTC.NavCriteria.ObjectTagFilterItem)",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PathFilter",
+      "properties": [
+        {
+          "name": "RootIdentifier",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "Paths",
+          "type": "Collection(PTC.NavCriteria.PathFilterTableRowItem)",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PlantAttributeStructFilterRuleExpression",
+      "properties": [
+        {
+          "name": "Attribute",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "Value",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "ExpressionOrder",
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        {
+          "name": "Comparison",
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PlantFilter",
+      "properties": [
+        {
+          "name": "IsIncludeNonVSEDObjs",
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        {
+          "name": "Rules",
+          "type": "Collection(PTC.NavCriteria.PlantAttributeStructFilterRule)",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PlantEffectivityUnitConfigSpec",
+      "properties": [
+        {
+          "name": "EffectivityType",
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        {
+          "name": "EffectiveContext",
+          "type": "Edm.String",
+          "nullable": false
+        },
+        {
+          "name": "EffectiveUnit",
+          "type": "Edm.String",
+          "nullable": false
+        },
+        {
+          "name": "View",
+          "type": "Edm.String",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "AttributeStructFilterRule",
+      "properties": [
+        {
+          "name": "RuleOrder",
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        {
+          "name": "ObjectTypeIdentifier",
+          "type": "Edm.String",
+          "nullable": false
+        },
+        {
+          "name": "LinkTypeIdentifier",
+          "type": "Edm.String",
+          "nullable": false
+        },
+        {
+          "name": "Expressions",
+          "type": "Collection(PTC.NavCriteria.AttributeStructFilterRuleExpression)",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "ProximitySpatialFilter",
+      "properties": [
+        {
+          "name": "Clearance",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "PathReference",
+          "type": "PTC.NavCriteria.PathReference",
+          "nullable": true
+        },
+        {
+          "name": "Unit",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "WTPartAsMaturedConfigSpec",
+      "properties": [
+        {
+          "name": "AsMaturedDate",
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        {
+          "name": "View",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "Variation1",
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        {
+          "name": "Variation2",
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PlantStandardConfigSpec",
+      "properties": [
+        {
+          "name": "WorkingIncluded",
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        {
+          "name": "View",
+          "type": "Edm.String",
+          "nullable": false
+        },
+        {
+          "name": "LifeCycleState",
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "UsagePathFilter",
+      "properties": []
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "OptionFilterMode",
+      "properties": [
+        {
+          "name": "InternalCode",
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        {
+          "name": "Name",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "WTPartEffectivityUnitConfigSpec",
+      "properties": [
+        {
+          "name": "EffectiveUnit",
+          "type": "Edm.String",
+          "nullable": false
+        },
+        {
+          "name": "EffectivityType",
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        {
+          "name": "EffectiveContext",
+          "type": "Edm.String",
+          "nullable": false
+        },
+        {
+          "name": "View",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "Variation1",
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        {
+          "name": "Variation2",
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "EPMDocAsStoredConfigSpec",
+      "properties": []
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "WTPartPromotionNoticeConfigSpec",
+      "properties": [
+        {
+          "name": "PromotionNotice",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PlantEffectivityDateConfigSpec",
+      "properties": [
+        {
+          "name": "EffectiveDate",
+          "type": "Edm.DateTimeOffset",
+          "nullable": false
+        },
+        {
+          "name": "EffectiveContext",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "View",
+          "type": "Edm.String",
+          "nullable": false
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "SpatialFilter",
+      "properties": [
+        {
+          "name": "SpatialMethod",
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "PathReference",
+      "properties": [
+        {
+          "name": "OccurrenceIdSequence",
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        {
+          "name": "Context",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "ObjectTagFilterItem",
+      "properties": [
+        {
+          "name": "ObjectTaggerReference",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "TagDisplayString",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "AttributeStructFilterRuleExpression",
+      "properties": [
+        {
+          "name": "Attribute",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "Value",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "ExpressionOrder",
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        {
+          "name": "Comparison",
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "SphereSpatialFilter",
+      "properties": [
+        {
+          "name": "XCenter",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "YCenter",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "ZCenter",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "Radius",
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        {
+          "name": "Unit",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.NavCriteria",
+      "name": "WTPartBaselineConfigSpec",
+      "properties": [
+        {
+          "name": "Baseline",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ]
+    }
+  ],
+  "enumerations": []
+}

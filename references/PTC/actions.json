@@ -1,0 +1,837 @@
+{
+  "$schema": "odata-actions",
+  "namespace": "PTC.ProdMgmt",
+  "description": "ProdMgmt Actions extracted from OData $metadata",
+  "unbound_actions": {
+    "CreateAssociations": {
+      "name": "CreateAssociations",
+      "full_name": "PTC.ProdMgmt.CreateAssociations",
+      "parameters": [
+        {
+          "name": "PartDocAssociations",
+          "type": "PartDocAssociation",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "PartDocAssociation",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/CreateAssociations"
+    },
+    "DeleteAssociations": {
+      "name": "DeleteAssociations",
+      "full_name": "PTC.ProdMgmt.DeleteAssociations",
+      "parameters": [
+        {
+          "name": "PartDocAssociations",
+          "type": "PartDocAssociation",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": null,
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/DeleteAssociations"
+    },
+    "MoveAssociations": {
+      "name": "MoveAssociations",
+      "full_name": "PTC.ProdMgmt.MoveAssociations",
+      "parameters": [
+        {
+          "name": "MovePartDocAssociations",
+          "type": "MovePartDocAssociation",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "PartDocAssociation",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/MoveAssociations"
+    },
+    "SetStateManagedBaselines": {
+      "name": "SetStateManagedBaselines",
+      "full_name": "PTC.ProdMgmt.SetStateManagedBaselines",
+      "parameters": [
+        {
+          "name": "ManagedBaselines",
+          "type": "ManagedBaseline",
+          "is_collection": true,
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "EnumType",
+          "is_collection": false,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "ManagedBaseline",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/SetStateManagedBaselines"
+    },
+    "SetStateSupplierParts": {
+      "name": "SetStateSupplierParts",
+      "full_name": "PTC.ProdMgmt.SetStateSupplierParts",
+      "parameters": [
+        {
+          "name": "SupplierParts",
+          "type": "SupplierPart",
+          "is_collection": true,
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "EnumType",
+          "is_collection": false,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "SupplierPart",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/SetStateSupplierParts"
+    },
+    "ReviseSupplierParts": {
+      "name": "ReviseSupplierParts",
+      "full_name": "PTC.ProdMgmt.ReviseSupplierParts",
+      "parameters": [
+        {
+          "name": "SupplierParts",
+          "type": "SupplierPart",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "SupplierPart",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/ReviseSupplierParts"
+    },
+    "ReviseParts": {
+      "name": "ReviseParts",
+      "full_name": "PTC.ProdMgmt.ReviseParts",
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Part",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "Part",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/ReviseParts"
+    },
+    "SetStateParts": {
+      "name": "SetStateParts",
+      "full_name": "PTC.ProdMgmt.SetStateParts",
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Part",
+          "is_collection": true,
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "EnumType",
+          "is_collection": false,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "Part",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/SetStateParts"
+    },
+    "EditPartsSecurityLabels": {
+      "name": "EditPartsSecurityLabels",
+      "full_name": "PTC.ProdMgmt.EditPartsSecurityLabels",
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Part",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "Part",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/EditPartsSecurityLabels"
+    },
+    "CheckOutParts": {
+      "name": "CheckOutParts",
+      "full_name": "PTC.ProdMgmt.CheckOutParts",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Part",
+          "is_collection": true,
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "String",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "return_type": {
+        "type": "Part",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/CheckOutParts"
+    },
+    "CheckInParts": {
+      "name": "CheckInParts",
+      "full_name": "PTC.ProdMgmt.CheckInParts",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Part",
+          "is_collection": true,
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "String",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "return_type": {
+        "type": "Part",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/CheckInParts"
+    },
+    "UndoCheckOutParts": {
+      "name": "UndoCheckOutParts",
+      "full_name": "PTC.ProdMgmt.UndoCheckOutParts",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Part",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "Part",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/UndoCheckOutParts"
+    },
+    "DeleteParts": {
+      "name": "DeleteParts",
+      "full_name": "PTC.ProdMgmt.DeleteParts",
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Part",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": null,
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/DeleteParts"
+    },
+    "CreateParts": {
+      "name": "CreateParts",
+      "full_name": "PTC.ProdMgmt.CreateParts",
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Part",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "Part",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/CreateParts"
+    },
+    "UpdateParts": {
+      "name": "UpdateParts",
+      "full_name": "PTC.ProdMgmt.UpdateParts",
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Part",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "Part",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/UpdateParts"
+    },
+    "ReviseManufacturerParts": {
+      "name": "ReviseManufacturerParts",
+      "full_name": "PTC.ProdMgmt.ReviseManufacturerParts",
+      "parameters": [
+        {
+          "name": "ManufacturerParts",
+          "type": "ManufacturerPart",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "ManufacturerPart",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/ReviseManufacturerParts"
+    },
+    "SetStateManufacturerParts": {
+      "name": "SetStateManufacturerParts",
+      "full_name": "PTC.ProdMgmt.SetStateManufacturerParts",
+      "parameters": [
+        {
+          "name": "ManufacturerParts",
+          "type": "ManufacturerPart",
+          "is_collection": true,
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "EnumType",
+          "is_collection": false,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "ManufacturerPart",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/SetStateManufacturerParts"
+    },
+    "SetStateVendorParts": {
+      "name": "SetStateVendorParts",
+      "full_name": "PTC.ProdMgmt.SetStateVendorParts",
+      "parameters": [
+        {
+          "name": "VendorParts",
+          "type": "VendorPart",
+          "is_collection": true,
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "EnumType",
+          "is_collection": false,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "VendorPart",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/SetStateVendorParts"
+    },
+    "ReviseVendorParts": {
+      "name": "ReviseVendorParts",
+      "full_name": "PTC.ProdMgmt.ReviseVendorParts",
+      "parameters": [
+        {
+          "name": "VendorParts",
+          "type": "VendorPart",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "return_type": {
+        "type": "VendorPart",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "url_pattern": "ProdMgmt/ReviseVendorParts"
+    }
+  },
+  "bound_actions": {
+    "AddToBaseline": {
+      "name": "AddToBaseline",
+      "full_name": "PTC.ProdMgmt.AddToBaseline",
+      "return_type": {
+        "type": "ManagedBaseline",
+        "is_collection": false
+      },
+      "http_method": "POST",
+      "bound_to": "ManagedBaseline",
+      "binding_parameter": "ManagedBaseline",
+      "other_parameters": [
+        {
+          "name": "Baselineables",
+          "type": "Baselineable",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "url_pattern": "ProdMgmt/ManagedBaselines('{id}')/AddToBaseline"
+    },
+    "RemoveFromBaseline": {
+      "name": "RemoveFromBaseline",
+      "full_name": "PTC.ProdMgmt.RemoveFromBaseline",
+      "return_type": {
+        "type": "ManagedBaseline",
+        "is_collection": false
+      },
+      "http_method": "POST",
+      "bound_to": "ManagedBaseline",
+      "binding_parameter": "ManagedBaseline",
+      "other_parameters": [
+        {
+          "name": "Baselineables",
+          "type": "Baselineable",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "url_pattern": "ProdMgmt/ManagedBaselines('{id}')/RemoveFromBaseline"
+    },
+    "SetState": {
+      "name": "SetState",
+      "full_name": "PTC.ProdMgmt.SetState",
+      "return_type": {
+        "type": "VendorPart",
+        "is_collection": false
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "lifecycleManaged",
+      "other_parameters": [
+        {
+          "name": "State",
+          "type": "EnumType",
+          "is_collection": false,
+          "nullable": false
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/SetState"
+    },
+    "GetMultiLevelBOMRollup": {
+      "name": "GetMultiLevelBOMRollup",
+      "full_name": "PTC.ProdMgmt.GetMultiLevelBOMRollup",
+      "return_type": {
+        "type": "BOMRollupItem",
+        "is_collection": false
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "NavigationCriteria",
+          "type": "NavigationCriteria",
+          "is_collection": false,
+          "nullable": true
+        },
+        {
+          "name": "IncludeBOM",
+          "type": "Boolean",
+          "is_collection": false,
+          "nullable": true
+        },
+        {
+          "name": "RollupAttributes",
+          "type": "String",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/GetMultiLevelBOMRollup"
+    },
+    "GetMultiLevelComponentsReport": {
+      "name": "GetMultiLevelComponentsReport",
+      "full_name": "PTC.ProdMgmt.GetMultiLevelComponentsReport",
+      "return_type": {
+        "type": "PartsReportListItem",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "NavigationCriteria",
+          "type": "NavigationCriteria",
+          "is_collection": false,
+          "nullable": true
+        },
+        {
+          "name": "ShowSingleLevelReport",
+          "type": "Boolean",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/GetMultiLevelComponentsReport"
+    },
+    "CreateUses": {
+      "name": "CreateUses",
+      "full_name": "PTC.ProdMgmt.CreateUses",
+      "return_type": {
+        "type": "PartUse",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "PartUses",
+          "type": "PartUse",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/CreateUses"
+    },
+    "GetPartStructure": {
+      "name": "GetPartStructure",
+      "full_name": "PTC.ProdMgmt.GetPartStructure",
+      "return_type": {
+        "type": "PartStructureItem",
+        "is_collection": false
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "NavigationCriteria",
+          "type": "NavigationCriteria",
+          "is_collection": false,
+          "nullable": true
+        },
+        {
+          "name": "PathFilterWithSiblings",
+          "type": "Boolean",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/GetPartStructure"
+    },
+    "RemoveEffectivities": {
+      "name": "RemoveEffectivities",
+      "full_name": "PTC.ProdMgmt.RemoveEffectivities",
+      "return_type": null,
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "effectivityManaged",
+      "other_parameters": [
+        {
+          "name": "Effectivities",
+          "type": "Effectivity",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/RemoveEffectivities"
+    },
+    "ModifyEffectivities": {
+      "name": "ModifyEffectivities",
+      "full_name": "PTC.ProdMgmt.ModifyEffectivities",
+      "return_type": {
+        "type": "Effectivity",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "effectivityManaged",
+      "other_parameters": [
+        {
+          "name": "Effectivities",
+          "type": "Effectivity",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/ModifyEffectivities"
+    },
+    "Revise": {
+      "name": "Revise",
+      "full_name": "PTC.ProdMgmt.Revise",
+      "return_type": {
+        "type": "VendorPart",
+        "is_collection": false
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "versioned",
+      "other_parameters": [
+        {
+          "name": "VersionId",
+          "type": "String",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/Revise"
+    },
+    "UpdateRawMaterialAlternateLinks": {
+      "name": "UpdateRawMaterialAlternateLinks",
+      "full_name": "PTC.ProdMgmt.UpdateRawMaterialAlternateLinks",
+      "return_type": {
+        "type": "RawMaterialAlternateLink",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "bound_to": "Part",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "RawMaterialAlternateLinks",
+          "type": "RawMaterialAlternateLink",
+          "is_collection": true,
+          "nullable": false
+        },
+        {
+          "name": "ChangeOid",
+          "type": "String",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "url_pattern": "ProdMgmt/Parts('{id}')/UpdateRawMaterialAlternateLinks"
+    },
+    "UpdateRawMaterialLinks": {
+      "name": "UpdateRawMaterialLinks",
+      "full_name": "PTC.ProdMgmt.UpdateRawMaterialLinks",
+      "return_type": {
+        "type": "RawMaterialLink",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "RawMaterialLinks",
+          "type": "RawMaterialLink",
+          "is_collection": true,
+          "nullable": false
+        },
+        {
+          "name": "ChangeOid",
+          "type": "String",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/UpdateRawMaterialLinks"
+    },
+    "CheckIn": {
+      "name": "CheckIn",
+      "full_name": "PTC.ProdMgmt.CheckIn",
+      "return_type": {
+        "type": "VendorPart",
+        "is_collection": false
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "workable",
+      "other_parameters": [
+        {
+          "name": "CheckInNote",
+          "type": "String",
+          "is_collection": false,
+          "nullable": true
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "String",
+          "is_collection": false,
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Boolean",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/CheckIn"
+    },
+    "CheckOut": {
+      "name": "CheckOut",
+      "full_name": "PTC.ProdMgmt.CheckOut",
+      "return_type": {
+        "type": "VendorPart",
+        "is_collection": false
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "workable",
+      "other_parameters": [
+        {
+          "name": "CheckOutNote",
+          "type": "String",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/CheckOut"
+    },
+    "UndoCheckOut": {
+      "name": "UndoCheckOut",
+      "full_name": "PTC.ProdMgmt.UndoCheckOut",
+      "return_type": {
+        "type": "VendorPart",
+        "is_collection": false
+      },
+      "http_method": "POST",
+      "bound_to": "VendorPart",
+      "binding_parameter": "workable",
+      "other_parameters": [],
+      "url_pattern": "ProdMgmt/VendorParts('{id}')/UndoCheckOut"
+    },
+    "UpdatePrimaryCoproduceLinks": {
+      "name": "UpdatePrimaryCoproduceLinks",
+      "full_name": "PTC.ProdMgmt.UpdatePrimaryCoproduceLinks",
+      "return_type": {
+        "type": "PrimaryCoproduceLink",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "bound_to": "Part",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "PrimaryCoproduceLinks",
+          "type": "PrimaryCoproduceLink",
+          "is_collection": true,
+          "nullable": false
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "NavigationCriteria",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "url_pattern": "ProdMgmt/Parts('{id}')/UpdatePrimaryCoproduceLinks"
+    },
+    "GetExtendedDatasWithInlineNavCriteria": {
+      "name": "GetExtendedDatasWithInlineNavCriteria",
+      "full_name": "PTC.ProdMgmt.GetExtendedDatasWithInlineNavCriteria",
+      "return_type": {
+        "type": "ExtendedData",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "bound_to": "Part",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "NavigationCriteria",
+          "type": "NavigationCriteria",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "url_pattern": "ProdMgmt/Parts('{id}')/GetExtendedDatasWithInlineNavCriteria"
+    },
+    "UploadStage1Action": {
+      "name": "UploadStage1Action",
+      "full_name": "PTC.ProdMgmt.UploadStage1Action",
+      "return_type": {
+        "type": "CacheDescriptor",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "bound_to": "Part",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "NoOfFiles",
+          "type": "Int32",
+          "is_collection": false,
+          "nullable": false
+        },
+        {
+          "name": "DelegateName",
+          "type": "String",
+          "is_collection": false,
+          "nullable": true
+        }
+      ],
+      "url_pattern": "ProdMgmt/Parts('{id}')/UploadStage1Action"
+    },
+    "UploadStage3Action": {
+      "name": "UploadStage3Action",
+      "full_name": "PTC.ProdMgmt.UploadStage3Action",
+      "return_type": {
+        "type": "ApplicationData",
+        "is_collection": true
+      },
+      "http_method": "POST",
+      "bound_to": "Part",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "ContentInfo",
+          "type": "ContentInfo",
+          "is_collection": true,
+          "nullable": false
+        }
+      ],
+      "url_pattern": "ProdMgmt/Parts('{id}')/UploadStage3Action"
+    },
+    "UpdateCommonProperties": {
+      "name": "UpdateCommonProperties",
+      "full_name": "PTC.ProdMgmt.UpdateCommonProperties",
+      "return_type": {
+        "type": "Part",
+        "is_collection": false
+      },
+      "http_method": "POST",
+      "bound_to": "Part",
+      "binding_parameter": "Part",
+      "other_parameters": [
+        {
+          "name": "Updates",
+          "type": "Part",
+          "is_collection": false,
+          "nullable": false
+        }
+      ],
+      "url_pattern": "ProdMgmt/Parts('{id}')/UpdateCommonProperties"
+    }
+  }
+}

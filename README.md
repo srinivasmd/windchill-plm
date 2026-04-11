@@ -1,23 +1,22 @@
-# Windchill PLM REST API Client
+# Zephyr - Windchill PLM REST API Client
 
 A comprehensive Python client for interacting with PTC Windchill PLM REST APIs. Supports OAuth 2.0 and Basic authentication.
 
 ## Features
 
+- **Modular Architecture**: 16 domain-specific clients for clean, maintainable code
 - **Complete CRUD Operations**: Create, Read, Update, Delete for all Windchill entities
-- **Generic Scripts**: Unified scripts that work with ANY entity type
-- **Domain Coverage**: DocMgmt, ProdMgmt, ChangeMgmt, QMS, DataAdmin, PrincipalMgmt, CEM, and more
-- **BOM Management**: Query and explore Bill of Materials
-- **Supplier Management**: Query suppliers, contacts, and sites
-- **Quality Management**: Quality actions, CAPA, non-conformances
-- **Change Management**: Change notices, requests, and tasks
+- **BOM Management**: Query and explore Bill of Materials with multi-level rollup
+- **Domain Coverage**: ProdMgmt, DocMgmt, ChangeMgmt, QMS, RegMstr, UDI, and more
+- **Type-Safe Methods**: Domain clients provide typed methods for common operations
+- **CLI Support**: All domain clients include command-line interfaces
 
 ## Installation
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/YOUR_USERNAME/windchill-plm.git
-cd windchill-plm
+git clone https://github.com/YOUR_USERNAME/zephyr.git
+cd zephyr
 ```
 
 2. Install dependencies:
@@ -33,7 +32,7 @@ pip install requests
   "auth_type": "basic",
   "basic": {
     "username": "your-username",
-    "password": "your-password"
+    "password": "***"
   },
   "verify_ssl": true,
   "timeout": 30
@@ -42,95 +41,142 @@ pip install requests
 
 ## Quick Start
 
-### Query Parts
-```bash
-python scripts/query_parts.py --number "PART-001"
-python scripts/query_parts.py --state RELEASED --top 10
+### Using Domain Clients (Recommended)
+
+```python
+from domains.ProdMgmt import ProdMgmtClient
+from domains.DocMgmt import DocMgmtClient
+from domains.ChangeMgmt import ChangeMgmtClient
+
+# Initialize clients
+part_client = ProdMgmtClient(config_path="config.json")
+
+# Query parts
+parts = part_client.get_parts(filter_expr="State/Value eq 'RELEASED'", top=10)
+part = part_client.get_part_by_number("PART-001")
+
+# Get BOM
+bom = part_client.get_bom(part_id)
+where_used = part_client.get_where_used(part_id)
+
+# Multi-level BOM
+report = part_client.get_multi_level_components_report(part_id)
 ```
 
-### Query Documents
+### Domain Clients
+
+| Domain | Client | Key Methods |
+|--------|--------|-------------|
+| ProdMgmt | `ProdMgmtClient` | Parts, BOM, check-in/out, revise |
+| DocMgmt | `DocMgmtClient` | Documents, folders, attachments |
+| ChangeMgmt | `ChangeMgmtClient` | Change notices, requests, tasks |
+| SupplierMgmt | `SupplierMgmtClient` | Suppliers, manufacturer parts |
+| QMS | `QMSClient` | CAPA, NCR, quality actions |
+| RegMstr | `RegMstrClient` | Registrations, compliance |
+| UDI | `UDIClient` | UDI records, GUDID submission |
+| PrincipalMgmt | `PrincipalMgmtClient` | Users, groups, roles |
+
+## Supported Domains (16 total)
+
+| Domain | Description |
+|--------|-------------|
+| ProdMgmt | Parts, BOMs, product structures |
+| DocMgmt | Documents, attachments |
+| CADDocumentMgmt | CAD documents, structures |
+| ChangeMgmt | Change notices, requests, tasks |
+| SupplierMgmt | Suppliers, sites, contacts |
+| MfgProcMgmt | Process plans, operations |
+| CEM | Customer Experience Management |
+| BACMgmt | Baselines, associations |
+| Workflow | Lifecycle templates |
+| Audit | Audit records, resolution |
+| DataAdmin | Containers, products, sites |
+| ServiceInfoMgmt | Service documents, bulletins |
+| UDI | Unique Device Identification |
+| RegMstr | Regulatory Master |
+| QMS | Quality Management System |
+| PrincipalMgmt | Users, groups, organizations |
+
+## CLI Usage
+
+Each domain client includes a CLI:
+
 ```bash
-python scripts/query_documents.py --number "DOC-001"
-python scripts/query_documents.py --name "Specification"
+# ProdMgmt
+python scripts/domains/ProdMgmt/client.py --parts
+python scripts/domains/ProdMgmt/client.py --part-number PART-001
+python scripts/domains/ProdMgmt/client.py --bom PART-ID
+
+# DocMgmt
+python scripts/domains/DocMgmt/client.py --documents
+python scripts/domains/DocMgmt/client.py --document-number DOC-001
+
+# ChangeMgmt
+python scripts/domains/ChangeMgmt/client.py --notices
+python scripts/domains/ChangeMgmt/client.py --notice-number CN-001
+
+# QMS
+python scripts/domains/QMS/client.py --capas
+python scripts/domains/QMS/client.py --open-capas
 ```
 
-### Query BOM
-```bash
-python scripts/query_bom.py "PART-001"
+## Examples
+
+### Parts and BOM
+
+```python
+from domains.ProdMgmt import ProdMgmtClient
+
+client = ProdMgmtClient(config_path="config.json")
+
+# Get released parts
+parts = client.get_parts(filter_expr="State/Value eq 'RELEASED'")
+
+# Get BOM
+bom = client.get_bom(part_id)
+
+# Multi-level components report
+report = client.get_multi_level_components_report(part_id)
+
+# Lifecycle operations
+client.check_out_part(part_id)
+client.update_part(part_id, {"Name": "Updated Name"})
+client.check_in_part(part_id)
 ```
 
-### Generic Query (Any Entity)
-```bash
-python scripts/generic_query.py --entity ChangeNotice --top 10
-python scripts/generic_query.py --entity QualityAction --number "QA-001"
-python scripts/generic_query.py --entity User --name "john"
+### Change Management
+
+```python
+from domains.ChangeMgmt import ChangeMgmtClient
+
+client = ChangeMgmtClient(config_path="config.json")
+
+# Get open change notices
+notices = client.get_change_notices(filter_expr="State/Value eq 'OPEN'")
+
+# Get affected objects
+affected = client.get_change_notice_affected_objects(cn_id)
+
+# Get tasks
+tasks = client.get_change_notice_tasks(cn_id)
 ```
 
-### Create Entities
-```bash
-# Using generic create
-python scripts/generic_create.py --entity Document --name "My Doc" --number "DOC-001"
+### Quality Management
 
-# Entity-specific create
-python scripts/create_part.py --name "New Part" --number "PART-001"
-python scripts/create_supplier.py --name "Supplier Inc" --number "SUP-001"
+```python
+from domains.QMS import QMSClient
+
+client = QMSClient(config_path="config.json")
+
+# Get open CAPAs
+capas = client.get_open_capas()
+
+# Get NCRs
+ncrs = client.get_open_ncrs()
+
+# Get quality actions
+actions = client.get_quality_actions()
 ```
-
-### Update Entities
-```bash
-python scripts/generic_update.py --entity Part --number "PART-001" --description "Updated"
-python scripts/update_document.py --number "DOC-001" --name "New Name"
-```
-
-### Delete Entities
-```bash
-python scripts/generic_delete.py --entity Document --number "DOC-001" --force
-```
-
-## Supported Entity Types
-
-| Domain | Entities |
-|--------|----------|
-| DocMgmt | Document, ControlledDocument, Quality, Record, TestDocument, ReferenceDocument, SoftwareDocument |
-| ProdMgmt | Part, PartUse, PartSubstituteLink |
-| DataAdmin | Folder, Container, ProductContainer, LibraryContainer |
-| ChangeMgmt | ChangeNotice, ChangeRequest, ChangeTask, ChangeOrder |
-| QMS | QualityAction, QualityObject, NonConformance, CAPA, Place, QualityContact, Subject |
-| CEM | CustomerExperience, RelatedProduct |
-| PrincipalMgmt | User, Group, Organization |
-| CADDocumentMgmt | CADDocument, EPMDocument |
-| MfgProcMgmt | ProcessPlan, Operation |
-| ServiceInfoMgmt | SIMDocument, InformationStructure |
-
-## Scripts Reference
-
-### Query Scripts (GET)
-- `query_parts.py` - Query parts with filters
-- `query_documents.py` - Query documents
-- `query_suppliers.py` - Query suppliers
-- `query_bom.py` - Query Bill of Materials
-- `query_change_mgmt.py` - Query change notices, requests, tasks
-- `query_workflow.py` - Query workflow items
-- `query_cem.py` - Query customer experiences
-- `query_udi.py` - Query UDI records
-- `generic_query.py` - Query ANY entity type
-
-### Create Scripts (POST)
-- `create_part.py` - Create parts
-- `create_document.py` - Create documents
-- `create_supplier.py` - Create suppliers
-- `create_folder.py` - Create folders
-- `generic_create.py` - Create ANY entity type
-
-### Update Scripts (PATCH)
-- `update_part.py` - Update parts
-- `update_document.py` - Update documents
-- `update_supplier.py` - Update suppliers
-- `generic_update.py` - Update ANY entity type
-
-### Delete Scripts (DELETE)
-- `delete_folder.py` - Delete folders
-- `generic_delete.py` - Delete ANY entity type
 
 ## Authentication
 
@@ -153,14 +199,40 @@ python scripts/generic_delete.py --entity Document --number "DOC-001" --force
   "auth_type": "basic",
   "basic": {
     "username": "your-username",
-    "password": "your-password"
+    "password": "***"
   }
 }
 ```
 
+## Project Structure
+
+```
+zephyr/
+|-- SKILL.md                  # Skill definition
+|-- README.md                  # This file
+|-- config.example.json        # Configuration template
+|-- references/                # Reference documentation
+|   |-- *_REFERENCE.md        # Domain references
+|   |-- *_Navigations.md      # Navigation properties
+|   +-- entities.json         # Entity metadata
++-- scripts/
+    |-- windchill_base.py     # Base OData client
+    |-- windchill_odata_client.py  # Comprehensive client
+    |-- output_formatter.py   # Output formatting
+    |-- old/                  # Deprecated scripts
+    |   |-- query_*.py
+    |   |-- create_*.py
+    |   +-- ...
+    +-- domains/              # Domain-specific clients
+        |-- ProdMgmt/
+        |-- DocMgmt/
+        |-- ChangeMgmt/
+        +-- ... (16 domains)
+```
+
 ## Reference Documentation
 
-See the `references/` directory for detailed documentation:
+See the `references/` directory for detailed documentation on each domain:
 - Entity definitions and properties
 - Navigation properties and relationships
 - API metadata (XML/JSON schemas)

@@ -1,0 +1,371 @@
+{
+  "domain": "DocumentControl",
+  "namespace": "PTC.DocumentControl",
+  "generated": "2026-04-10T21:17:00.646755",
+  "source": "DocumentControl_Metadata.xml",
+  "entities": {
+    "ControlDocument": {
+      "name": "ControlDocument",
+      "namespace": "PTC.DocumentControl",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "LinkToTraining": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonSortable",
+            "PTC.NonFilterable"
+          ]
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "TrainingDeadline": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "TrainingInterval": {
+          "type": "Edm.Int64",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "TrainingIntervalLeadtime": {
+          "type": "Edm.Int64",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "TrainingonRelease": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Versions": {
+          "type": "Collection(PTC.DocumentControl.ControlDocument)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": "",
+          "contains_target": false
+        },
+        "PrimaryContent": {
+          "type": "PTC.ContentItem",
+          "partner": "",
+          "contains_target": true
+        },
+        "Thumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Representations": {
+          "type": "Collection(PTC.Visualization.Representation)",
+          "partner": "",
+          "contains_target": false
+        },
+        "SmallThumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Revisions": {
+          "type": "Collection(PTC.DocumentControl.ControlDocument)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "TrainingRecord": {
+      "name": "TrainingRecord",
+      "namespace": "PTC.DocumentControl",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "Comment": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "CompletedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": []
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpirationDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": []
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "SubjectControlDocument": {
+          "type": "PTC.DocumentControl.ControlDocument",
+          "partner": "",
+          "contains_target": false
+        },
+        "Assignee": {
+          "type": "PTC.PrincipalMgmt.Principal",
+          "partner": "",
+          "contains_target": false
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    }
+  },
+  "entity_sets": [
+    {
+      "namespace": "PTC.DocumentControl",
+      "name": "TrainingRecords",
+      "entity_type": "PTC.DocumentControl.TrainingRecord"
+    }
+  ],
+  "actions": [
+    {
+      "namespace": "PTC.DocumentControl",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.DocumentControl.TrainingRecord",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.DocumentControl.TrainingRecord"
+    },
+    {
+      "namespace": "PTC.DocumentControl",
+      "name": "SetStateTrainingRecords",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "TrainingRecords",
+          "type": "Collection(PTC.DocumentControl.TrainingRecord)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DocumentControl.TrainingRecord)"
+    }
+  ],
+  "complex_types": [],
+  "enums": []
+}

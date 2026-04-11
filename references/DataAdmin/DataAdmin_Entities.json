@@ -1,0 +1,215 @@
+{
+  "domain": "DataAdmin",
+  "entities": {
+    "ProductContainer": {
+      "name": "ProductContainer",
+      "base_type": "PTC.DataAdmin.Container",
+      "properties": {},
+      "navigation_properties": {
+        "AssignedOptionSet": {
+          "type": "PTC.ProdPlatformMgmt.OptionSet",
+          "partner": ""
+        },
+        "OptionPoolAliases": {
+          "type": "Collection(PTC.ProdPlatformMgmt.ExpressionAlias)",
+          "partner": ""
+        },
+        "OptionPool": {
+          "type": "Collection(PTC.ProdPlatformMgmt.OptionPoolItem)",
+          "partner": ""
+        }
+      }
+    },
+    "Container": {
+      "name": "Container",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationID": {
+          "type": "PTC.PrincipalMgmt.OrgId",
+          "nullable": true
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PrivateAccess": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Folders": {
+          "type": "Collection(PTC.DataAdmin.Folder)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        }
+      }
+    },
+    "ProjectContainer": {
+      "name": "ProjectContainer",
+      "base_type": "PTC.DataAdmin.Container",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "LibraryContainer": {
+      "name": "LibraryContainer",
+      "base_type": "PTC.DataAdmin.Container",
+      "properties": {},
+      "navigation_properties": {
+        "AssignedOptionSet": {
+          "type": "PTC.ProdPlatformMgmt.OptionSet",
+          "partner": ""
+        },
+        "OptionPoolAliases": {
+          "type": "Collection(PTC.ProdPlatformMgmt.ExpressionAlias)",
+          "partner": ""
+        },
+        "OptionPool": {
+          "type": "Collection(PTC.ProdPlatformMgmt.OptionPoolItem)",
+          "partner": ""
+        }
+      }
+    },
+    "FolderContent": {
+      "name": "FolderContent",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "OrganizationContainer": {
+      "name": "OrganizationContainer",
+      "base_type": "PTC.DataAdmin.Container",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Folder": {
+      "name": "Folder",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Location": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Folders": {
+          "type": "Collection(PTC.DataAdmin.Folder)",
+          "partner": ""
+        },
+        "Contents": {
+          "type": "Collection(PTC.DataAdmin.FolderContent)",
+          "partner": ""
+        },
+        "FolderContents": {
+          "type": "Collection(PTC.WindchillEntity)",
+          "partner": ""
+        }
+      }
+    },
+    "Site": {
+      "name": "Site",
+      "base_type": "PTC.DataAdmin.Container",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Participant": {
+      "name": "Participant",
+      "base_type": "",
+      "properties": {
+        "Role": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {
+        "Principals": {
+          "type": "Collection(PTC.PrincipalMgmt.Principal)",
+          "partner": ""
+        }
+      }
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "Containers",
+      "entity_type": "PTC.DataAdmin.Container"
+    },
+    {
+      "name": "Folders",
+      "entity_type": "PTC.DataAdmin.Folder"
+    },
+    {
+      "name": "Participants",
+      "entity_type": "PTC.DataAdmin.Participant"
+    },
+    {
+      "name": "Sites",
+      "entity_type": "PTC.DataAdmin.Site"
+    },
+    {
+      "name": "Products",
+      "entity_type": "PTC.DataAdmin.ProductContainer"
+    },
+    {
+      "name": "Libraries",
+      "entity_type": "PTC.DataAdmin.LibraryContainer"
+    },
+    {
+      "name": "Projects",
+      "entity_type": "PTC.DataAdmin.ProjectContainer"
+    },
+    {
+      "name": "Organizations",
+      "entity_type": "PTC.DataAdmin.OrganizationContainer"
+    }
+  ],
+  "actions": []
+}

@@ -1,38 +1,35 @@
-# Sensitive configuration files
-config.json
-*.json.bak
+# Zephyr Skill - Git Ignore File
 
-# Python
+# =============================================================================
+# Ignore deprecated/old directories
+# =============================================================================
+
+# Old/deprecated scripts - DO NOT USE
+scripts/old/
+
+# Old/deprecated references
+references/old/
+
+# =============================================================================
+# Ignore backup and temporary files
+# =============================================================================
+
+# Python cache
 __pycache__/
 *.py[cod]
 *$py.class
-*.so
+*.pyo
 .Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
 
 # Virtual environments
 venv/
-ENV/
-env/
 .venv/
+env/
+.env/
 
-# IDE
-.idea/
+# IDE files
 .vscode/
+.idea/
 *.swp
 *.swo
 *~
@@ -41,12 +38,40 @@ env/
 .DS_Store
 Thumbs.db
 
+# =============================================================================
+# Ignore sensitive configuration
+# =============================================================================
+
+# Config files with credentials (keep template)
+config.json
+config.local.json
+*.credentials.json
+
+# =============================================================================
+# Ignore generated files (can be regenerated)
+# =============================================================================
+
+# Log files
+*.log
+logs/
+
 # Test outputs
 test_output/
-*.log
+temp/
+tmp/
 
-# Temporary files
-*.tmp
-*.temp
-scripts/document_*.json
-scripts/*_attachments.json
+# =============================================================================
+# Keep these directories (do not ignore)
+# =============================================================================
+
+# Keep reference metadata XML files
+!references/**/*.xml
+!references/**/*.md
+!references/**/*.json
+
+# Keep domain clients
+!scripts/domains/**/
+!scripts/windchill_base.py
+
+# Keep query scripts
+!scripts/query_*.py

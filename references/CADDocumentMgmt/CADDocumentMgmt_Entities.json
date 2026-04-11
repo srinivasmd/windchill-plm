@@ -1,0 +1,756 @@
+{
+  "domain": "CADDocumentMgmt",
+  "entities": {
+    "CADDocumentUse": {
+      "name": "CADDocumentUse",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "ComponentName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DepType": {
+          "type": "PTC.CADDocumentMgmt.DepTypeInfo",
+          "nullable": true
+        },
+        "FeatureID": {
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        "FeatureNumber": {
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        "HasFixedConstraint": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LNO": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "LayerID": {
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        "Location": {
+          "type": "PTC.CADDocumentMgmt.TransformLocation",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Placed": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "Required": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Suppressed": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Unit": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "UseInfo": {
+          "type": "PTC.CADDocumentMgmt.CADDocumentDependencyMaster",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "CADDocument": {
+      "name": "CADDocument",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AuthAppVersion": {
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        "AuthoringApplication": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "BeltLength": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "CADMass": {
+          "type": "PTC.QuantityOfMeasureType",
+          "nullable": true
+        },
+        "CADVolume": {
+          "type": "PTC.QuantityOfMeasureType",
+          "nullable": true
+        },
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Category": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "ChangeStatus": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Derived": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "FamilyTableStatus": {
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        "FileName": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "GeneralStatus": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "Generic": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Instance": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Material": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MissingDependents": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "NDVersion": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OwnerApplication": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "PARTNUMBER": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PHANTOM": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "REFERENCE": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "REV": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ShareStatus": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "SubCategory": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "TypeDisplayName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "Verified": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Uses": {
+          "type": "Collection(PTC.CADDocumentMgmt.CADDocumentUse)",
+          "partner": ""
+        },
+        "References": {
+          "type": "Collection(PTC.CADDocumentMgmt.CADDocumentReference)",
+          "partner": ""
+        },
+        "DerivedSources": {
+          "type": "Collection(PTC.CADDocumentMgmt.DerivedSource)",
+          "partner": ""
+        },
+        "Drawings": {
+          "type": "Collection(PTC.CADDocumentMgmt.CADDocument)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        },
+        "AllPrimaryContents": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "PartDocAssociations": {
+          "type": "Collection(PTC.CADDocumentMgmt.PartDocAssociation)",
+          "partner": ""
+        },
+        "Thumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.CADDocumentMgmt.CADDocument)",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.CADDocumentMgmt.CADDocument)",
+          "partner": ""
+        },
+        "Representations": {
+          "type": "Collection(PTC.Visualization.Representation)",
+          "partner": ""
+        },
+        "SmallThumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "ECADDerived": {
+      "name": "ECADDerived",
+      "base_type": "PTC.CADDocumentMgmt.ECADDocument",
+      "properties": {
+        "ECADAssemblies": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "MovePartDocAssociation": {
+      "name": "MovePartDocAssociation",
+      "base_type": "",
+      "properties": {},
+      "navigation_properties": {
+        "RelatedPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "RelatedCADDoc": {
+          "type": "PTC.CADDocumentMgmt.CADDocument",
+          "partner": ""
+        },
+        "SourceCADDoc": {
+          "type": "PTC.CADDocumentMgmt.CADDocument",
+          "partner": ""
+        }
+      }
+    },
+    "ElectricalSchematic": {
+      "name": "ElectricalSchematic",
+      "base_type": "PTC.CADDocumentMgmt.ECADDocument",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "PartDocAssociation": {
+      "name": "PartDocAssociation",
+      "base_type": "",
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AssociationType": {
+          "type": "PTC.CADDocumentMgmt.AssociationTypeInfo",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {
+        "RelatedPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "RelatedCADDoc": {
+          "type": "PTC.CADDocumentMgmt.CADDocument",
+          "partner": ""
+        }
+      }
+    },
+    "ECADDefinition": {
+      "name": "ECADDefinition",
+      "base_type": "PTC.CADDocumentMgmt.ECADDocument",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ECADBoard": {
+      "name": "ECADBoard",
+      "base_type": "PTC.CADDocumentMgmt.ECADDocument",
+      "properties": {
+        "ECAD_DESIGN_ITEM": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "ECAD_NEUTRAL_FORMAT_FILE": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "CADDocumentsListReportItem": {
+      "name": "CADDocumentsListReportItem",
+      "base_type": "",
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "HasChildren": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Resolved": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "HasUnresolvedObjectsByAccessRights": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": false
+        },
+        "Unit": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "CADDocument": {
+          "type": "PTC.CADDocumentMgmt.CADDocument",
+          "partner": ""
+        }
+      }
+    },
+    "ECADSchematic": {
+      "name": "ECADSchematic",
+      "base_type": "PTC.CADDocumentMgmt.ECADDocument",
+      "properties": {
+        "ECAD_DESIGN_ITEM": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "ECAD_NEUTRAL_FORMAT_FILE": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "DerivedSource": {
+      "name": "DerivedSource",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "Direct": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "SourceCADDocuments": {
+          "type": "PTC.CADDocumentMgmt.CADDocument",
+          "partner": ""
+        }
+      }
+    },
+    "CADDocumentReference": {
+      "name": "CADDocumentReference",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "DepType": {
+          "type": "PTC.CADDocumentMgmt.DepTypeInfo",
+          "nullable": true
+        },
+        "ECADHookEnabled": {
+          "type": "Collection(Edm.Boolean)",
+          "nullable": true
+        },
+        "MergeContent": {
+          "type": "Collection(Edm.Boolean)",
+          "nullable": true
+        },
+        "MergeRefDes": {
+          "type": "Collection(Edm.Boolean)",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PartNumberRule": {
+          "type": "Collection(Edm.Int64)",
+          "nullable": true
+        },
+        "ReferenceInfo": {
+          "type": "PTC.CADDocumentMgmt.CADDocumentDependencyMaster",
+          "nullable": true
+        },
+        "Required": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "RetrieveVariants": {
+          "type": "Collection(Edm.Boolean)",
+          "nullable": true
+        },
+        "ReviewUndefined": {
+          "type": "Collection(Edm.Boolean)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "CADStructure": {
+      "name": "CADStructure",
+      "base_type": "",
+      "properties": {
+        "CADDocumentID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "HasChildren": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "CADDocumentUseID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CADDocumentName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CADDocumentNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CADDocumentFileName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Resolved": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "HasUnresolvedObjectsByAccessRights": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "PVTreeId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PVParentTreeId": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "CADDocument": {
+          "type": "PTC.CADDocumentMgmt.CADDocument",
+          "partner": ""
+        },
+        "CADDocumentUse": {
+          "type": "PTC.CADDocumentMgmt.CADDocumentUse",
+          "partner": ""
+        },
+        "Components": {
+          "type": "Collection(PTC.CADDocumentMgmt.CADStructure)",
+          "partner": ""
+        }
+      }
+    },
+    "PTCProxyCADDocument": {
+      "name": "PTCProxyCADDocument",
+      "base_type": "PTC.CADDocumentMgmt.CADDocument",
+      "properties": {
+        "PTC_PART_NUMBER": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PTC_SYNC_DATA": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ECADDocument": {
+      "name": "ECADDocument",
+      "base_type": "PTC.CADDocumentMgmt.CADDocument",
+      "properties": {
+        "ADWBlockLibPath": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ADWFlowType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ADWMetadataVersion": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ADWRootDesign": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ADWType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PTC_ECAD_ADW_MANAGED_DESIGN": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "PTC_ECAD_ASSEMBLY_PART_NAME": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PTC_ECAD_ASSEMBLY_PART_NUMBER": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PTC_ECAD_BOARD_PART_NAME": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PTC_ECAD_BOARD_PART_NUMBER": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "CADDocuments",
+      "entity_type": "PTC.CADDocumentMgmt.CADDocument"
+    }
+  ],
+  "actions": [
+    {
+      "name": "GetStructure",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "CADDocument",
+          "type": "PTC.CADDocumentMgmt.CADDocument"
+        },
+        {
+          "name": "BOMMembersOnly",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "PathFilterWithSiblings",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.CADDocumentMgmt.CADStructure"
+    },
+    {
+      "name": "GetMultiLevelComponentsReport",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "CADDocument",
+          "type": "PTC.CADDocumentMgmt.CADDocument"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "BOMMembersOnly",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "ShowSingleLevelReport",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "Collection(PTC.CADDocumentMgmt.CADDocumentsListReportItem)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.CADDocumentMgmt.CADDocument"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.CADDocumentMgmt.CADDocument"
+    },
+    {
+      "name": "SetStateCADDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CADDocuments",
+          "type": "Collection(PTC.CADDocumentMgmt.CADDocument)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.CADDocumentMgmt.CADDocument)"
+    },
+    {
+      "name": "EditCADDocumentsSecurityLabels",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CADDocuments",
+          "type": "Collection(PTC.CADDocumentMgmt.CADDocument)"
+        }
+      ],
+      "return_type": "Collection(PTC.CADDocumentMgmt.CADDocument)"
+    }
+  ]
+}

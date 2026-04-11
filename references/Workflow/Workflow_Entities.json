@@ -1,0 +1,406 @@
+{
+  "domain": "Workflow",
+  "entities": {
+    "VotingEventAudit": {
+      "name": "VotingEventAudit",
+      "base_type": "PTC.Workflow.WfEventAudit",
+      "properties": {
+        "Comment": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Decision": {
+          "type": "PTC.Workflow.VotingEventDecision",
+          "nullable": true
+        },
+        "Required": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Role": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Signed": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Assignee": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "WfEventAudit": {
+      "name": "WfEventAudit",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "TripCount": {
+          "type": "Edm.Int32",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "CompletedBy": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "WorkItem": {
+      "name": "WorkItem",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OpenAssignments": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Priority": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ProcessData": {
+          "type": "PTC.Workflow.ProcessData",
+          "nullable": true
+        },
+        "Reassigned": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Required": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Role": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "SigningRequired": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Status": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "TaskName": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Owner": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Activity": {
+          "type": "PTC.Workflow.Activity",
+          "partner": ""
+        },
+        "Subject": {
+          "type": "PTC.Workflow.Subject",
+          "partner": ""
+        },
+        "OriginalOwner": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "ProcessTemplate": {
+          "type": "PTC.Workflow.WorkItemProcessTemplate",
+          "partner": ""
+        },
+        "CompletedBy": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "Activity": {
+      "name": "Activity",
+      "base_type": "PTC.Workflow.WfActivity",
+      "properties": {
+        "Deadline": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Instructions": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "IsOverdue": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "ProcessData": {
+          "type": "PTC.Workflow.ProcessData",
+          "nullable": true
+        },
+        "UserEventList": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "ValidVotes": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "WorkItems": {
+          "type": "Collection(PTC.Workflow.WorkItem)",
+          "partner": ""
+        },
+        "VotingEventAudits": {
+          "type": "Collection(PTC.Workflow.VotingEventAudit)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        }
+      }
+    },
+    "Subject": {
+      "name": "Subject",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "Icon": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "SubjectName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Type": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "WorkItemProcessTemplate": {
+      "name": "WorkItemProcessTemplate",
+      "base_type": "",
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "ProjectWorkItem": {
+      "name": "ProjectWorkItem",
+      "base_type": "PTC.Workflow.WorkItem",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "WfActivity": {
+      "name": "WfActivity",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "TripCount": {
+          "type": "Edm.Int32",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "WorkItems",
+      "entity_type": "PTC.Workflow.WorkItem"
+    }
+  ],
+  "actions": [
+    {
+      "name": "ReassignWorkItems",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "WorkItems",
+          "type": "Collection(PTC.Workflow.WorkItem)"
+        },
+        {
+          "name": "User",
+          "type": "PTC.PrincipalMgmt.User"
+        },
+        {
+          "name": "Comment",
+          "type": "Edm.String"
+        },
+        {
+          "name": "RestrictReassignToRole",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "Collection(PTC.Workflow.WorkItem)"
+    },
+    {
+      "name": "CompleteWorkitem",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "WorkItem",
+          "type": "PTC.Workflow.WorkItem"
+        },
+        {
+          "name": "UserEventList",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "WorkitemComment",
+          "type": "Edm.String"
+        },
+        {
+          "name": "VoteAction",
+          "type": "Edm.String"
+        },
+        {
+          "name": "AutomateFastTrack",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "Variables",
+          "type": "Collection(PTC.Workflow.Variable)"
+        },
+        {
+          "name": "SignatureToken",
+          "type": "Edm.String"
+        },
+        {
+          "name": "SubjectName",
+          "type": "Edm.String"
+        },
+        {
+          "name": "ActivityName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.Workflow.WorkItem"
+    },
+    {
+      "name": "SaveWorkitem",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "WorkItem",
+          "type": "PTC.Workflow.WorkItem"
+        },
+        {
+          "name": "UserEventList",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "WorkitemComment",
+          "type": "Edm.String"
+        },
+        {
+          "name": "VoteAction",
+          "type": "Edm.String"
+        },
+        {
+          "name": "AutomateFastTrack",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "Variables",
+          "type": "Collection(PTC.Workflow.Variable)"
+        }
+      ],
+      "return_type": "PTC.Workflow.WorkItem"
+    }
+  ]
+}

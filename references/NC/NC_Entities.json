@@ -1,0 +1,629 @@
+{
+  "domain": "NC",
+  "namespace": "PTC.NC",
+  "generated": "2026-04-10T22:54:20.271745",
+  "source": "NC_Metadata.xml",
+  "entities": {
+    "OtherItem": {
+      "name": "OtherItem",
+      "namespace": "PTC.NC",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ItemID": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "ItemState": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "ItemType": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "PurchaseOrderNumber": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": false,
+          "annotations": []
+        },
+        "Unit": {
+          "type": "PTC.EnumType",
+          "nullable": false,
+          "annotations": []
+        },
+        "UnitID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {
+        "ImmediateActions": {
+          "type": "Collection(PTC.NC.ImmediateAction)",
+          "partner": "",
+          "contains_target": true
+        }
+      }
+    },
+    "ImmediateAction": {
+      "name": "ImmediateAction",
+      "namespace": "PTC.NC",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CompletedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": []
+        },
+        "Cost": {
+          "type": "Edm.Double",
+          "nullable": true,
+          "annotations": []
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ImmediateActionText": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ImmediateActionType": {
+          "type": "PTC.EnumType",
+          "nullable": false,
+          "annotations": []
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": true,
+          "annotations": []
+        },
+        "ReferenceID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {}
+    },
+    "AffectedObject": {
+      "name": "AffectedObject",
+      "namespace": "PTC.NC",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ItemState": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LotControlled": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "LotSerialNumber": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ManufacturedFrom": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": []
+        },
+        "ManufacturedQuantity": {
+          "type": "Edm.Double",
+          "nullable": true,
+          "annotations": []
+        },
+        "ManufacturedTo": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": []
+        },
+        "ManufacturedUnits": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "PurchaseOrderNumber": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "SupplierNumber": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "UnitType": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {
+        "Subject": {
+          "type": "PTC.QMS.Subject",
+          "partner": "",
+          "contains_target": false
+        },
+        "ImmediateActions": {
+          "type": "Collection(PTC.NC.ImmediateAction)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "Nonconformance": {
+      "name": "Nonconformance",
+      "namespace": "PTC.NC",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "AdditionalDetails": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "DateFileOpened": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": []
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "NonconformanceKey": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "NonconformanceType": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "OccurrenceDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": []
+        },
+        "PrimaryCode": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "PrimaryCodePath": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ProcessType": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "RequestCompleted": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "RequestedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ReservedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Shift": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "OriginatingLocation": {
+          "type": "PTC.QMS.Place",
+          "partner": "",
+          "contains_target": false
+        },
+        "OriginatedBy": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "AffectedObjects": {
+          "type": "Collection(PTC.NC.AffectedObject)",
+          "partner": "",
+          "contains_target": true
+        },
+        "OtherItems": {
+          "type": "Collection(PTC.NC.OtherItem)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "PrimaryRelatedPersonOrLocation": {
+          "type": "PTC.QMS.QualityContact",
+          "partner": "",
+          "contains_target": false
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "AdditionalRelatedPersonnelOrLocations": {
+          "type": "Collection(PTC.QMS.QualityContact)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    }
+  },
+  "entity_sets": [
+    {
+      "namespace": "PTC.NC",
+      "name": "Nonconformances",
+      "entity_type": "PTC.NC.Nonconformance"
+    }
+  ],
+  "actions": [
+    {
+      "namespace": "PTC.NC",
+      "name": "SetStateNonconformances",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Nonconformances",
+          "type": "Collection(PTC.NC.Nonconformance)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.NC.Nonconformance)"
+    },
+    {
+      "namespace": "PTC.NC",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.NC.Nonconformance",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.NC.Nonconformance"
+    },
+    {
+      "namespace": "PTC.NC",
+      "name": "UndoReservation",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.NC.Nonconformance",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.NC.Nonconformance"
+    },
+    {
+      "namespace": "PTC.NC",
+      "name": "Reserve",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.NC.Nonconformance",
+          "nullable": false
+        },
+        {
+          "name": "Duration",
+          "type": "Edm.Int32",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.NC.Nonconformance"
+    },
+    {
+      "namespace": "PTC.NC",
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Nonconformance",
+          "type": "PTC.NC.Nonconformance",
+          "nullable": false
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32",
+          "nullable": false
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "namespace": "PTC.NC",
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Nonconformance",
+          "type": "PTC.NC.Nonconformance",
+          "nullable": false
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.ContentInfo)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "namespace": "PTC.NC",
+      "name": "EditNonconformancesSecurityLabels",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Nonconformances",
+          "type": "Collection(PTC.NC.Nonconformance)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.NC.Nonconformance)"
+    }
+  ],
+  "complex_types": [],
+  "enumerations": []
+}

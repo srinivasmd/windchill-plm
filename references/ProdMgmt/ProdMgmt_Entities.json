@@ -1,0 +1,4103 @@
+{
+  "domain": "ProdMgmt",
+  "entities": {
+    "TreeStructureItem": {
+      "name": "TreeStructureItem",
+      "base_type": "",
+      "properties": {
+        "ObjectId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LinkId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PathId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PVTreeId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PVParentTreeId": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Object": {
+          "type": "PTC.WindchillEntity",
+          "partner": ""
+        },
+        "Link": {
+          "type": "PTC.WindchillEntity",
+          "partner": ""
+        },
+        "Occurrence": {
+          "type": "PTC.ProdMgmt.UsageOccurrence",
+          "partner": ""
+        },
+        "Components": {
+          "type": "Collection(PTC.BomTransformation.TreeStructureItem)",
+          "partner": ""
+        }
+      }
+    },
+    "SecondaryCoproduceLink": {
+      "name": "SecondaryCoproduceLink",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "ComponentId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LineNumber": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "Unit": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Secondary": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "CoProduce": {
+          "type": "PTC.BomTransformation.Coproduce",
+          "partner": ""
+        },
+        "AlternateSetMaster": {
+          "type": "PTC.ObjectReferenceable",
+          "partner": ""
+        },
+        "ResultedByObjects": {
+          "type": "Collection(PTC.BomTransformation.ChangeItem)",
+          "partner": ""
+        }
+      }
+    },
+    "EquivalenceNetworkNode": {
+      "name": "EquivalenceNetworkNode",
+      "base_type": "",
+      "properties": {
+        "PartId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PartName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PartNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PartView": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PartIdentity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamView": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamIdentity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamView": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamIdentity": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "AllParts": {
+          "type": "Collection(PTC.BomTransformation.EquivalenceNetworkNode)",
+          "partner": ""
+        },
+        "Downstream": {
+          "type": "PTC.BomTransformation.EquivalenceNetworkNode",
+          "partner": ""
+        },
+        "Upstream": {
+          "type": "PTC.BomTransformation.EquivalenceNetworkNode",
+          "partner": ""
+        },
+        "Part": {
+          "type": "PTC.WindchillEntity",
+          "partner": ""
+        },
+        "EquivalenceLink": {
+          "type": "PTC.BomTransformation.EquivalenceLink",
+          "partner": ""
+        }
+      }
+    },
+    "PrimaryCoproduceLink": {
+      "name": "PrimaryCoproduceLink",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AlternateNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LineNumber": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Plant": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "Unit": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Primary": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "CoProduce": {
+          "type": "PTC.BomTransformation.Coproduce",
+          "partner": ""
+        },
+        "AlternateSetMaster": {
+          "type": "PTC.ObjectReferenceable",
+          "partner": ""
+        },
+        "ResultedByObjects": {
+          "type": "Collection(PTC.BomTransformation.ChangeItem)",
+          "partner": ""
+        }
+      }
+    },
+    "NewSplitAlternate": {
+      "name": "NewSplitAlternate",
+      "base_type": "PTC.BomTransformation.XBOMPart",
+      "properties": {
+        "BomType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AlternateBomType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SplitInfos": {
+          "type": "Collection(PTC.BomTransformation.SplitInfos)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "PlantSpecificEnterpriseData": {
+      "name": "PlantSpecificEnterpriseData",
+      "base_type": "PTC.BomTransformation.ExtendedData",
+      "properties": {
+        "PlantSpecificStatus": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Sales_And_Pricing": {
+      "name": "Sales_And_Pricing",
+      "base_type": "PTC.BomTransformation.DepartmentData",
+      "properties": {
+        "Material_Price_Group": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Price_Control": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Tax_Classification": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Valuation_Class": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Valuation_Level": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Material_Planning": {
+      "name": "Material_Planning",
+      "base_type": "PTC.BomTransformation.DepartmentData",
+      "properties": {
+        "Lot_Sizing_Procedure": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "MRP_Type": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Procurement_Type": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "EquivalentUsageAssociation": {
+      "name": "EquivalentUsageAssociation",
+      "base_type": "",
+      "properties": {
+        "UpstreamPartId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamPartId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "EquivalenceLinkId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UsageLinkId": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "UpstreamPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "DownstreamPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "EquivalenceLink": {
+          "type": "PTC.BomTransformation.EquivalenceLink",
+          "partner": ""
+        },
+        "UsageLink": {
+          "type": "PTC.ProdMgmt.PartUse",
+          "partner": ""
+        }
+      }
+    },
+    "PrimaryCoproduceAssociation": {
+      "name": "PrimaryCoproduceAssociation",
+      "base_type": "",
+      "properties": {},
+      "navigation_properties": {
+        "Primary": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "CoProduce": {
+          "type": "PTC.BomTransformation.Coproduce",
+          "partner": ""
+        }
+      }
+    },
+    "GDSFromTemplateContext": {
+      "name": "GDSFromTemplateContext",
+      "base_type": "",
+      "properties": {
+        "TargetPath": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "GDSFromTemplateInfo": {
+          "type": "Collection(PTC.BomTransformation.GDSFromTemplateInfo)",
+          "nullable": true
+        },
+        "UpstreamChangeOid": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "SourceRoot": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "TargetRoot": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "UpstreamNavigationCriteria": {
+          "type": "PTC.NavCriteria.NavigationCriteria",
+          "partner": ""
+        },
+        "DownstreamNavigationCriteria": {
+          "type": "PTC.NavCriteria.NavigationCriteria",
+          "partner": ""
+        }
+      }
+    },
+    "RawMaterialAlternateLink": {
+      "name": "RawMaterialAlternateLink",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AlternateNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ComponentId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Plant": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Alternates": {
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)",
+          "partner": ""
+        },
+        "AlternateFor": {
+          "type": "Collection(PTC.ProdMgmt.Part)",
+          "partner": ""
+        }
+      }
+    },
+    "PasteAsNewPartDefinition": {
+      "name": "PasteAsNewPartDefinition",
+      "base_type": "PTC.BomTransformation.TransformationDefinition",
+      "properties": {
+        "SourcePaths": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "NumberSuffix": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "TransformationEntity": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        }
+      }
+    },
+    "PasteAsIsDefinition": {
+      "name": "PasteAsIsDefinition",
+      "base_type": "PTC.BomTransformation.TransformationDefinition",
+      "properties": {
+        "SourcePaths": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "MadeFromSet": {
+      "name": "MadeFromSet",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AlternateNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "BeltLength": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PPlan_Link": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "Part_Cost": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "PartsLink_Part_Binding_Attribute": {
+          "type": "PTC.ClassificationInfo",
+          "nullable": true
+        },
+        "Plant": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Translation_Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "AlternateMadeFromLinkToParent": {
+          "type": "Collection(PTC.BomTransformation.RawMaterialAlternateLink)",
+          "partner": ""
+        },
+        "AlternateFor": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "PPlan_LinkNav": {
+          "type": "Collection(PTC.ObjectReferenceable)",
+          "partner": ""
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        },
+        "ExtendedData": {
+          "type": "Collection(PTC.BomTransformation.ExtendedData)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        },
+        "ResultedByObjects": {
+          "type": "Collection(PTC.BomTransformation.ChangeItem)",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)",
+          "partner": ""
+        },
+        "MadeFromLink": {
+          "type": "Collection(PTC.BomTransformation.RawMaterialLink)",
+          "partner": ""
+        },
+        "Effectivities": {
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)",
+          "partner": ""
+        },
+        "PartMadeFrom": {
+          "type": "Collection(PTC.ProdMgmt.Part)",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "EquivalenceLink": {
+      "name": "EquivalenceLink",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "Annotations": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Consumable": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamContext": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "EquivalenceIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamContext": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Upstream": {
+          "type": "Collection(PTC.WindchillEntity)",
+          "partner": ""
+        },
+        "Downstream": {
+          "type": "Collection(PTC.WindchillEntity)",
+          "partner": ""
+        }
+      }
+    },
+    "CoproduceUsageMembersAssociation": {
+      "name": "CoproduceUsageMembersAssociation",
+      "base_type": "",
+      "properties": {},
+      "navigation_properties": {
+        "Coproduce": {
+          "type": "PTC.BomTransformation.Coproduce",
+          "partner": ""
+        },
+        "UsageMembers": {
+          "type": "Collection(PTC.ProdMgmt.Part)",
+          "partner": ""
+        }
+      }
+    },
+    "AbstractExtendedData": {
+      "name": "AbstractExtendedData",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "CommonEnterpriseData": {
+      "name": "CommonEnterpriseData",
+      "base_type": "PTC.BomTransformation.ExtendedData",
+      "properties": {
+        "ItemCategory": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "MaterialGroup": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "MaterialOwner": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "MaterialType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "MultiPlantStatus": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "NewDownstreamPartDefinition": {
+      "name": "NewDownstreamPartDefinition",
+      "base_type": "PTC.BomTransformation.TransformationDefinition",
+      "properties": {
+        "NumberSuffix": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "TransformationEntity": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        }
+      }
+    },
+    "RawMaterialLink": {
+      "name": "RawMaterialLink",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AllocationType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Category": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "ComponentId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ExpressionData": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FindNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "InclusionOption": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LineNumber": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "LinkID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": false
+        },
+        "QuantityOption": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Reference": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RmlUpdateCount": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "TraceCode": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "Unit": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {
+        "Makes": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "MadeFrom": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "PendingEffectivities": {
+          "type": "Collection(PTC.BomTransformation.PendingLinkEffectivity)",
+          "partner": ""
+        },
+        "Effectivities": {
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)",
+          "partner": ""
+        }
+      }
+    },
+    "NewDownstreamBranchDefinition": {
+      "name": "NewDownstreamBranchDefinition",
+      "base_type": "PTC.BomTransformation.TransformationDefinition",
+      "properties": {},
+      "navigation_properties": {
+        "TransformationEntity": {
+          "type": "PTC.BomTransformation.TransformationEntity",
+          "partner": ""
+        }
+      }
+    },
+    "TransformationDefinition": {
+      "name": "TransformationDefinition",
+      "base_type": "",
+      "properties": {
+        "ReviseExistingDownstream": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "TransformationOption": {
+          "type": "PTC.BomTransformation.ChildStructurePropagationTypeEnum",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "SourcePart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "ExistingDownstreamAssociations": {
+          "type": "Collection(PTC.BomTransformation.ExistingDownstreamAssociation)",
+          "partner": ""
+        }
+      }
+    },
+    "XBOMPart": {
+      "name": "XBOMPart",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "StandardCC": {
+      "name": "StandardCC",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "Category": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LongDescription": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LowerLimit": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "NominalValue": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpperLimit": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "ExtendedData": {
+      "name": "ExtendedData",
+      "base_type": "PTC.BomTransformation.AbstractExtendedData",
+      "properties": {
+        "AlternateNumber": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "AwaitingPromotion": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "BOMType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Note": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PhantomManufacturingPart": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "StorageLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "DepartmentData": {
+          "type": "Collection(PTC.BomTransformation.DepartmentData)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "ResultedByObjects": {
+          "type": "Collection(PTC.BomTransformation.ChangeItem)",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.BomTransformation.ExtendedData)",
+          "partner": ""
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        },
+        "Effectivities": {
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.BomTransformation.ExtendedData)",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        }
+      }
+    },
+    "Procurement": {
+      "name": "Procurement",
+      "base_type": "PTC.BomTransformation.DepartmentData",
+      "properties": {
+        "GoodsReceiptProcessingTime": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "PlannedDeliveryTime": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "Purchasing_Group": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "ReplenishmentLeadTime": {
+          "type": "Edm.Int64",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "NewDownstreamAlternateDefinition": {
+      "name": "NewDownstreamAlternateDefinition",
+      "base_type": "",
+      "properties": {
+        "TransformationOption": {
+          "type": "PTC.BomTransformation.ChildStructurePropagationTypeEnum",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "SourcePart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "TransformationEntity": {
+          "type": "PTC.BomTransformation.TransformationEntity",
+          "partner": ""
+        }
+      }
+    },
+    "PlantDataDepartmentDataAssociation": {
+      "name": "PlantDataDepartmentDataAssociation",
+      "base_type": "",
+      "properties": {},
+      "navigation_properties": {
+        "Plant": {
+          "type": "PTC.BomTransformation.ExtendedData",
+          "partner": ""
+        },
+        "DepartmentData": {
+          "type": "Collection(PTC.BomTransformation.DepartmentData)",
+          "partner": ""
+        }
+      }
+    },
+    "NewAlternate": {
+      "name": "NewAlternate",
+      "base_type": "PTC.BomTransformation.XBOMPart",
+      "properties": {
+        "BomType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AlternateBomType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        }
+      }
+    },
+    "DepartmentData": {
+      "name": "DepartmentData",
+      "base_type": "PTC.BomTransformation.AbstractExtendedData",
+      "properties": {
+        "AwaitingPromotion": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Category": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckinComments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "InheritedDomain": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Location": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Note": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Status": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SupplyChain": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "ResultedByObjects": {
+          "type": "Collection(PTC.BomTransformation.ChangeItem)",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.BomTransformation.DepartmentData)",
+          "partner": ""
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        },
+        "Effectivities": {
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.BomTransformation.DepartmentData)",
+          "partner": ""
+        }
+      }
+    },
+    "MadeFromAssociation": {
+      "name": "MadeFromAssociation",
+      "base_type": "",
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Makes": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "MadeFrom": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "RawMaterialLink": {
+          "type": "PTC.BomTransformation.RawMaterialLink",
+          "partner": ""
+        }
+      }
+    },
+    "CoproduceSecondaryMembersAssociation": {
+      "name": "CoproduceSecondaryMembersAssociation",
+      "base_type": "",
+      "properties": {},
+      "navigation_properties": {
+        "Coproduce": {
+          "type": "PTC.BomTransformation.Coproduce",
+          "partner": ""
+        },
+        "SecondaryMembers": {
+          "type": "Collection(PTC.ProdMgmt.Part)",
+          "partner": ""
+        }
+      }
+    },
+    "PendingLinkEffectivity": {
+      "name": "PendingLinkEffectivity",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "EquivalenceLinkAssociation": {
+      "name": "EquivalenceLinkAssociation",
+      "base_type": "",
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamPath": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamPath": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DoCopyOver": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "IsConsumable": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LinkType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamId": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "EquivalenceLink": {
+          "type": "PTC.BomTransformation.EquivalenceLink",
+          "partner": ""
+        },
+        "UpstreamRoot": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "DownstreamRoot": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "UpstreamPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "DownstreamPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        }
+      }
+    },
+    "TransformationEntity": {
+      "name": "TransformationEntity",
+      "base_type": "",
+      "properties": {
+        "View": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "BOMType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AlternateBOM": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        }
+      }
+    },
+    "EquivalenceUsageAssociation": {
+      "name": "EquivalenceUsageAssociation",
+      "base_type": "",
+      "properties": {
+        "DownstreamPath": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamPath": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "UpstreamRoot": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "DownstreamRoot": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "UpstreamPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "DownstreamPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "EquivalenceUsageLink": {
+          "type": "PTC.BomTransformation.EquivalenceUsageLink",
+          "partner": ""
+        }
+      }
+    },
+    "CoProduceUsageLink": {
+      "name": "CoProduceUsageLink",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "Category": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Consumption": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LineNumber": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "SourceUsages": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Unit": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "CoProduceUsedBy": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "CoProduceUses": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "ResultedByObjects": {
+          "type": "Collection(PTC.BomTransformation.ChangeItem)",
+          "partner": ""
+        }
+      }
+    },
+    "EquivalenceUsageLink": {
+      "name": "EquivalenceUsageLink",
+      "base_type": "",
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamPath": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamPath": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ChangeItem": {
+      "name": "ChangeItem",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "MadeFromSetAssociation": {
+      "name": "MadeFromSetAssociation",
+      "base_type": "",
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Makes": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "MadeFromSet": {
+          "type": "PTC.BomTransformation.MadeFromSet",
+          "partner": ""
+        },
+        "RawMaterialAlternateLink": {
+          "type": "PTC.BomTransformation.RawMaterialAlternateLink",
+          "partner": ""
+        }
+      }
+    },
+    "DiscrepancyItem": {
+      "name": "DiscrepancyItem",
+      "base_type": "",
+      "properties": {
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Criteria": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CurrentValue": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PreviousValue": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamParentPath": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "Status": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "InternalMetadata": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ExistingDownstreamAssociation": {
+      "name": "ExistingDownstreamAssociation",
+      "base_type": "",
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UpstreamPartId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DownstreamPartId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "EquivalenceLinkId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "IsEquivalenceLinkOutdated": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "UpstreamPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "DownstreamPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "EquivalenceLink": {
+          "type": "PTC.BomTransformation.EquivalenceLink",
+          "partner": ""
+        }
+      }
+    },
+    "PartPlantDataAssociation": {
+      "name": "PartPlantDataAssociation",
+      "base_type": "",
+      "properties": {},
+      "navigation_properties": {
+        "Part": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "Plants": {
+          "type": "Collection(PTC.BomTransformation.ExtendedData)",
+          "partner": ""
+        }
+      }
+    },
+    "ReplaceMadeFromAssociation": {
+      "name": "ReplaceMadeFromAssociation",
+      "base_type": "",
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Makes": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "MadeFrom": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "RawMaterialLink": {
+          "type": "PTC.BomTransformation.RawMaterialLink",
+          "partner": ""
+        },
+        "RootPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "NavigationCriteria": {
+          "type": "PTC.NavCriteria.NavigationCriteria",
+          "partner": ""
+        }
+      }
+    },
+    "PasteAsNewBranchDefinition": {
+      "name": "PasteAsNewBranchDefinition",
+      "base_type": "PTC.BomTransformation.TransformationDefinition",
+      "properties": {
+        "SourcePaths": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "TransformationEntity": {
+          "type": "PTC.BomTransformation.TransformationEntity",
+          "partner": ""
+        }
+      }
+    },
+    "Coproduce": {
+      "name": "Coproduce",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AlternateNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "BeltLength": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PPlan_Link": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "Part_Cost": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "PartsLink_Part_Binding_Attribute": {
+          "type": "PTC.ClassificationInfo",
+          "nullable": true
+        },
+        "Plant": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Translation_Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "PrimaryPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "SecondaryMembers": {
+          "type": "Collection(PTC.ProdMgmt.Part)",
+          "partner": ""
+        },
+        "PrimaryCoproduceLink": {
+          "type": "PTC.BomTransformation.PrimaryCoproduceLink",
+          "partner": ""
+        },
+        "SecondaryCoproduceLinks": {
+          "type": "Collection(PTC.BomTransformation.SecondaryCoproduceLink)",
+          "partner": ""
+        },
+        "CoProduceUsageLinks": {
+          "type": "Collection(PTC.BomTransformation.CoProduceUsageLink)",
+          "partner": ""
+        },
+        "CoProduceUsages": {
+          "type": "Collection(PTC.ProdMgmt.Part)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "PPlan_LinkNav": {
+          "type": "Collection(PTC.ObjectReferenceable)",
+          "partner": ""
+        },
+        "ResultedByObjects": {
+          "type": "Collection(PTC.BomTransformation.ChangeItem)",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.BomTransformation.Coproduce)",
+          "partner": ""
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        },
+        "ExtendedData": {
+          "type": "Collection(PTC.BomTransformation.ExtendedData)",
+          "partner": ""
+        },
+        "Effectivities": {
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.BomTransformation.Coproduce)",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "DiscrepancyContext": {
+      "name": "DiscrepancyContext",
+      "base_type": "",
+      "properties": {
+        "TargetPath": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SourcePartSelection": {
+          "type": "Collection(PTC.BomTransformation.PartsInfo)",
+          "nullable": true
+        },
+        "UpstreamChangeOid": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "SourceRoot": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "TargetRoot": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "TargetPart": {
+          "type": "PTC.ProdMgmt.Part",
+          "partner": ""
+        },
+        "UpstreamNavigationCriteria": {
+          "type": "PTC.NavCriteria.NavigationCriteria",
+          "partner": ""
+        },
+        "DownstreamNavigationCriteria": {
+          "type": "PTC.NavCriteria.NavigationCriteria",
+          "partner": ""
+        }
+      }
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "XBOMParts",
+      "entity_type": "PTC.BomTransformation.XBOMPart"
+    },
+    {
+      "name": "MadeFromSets",
+      "entity_type": "PTC.BomTransformation.MadeFromSet"
+    },
+    {
+      "name": "DepartmentDatas",
+      "entity_type": "PTC.BomTransformation.DepartmentData"
+    },
+    {
+      "name": "ExtendedDatas",
+      "entity_type": "PTC.BomTransformation.ExtendedData"
+    },
+    {
+      "name": "Coproduces",
+      "entity_type": "PTC.BomTransformation.Coproduce"
+    }
+  ],
+  "actions": [
+    {
+      "name": "GetExtendedDatasForPartsWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "parts",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedDataListItem)"
+    },
+    {
+      "name": "GetExtendedDatasForParts",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "parts",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedDataListItem)"
+    },
+    {
+      "name": "GetExtendedDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ExtendedDatas",
+          "type": "Collection(Edm.String)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedData)"
+    },
+    {
+      "name": "GetDepartmentDatasForPartsWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "parts",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "departmentDataTypes",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "supplyChains",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "locations",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "categories",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "views",
+          "type": "Collection(Edm.String)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentDataListItem)"
+    },
+    {
+      "name": "GetDepartmentDatasForParts",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "parts",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentDataListItem)"
+    },
+    {
+      "name": "GetDepartmentDatasFromPlantWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "plants",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "departmentDataTypes",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "supplyChains",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "locations",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "categories",
+          "type": "Collection(Edm.String)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentDataForPlantListItem)"
+    },
+    {
+      "name": "GetDepartmentDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DepartmentDatas",
+          "type": "Collection(Edm.String)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentData)"
+    },
+    {
+      "name": "GetDepartmentDatasFromPlant",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "plants",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentDataForPlantListItem)"
+    },
+    {
+      "name": "GetEquivalenceNetworkForParts",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "parts",
+          "type": "Collection(Edm.String)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.EquivalenceNetworkListItem)"
+    },
+    {
+      "name": "AssignPlant",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "parts",
+          "type": "Collection(PTC.ProdMgmt.Part)"
+        },
+        {
+          "name": "plants",
+          "type": "Collection(PTC.BomTransformation.ExtendedData)"
+        },
+        {
+          "name": "changeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedDataListItem)"
+    },
+    {
+      "name": "CreateDepartmentData",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "parts",
+          "type": "Collection(PTC.ProdMgmt.Part)"
+        },
+        {
+          "name": "departmentData",
+          "type": "Collection(PTC.BomTransformation.DepartmentData)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "changeOid",
+          "type": "Edm.String"
+        },
+        {
+          "name": "view",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentDataListItem)"
+    },
+    {
+      "name": "CreateDepartmentDataForPlantData",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "plantData",
+          "type": "Collection(PTC.BomTransformation.ExtendedData)"
+        },
+        {
+          "name": "departmentData",
+          "type": "Collection(PTC.BomTransformation.DepartmentData)"
+        },
+        {
+          "name": "changeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentDataForPlantListItem)"
+    },
+    {
+      "name": "GetRawMaterialsForParts",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "parts",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.RawMaterialListItem)"
+    },
+    {
+      "name": "GetRawMaterialsForPartsWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "parts",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.RawMaterialListItem)"
+    },
+    {
+      "name": "RemovePlantDataAssociations",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PartPlantDataAssociations",
+          "type": "Collection(PTC.BomTransformation.PartPlantDataAssociation)"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "RemoveDepartmentDataAssociations",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PlantDataDepartmentDataAssociations",
+          "type": "Collection(PTC.BomTransformation.PlantDataDepartmentDataAssociation)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "UpdateCommonPropertiesForDepartmentDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DepartmentData",
+          "type": "Collection(PTC.BomTransformation.DepartmentData)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentData)"
+    },
+    {
+      "name": "UpdateCommonPropertiesForExtendedDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ExtendedData",
+          "type": "Collection(PTC.BomTransformation.ExtendedData)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedData)"
+    },
+    {
+      "name": "GetMadeFromSetForParts",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Collection(PTC.ProdMgmt.Part)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSetListItem)"
+    },
+    {
+      "name": "GetMadeFromSetForPartsWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Collection(PTC.ProdMgmt.Part)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSetListItem)"
+    },
+    {
+      "name": "CreateCoproduce",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "CreateCoproduceWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "GetMadeFromSetData",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromSets",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSet)"
+    },
+    {
+      "name": "GetMadeFromSetDataWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromSets",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSet)"
+    },
+    {
+      "name": "CreateMadeFromSets",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromSets",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSet)"
+    },
+    {
+      "name": "AddCoproduceMembers",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CoproduceSecondaryMembersAssociations",
+          "type": "Collection(PTC.BomTransformation.CoproduceSecondaryMembersAssociation)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "AddCoproduceMembersWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CoproduceSecondaryMembersAssociations",
+          "type": "Collection(PTC.BomTransformation.CoproduceSecondaryMembersAssociation)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "AddScrapMembers",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CoproduceSecondaryMembersAssociations",
+          "type": "Collection(PTC.BomTransformation.CoproduceSecondaryMembersAssociation)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "RemoveCoproduceMembers",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CoproduceSecondaryMembersAssociations",
+          "type": "Collection(PTC.BomTransformation.CoproduceSecondaryMembersAssociation)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "RemoveCoproduceMembersWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CoproduceSecondaryMembersAssociations",
+          "type": "Collection(PTC.BomTransformation.CoproduceSecondaryMembersAssociation)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "AddCoproduceUsages",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CoproduceUsageMembersAssociations",
+          "type": "Collection(PTC.BomTransformation.CoproduceUsageMembersAssociation)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "RemoveCoproduceUsages",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CoproduceUsageMembersAssociations",
+          "type": "Collection(PTC.BomTransformation.CoproduceUsageMembersAssociation)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "InsertMadeFrom",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromAssociations",
+          "type": "Collection(PTC.BomTransformation.MadeFromAssociation)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromAssociation)"
+    },
+    {
+      "name": "UpdateCoproduceStructure",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "UpdateCoproduceStructureWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "GetCoproduceData",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "GetCoproduceDataWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "GetCoproduceForParts",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Collection(PTC.ProdMgmt.Part)"
+        },
+        {
+          "name": "navigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.CoproduceListItem)"
+    },
+    {
+      "name": "GetCoproduceForPartsWithInlineNavCriteria",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Parts",
+          "type": "Collection(PTC.ProdMgmt.Part)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.CoproduceListItem)"
+    },
+    {
+      "name": "RemoveMadeFromAssociations",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromAssociations",
+          "type": "Collection(PTC.BomTransformation.MadeFromAssociation)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "RemoveMadeFromSetAssociations",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromSetAssociations",
+          "type": "Collection(PTC.BomTransformation.MadeFromSetAssociation)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "ReplaceMadeFroms",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ReplaceMadeFromAssociations",
+          "type": "Collection(PTC.BomTransformation.ReplaceMadeFromAssociation)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ReplaceMadeFromAssociation)"
+    },
+    {
+      "name": "RemovePrimaryCoproduceAssociations",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PrimaryCoproduceAssociations",
+          "type": "Collection(PTC.BomTransformation.PrimaryCoproduceAssociation)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "GetExistingDownstreamObjects",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DownstreamBranchAttributes",
+          "type": "PTC.BomTransformation.BranchAttributesListItem"
+        },
+        {
+          "name": "ExistingDownstreamObjectQueryParams",
+          "type": "Collection(PTC.BomTransformation.ExistingDownstreamObjectQueryParam)"
+        },
+        {
+          "name": "TransformationActionType",
+          "type": "PTC.BomTransformation.TransformationActionTypeEnum"
+        },
+        {
+          "name": "DownstreamPathId",
+          "type": "Edm.String"
+        },
+        {
+          "name": "DownstreamRoot",
+          "type": "PTC.ProdMgmt.Part"
+        },
+        {
+          "name": "UpstreamRoot",
+          "type": "PTC.ProdMgmt.Part"
+        },
+        {
+          "name": "UpstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DownstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExistingDownstreamObjectsListItem)"
+    },
+    {
+      "name": "SubcontractToPlants",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DiscrepancyContext",
+          "type": "PTC.BomTransformation.DiscrepancyContext"
+        },
+        {
+          "name": "Views",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.EquivalentUsageAssociation)"
+    },
+    {
+      "name": "Assemble",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DiscrepancyContext",
+          "type": "PTC.BomTransformation.DiscrepancyContext"
+        },
+        {
+          "name": "NewObjectIdentifications",
+          "type": "Collection(PTC.BomTransformation.NewObjectIdentification)"
+        },
+        {
+          "name": "NewAlternates",
+          "type": "Collection(PTC.BomTransformation.NewAlternate)"
+        },
+        {
+          "name": "CheckInDownstreamObject",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.EquivalentUsageAssociation)"
+    },
+    {
+      "name": "UpdateToCurrentUpstreamEquivalents",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DownstreamParts",
+          "type": "Collection(PTC.ProdMgmt.Part)"
+        },
+        {
+          "name": "UpstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DownstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DoCopyOver",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExistingDownstreamAssociation)"
+    },
+    {
+      "name": "SplitAssemble",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DiscrepancyContext",
+          "type": "PTC.BomTransformation.DiscrepancyContext"
+        },
+        {
+          "name": "NewObjectIdentifications",
+          "type": "Collection(PTC.BomTransformation.NewObjectIdentification)"
+        },
+        {
+          "name": "NewSplitAlternates",
+          "type": "Collection(PTC.BomTransformation.NewSplitAlternate)"
+        },
+        {
+          "name": "ReplaceAllUsage",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "CheckInDownstreamObject",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.EquivalentUsageAssociation)"
+    },
+    {
+      "name": "CreateEquivalenceUsageLinks",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "EquivalenceUsageAssociation",
+          "type": "Collection(PTC.BomTransformation.EquivalenceUsageAssociation)"
+        },
+        {
+          "name": "UpstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DownstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.EquivalenceUsageAssociation)"
+    },
+    {
+      "name": "PasteAsNewBranch",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "TargetPath",
+          "type": "Edm.String"
+        },
+        {
+          "name": "SourceRoot",
+          "type": "PTC.ProdMgmt.Part"
+        },
+        {
+          "name": "TargetRoot",
+          "type": "PTC.ProdMgmt.Part"
+        },
+        {
+          "name": "TransformationDefinitions",
+          "type": "Collection(PTC.BomTransformation.PasteAsNewBranchDefinition)"
+        },
+        {
+          "name": "UpstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DownstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExistingDownstreamAssociation)"
+    },
+    {
+      "name": "PasteAsNewPart",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "TargetPath",
+          "type": "Edm.String"
+        },
+        {
+          "name": "SourceRoot",
+          "type": "PTC.ProdMgmt.Part"
+        },
+        {
+          "name": "TargetRoot",
+          "type": "PTC.ProdMgmt.Part"
+        },
+        {
+          "name": "TransformationDefinitions",
+          "type": "Collection(PTC.BomTransformation.PasteAsNewPartDefinition)"
+        },
+        {
+          "name": "UpstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DownstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExistingDownstreamAssociation)"
+    },
+    {
+      "name": "DetectAndResolveDiscrepancies",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DiscrepancyContext",
+          "type": "PTC.BomTransformation.DiscrepancyContext"
+        },
+        {
+          "name": "CheckInDownstreamObject",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DiscrepancyItem)"
+    },
+    {
+      "name": "DetectDiscrepancies",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DiscrepancyContext",
+          "type": "PTC.BomTransformation.DiscrepancyContext"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DiscrepancyItem)"
+    },
+    {
+      "name": "NewDownstreamBranch",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "UpstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DownstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "TransformationDefinitions",
+          "type": "Collection(PTC.BomTransformation.NewDownstreamBranchDefinition)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExistingDownstreamAssociation)"
+    },
+    {
+      "name": "ResolveDiscrepancies",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DiscrepancyItems",
+          "type": "Collection(PTC.BomTransformation.DiscrepancyItem)"
+        },
+        {
+          "name": "DiscrepancyContext",
+          "type": "PTC.BomTransformation.DiscrepancyContext"
+        },
+        {
+          "name": "CheckInDownstreamObject",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DiscrepancyItem)"
+    },
+    {
+      "name": "NewDownstreamPart",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "UpstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DownstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "TransformationDefinitions",
+          "type": "Collection(PTC.BomTransformation.NewDownstreamPartDefinition)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExistingDownstreamAssociation)"
+    },
+    {
+      "name": "NewDownstreamAlternate",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "UpstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DownstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "TransformationDefinitions",
+          "type": "Collection(PTC.BomTransformation.NewDownstreamAlternateDefinition)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExistingDownstreamAssociation)"
+    },
+    {
+      "name": "PasteAsIs",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "TargetPath",
+          "type": "Edm.String"
+        },
+        {
+          "name": "SourceRoot",
+          "type": "PTC.ProdMgmt.Part"
+        },
+        {
+          "name": "TargetRoot",
+          "type": "PTC.ProdMgmt.Part"
+        },
+        {
+          "name": "TransformationDefinitions",
+          "type": "Collection(PTC.BomTransformation.PasteAsIsDefinition)"
+        },
+        {
+          "name": "UpstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DownstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExistingDownstreamAssociation)"
+    },
+    {
+      "name": "CreateEquivalenceLinks",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "EquivalenceLinkAssociations",
+          "type": "Collection(PTC.BomTransformation.EquivalenceLinkAssociation)"
+        },
+        {
+          "name": "UpstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "DownstreamNavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.EquivalenceLinkAssociation)"
+    },
+    {
+      "name": "RemoveEquivalenceLinks",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "EquivalenceLinkAssociations",
+          "type": "Collection(PTC.BomTransformation.EquivalenceLinkAssociation)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "GenerateDownstreamStructure",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DiscrepancyContext",
+          "type": "PTC.BomTransformation.DiscrepancyContext"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.EquivalentUsageAssociation)"
+    },
+    {
+      "name": "GenerateDownstreamStructureFromTemplate",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "GDSFromTemplateContext",
+          "type": "PTC.BomTransformation.GDSFromTemplateContext"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.EquivalentUsageAssociation)"
+    },
+    {
+      "name": "PasteSpecial",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DiscrepancyContext",
+          "type": "PTC.BomTransformation.DiscrepancyContext"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.EquivalentUsageAssociation)"
+    },
+    {
+      "name": "GetManufacturingBOM",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Part",
+          "type": "PTC.BomTransformation.XBOMPart"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        },
+        {
+          "name": "RelatedItems",
+          "type": "Collection(Edm.String)"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.TreeStructureItem"
+    },
+    {
+      "name": "SetStateDepartmentDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DepartmentDatas",
+          "type": "Collection(PTC.BomTransformation.DepartmentData)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentData)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.BomTransformation.DepartmentData"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.DepartmentData"
+    },
+    {
+      "name": "RemoveEffectivities",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "effectivityManaged",
+          "type": "PTC.BomTransformation.DepartmentData"
+        },
+        {
+          "name": "Effectivities",
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "ModifyEffectivities",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "effectivityManaged",
+          "type": "PTC.BomTransformation.DepartmentData"
+        },
+        {
+          "name": "Effectivities",
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+        }
+      ],
+      "return_type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+    },
+    {
+      "name": "ReviseDepartmentDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DepartmentDatas",
+          "type": "Collection(PTC.BomTransformation.DepartmentData)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentData)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.BomTransformation.DepartmentData"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.DepartmentData"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.DepartmentData"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.DepartmentData"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.DepartmentData"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.DepartmentData"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.DepartmentData"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.DepartmentData"
+    },
+    {
+      "name": "CheckOutDepartmentDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.DepartmentData)"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentData)"
+    },
+    {
+      "name": "CheckInDepartmentDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.DepartmentData)"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentData)"
+    },
+    {
+      "name": "UndoCheckOutDepartmentDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.DepartmentData)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentData)"
+    },
+    {
+      "name": "UpdateDepartmentDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DepartmentDatas",
+          "type": "Collection(PTC.BomTransformation.DepartmentData)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.DepartmentData)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.BomTransformation.Coproduce"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.Coproduce"
+    },
+    {
+      "name": "SetStateCoproduces",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "RemoveEffectivities",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "effectivityManaged",
+          "type": "PTC.BomTransformation.Coproduce"
+        },
+        {
+          "name": "Effectivities",
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "ModifyEffectivities",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "effectivityManaged",
+          "type": "PTC.BomTransformation.Coproduce"
+        },
+        {
+          "name": "Effectivities",
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+        }
+      ],
+      "return_type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+    },
+    {
+      "name": "ReviseCoproduces",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.BomTransformation.Coproduce"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.Coproduce"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.Coproduce"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.Coproduce"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.Coproduce"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.Coproduce"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.Coproduce"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.Coproduce"
+    },
+    {
+      "name": "CheckOutCoproduces",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "CheckInCoproduces",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "UndoCheckOutCoproduces",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "EditCoproducesSecurityLabels",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "UpdateSecondaryCoproduceLinks",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Coproduce",
+          "type": "PTC.BomTransformation.Coproduce"
+        },
+        {
+          "name": "SecondaryCoproduceLinks",
+          "type": "Collection(PTC.BomTransformation.SecondaryCoproduceLink)"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.SecondaryCoproduceLink)"
+    },
+    {
+      "name": "GetExtendedDatasWithInlineNavCriteria",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Part",
+          "type": "PTC.ProdMgmt.Part"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedData)"
+    },
+    {
+      "name": "UpdateCoProduceUsageLinks",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Coproduce",
+          "type": "PTC.BomTransformation.Coproduce"
+        },
+        {
+          "name": "CoProduceUsageLinks",
+          "type": "Collection(PTC.BomTransformation.CoProduceUsageLink)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.CoProduceUsageLink)"
+    },
+    {
+      "name": "DeleteCoproduces",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "UpdateCoproduces",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Coproduces",
+          "type": "Collection(PTC.BomTransformation.Coproduce)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.Coproduce)"
+    },
+    {
+      "name": "RemoveEffectivities",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "effectivityManaged",
+          "type": "PTC.BomTransformation.MadeFromSet"
+        },
+        {
+          "name": "Effectivities",
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "ModifyEffectivities",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "effectivityManaged",
+          "type": "PTC.BomTransformation.MadeFromSet"
+        },
+        {
+          "name": "Effectivities",
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+        }
+      ],
+      "return_type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.BomTransformation.MadeFromSet"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.MadeFromSet"
+    },
+    {
+      "name": "SetStateMadeFromSets",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromSets",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSet)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.BomTransformation.MadeFromSet"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.MadeFromSet"
+    },
+    {
+      "name": "ReviseMadeFromSets",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromSets",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSet)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.MadeFromSet"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.MadeFromSet"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.MadeFromSet"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.MadeFromSet"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.MadeFromSet"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.MadeFromSet"
+    },
+    {
+      "name": "CheckOutMadeFromSets",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSet)"
+    },
+    {
+      "name": "CheckInMadeFromSets",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSet)"
+    },
+    {
+      "name": "UndoCheckOutMadeFromSets",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSet)"
+    },
+    {
+      "name": "UpdateRawMaterialLinks",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Part",
+          "type": "PTC.BomTransformation.MadeFromSet"
+        },
+        {
+          "name": "RawMaterialLinks",
+          "type": "Collection(PTC.BomTransformation.RawMaterialLink)"
+        },
+        {
+          "name": "ChangeOid",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.RawMaterialLink)"
+    },
+    {
+      "name": "EditMadeFromSetsSecurityLabels",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromSets",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSet)"
+    },
+    {
+      "name": "GetExtendedDatasWithInlineNavCriteria",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Part",
+          "type": "PTC.ProdMgmt.Part"
+        },
+        {
+          "name": "NavigationCriteria",
+          "type": "PTC.NavCriteria.NavigationCriteria"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedData)"
+    },
+    {
+      "name": "DeleteMadeFromSets",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromSets",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "UpdateMadeFromSets",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "MadeFromSets",
+          "type": "Collection(PTC.BomTransformation.MadeFromSet)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.MadeFromSet)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.BomTransformation.ExtendedData"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.ExtendedData"
+    },
+    {
+      "name": "SetStateExtendedDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ExtendedDatas",
+          "type": "Collection(PTC.BomTransformation.ExtendedData)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedData)"
+    },
+    {
+      "name": "RemoveEffectivities",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "effectivityManaged",
+          "type": "PTC.BomTransformation.ExtendedData"
+        },
+        {
+          "name": "Effectivities",
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "ModifyEffectivities",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "effectivityManaged",
+          "type": "PTC.BomTransformation.ExtendedData"
+        },
+        {
+          "name": "Effectivities",
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+        }
+      ],
+      "return_type": "Collection(PTC.EffectivityMgmt.Effectivity)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.BomTransformation.ExtendedData"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.ExtendedData"
+    },
+    {
+      "name": "ReviseExtendedDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ExtendedDatas",
+          "type": "Collection(PTC.BomTransformation.ExtendedData)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedData)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.ExtendedData"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.ExtendedData"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.ExtendedData"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.ExtendedData"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.BomTransformation.ExtendedData"
+        }
+      ],
+      "return_type": "PTC.BomTransformation.ExtendedData"
+    },
+    {
+      "name": "CheckOutExtendedDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.ExtendedData)"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedData)"
+    },
+    {
+      "name": "CheckInExtendedDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.ExtendedData)"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedData)"
+    },
+    {
+      "name": "UndoCheckOutExtendedDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.BomTransformation.ExtendedData)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedData)"
+    },
+    {
+      "name": "UpdateExtendedDatas",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ExtendedDatas",
+          "type": "Collection(PTC.BomTransformation.ExtendedData)"
+        }
+      ],
+      "return_type": "Collection(PTC.BomTransformation.ExtendedData)"
+    }
+  ]
+}

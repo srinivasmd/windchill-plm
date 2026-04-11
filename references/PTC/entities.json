@@ -1,0 +1,2768 @@
+{
+  "$schema": "odata-entities",
+  "namespace": "PTC.ProdMgmt",
+  "description": "ProdMgmt Entity Types extracted from OData $metadata",
+  "entity_sets": {
+    "ManufacturerParts": {
+      "name": "ManufacturerParts",
+      "entity_type": "ManufacturerPart",
+      "url_pattern": "ProdMgmt/ManufacturerParts"
+    },
+    "VendorParts": {
+      "name": "VendorParts",
+      "entity_type": "VendorPart",
+      "url_pattern": "ProdMgmt/VendorParts"
+    },
+    "SupplierParts": {
+      "name": "SupplierParts",
+      "entity_type": "SupplierPart",
+      "url_pattern": "ProdMgmt/SupplierParts"
+    },
+    "Baselineables": {
+      "name": "Baselineables",
+      "entity_type": "Baselineable",
+      "url_pattern": "ProdMgmt/Baselineables"
+    },
+    "ManagedBaselines": {
+      "name": "ManagedBaselines",
+      "entity_type": "ManagedBaseline",
+      "url_pattern": "ProdMgmt/ManagedBaselines"
+    },
+    "Parts": {
+      "name": "Parts",
+      "entity_type": "Part",
+      "url_pattern": "ProdMgmt/Parts"
+    }
+  },
+  "entity_types": {
+    "PartContent": {
+      "name": "PartContent",
+      "full_name": "PTC.ProdMgmt.PartContent",
+      "base_type": "PTC.DataAdmin.FolderContent",
+      "abstract": false,
+      "properties": {
+        "CreatedBy": {
+          "type": "String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {
+        "Part": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Part"
+        },
+        "Creator": {
+          "target_entity": "User",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Creator"
+        },
+        "Modifier": {
+          "target_entity": "User",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Modifier"
+        }
+      },
+      "keys": []
+    },
+    "PartUse": {
+      "name": "PartUse",
+      "full_name": "PTC.ProdMgmt.PartUse",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "properties": {
+        "FindNumber": {
+          "type": "String",
+          "nullable": true
+        },
+        "FootPrint": {
+          "type": "String",
+          "nullable": true
+        },
+        "LineNumber": {
+          "type": "Int64",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true
+        },
+        "PartOccurrenceAssignedExpression": {
+          "type": "String",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Double",
+          "nullable": false
+        },
+        "ReferenceDesignatorRange": {
+          "type": "String",
+          "nullable": true
+        },
+        "SymbolName": {
+          "type": "String",
+          "nullable": true
+        },
+        "TraceCode": {
+          "type": "EnumType",
+          "nullable": false
+        },
+        "Unit": {
+          "type": "EnumType",
+          "nullable": false
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        }
+      },
+      "navigation_properties": {
+        "Uses": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Uses"
+        },
+        "UsedBy": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/UsedBy"
+        },
+        "Occurrences": {
+          "target_entity": "UsageOccurrence",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Occurrences"
+        }
+      },
+      "keys": []
+    },
+    "RootStructureItems": {
+      "name": "RootStructureItems",
+      "full_name": "PTC.ProdMgmt.RootStructureItems",
+      "base_type": "SystemStructureItems",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "SoftwarePart": {
+      "name": "SoftwarePart",
+      "full_name": "PTC.ProdMgmt.SoftwarePart",
+      "base_type": "Part",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "Raw_Material": {
+      "name": "Raw_Material",
+      "full_name": "PTC.ProdMgmt.Raw_Material",
+      "base_type": "Part",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "VendorReplacementPart": {
+      "name": "VendorReplacementPart",
+      "full_name": "PTC.ProdMgmt.VendorReplacementPart",
+      "base_type": "ReplacementPart",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "PartDescribeLink": {
+      "name": "PartDescribeLink",
+      "full_name": "PTC.ProdMgmt.PartDescribeLink",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "properties": {
+        "Copy_to_related_operation": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        }
+      },
+      "navigation_properties": {
+        "Describes": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Describes"
+        },
+        "DescribedBy": {
+          "target_entity": "Document",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/DescribedBy"
+        }
+      },
+      "keys": []
+    },
+    "Semi_Finished_Part": {
+      "name": "Semi_Finished_Part",
+      "full_name": "PTC.ProdMgmt.Semi_Finished_Part",
+      "base_type": "Part",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "MadeFromSet": {
+      "name": "MadeFromSet",
+      "full_name": "PTC.ProdMgmt.MadeFromSet",
+      "base_type": "ManufacturingInformation",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "PartReferenceLink": {
+      "name": "PartReferenceLink",
+      "full_name": "PTC.ProdMgmt.PartReferenceLink",
+      "base_type": null,
+      "abstract": false,
+      "properties": {
+        "Copy_to_related_operation": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "DateTimeOffset",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        }
+      },
+      "navigation_properties": {
+        "ReferencedBy": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/ReferencedBy"
+        },
+        "References": {
+          "target_entity": "Document",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/References"
+        }
+      },
+      "keys": [
+        "ID"
+      ]
+    },
+    "Baselineable": {
+      "name": "Baselineable",
+      "full_name": "PTC.ProdMgmt.Baselineable",
+      "base_type": null,
+      "abstract": false,
+      "properties": {
+        "CreatedBy": {
+          "type": "String",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "String",
+          "nullable": true
+        },
+        "DHFCategory": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "Description": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true
+        },
+        "IterationIdentifier": {
+          "type": "String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "String",
+          "nullable": true
+        },
+        "Master": {
+          "type": "String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "String",
+          "nullable": true
+        },
+        "State": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "TheBaseline": {
+          "type": "String",
+          "nullable": true
+        },
+        "Type": {
+          "type": "String",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "Icon",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "target_entity": "Container",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Context"
+        },
+        "Creator": {
+          "target_entity": "User",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Creator"
+        },
+        "Modifier": {
+          "target_entity": "User",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Modifier"
+        }
+      },
+      "keys": [
+        "ID"
+      ]
+    },
+    "ManufacturerPart": {
+      "name": "ManufacturerPart",
+      "full_name": "PTC.ProdMgmt.ManufacturerPart",
+      "base_type": "SupplierPart",
+      "abstract": false,
+      "properties": {
+        "ComId": {
+          "type": "String",
+          "nullable": true
+        },
+        "DatasheetSync": {
+          "type": "Hyperlink",
+          "nullable": true
+        },
+        "EstimatedEndOfLife": {
+          "type": "String",
+          "nullable": true
+        },
+        "LastSync": {
+          "type": "DateTimeOffset",
+          "nullable": true
+        },
+        "ManufacturerName": {
+          "type": "String",
+          "nullable": true
+        },
+        "Ppappercentcomplete": {
+          "type": "Int64",
+          "nullable": true
+        },
+        "Ppappercentcompleteinput": {
+          "type": "Int64",
+          "nullable": true
+        },
+        "Ppapstatus": {
+          "type": "Int64",
+          "nullable": true
+        },
+        "Ppapstatusinput": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "RoHSStatus": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {
+        "OEMParts": {
+          "target_entity": "Part",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/OEMParts"
+        }
+      },
+      "keys": []
+    },
+    "VendorPart": {
+      "name": "VendorPart",
+      "full_name": "PTC.ProdMgmt.VendorPart",
+      "base_type": "SupplierPart",
+      "abstract": false,
+      "properties": {
+        "VendorName": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "BasicNode": {
+      "name": "BasicNode",
+      "full_name": "PTC.ProdMgmt.BasicNode",
+      "base_type": "StructureItems",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "StructureItems": {
+      "name": "StructureItems",
+      "full_name": "PTC.ProdMgmt.StructureItems",
+      "base_type": "SystemStructureItems",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "Part": {
+      "name": "Part",
+      "full_name": "PTC.ProdMgmt.Part",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "properties": {
+        "AlternateNumber": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "AssemblyMode": {
+          "type": "EnumType",
+          "nullable": false
+        },
+        "BOMType": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "BeltLength": {
+          "type": "Double",
+          "nullable": true
+        },
+        "CabinetName": {
+          "type": "String",
+          "nullable": true
+        },
+        "ChangeStatus": {
+          "type": "Icon",
+          "nullable": true
+        },
+        "CheckOutStatus": {
+          "type": "String",
+          "nullable": true
+        },
+        "CheckoutState": {
+          "type": "String",
+          "nullable": true
+        },
+        "Comments": {
+          "type": "String",
+          "nullable": true
+        },
+        "ConfigurableModule": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "String",
+          "nullable": true
+        },
+        "DefaultTraceCode": {
+          "type": "EnumType",
+          "nullable": false
+        },
+        "DefaultUnit": {
+          "type": "EnumType",
+          "nullable": false
+        },
+        "EndItem": {
+          "type": "Boolean",
+          "nullable": false
+        },
+        "FolderLocation": {
+          "type": "String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "String",
+          "nullable": true
+        },
+        "GatheringPart": {
+          "type": "Boolean",
+          "nullable": false
+        },
+        "GeneralStatus": {
+          "type": "Icon",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "String",
+          "nullable": true
+        },
+        "LockDate": {
+          "type": "String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "String",
+          "nullable": false
+        },
+        "Number": {
+          "type": "String",
+          "nullable": true
+        },
+        "OEMPartSourcingStatus": {
+          "type": "PreferenceData",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true
+        },
+        "OrganizationName": {
+          "type": "String",
+          "nullable": true
+        },
+        "PPlan_Link": {
+          "type": "String",
+          "nullable": true
+        },
+        "Part_Cost": {
+          "type": "Double",
+          "nullable": true
+        },
+        "PartsLink_Part_Binding_Attribute": {
+          "type": "ClassificationInfo",
+          "nullable": true
+        },
+        "PhantomManufacturingPart": {
+          "type": "Boolean",
+          "nullable": false
+        },
+        "Revision": {
+          "type": "String",
+          "nullable": true
+        },
+        "ShareStatus": {
+          "type": "Icon",
+          "nullable": true
+        },
+        "Source": {
+          "type": "EnumType",
+          "nullable": false
+        },
+        "State": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "Supersedes": {
+          "type": "Icon",
+          "nullable": true
+        },
+        "Translation_Name": {
+          "type": "String",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "Icon",
+          "nullable": true
+        },
+        "Version": {
+          "type": "String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "String",
+          "nullable": true
+        },
+        "View": {
+          "type": "String",
+          "nullable": true
+        },
+        "WorkInProgressState": {
+          "type": "WorkInProgressType",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        }
+      },
+      "navigation_properties": {
+        "Uses": {
+          "target_entity": "PartUse",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Uses"
+        },
+        "UsedBy": {
+          "target_entity": "Part",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/UsedBy"
+        },
+        "DescribedBy": {
+          "target_entity": "PartDescribeLink",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/DescribedBy"
+        },
+        "References": {
+          "target_entity": "PartReferenceLink",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/References"
+        },
+        "Alternates": {
+          "target_entity": "PartAlternateLink",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Alternates"
+        },
+        "Substitutes": {
+          "target_entity": "PartSubstituteLink",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Substitutes"
+        },
+        "Context": {
+          "target_entity": "Container",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Context"
+        },
+        "PPlan_LinkNav": {
+          "target_entity": "ObjectReferenceable",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/PPlan_LinkNav"
+        },
+        "Organization": {
+          "target_entity": "Organization",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Organization"
+        },
+        "ExtendedData": {
+          "target_entity": "ExtendedData",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/ExtendedData"
+        },
+        "AssignedOptionSet": {
+          "target_entity": "OptionSet",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/AssignedOptionSet"
+        },
+        "PartDocAssociations": {
+          "target_entity": "PartDocAssociation",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/PartDocAssociations"
+        },
+        "Thumbnails": {
+          "target_entity": "ContentItem",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Thumbnails"
+        },
+        "Creator": {
+          "target_entity": "User",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Creator"
+        },
+        "Revisions": {
+          "target_entity": "Part",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Revisions"
+        },
+        "Folder": {
+          "target_entity": "Folder",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Folder"
+        },
+        "Attachments": {
+          "target_entity": "ContentItem",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Attachments"
+        },
+        "ModuleVariantInformationLinks": {
+          "target_entity": "ModuleVariantInformationLink",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/ModuleVariantInformationLinks"
+        },
+        "DownstreamEquivalanceLinks": {
+          "target_entity": "EquivalenceLink",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/DownstreamEquivalanceLinks"
+        },
+        "Versions": {
+          "target_entity": "Part",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Versions"
+        },
+        "MadeFromLink": {
+          "target_entity": "RawMaterialLink",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/MadeFromLink"
+        },
+        "Effectivities": {
+          "target_entity": "Effectivity",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Effectivities"
+        },
+        "AXLEntries": {
+          "target_entity": "AXLEntry",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/AXLEntries"
+        },
+        "Representations": {
+          "target_entity": "Representation",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Representations"
+        },
+        "SmallThumbnails": {
+          "target_entity": "ContentItem",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/SmallThumbnails"
+        },
+        "PartMadeFrom": {
+          "target_entity": "Part",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/PartMadeFrom"
+        },
+        "Modifier": {
+          "target_entity": "User",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Modifier"
+        },
+        "UpstreamEquivalanceLinks": {
+          "target_entity": "EquivalenceLink",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/UpstreamEquivalanceLinks"
+        }
+      },
+      "keys": []
+    },
+    "DesignHistoryFile": {
+      "name": "DesignHistoryFile",
+      "full_name": "PTC.ProdMgmt.DesignHistoryFile",
+      "base_type": "ManagedBaseline",
+      "abstract": false,
+      "properties": {
+        "IsInFinalState": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "UpdateNightly": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "SupplierReplacementPart": {
+      "name": "SupplierReplacementPart",
+      "full_name": "PTC.ProdMgmt.SupplierReplacementPart",
+      "base_type": "ReplacementPart",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "ManagedBaseline": {
+      "name": "ManagedBaseline",
+      "full_name": "PTC.ProdMgmt.ManagedBaseline",
+      "base_type": null,
+      "abstract": false,
+      "properties": {
+        "CabinetName": {
+          "type": "String",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "String",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "String",
+          "nullable": true
+        },
+        "Description": {
+          "type": "String",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "String",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "String",
+          "nullable": true
+        },
+        "Lock": {
+          "type": "String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "String",
+          "nullable": true
+        },
+        "Note": {
+          "type": "String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true
+        },
+        "PrimaryObject": {
+          "type": "String",
+          "nullable": true
+        },
+        "Protected": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "State": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        }
+      },
+      "navigation_properties": {
+        "BaselineItems": {
+          "target_entity": "Baselineable",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/BaselineItems"
+        },
+        "Context": {
+          "target_entity": "Container",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Context"
+        },
+        "Folder": {
+          "target_entity": "Folder",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Folder"
+        }
+      },
+      "keys": [
+        "ID"
+      ]
+    },
+    "BOMRollupItem": {
+      "name": "BOMRollupItem",
+      "full_name": "PTC.ProdMgmt.BOMRollupItem",
+      "base_type": null,
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "String",
+          "nullable": true
+        },
+        "Organization": {
+          "type": "String",
+          "nullable": true
+        },
+        "Part_Cost": {
+          "type": "BOMRollupResult_Float",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Double",
+          "nullable": true
+        },
+        "Resolved": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "Unit": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {
+        "Components": {
+          "target_entity": "BOMRollupItem",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Components"
+        }
+      },
+      "keys": []
+    },
+    "ManufacturerReplacementPart": {
+      "name": "ManufacturerReplacementPart",
+      "full_name": "PTC.ProdMgmt.ManufacturerReplacementPart",
+      "base_type": "ReplacementPart",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "PartsReportListItem": {
+      "name": "PartsReportListItem",
+      "full_name": "PTC.ProdMgmt.PartsReportListItem",
+      "base_type": null,
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "String",
+          "nullable": true
+        },
+        "HasChildren": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "HasUnresolvedObjectsByAccessRights": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "Resolved": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Double",
+          "nullable": false
+        },
+        "Unit": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {
+        "Part": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Part"
+        }
+      },
+      "keys": []
+    },
+    "SystemStructureItems": {
+      "name": "SystemStructureItems",
+      "full_name": "PTC.ProdMgmt.SystemStructureItems",
+      "base_type": "Part",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "Variant": {
+      "name": "Variant",
+      "full_name": "PTC.ProdMgmt.Variant",
+      "base_type": "StructureItems",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "ReplacementPart": {
+      "name": "ReplacementPart",
+      "full_name": "PTC.ProdMgmt.ReplacementPart",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "properties": {
+        "AltReplacementType": {
+          "type": "String",
+          "nullable": true
+        },
+        "ConfigurableModule": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "DefaultTraceCode": {
+          "type": "EnumType",
+          "nullable": false
+        },
+        "DefaultUnit": {
+          "type": "EnumType",
+          "nullable": false
+        },
+        "EndItem": {
+          "type": "Boolean",
+          "nullable": false
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "String",
+          "nullable": false
+        },
+        "Number": {
+          "type": "String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true
+        },
+        "OrganizationName": {
+          "type": "String",
+          "nullable": true
+        },
+        "ReferenceDesignatorRange": {
+          "type": "String",
+          "nullable": true
+        },
+        "SubReplacementType": {
+          "type": "String",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "Icon",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "target_entity": "Container",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Context"
+        },
+        "Organization": {
+          "target_entity": "Organization",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Organization"
+        }
+      },
+      "keys": []
+    },
+    "MechanicalPart": {
+      "name": "MechanicalPart",
+      "full_name": "PTC.ProdMgmt.MechanicalPart",
+      "base_type": "Part",
+      "abstract": false,
+      "properties": {
+        "Cost_estimated": {
+          "type": "QuantityOfMeasureType",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "PartSubstituteLink": {
+      "name": "PartSubstituteLink",
+      "full_name": "PTC.ProdMgmt.PartSubstituteLink",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "properties": {
+        "ObjectType": {
+          "type": "String",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Double",
+          "nullable": true
+        },
+        "ReferenceDesignator": {
+          "type": "String",
+          "nullable": true
+        },
+        "ReplacementType": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "Icon",
+          "nullable": true
+        },
+        "Unit": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        }
+      },
+      "navigation_properties": {
+        "SubstitutePart": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/SubstitutePart"
+        },
+        "Substitute": {
+          "target_entity": "ReplacementPart",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Substitute"
+        },
+        "SubstituteFor": {
+          "target_entity": "PartUse",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/SubstituteFor"
+        }
+      },
+      "keys": []
+    },
+    "SupplierPart": {
+      "name": "SupplierPart",
+      "full_name": "PTC.ProdMgmt.SupplierPart",
+      "base_type": "Part",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "StructureNode": {
+      "name": "StructureNode",
+      "full_name": "PTC.ProdMgmt.StructureNode",
+      "base_type": "StructureItems",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "PartAlternateLink": {
+      "name": "PartAlternateLink",
+      "full_name": "PTC.ProdMgmt.PartAlternateLink",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "properties": {
+        "ObjectType": {
+          "type": "String",
+          "nullable": true
+        },
+        "ReplacementType": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "TwoWay": {
+          "type": "Boolean",
+          "nullable": false
+        },
+        "TypeIcon": {
+          "type": "Icon",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        }
+      },
+      "navigation_properties": {
+        "AlternatePart": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/AlternatePart"
+        },
+        "Alternate": {
+          "target_entity": "ReplacementPart",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Alternate"
+        },
+        "AlternateFor": {
+          "target_entity": "ReplacementPart",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/AlternateFor"
+        }
+      },
+      "keys": []
+    },
+    "UsageOccurrence": {
+      "name": "UsageOccurrence",
+      "full_name": "PTC.ProdMgmt.UsageOccurrence",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "properties": {
+        "BuildStatus": {
+          "type": "EnumType",
+          "nullable": true
+        },
+        "ComponentID": {
+          "type": "Int64",
+          "nullable": true
+        },
+        "FootPrint": {
+          "type": "String",
+          "nullable": true
+        },
+        "Location": {
+          "type": "OccurrenceLocation",
+          "nullable": true
+        },
+        "OccurrenceID": {
+          "type": "String",
+          "nullable": true
+        },
+        "ReferenceDesignator": {
+          "type": "String",
+          "nullable": true
+        },
+        "SymbolName": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "AXLEntry": {
+      "name": "AXLEntry",
+      "full_name": "PTC.ProdMgmt.AXLEntry",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "properties": {
+        "ManufacturerPartSourcingStatus": {
+          "type": "SourcingStatus",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true
+        },
+        "VendorPartSourcingStatus": {
+          "type": "SourcingStatus",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        }
+      },
+      "navigation_properties": {
+        "SourcingContext": {
+          "target_entity": "SourcingContext",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/SourcingContext"
+        },
+        "ManufacturerPartReference": {
+          "target_entity": "ManufacturerPart",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/ManufacturerPartReference"
+        },
+        "VendorPartReference": {
+          "target_entity": "VendorPart",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/VendorPartReference"
+        },
+        "OEMPartReference": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/OEMPartReference"
+        }
+      },
+      "keys": []
+    },
+    "PartStructureItem": {
+      "name": "PartStructureItem",
+      "full_name": "PTC.ProdMgmt.PartStructureItem",
+      "base_type": null,
+      "abstract": false,
+      "properties": {
+        "PartId": {
+          "type": "String",
+          "nullable": true
+        },
+        "HasChildren": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "PartUseId": {
+          "type": "String",
+          "nullable": true
+        },
+        "PartName": {
+          "type": "String",
+          "nullable": true
+        },
+        "PartNumber": {
+          "type": "String",
+          "nullable": true
+        },
+        "PathId": {
+          "type": "String",
+          "nullable": true
+        },
+        "Resolved": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "HasUnresolvedObjectsByAccessRights": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "PVTreeId": {
+          "type": "String",
+          "nullable": true
+        },
+        "PVParentTreeId": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {
+        "Part": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Part"
+        },
+        "PartUse": {
+          "target_entity": "PartUse",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/PartUse"
+        },
+        "Occurrence": {
+          "target_entity": "UsageOccurrence",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Occurrence"
+        },
+        "Components": {
+          "target_entity": "PartStructureItem",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Components"
+        },
+        "Alternates": {
+          "target_entity": "PartAlternateLink",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Alternates"
+        },
+        "Substitutes": {
+          "target_entity": "PartSubstituteLink",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Substitutes"
+        }
+      },
+      "keys": []
+    },
+    "ManufacturingInformation": {
+      "name": "ManufacturingInformation",
+      "full_name": "PTC.ProdMgmt.ManufacturingInformation",
+      "base_type": "Part",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "Helicopter": {
+      "name": "Helicopter",
+      "full_name": "PTC.ProdMgmt.Helicopter",
+      "base_type": "RootStructureItems",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "Snowmobile": {
+      "name": "Snowmobile",
+      "full_name": "PTC.ProdMgmt.Snowmobile",
+      "base_type": "RootStructureItems",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "BOM": {
+      "name": "BOM",
+      "full_name": "PTC.ProdMgmt.BOM",
+      "base_type": null,
+      "abstract": false,
+      "properties": {
+        "PartId": {
+          "type": "String",
+          "nullable": true
+        },
+        "PartUseId": {
+          "type": "String",
+          "nullable": true
+        },
+        "PartName": {
+          "type": "String",
+          "nullable": true
+        },
+        "PartNumber": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {
+        "Part": {
+          "target_entity": "Part",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/Part"
+        },
+        "PartUse": {
+          "target_entity": "PartUse",
+          "is_collection": false,
+          "url_pattern": "{parent_endpoint}/PartUse"
+        },
+        "Occurrences": {
+          "target_entity": "UsageOccurrence",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Occurrences"
+        },
+        "Components": {
+          "target_entity": "BOM",
+          "is_collection": true,
+          "url_pattern": "{parent_endpoint}/Components"
+        }
+      },
+      "keys": []
+    },
+    "DeviceMasterRecord": {
+      "name": "DeviceMasterRecord",
+      "full_name": "PTC.ProdMgmt.DeviceMasterRecord",
+      "base_type": "ManagedBaseline",
+      "abstract": false,
+      "properties": {
+        "IsInFinalState": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "ESIManagedBaseline": {
+      "name": "ESIManagedBaseline",
+      "full_name": "PTC.ProdMgmt.ESIManagedBaseline",
+      "base_type": "ManagedBaseline",
+      "abstract": false,
+      "properties": {
+        "Deleted": {
+          "type": "Boolean",
+          "nullable": true
+        },
+        "ESITransactionNumber": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "BaseUsageLink": {
+      "name": "BaseUsageLink",
+      "full_name": "PTC.ProdMgmt.BaseUsageLink",
+      "base_type": "PartUse",
+      "abstract": false,
+      "properties": {
+        "EditType": {
+          "type": "String",
+          "nullable": true
+        },
+        "PtcMultiLanguage": {
+          "type": "String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "Coproduce": {
+      "name": "Coproduce",
+      "full_name": "PTC.ProdMgmt.Coproduce",
+      "base_type": "ManufacturingInformation",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    },
+    "ElectricalPart": {
+      "name": "ElectricalPart",
+      "full_name": "PTC.ProdMgmt.ElectricalPart",
+      "base_type": "Part",
+      "abstract": false,
+      "properties": {
+        "ID": {
+          "type": "String",
+          "nullable": false,
+          "description": "Unique identifier (OID format)"
+        },
+        "CreatedOn": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Creation timestamp"
+        },
+        "LastModified": {
+          "type": "DateTime",
+          "nullable": false,
+          "description": "Last modification timestamp"
+        },
+        "Identity": {
+          "type": "String",
+          "nullable": true,
+          "description": "Display identity string"
+        },
+        "ObjectType": {
+          "type": "String",
+          "nullable": true,
+          "description": "Entity type name"
+        }
+      },
+      "navigation_properties": {},
+      "keys": []
+    }
+  },
+  "domains": {
+    "BACMgmt": {
+      "description": "Bulk Air Control Management - bulk data import/export",
+      "entities": {
+        "BACReceivedDelivery": {
+          "abstract": false,
+          "base_type": null,
+          "properties": {
+            "Actions": {
+              "type": "PTC.BACMgmt.ReceivedDeliveryAction",
+              "nullable": false,
+              "max_length": null
+            },
+            "ID": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "ImportStatus": {
+              "type": "PTC.EnumType",
+              "nullable": false,
+              "max_length": null
+            },
+            "LocalizedModifiedDate": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "PackageName": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "RDNumber": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            }
+          },
+          "navigation_properties": {},
+          "keys": [
+            "ID"
+          ]
+        }
+      },
+      "actions": [
+        {
+          "name": "GetIXPermissions",
+          "return_type": null,
+          "entity_set": null,
+          "parameters": []
+        },
+        {
+          "name": "GetImportMappings",
+          "return_type": null,
+          "entity_set": null,
+          "parameters": []
+        }
+      ],
+      "entity_sets": [
+        {
+          "name": "BACReceivedDeliveries",
+          "entity_type": "PTC.BACMgmt.BACReceivedDelivery"
+        }
+      ]
+    },
+    "Audit": {
+      "description": "Audit trail and compliance tracking",
+      "entities": {
+        "AuditDetail": {
+          "abstract": false,
+          "base_type": "PTC.WindchillEntity",
+          "properties": {
+            "AuditFindingComment": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "AuditFindingObservation": {
+              "type": "PTC.EnumType",
+              "nullable": false,
+              "max_length": null
+            },
+            "AuditorInstructions": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "Criticality": {
+              "type": "PTC.EnumType",
+              "nullable": false,
+              "max_length": null
+            },
+            "NotApplicable": {
+              "type": "Edm.Boolean",
+              "nullable": false,
+              "max_length": null
+            },
+            "NotVerified": {
+              "type": "Edm.Boolean",
+              "nullable": false,
+              "max_length": null
+            },
+            "ObjectiveEvidence": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "OnSiteAuditScore": {
+              "type": "Edm.Int64",
+              "nullable": false,
+              "max_length": null
+            },
+            "RemedialAction": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "RequirementTrace": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "SelfAuditScore": {
+              "type": "Edm.Int64",
+              "nullable": false,
+              "max_length": null
+            },
+            "SubSection": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            }
+          },
+          "navigation_properties": {
+            "ChangeItem": {
+              "type": "PTC.Audit.ChangeItem",
+              "is_collection": false
+            }
+          },
+          "keys": []
+        },
+        "Audit": {
+          "abstract": false,
+          "base_type": null,
+          "properties": {
+            "CreatedBy": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "CreatedOn": {
+              "type": "Edm.DateTimeOffset",
+              "nullable": false,
+              "max_length": null
+            },
+            "Description": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "LastModified": {
+              "type": "Edm.DateTimeOffset",
+              "nullable": false,
+              "max_length": null
+            },
+            "LifeCycleTemplateName": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "MasterID": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "ModifiedBy": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "Name": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "ReservedBy": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "StartDate": {
+              "type": "Edm.DateTimeOffset",
+              "nullable": false,
+              "max_length": null
+            }
+          },
+          "navigation_properties": {
+            "AuditDetails": {
+              "type": "Collection(PTC.Audit.AuditDetail)",
+              "is_collection": true
+            },
+            "Auditor": {
+              "type": "PTC.PrincipalMgmt.User",
+              "is_collection": false
+            },
+            "Context": {
+              "type": "PTC.DataAdmin.Container",
+              "is_collection": false
+            },
+            "Thumbnails": {
+              "type": "Collection(PTC.ContentItem)",
+              "is_collection": true
+            },
+            "Creator": {
+              "type": "PTC.PrincipalMgmt.User",
+              "is_collection": false
+            },
+            "SmallThumbnails": {
+              "type": "Collection(PTC.ContentItem)",
+              "is_collection": true
+            },
+            "Attachments": {
+              "type": "Collection(PTC.ContentItem)",
+              "is_collection": true
+            },
+            "Modifier": {
+              "type": "PTC.PrincipalMgmt.User",
+              "is_collection": false
+            }
+          },
+          "keys": [
+            "ID"
+          ]
+        },
+        "ChangeItem": {
+          "abstract": false,
+          "base_type": null,
+          "properties": {
+            "CreatedOn": {
+              "type": "Edm.DateTimeOffset",
+              "nullable": false,
+              "max_length": null
+            },
+            "ID": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "LastModified": {
+              "type": "Edm.DateTimeOffset",
+              "nullable": false,
+              "max_length": null
+            },
+            "Name": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            },
+            "Number": {
+              "type": "Edm.String",
+              "nullable": false,
+              "max_length": null
+            }
+          },
+          "navigation_properties": {},
+          "keys": [
+            "ID"
+          ]
+        }
+      },
+      "actions": [
+        {
+          "name": "Resolve",
+          "return_type": null,
+          "entity_set": null,
+          "parameters": []
+        }
+      ],
+      "entity_sets": [
+        {
+          "name": "Audits",
+          "entity_type": "PTC.Audit.Audit"
+        }
+      ]
+    }
+  }
+}
