@@ -1,0 +1,1296 @@
+{
+  "domain": "DynamicDocMgmt",
+  "namespace": "PTC.DynamicDocMgmt",
+  "generated": "2026-04-10T21:45:51.775740",
+  "source": "DynamicDocMgmt_Metadata.xml",
+  "entities": {
+    "ComPtcNote": {
+      "name": "ComPtcNote",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Note": {
+      "name": "Note",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ContentInfo": {
+      "name": "ContentInfo",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "StreamId": {
+          "type": "Edm.Int64",
+          "nullable": true,
+          "annotations": []
+        },
+        "FileSize": {
+          "type": "Edm.Int64",
+          "nullable": true,
+          "annotations": []
+        },
+        "EncodedInfo": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "FileName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "MimeType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "PrimaryContent": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Reference": {
+      "name": "Reference",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Topic": {
+      "name": "Topic",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "DynamicDocumentMember": {
+      "name": "DynamicDocumentMember",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "AsStoredChildName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ComponentName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "DepType": {
+          "type": "PTC.DynamicDocMgmt.DynamicDocDepTypeInfo",
+          "nullable": true,
+          "annotations": []
+        },
+        "FeatureID": {
+          "type": "Edm.Int32",
+          "nullable": true,
+          "annotations": []
+        },
+        "FeatureNumber": {
+          "type": "Edm.Int64",
+          "nullable": true,
+          "annotations": []
+        },
+        "HasFixedConstraint": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "LayerID": {
+          "type": "Edm.Int64",
+          "nullable": true,
+          "annotations": []
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Placed": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": true,
+          "annotations": []
+        },
+        "Required": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "Suppressed": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "Unit": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {
+        "Uses": {
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "partner": "",
+          "contains_target": false
+        },
+        "UsedBy": {
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "Concept": {
+      "name": "Concept",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Alert": {
+      "name": "Alert",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "IllustrationSource": {
+      "name": "IllustrationSource",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "KD_SymptomTree": {
+      "name": "KD_SymptomTree",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "DynamicDocument": {
+      "name": "DynamicDocument",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "AuthoringApplication": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "AuthoringLanguage": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "BeltLength": {
+          "type": "Edm.Double",
+          "nullable": true,
+          "annotations": []
+        },
+        "CADName": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Category": {
+          "type": "PTC.EnumType",
+          "nullable": false,
+          "annotations": []
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "CheckoutInfo": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonSortable",
+            "PTC.NonFilterable"
+          ]
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "InformationType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "IsTranslatable": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": [
+            "PTC.UpdateableViaAction"
+          ]
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.UpdateableViaAction"
+          ]
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonSortable",
+            "PTC.NonFilterable"
+          ]
+        },
+        "OwnerApplication": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "PTCDDEXTENDEDDOCTYPE": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "PTC_DD_LANGUAGE": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "PTC_DD_TRANSLATE": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "TypeDisplayName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "URI": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "MemberLinks": {
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocumentMember)",
+          "partner": "",
+          "contains_target": true
+        },
+        "UsedBy": {
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "partner": "",
+          "contains_target": false
+        },
+        "ReferenceLinks": {
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocumentReference)",
+          "partner": "",
+          "contains_target": true
+        },
+        "ReferencedBy": {
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Translations": {
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Xliff": {
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Versions": {
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": "",
+          "contains_target": false
+        },
+        "PrimaryContent": {
+          "type": "PTC.ContentItem",
+          "partner": "",
+          "contains_target": true
+        },
+        "Thumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Representations": {
+          "type": "Collection(PTC.Visualization.Representation)",
+          "partner": "",
+          "contains_target": false
+        },
+        "SmallThumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Revisions": {
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": "",
+          "contains_target": false
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "Procedure": {
+      "name": "Procedure",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "DiagnosticTopic": {
+      "name": "DiagnosticTopic",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "BurstConfiguration": {
+      "name": "BurstConfiguration",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "IllustrationOutput": {
+      "name": "IllustrationOutput",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Task": {
+      "name": "Task",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "DynamicDocumentReference": {
+      "name": "DynamicDocumentReference",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "AsStoredChildName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "DepType": {
+          "type": "PTC.DynamicDocMgmt.DynamicDocDepTypeInfo",
+          "nullable": true,
+          "annotations": []
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "ReferenceType": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "Required": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {
+        "References": {
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "partner": "",
+          "contains_target": false
+        },
+        "ReferencedBy": {
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "PublishedPVZ": {
+      "name": "PublishedPVZ",
+      "namespace": "PTC.DynamicDocMgmt",
+      "base_type": "PTC.DynamicDocMgmt.IllustrationSource",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "DynamicDocuments",
+      "entity_type": "PTC.DynamicDocMgmt.DynamicDocument"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "Notes",
+      "entity_type": "PTC.DynamicDocMgmt.Note"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "BurstConfigurations",
+      "entity_type": "PTC.DynamicDocMgmt.BurstConfiguration"
+    }
+  ],
+  "actions": [
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "CreateXliffLink",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "oidForC3diDocument",
+          "type": "Edm.String",
+          "nullable": false
+        },
+        {
+          "name": "oidForXliffDocument",
+          "type": "Edm.String",
+          "nullable": false
+        }
+      ],
+      "return_type": "Edm.String"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocument",
+          "type": "PTC.DynamicDocMgmt.BurstConfiguration",
+          "nullable": false
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32",
+          "nullable": false
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocument",
+          "type": "PTC.DynamicDocMgmt.BurstConfiguration",
+          "nullable": false
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.DynamicDocMgmt.ContentInfo)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.DynamicDocMgmt.BurstConfiguration",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.DynamicDocMgmt.BurstConfiguration"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "SetStateBurstConfigurations",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "BurstConfigurations",
+          "type": "Collection(PTC.DynamicDocMgmt.BurstConfiguration)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.BurstConfiguration)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "ReviseBurstConfigurations",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "BurstConfigurations",
+          "type": "Collection(PTC.DynamicDocMgmt.BurstConfiguration)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.BurstConfiguration)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "Revise",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.DynamicDocMgmt.BurstConfiguration",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.DynamicDocMgmt.BurstConfiguration"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "CheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.DynamicDocMgmt.BurstConfiguration",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.BurstConfiguration)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.DynamicDocMgmt.BurstConfiguration",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.BurstConfiguration)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "CheckIn",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.DynamicDocMgmt.BurstConfiguration",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.BurstConfiguration)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocument",
+          "type": "PTC.DynamicDocMgmt.Note",
+          "nullable": false
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.DynamicDocMgmt.ContentInfo)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocument",
+          "type": "PTC.DynamicDocMgmt.Note",
+          "nullable": false
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32",
+          "nullable": false
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "SetStateNotes",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Notes",
+          "type": "Collection(PTC.DynamicDocMgmt.Note)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.Note)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.DynamicDocMgmt.Note",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.DynamicDocMgmt.Note"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "ReviseNotes",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Notes",
+          "type": "Collection(PTC.DynamicDocMgmt.Note)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.Note)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "Revise",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.DynamicDocMgmt.Note",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.DynamicDocMgmt.Note"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "CheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.DynamicDocMgmt.Note",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.Note)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.DynamicDocMgmt.Note",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.Note)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "CheckIn",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.DynamicDocMgmt.Note",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.Note)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocument",
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "nullable": false
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32",
+          "nullable": false
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocument",
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "nullable": false
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.DynamicDocMgmt.ContentInfo)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "SetStateDynamicDocuments",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocuments",
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.DynamicDocMgmt.DynamicDocument"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "Revise",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.DynamicDocMgmt.DynamicDocument"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "ReviseDynamicDocuments",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocuments",
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "EditDynamicDocumentsSecurityLabels",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocuments",
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "CheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "CheckIn",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UpdateCommonProperties",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocument",
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "nullable": false
+        },
+        {
+          "name": "Updates",
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.DynamicDocMgmt.DynamicDocument"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "CreateDynamicDocuments",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocuments",
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)"
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "UpdateDynamicDocuments",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "DynamicDocuments",
+          "type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.DynamicDocMgmt.DynamicDocument)"
+    }
+  ],
+  "complex_types": [
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "XliffPreference",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "Edm.String"
+        },
+        {
+          "name": "Value",
+          "type": "Edm.String"
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "XliffPreferenceList",
+      "properties": [
+        {
+          "name": "Preferences",
+          "type": "Collection(PTC.DynamicDocMgmt.XliffPreference)"
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.DynamicDocMgmt",
+      "name": "DynamicDocDepTypeInfo",
+      "properties": [
+        {
+          "name": "Value",
+          "type": "Edm.Int64"
+        },
+        {
+          "name": "Display",
+          "type": "Edm.String"
+        }
+      ]
+    }
+  ],
+  "enumerations": []
+}

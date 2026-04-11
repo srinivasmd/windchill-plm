@@ -1,0 +1,2351 @@
+{
+  "domain": "Factory",
+  "namespace": "PTC.Factory",
+  "generated": "2026-04-10T22:14:22.427570",
+  "source": "Factory_Metadata.xml",
+  "entities": {
+    "Document": {
+      "name": "Document",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "ChangeStatus": {
+          "type": "PTC.Icon",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "GeneralStatus": {
+          "type": "PTC.Icon",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ShareStatus": {
+          "type": "PTC.Icon",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Title": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Versions": {
+          "type": "Collection(PTC.Factory.Document)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Representations": {
+          "type": "Collection(PTC.Visualization.Representation)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Revisions": {
+          "type": "Collection(PTC.Factory.Document)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "StandardProcedureUsage": {
+      "name": "StandardProcedureUsage",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpressionData": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "SPL": {
+          "type": "Collection(PTC.Factory.StandardProcedure)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "SCCStandardProcedureUsage": {
+      "name": "SCCStandardProcedureUsage",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpressionData": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "SCCSPL": {
+          "type": "Collection(PTC.Factory.StandardProcedure)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "Resource": {
+      "name": "Resource",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "StandardProcedure": {
+      "name": "StandardProcedure",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Versions": {
+          "type": "Collection(PTC.Factory.StandardProcedure)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Revisions": {
+          "type": "Collection(PTC.Factory.StandardProcedure)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "ResourceUsage": {
+      "name": "ResourceUsage",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpressionData": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "Tools": {
+          "type": "Collection(PTC.Factory.Resource)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "SCCResourceUsage": {
+      "name": "SCCResourceUsage",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpressionData": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "SCCTools": {
+          "type": "Collection(PTC.Factory.Resource)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "SCCReferenceDocument": {
+      "name": "SCCReferenceDocument",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpressionData": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "SCCRefDocuments": {
+          "type": "Collection(PTC.Factory.Document)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "DescribedByDocument": {
+      "name": "DescribedByDocument",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpressionData": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "DescribedBy": {
+          "type": "Collection(PTC.Factory.Document)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "StandardControlCharacteristic": {
+      "name": "StandardControlCharacteristic",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "AlternateNumber": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "AwaitingPromotion": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "BOMType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Category": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "CheckedOutBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "CheckinComments": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Context": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ControlReference": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "EpmMasterReference": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "LifeCycleTemplate": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Location": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "LowerLimit": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModelItemUID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "NominalValue": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Note": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Owner": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Severity": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ShortDescription": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "State": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Status": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "TeamTemplate": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "UpperLimit": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "SCCDDLinks": {
+          "type": "Collection(PTC.Factory.SCCDescribedByDocument)",
+          "partner": "",
+          "contains_target": true
+        },
+        "SCCDRLinks": {
+          "type": "Collection(PTC.Factory.SCCReferenceDocument)",
+          "partner": "",
+          "contains_target": true
+        },
+        "SCCResourceLinks": {
+          "type": "Collection(PTC.Factory.SCCResourceUsage)",
+          "partner": "",
+          "contains_target": true
+        },
+        "SCCSPLinks": {
+          "type": "Collection(PTC.Factory.SCCStandardProcedureUsage)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Versions": {
+          "type": "Collection(PTC.Factory.StandardControlCharacteristic)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Revisions": {
+          "type": "Collection(PTC.Factory.StandardControlCharacteristic)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "StandardOperation": {
+      "name": "StandardOperation",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable"
+          ]
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "Org.OData.Core.V1.Immutable",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": true,
+          "annotations": []
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "SOPSCCLinks": {
+          "type": "Collection(PTC.Factory.SOPToSCCLink)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Versions": {
+          "type": "Collection(PTC.Factory.StandardOperation)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Revisions": {
+          "type": "Collection(PTC.Factory.StandardOperation)",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "SOPToSCCLink": {
+      "name": "SOPToSCCLink",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "GraphicData": {
+          "type": "PTC.Factory.GraphicData",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModelItemContainerMasterReference": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ModelItemMasterReference": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {
+        "StandardCCs": {
+          "type": "Collection(PTC.Factory.StandardControlCharacteristic)",
+          "partner": "",
+          "contains_target": false
+        },
+        "DDLinks": {
+          "type": "Collection(PTC.Factory.DescribedByDocument)",
+          "partner": "",
+          "contains_target": true
+        },
+        "DRLinks": {
+          "type": "Collection(PTC.Factory.ReferenceDocument)",
+          "partner": "",
+          "contains_target": false
+        },
+        "SPLinks": {
+          "type": "Collection(PTC.Factory.StandardProcedureUsage)",
+          "partner": "",
+          "contains_target": true
+        },
+        "ResourceLinks": {
+          "type": "Collection(PTC.Factory.ResourceUsage)",
+          "partner": "",
+          "contains_target": true
+        }
+      }
+    },
+    "ReferenceDocument": {
+      "name": "ReferenceDocument",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpressionData": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "RefDocuments": {
+          "type": "Collection(PTC.DocMgmt.Document)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "SCCDescribedByDocument": {
+      "name": "SCCDescribedByDocument",
+      "namespace": "PTC.Factory",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ExpressionData": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "SCCDocuments": {
+          "type": "Collection(PTC.Factory.Document)",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    }
+  },
+  "entity_sets": [
+    {
+      "namespace": "PTC.Factory",
+      "name": "Documents",
+      "entity_type": "PTC.Factory.Document"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "StandardControlCharacteristics",
+      "entity_type": "PTC.Factory.StandardControlCharacteristic"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "Resources",
+      "entity_type": "PTC.Factory.Resource"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "StandardProcedures",
+      "entity_type": "PTC.Factory.StandardProcedure"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "StandardOperations",
+      "entity_type": "PTC.Factory.StandardOperation"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "ReferenceDocuments",
+      "entity_type": "PTC.Factory.ReferenceDocument"
+    }
+  ],
+  "actions": [
+    {
+      "namespace": "PTC.Factory",
+      "name": "Revise",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.Factory.Document",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.Document"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "ReviseDocuments",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Documents",
+          "type": "Collection(PTC.Factory.Document)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.Document)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "SetStateDocuments",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Documents",
+          "type": "Collection(PTC.Factory.Document)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.Document)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.Factory.Document",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.Factory.Document"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckIn",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.Document",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.Document"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.Document",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.Document"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.Document",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.Factory.Document"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckOutDocuments",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.Document)",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.Document)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckInDocuments",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.Document)",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.Document)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "UndoCheckOutDocuments",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.Document)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.Document)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "ReviseStandardProcedures",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "StandardProcedures",
+          "type": "Collection(PTC.Factory.StandardProcedure)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardProcedure)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "Revise",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.Factory.StandardProcedure",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.StandardProcedure"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.Factory.StandardProcedure",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.Factory.StandardProcedure"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "SetStateStandardProcedures",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "StandardProcedures",
+          "type": "Collection(PTC.Factory.StandardProcedure)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardProcedure)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckIn",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.StandardProcedure",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.StandardProcedure"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.StandardProcedure",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.StandardProcedure"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.StandardProcedure",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.Factory.StandardProcedure"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckOutStandardProcedures",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.StandardProcedure)",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardProcedure)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckInStandardProcedures",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.StandardProcedure)",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardProcedure)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "UndoCheckOutStandardProcedures",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.StandardProcedure)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardProcedure)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "updateSCCRelatedLinks",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "StandardCC",
+          "type": "PTC.Factory.StandardControlCharacteristic",
+          "nullable": false
+        },
+        {
+          "name": "TestRun",
+          "type": "Edm.Boolean",
+          "nullable": false
+        },
+        {
+          "name": "UpdateRequests",
+          "type": "Collection(PTC.Factory.UpdateRequest)",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.Factory.StandardControlCharacteristic"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.Factory.StandardControlCharacteristic",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.Factory.StandardControlCharacteristic"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "SetStateStandardControlCharacteristics",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "StandardControlCharacteristics",
+          "type": "Collection(PTC.Factory.StandardControlCharacteristic)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardControlCharacteristic)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "ReviseStandardControlCharacteristics",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "StandardControlCharacteristics",
+          "type": "Collection(PTC.Factory.StandardControlCharacteristic)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardControlCharacteristic)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "Revise",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.Factory.StandardControlCharacteristic",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.StandardControlCharacteristic"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckIn",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.StandardControlCharacteristic",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.StandardControlCharacteristic"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.StandardControlCharacteristic",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.StandardControlCharacteristic"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.StandardControlCharacteristic",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.Factory.StandardControlCharacteristic"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckOutStandardControlCharacteristics",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.StandardControlCharacteristic)",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardControlCharacteristic)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckInStandardControlCharacteristics",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.StandardControlCharacteristic)",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardControlCharacteristic)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "UndoCheckOutStandardControlCharacteristics",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.StandardControlCharacteristic)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardControlCharacteristic)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "updateSOPRelatedLinks",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Operation",
+          "type": "PTC.Factory.StandardOperation",
+          "nullable": false
+        },
+        {
+          "name": "TestRun",
+          "type": "Edm.Boolean",
+          "nullable": false
+        },
+        {
+          "name": "UpdateRequests",
+          "type": "Collection(PTC.Factory.UpdateRequest)",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.Factory.StandardOperation"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "SetStateStandardOperations",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "StandardOperations",
+          "type": "Collection(PTC.Factory.StandardOperation)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardOperation)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "SetState",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.Factory.StandardOperation",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.Factory.StandardOperation"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "Revise",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.Factory.StandardOperation",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.StandardOperation"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "ReviseStandardOperations",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "StandardOperations",
+          "type": "Collection(PTC.Factory.StandardOperation)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardOperation)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckIn",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.StandardOperation",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.StandardOperation"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.StandardOperation",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.Factory.StandardOperation"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.Factory.StandardOperation",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.Factory.StandardOperation"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckOutStandardOperations",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.StandardOperation)",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardOperation)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "CheckInStandardOperations",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.StandardOperation)",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardOperation)"
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "UndoCheckOutStandardOperations",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.Factory.StandardOperation)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.Factory.StandardOperation)"
+    }
+  ],
+  "complex_types": [
+    {
+      "namespace": "PTC.Factory",
+      "name": "GraphicData",
+      "properties": [
+        {
+          "name": "GraphicType",
+          "type": "Edm.String"
+        },
+        {
+          "name": "GraphicDataAttributes",
+          "type": "Edm.String"
+        },
+        {
+          "name": "ModelItemName",
+          "type": "Edm.String"
+        },
+        {
+          "name": "ModelItemDescription",
+          "type": "Edm.String"
+        },
+        {
+          "name": "ModelItemType",
+          "type": "Edm.String"
+        },
+        {
+          "name": "ModelItemSubType",
+          "type": "Edm.String"
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "Property",
+      "properties": [
+        {
+          "name": "Name",
+          "type": "Edm.String"
+        },
+        {
+          "name": "Value",
+          "type": "Edm.String"
+        },
+        {
+          "name": "StringValue",
+          "type": "Edm.String"
+        },
+        {
+          "name": "BooleanValue",
+          "type": "Edm.Boolean"
+        },
+        {
+          "name": "Int16Value",
+          "type": "Edm.Decimal"
+        },
+        {
+          "name": "Int32Value",
+          "type": "Edm.Decimal"
+        },
+        {
+          "name": "Int64Value",
+          "type": "Edm.Decimal"
+        },
+        {
+          "name": "ByteValue",
+          "type": "Edm.Decimal"
+        },
+        {
+          "name": "SByteValue",
+          "type": "Edm.Decimal"
+        },
+        {
+          "name": "DecimalValue",
+          "type": "Edm.Decimal"
+        },
+        {
+          "name": "SingleValue",
+          "type": "Edm.Single"
+        },
+        {
+          "name": "DoubleValue",
+          "type": "Edm.Double"
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.Factory",
+      "name": "UpdateRequest",
+      "properties": [
+        {
+          "name": "RequestAction",
+          "type": "Edm.String"
+        },
+        {
+          "name": "ID",
+          "type": "Edm.String"
+        },
+        {
+          "name": "Type",
+          "type": "Edm.String"
+        },
+        {
+          "name": "Properties",
+          "type": "Collection(PTC.Factory.Property)"
+        },
+        {
+          "name": "SourceEntityID",
+          "type": "Edm.String"
+        },
+        {
+          "name": "TargetEntityID",
+          "type": "Edm.String"
+        }
+      ]
+    }
+  ],
+  "enumerations": []
+}

@@ -1,0 +1,208 @@
+{
+  "domain": "Common",
+  "namespace": "PTC",
+  "description": "Common domain with shared entity types used across all Windchill OData domains",
+  "entities": {
+    "WindchillEntity": {
+      "name": "WindchillEntity",
+      "type": "PTC.WindchillEntity",
+      "description": "Base entity type for all Windchill business objects",
+      "isAbstract": true,
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "description": "Unique identifier (OID format: OR:type:id)",
+          "filterable": true,
+          "sortable": true,
+          "isKey": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "description": "Object identity (read-only)",
+          "filterable": false,
+          "sortable": false
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "description": "Creation timestamp",
+          "filterable": true,
+          "sortable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "description": "Creator username",
+          "filterable": true,
+          "sortable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "description": "Last modification timestamp",
+          "filterable": true,
+          "sortable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "description": "Last modifier username",
+          "filterable": true,
+          "sortable": true
+        }
+      }
+    },
+    "State": {
+      "name": "State",
+      "type": "PTC.State",
+      "description": "Lifecycle state information",
+      "properties": {
+        "Value": {
+          "type": "Edm.String",
+          "description": "State value (enum)",
+          "filterable": true,
+          "sortable": true
+        },
+        "Display": {
+          "type": "Edm.String",
+          "description": "Display name for state",
+          "filterable": true,
+          "sortable": true
+        }
+      }
+    },
+    "PersistInfo": {
+      "name": "PersistInfo",
+      "type": "PTC.PersistInfo",
+      "description": "Persistence metadata",
+      "properties": {
+        "CreateStamp": {
+          "type": "Edm.DateTimeOffset",
+          "description": "Creation timestamp"
+        },
+        "ModifyStamp": {
+          "type": "Edm.DateTimeOffset",
+          "description": "Modification timestamp"
+        },
+        "Classname": {
+          "type": "Edm.String",
+          "description": "Object class name"
+        },
+        "IdA2A2": {
+          "type": "Edm.Int64",
+          "description": "Internal ID"
+        }
+      }
+    },
+    "Effectivity": {
+      "name": "Effectivity",
+      "type": "PTC.Effectivity",
+      "description": "Effectivity configuration",
+      "properties": {
+        "ContextId": {
+          "type": "Edm.String",
+          "description": "Effectivity context"
+        },
+        "StartDate": {
+          "type": "Edm.DateTimeOffset",
+          "description": "Start date"
+        },
+        "EndDate": {
+          "type": "Edm.DateTimeOffset",
+          "description": "End date"
+        }
+      }
+    },
+    "VersionInfo": {
+      "name": "VersionInfo",
+      "type": "PTC.VersionInfo",
+      "description": "Version control information",
+      "properties": {
+        "Version": {
+          "type": "Edm.String",
+          "description": "Version identifier (e.g., A.1, B.2)"
+        },
+        "Iteration": {
+          "type": "Edm.Int32",
+          "description": "Iteration number"
+        },
+        "Series": {
+          "type": "Edm.String",
+          "description": "Version series"
+        }
+      }
+    },
+    "FolderLocation": {
+      "name": "FolderLocation",
+      "type": "PTC.FolderLocation",
+      "description": "Container folder path",
+      "properties": {
+        "Path": {
+          "type": "Edm.String",
+          "description": "Full folder path"
+        },
+        "Name": {
+          "type": "Edm.String",
+          "description": "Folder name"
+        }
+      }
+    },
+    "OrganizationReference": {
+      "name": "OrganizationReference",
+      "type": "PTC.OrganizationReference",
+      "description": "Reference to organization",
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "description": "Organization OID"
+        },
+        "Name": {
+          "type": "Edm.String",
+          "description": "Organization name"
+        }
+      }
+    },
+    "ContainerReference": {
+      "name": "ContainerReference",
+      "type": "PTC.ContainerReference",
+      "description": "Reference to container/context",
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "description": "Container OID"
+        },
+        "Name": {
+          "type": "Edm.String",
+          "description": "Container name"
+        }
+      }
+    }
+  },
+  "commonStates": {
+    "INWORK": {
+      "value": "INWORK",
+      "display": "In Work",
+      "description": "Object is being modified"
+    },
+    "RELEASED": {
+      "value": "RELEASED",
+      "display": "Released",
+      "description": "Object is released and immutable"
+    },
+    "CANCELLED": {
+      "value": "CANCELLED",
+      "display": "Cancelled",
+      "description": "Object is cancelled"
+    },
+    "SUPERSEDED": {
+      "value": "SUPERSEDED",
+      "display": "Superseded",
+      "description": "Object is replaced by newer version"
+    }
+  },
+  "oidFormat": {
+    "pattern": "OR:type:id",
+    "examples": [
+      "OR:wt.part.WTPart:12345",
+      "OR:wt.doc.WTDocument:67890",
+      "OR:wt.change2.WTChangeOrder2:11111"
+    ],
+    "description": "Object ID format: OR:JavaClassName:internalId"
+  }
+}

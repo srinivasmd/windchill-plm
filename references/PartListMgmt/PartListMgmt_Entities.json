@@ -1,0 +1,778 @@
+{
+  "namespace": "PTC.PartListMgmt",
+  "entities": {
+    "Illustration": {
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AuthoringApplication": {
+          "type": "Edm.String",
+          "nullable": true,
+          "updateable_via_action": true
+        },
+        "AuthoringLanguage": {
+          "type": "PTC.ServiceInfoMgmt.AuthoringLanguage",
+          "nullable": true,
+          "updateable_via_action": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "Format": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "GraphicRef": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "NavCriteria": {
+          "type": "Edm.String",
+          "nullable": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "PrintOrder": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "PrintView": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Describes": {
+          "type": "PTC.PartListMgmt.PartList",
+          "nullable": true
+        },
+        "DescribedBy": {
+          "type": "PTC.DynamicDocMgmt.DynamicDocument",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Supplement": {
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "CopiedFromBom": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Supplements": {
+          "type": "PTC.ProdMgmt.Part",
+          "nullable": true
+        },
+        "SupplementedBy": {
+          "type": "PTC.PartListMgmt.PartListItem",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "PartListInformationElement": {
+      "base_type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+      "properties": {
+        "SisContentholderIterationInfoModifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisContentholderTitleFromContent": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "SisContentholderType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Symptoms": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "Content": {
+          "type": "PTC.PartListMgmt.PartList",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "PartListItem": {
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AuthoringLanguage": {
+          "type": "PTC.ServiceInfoMgmt.AuthoringLanguage",
+          "nullable": true,
+          "updateable_via_action": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "ComponentIds": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CopiedFromBom": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "DefaultUnit": {
+          "type": "PTC.EnumType",
+          "nullable": false,
+          "updateable_via_action": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "GraphicRef": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Illustrated": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "Indenture": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "InstanceIds": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ItemNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ItemSequenceNumber": {
+          "type": "Edm.Int64",
+          "nullable": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "LineNumber": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "updateable_via_action": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "updateable_via_action": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "Quantity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Remarks": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Serviceable": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "StructureId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Uses": {
+          "type": "PTC.ProdMgmt.Part",
+          "nullable": true
+        },
+        "UsedBy": {
+          "type": "PTC.PartListMgmt.PartList",
+          "nullable": true
+        },
+        "Substitutes": {
+          "type": "Collection(PTC.PartListMgmt.Substitute)",
+          "nullable": true
+        },
+        "Supplements": {
+          "type": "Collection(PTC.PartListMgmt.Supplement)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "PartList": {
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AuthoringLanguage": {
+          "type": "PTC.ServiceInfoMgmt.AuthoringLanguage",
+          "nullable": true,
+          "updateable_via_action": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true,
+          "non_filterable": true
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true,
+          "non_sortable": true,
+          "non_filterable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "GeneralStatus": {
+          "type": "PTC.Icon",
+          "nullable": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "Generated": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "updateable_via_action": true
+        },
+        "InformationType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "updateable_via_action": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "updateable_via_action": true
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "non_sortable": true,
+          "non_filterable": true
+        },
+        "PartListItemType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RegenerateRequired": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "updateable_via_action": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "UpdateRequired": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "updateable_via_action": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true,
+          "non_filterable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "Uses": {
+          "type": "Collection(PTC.PartListMgmt.PartListItem)",
+          "nullable": true
+        },
+        "DescribedBy": {
+          "type": "Collection(PTC.PartListMgmt.Illustration)",
+          "nullable": true
+        },
+        "InformationElement": {
+          "type": "Collection(PTC.PartListMgmt.PartListInformationElement)",
+          "nullable": true
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "nullable": false
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "nullable": true,
+          "updateable_via_action": true
+        },
+        "Versions": {
+          "type": "Collection(PTC.PartListMgmt.PartList)",
+          "nullable": true
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true
+        },
+        "Representations": {
+          "type": "Collection(PTC.Visualization.Representation)",
+          "nullable": true
+        },
+        "Revisions": {
+          "type": "Collection(PTC.PartListMgmt.PartList)",
+          "nullable": true
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "nullable": true
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Substitute": {
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "CopiedFromBom": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ReplacementType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Substitutes": {
+          "type": "PTC.ProdMgmt.Part",
+          "nullable": true
+        },
+        "SubstituteFor": {
+          "type": "PTC.PartListMgmt.PartListItem",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "Illustrations",
+      "entity_type": "PTC.PartListMgmt.Illustration"
+    },
+    {
+      "name": "PartListInformationElements",
+      "entity_type": "PTC.PartListMgmt.PartListInformationElement"
+    },
+    {
+      "name": "Substitutes",
+      "entity_type": "PTC.PartListMgmt.Substitute"
+    },
+    {
+      "name": "PartListItems",
+      "entity_type": "PTC.PartListMgmt.PartListItem"
+    },
+    {
+      "name": "PartLists",
+      "entity_type": "PTC.PartListMgmt.PartList"
+    },
+    {
+      "name": "Supplements",
+      "entity_type": "PTC.PartListMgmt.Supplement"
+    }
+  ],
+  "actions": [
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.PartListMgmt.PartListInformationElement",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartListInformationElement"
+    },
+    {
+      "name": "RevisePartListInformationElements",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PartListInformationElements",
+          "type": "Collection(PTC.PartListMgmt.PartListInformationElement)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.PartListMgmt.PartListInformationElement)"
+    },
+    {
+      "name": "SetStatePartListInformationElements",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PartListInformationElements",
+          "type": "Collection(PTC.PartListMgmt.PartListInformationElement)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.PartListMgmt.PartListInformationElement)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.PartListMgmt.PartListInformationElement",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartListInformationElement"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.PartListMgmt.PartListInformationElement",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartListInformationElement"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.PartListMgmt.PartListInformationElement",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartListInformationElement"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.PartListMgmt.PartListInformationElement",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartListInformationElement"
+    },
+    {
+      "name": "UpdateCommonProperties",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "PartListItem",
+          "type": "PTC.PartListMgmt.PartListItem",
+          "nullable": false
+        },
+        {
+          "name": "Updates",
+          "type": "PTC.PartListMgmt.PartListItem",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartListItem"
+    },
+    {
+      "name": "UpdateCommonProperties",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Illustration",
+          "type": "PTC.PartListMgmt.Illustration",
+          "nullable": false
+        },
+        {
+          "name": "Updates",
+          "type": "PTC.PartListMgmt.Illustration",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.Illustration"
+    },
+    {
+      "name": "RevisePartLists",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PartLists",
+          "type": "Collection(PTC.PartListMgmt.PartList)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.PartListMgmt.PartList)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.PartListMgmt.PartList",
+          "nullable": false
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartList"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.PartListMgmt.PartList",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartList"
+    },
+    {
+      "name": "SetStatePartLists",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PartLists",
+          "type": "Collection(PTC.PartListMgmt.PartList)",
+          "nullable": false
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.PartListMgmt.PartList)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.PartListMgmt.PartList",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartList"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.PartListMgmt.PartList",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartList"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.PartListMgmt.PartList",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartList"
+    },
+    {
+      "name": "CheckOutPartLists",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.PartListMgmt.PartList)",
+          "nullable": false
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.PartListMgmt.PartList)"
+    },
+    {
+      "name": "CheckInPartLists",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.PartListMgmt.PartList)",
+          "nullable": false
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String",
+          "nullable": true
+        }
+      ],
+      "return_type": "Collection(PTC.PartListMgmt.PartList)"
+    },
+    {
+      "name": "UndoCheckOutPartLists",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.PartListMgmt.PartList)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.PartListMgmt.PartList)"
+    },
+    {
+      "name": "UpdateCommonProperties",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "PartList",
+          "type": "PTC.PartListMgmt.PartList",
+          "nullable": false
+        },
+        {
+          "name": "Updates",
+          "type": "PTC.PartListMgmt.PartList",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.PartListMgmt.PartList"
+    }
+  ],
+  "complex_types": []
+}

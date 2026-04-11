@@ -1,6 +1,6 @@
 ---
-name: windchill-plm
-description: Connect to Windchill PLM REST APIs with OAuth or Basic authentication. Query parts, documents, change requests, suppliers, BOMs, CAD documents, workflows, and more.
+name: zephyr
+description: Zephyr - A Python REST API client for PTC Windchill PLM. Query parts, documents, change requests, suppliers, BOMs, CAD documents, workflows, and more. Supports OAuth 2.0 and Basic authentication.
 tags:
   - windchill
   - plm
@@ -15,586 +15,751 @@ tags:
   - cad
   - quality-management
   - regulatory-compliance
+  - zephyr
 ---
 
-# Windchill PLM REST API Client
+# Zephyr - Windchill PLM REST API Client
 
-This skill provides a Python client for interacting with PTC Windchill PLM REST APIs. Supports both OAuth 2.0 and Basic authentication.
+Zephyr is a Python client for interacting with PTC Windchill PLM REST APIs. Supports OAuth 2.0 and Basic authentication.
 
 ## Quick Start
 
 1. Copy `config.example.json` to `config.json` in the skill directory
-2. Configure your Windchill server URL and authentication method
-3. Use the `windchill_client.py` script for API interactions
-
-## Configuration
-
-### OAuth 2.0 (Recommended for Production)
-
-```json
-{
-  "server_url": "https://windchill.example.com/Windchill",
-  "odata_base_url": "https://windchill.example.com/Windchill/servlet/odata/",
-  "auth_type": "oauth",
-  "oauth": {
-    "client_id": "your-client-id",
-    "client_secret": "your-client-secret",
-    "token_url": "https://windchill.example.com/Windchill/oauth2/token",
-    "scope": "windchill"
-  },
-  "verify_ssl": true,
-  "timeout": 30
-}
-```
-
-### Basic Authentication (For Testing/Dev)
-
-```json
-{
-  "server_url": "https://windchill.example.com/Windchill",
-  "odata_base_url": "https://windchill.example.com/Windchill/servlet/odata/",
-  "auth_type": "basic",
-  "basic": {
-    "username": "your-username",
-    "password": "***"
-  },
-  "verify_ssl": true,
-  "timeout": 30
-}
-```
-
-## Using the Client Script
-
-The main client script provides methods for common Windchill operations:
-
-```bash
-python scripts/windchill_client.py <operation> [options]
-```
-
-## Query Scripts
-
-### query_parts.py
-
-Query Windchill Parts with filtering options.
-
-```bash
-# Get part by number
-python scripts/query_parts.py --number TOPLVL
-
-# Get all released parts
-python scripts/query_parts.py --state RELEASED --top 10
-
-# Search parts by name
-python scripts/query_parts.py --name "Bolt" --output parts.json
-```
-
-### query_bom.py
-
-Query Bill of Materials (BOM) for a part.
-
-```bash
-# Get BOM for part TOPLVL
-python scripts/query_bom.py --url https://windchill.example.com/Windchill/servlet/odata/ --username user --password pass TOPLVL
-
-# Save to file
-python scripts/query_bom.py --output bom.json TOPLVL
-```
-
-### query_document_attachments.py
-
-Query a Windchill document and its attachments.
-
-```bash
-# Get document and attachments
-python scripts/query_document_attachments.py --url https://windchill.example.com/Windchill/servlet/odata/ --username user --password pass 0000003822
-```
-
-### query_cad_documents.py
-
-Query CAD Documents from Windchill CADDocumentMgmt domain.
-
-```bash
-# Get CAD document by number
-python scripts/query_cad_documents.py get --number 0000001234
-
-# Get CAD structure
-python scripts/query_cad_documents.py structure --id OR:wt.epm.EPMDocument:12345
-```
-
-### query_change_mgmt.py
-
-Query Change Management objects from Windchill ChangeMgmt domain.
-
-```bash
-# Get Change Notice by number
-python scripts/query_change_mgmt.py notice --number CN0001
-
-# Query Change Requests by state
-python scripts/query_change_mgmt.py query-requests --filter "State/Value eq 'OPEN'"
-```
-
-### query_process_plan.py
-
-Query Process Plan from Windchill MfgProcMgmt domain.
-
-```bash
-# Get process plan by number
-python scripts/query_process_plan.py --number 0000000041
-
-# Get process plan with operations expanded
-python scripts/query_process_plan.py --number 0000000041 --expand "Operations"
-```
-
-### query_workflow.py
-
-Query Workflow items from Windchill Workflow domain.
-
-```bash
-# Get all work items (top 10)
-python scripts/query_workflow.py --top 10
-
-# Get pending work items for a specific user
-python scripts/query_workflow.py --filter "Status/Value eq 'PENDING' and Owner/Name eq 'Pat'" --expand Owner,Subject
-```
-
-### query_suppliers.py
-
-Query Windchill Suppliers with filtering and expansion options.
-
-```bash
-# Get all suppliers (default top 20)
-python scripts/query_suppliers.py
-
-# Get top 50 suppliers
-python scripts/query_suppliers.py --top 50
-
-# Filter suppliers by name
-python scripts/query_suppliers.py --name "Texas"
-
-# Filter using OData expression
-python scripts/query_suppliers.py --filter "contains(Name, 'Murata')"
-
-# Expand Organization with pagination
-python scripts/query_suppliers.py --expand Organization --top 100
-
-# Filter by supplier type
-python scripts/query_suppliers.py --type manufacturer
-python scripts/query_suppliers.py --type vendor
-
-# Get all suppliers with pagination
-python scripts/query_suppliers.py --all --expand Organization
-
-# Output to JSON file
-python scripts/query_suppliers.py --output suppliers.json
-
-# Raw JSON output
-python scripts/query_suppliers.py --raw --top 10
-```
-
-### query_supplier_detail.py
-
-Get detailed information for a specific supplier by ID or name.
-
-```bash
-# Get supplier by ID
-python scripts/query_supplier_detail.py --id "OR:com.ptc.windchill.suma.supplier.Manufacturer:3678342"
-
-# Get supplier by name
-python scripts/query_supplier_detail.py --name "Texas Instruments"
-python scripts/query_supplier_detail.py --name "Murata"
-
-# Expand navigation properties
-python scripts/query_supplier_detail.py --name "Panasonic" --expand Organization
-
-# Output to JSON file
-python scripts/query_supplier_detail.py --name "Murata" --output supplier.json
-
-# Raw JSON output
-python scripts/query_supplier_detail.py --name "Texas" --raw
-```
-
-### query_supplier_by_name.py
-
-Query supplier(s) by name with full details (reusable script).
-
-```bash
-# Basic search by name
-python scripts/query_supplier_by_name.py "Texas Instruments"
-
-# Using --name flag
-python scripts/query_supplier_by_name.py --name "Murata" --expand Organization
-
-# Get all matches (not just first)
-python scripts/query_supplier_by_name.py --name "Texas" --all-matches
-
-# Query by supplier ID
-python scripts/query_supplier_by_name.py --id "OR:com.ptc.windchill.suma.supplier.Manufacturer:3678248"
-
-# Output to JSON file
-python scripts/query_supplier_by_name.py --name "Panasonic" --output supplier.json
-
-# Raw JSON output
-python scripts/query_supplier_by_name.py --name "Murata" --raw
-```
-
-### query_service_info_mgmt.py
-
-Query Service Information Management records.
-
-```bash
-# Get all SIMDocuments
-python3 scripts/query_service_info_mgmt.py --top 10
-
-# Get Information Structures (Service view)
-python3 scripts/query_service_info_mgmt.py --collection InformationStructures --top 20
-```
-
-## Write Operations (POST, PATCH, DELETE)
-
-### create_supplier.py
-
-Create a new Supplier in Windchill.
-
-```bash
-# Create a new supplier
-python scripts/create_supplier.py --name "Texas Instruments" --number "SUP-001"
-
-# Create with description
-python scripts/create_supplier.py --name "New Vendor" --number "SUP-002" --description "Electronics vendor"
-
-# Create supplier and save to file
-python scripts/create_supplier.py --name "Test Supplier" --number "SUP-003" --output supplier.json
-
-# Create manufacturer or vendor type
-python scripts/create_supplier.py --name "Supplier Name" --number "SUP-004" --type manufacturer
-python scripts/create_supplier.py --name "Vendor Name" --number "SUP-005" --type vendor
-```
-
-### update_supplier.py
-
-Update an existing Supplier in Windchill.
-
-```bash
-# Update supplier by ID
-python scripts/update_supplier.py --id "OR:com.ptc.windchill.suma.supplier.Manufacturer:3678342" --name "New Name"
-
-# Update supplier by number (auto-lookup)
-python scripts/update_supplier.py --number "SUP-001" --description "Updated description"
-
-# Update multiple fields
-python scripts/update_supplier.py --id "OR:..." --name "Updated Name" --description "New description"
-
-# Save updated result to file
-python scripts/update_supplier.py --number "SUP-001" --name "New Name" --output updated.json
-```
-
-### create_part.py
-
-Create a new Part in Windchill.
-
-```bash
-# Create a new part
-python scripts/create_part.py --name "Resistor 10K" --number "PART-001"
-
-# Create with description
-python scripts/create_part.py --name "Capacitor 100uF" --number "PART-002" --description "Electrolytic capacitor"
-
-# Create part and save to file
-python scripts/create_part.py --name "PCB Board" --number "PART-003" --output part.json
-```
-
-### update_part.py
-
-Update an existing Part in Windchill.
-
-```bash
-# Update part by ID
-python scripts/update_part.py --id "OR:com.ptc.windchill.suma.part.ManufacturerPart:12345" --name "New Name"
-
-# Update part by number (auto-lookup)
-python scripts/update_part.py --number "PART-001" --description "Updated description"
-
-# Update multiple fields
-python scripts/update_part.py --id "OR:..." --name "Updated Name" --description "New description"
-```
-
-### create_document.py
-
-Create a new Document in Windchill.
-
-```bash
-# Create a new document
-python scripts/create_document.py --name "Design Specification" --number "DOC-001"
-
-# Create with description
-python scripts/create_document.py --name "Test Report" --number "DOC-002" --description "Final test results"
-
-# Create document and save to file
-python scripts/create_document.py --name "Drawing" --number "DOC-003" --output document.json
-```
-
-### update_document.py
-
-Update an existing Document in Windchill.
-
-```bash
-# Update document by ID
-python scripts/update_document.py --id "OR:com.ptc.windchill.suma.document.ManufacturerDocument:12345" --name "New Name"
-
-# Update document by number (auto-lookup)
-python scripts/update_document.py --number "DOC-001" --description "Updated description"
-
-# Update multiple fields
-python scripts/update_document.py --id "OR:..." --name "Updated Name" --description "New description"
-```
-
-### create_folder.py
-
-Create a new Folder in Windchill DataAdmin domain.
-
-```bash
-# Create a new folder
-python scripts/create_folder.py --name "Design Documents" --description "Product design documentation"
-
-# Create subfolder under parent
-python scripts/create_folder.py --name "Test Folder" --parent "OR:com.ptc.windchill.suma.folder.Folder:12345"
-
-# Create folder and save to file
-python scripts/create_folder.py --name "New Folder" --output folder.json
-```
-
-### delete_folder.py
-
-Delete a Folder from Windchill DataAdmin domain.
-
-```bash
-# Delete a folder (prompts for confirmation if not empty)
-python scripts/delete_folder.py --id "OR:com.ptc.windchill.suma.folder.Folder:12345"
-
-# Force delete without confirmation
-python scripts/delete_folder.py --id "OR:..." --force
-```
-
-### query_udi.py
-
-Query UDI (Unique Device Identification) records.
-
-```bash
-# Get all UDI supersets (top 10)
-python3 scripts/query_udi.py --top 10
-
-# Find UDI by device identifier
-python3 scripts/query_udi.py --filter "DeviceIdentifier eq '12345678901234'" --expand Subjects,Details
-```
-
-### explore_windchill.py
-
-Explore Windchill OData domains and available endpoints.
-
-```bash
-# Explore all domains
-python scripts/explore_windchill.py explore
-
-# Get metadata for a domain
-python scripts/explore_windchill.py metadata --domain ProdMgmt
-```
-
-## Generic CRUD Scripts
-
-These unified scripts handle any entity type across all Windchill domains.
-
-### generic_query.py
-
-Query any entity type from any Windchill domain.
-
-```bash
-# Query documents
-python scripts/generic_query.py --entity Document --top 10
-
-# Query change notices with filter
-python scripts/generic_query.py --entity ChangeNotice --filter "State/Display eq 'OPEN'"
-
-# Query by number
-python scripts/generic_query.py --entity QualityAction --number "QA-001"
-
-# Query users by name
-python scripts/generic_query.py --entity User --name "john"
-
-# Query with expand and select
-python scripts/generic_query.py --entity Part --expand Uses --select ID,Name,Number --top 20
-```
-
-Supported entities: Document, Part, ChangeNotice, ChangeRequest, ChangeTask, QualityAction, NonConformance, CAPA, User, Group, Organization, Folder, Container, CustomerExperience, and more.
-
-### generic_create.py
-
-Create any entity type that supports CREATE operations.
-
-```bash
-# Create a document
-python scripts/generic_create.py --entity Document --name "My Document" --number "DOC-001"
-
-# Create a part
-python scripts/generic_create.py --entity Part --name "My Part" --number "PART-001"
-
-# Create with container
-python scripts/generic_create.py --entity Quality --name "Quality Doc" --number "Q-001" --container "OR:wt.inf.container.WTContainer:12345"
-
-# Create with additional properties (JSON)
-python scripts/generic_create.py --entity ChangeNotice --name "CN-001" --number "CN-001" --props '{"ChangeType": "Minor"}'
-```
-
-Supported entities for CREATE: Document, ControlledDocument, Quality, Part, Folder, ChangeNotice, ChangeRequest, QualityAction, CAPA, CustomerExperience, and more.
-
-### generic_update.py
-
-Update any entity type that supports UPDATE operations.
-
-```bash
-# Update by ID
-python scripts/generic_update.py --entity Document --id "OR:com.ptc.DocMgmt.Document:12345" --name "New Name"
-
-# Update by number (auto-lookup)
-python scripts/generic_update.py --entity Part --number "PART-001" --description "Updated description"
-
-# Update with additional properties
-python scripts/generic_update.py --entity ChangeNotice --id "OR:..." --props '{"Priority": "High"}'
-```
-
-### generic_delete.py
-
-Delete any entity type that supports DELETE operations.
-
-```bash
-# Delete by ID (prompts for confirmation)
-python scripts/generic_delete.py --entity Document --id "OR:com.ptc.DocMgmt.Document:12345"
-
-# Delete by number
-python scripts/generic_delete.py --entity Part --number "PART-001"
-
-# Force delete without confirmation
-python scripts/generic_delete.py --entity Folder --id "OR:..." --force
-
-# Dry run (show what would be deleted)
-python scripts/generic_delete.py --entity Document --number "DOC-001" --dry-run
-```
-
-## Entity Types Reference
-
-| Domain | Entities |
-|--------|----------|
-| DocMgmt | Document, ControlledDocument, Quality, Record, TestDocument, ReferenceDocument, SoftwareDocument |
-| ProdMgmt | Part, PartUse, PartSubstituteLink |
-| DataAdmin | Folder, Container, ProductContainer, LibraryContainer |
-| ChangeMgmt | ChangeNotice, ChangeRequest, ChangeTask, ChangeOrder |
-| QMS | QualityAction, QualityObject, NonConformance, CAPA, Place, QualityContact, Subject |
-| CEM | CustomerExperience, RelatedProduct |
-| PrincipalMgmt | User, Group, Organization |
-| CADDocumentMgmt | CADDocument, EPMDocument |
-| MfgProcMgmt | ProcessPlan, Operation |
-| ServiceInfoMgmt | SIMDocument, InformationStructure |
-
-## Telegram Formatted Output
-
-The scripts now support rich Markdown formatting for Telegram gateway responses:
-
-### Output Features
-- **Markdown Tables**: Properly aligned columns with headers
-- **Entity Emojis**: Document, Part, Supplier, ChangeNotice, etc.
-- **State Indicators**: RELEASED, INWORK, REVIEW, REJECTED, CANCELLED
-- **Bold Headers**: `*Entity Type*` for clear section separation
-- **Code Blocks**: IDs displayed as `inline code`
-- **Success/Error Messages**: Visual indicators with emojis
-
-### Usage Example
-
-```bash
-# Table view (default)
-python scripts/generic_query.py --entity Part --top 5
-
-# Detailed view for single entity
-python scripts/generic_query.py --entity Part --number "PART-001" --detail
-
-# Raw JSON output
-python scripts/generic_query.py --entity Part --raw
-```
-
-### Formatted Output Example
-
-```
-*🔧 Part* `3 found`
-
-| Number | Name | State |
-|--------|------|-------|
-| ENG-001 | Engine Assembly | 🟢 RELEASED |
-| PIS-001 | Piston Component | 🔵 INWORK |
-| CYL-001 | Cylinder Head | 🟡 REVIEW |
-
-✅ *Created* 🔧 *Part*: `ENG-001`
-```
-
-### Using output_formatter.py
+2. Configure your Windchill server URL and authentication
+3. Use domain clients for best practices
 
 ```python
-from output_formatter import OutputFormatter
+import sys
+sys.path.insert(0, '/home/ubuntu/.hermes/skills/zephyr/scripts')
+from domains.ProdMgmt import ProdMgmtClient
 
-formatter = OutputFormatter()
-
-# Print entity table
-formatter.print_entity_table(entities, "Part", ["Number", "Name", "State"])
-
-# Print entity detail
-formatter.print_entity_detail(entity, "Part")
-
-# Print operation result
-formatter.print_operation_result("Created", "Part", "PART-001", True)
+client = ProdMgmtClient(config_path="config.json")
+parts = client.get_parts(top=10)
+part = client.get_part_by_number("PART-001")
 ```
 
-## Available Operations
+---
 
-**Object Operations:**
-- get-object: Retrieve an object by OID or number
-- search: Search for objects using query criteria
-- create: Create a new Windchill object
-- update: Update an existing object's attributes
-- delete: Delete a Windchill object
+## CRITICAL WARNINGS
 
-**Part Management:**
-- get-bom: Get Bill of Materials for a part
-- get-part: Retrieve part details
+| Issue | Solution |
+|-------|----------|
+| **scripts/old/ is DEPRECATED** | Use domain clients in `scripts/domains/` instead |
+| **URL double-slash bug** | Client auto-fixes trailing slashes. If "Invalid domain request", check URLs. |
+| **CSRF token required** | Header: `CSRF_NONCE: <token>` (NOT `X-PTC-CSRF-Token`) |
+| **OData properties case-sensitive** | Use `PropertyResolver` or pass dict to `_build_filter_from_dict()` |
+| **GetBOM not exposed** | Use `Uses` navigation: `client.get_bom(part_id)` |
+| **Slow API (7-8s/call)** | PTC demo servers are slow - this is expected, not a bug |
 
-**Document Management (DocMgmt):**
-- get-documents: Query documents with filters
-- get-document: Get a specific document by ID
-- create-document: Create a new document
-- update-document: Update document attributes
+---
 
-**Supplier Management (SupplierMgmt):**
-- get-suppliers: Query suppliers with filters
-- get-supplier: Get a specific supplier by ID
-- create-supplier: Create a new supplier record
-- update-supplier: Update supplier attributes
-- get-supplier-sites: Get all sites for a supplier
-- get-supplier-contacts: Get all contacts for a supplier
+## Domain Clients (28 domains)
 
-**Product Management (ProdMgmt):**
-- get-parts: Query parts with filters
-- get-part: Get a specific part by ID or number
-- create-part: Create a new part
-- update-part: Update part attributes
+| Domain | Client | Purpose |
+|--------|--------|---------|
+| ProdMgmt | `ProdMgmtClient` | Parts, BOMs, product structures |
+| ProdPlatformMgmt | `ProdPlatformMgmtClient` | Variant specifications, options, choices |
+| PartListMgmt | `PartListMgmtClient` | Illustrated Parts Lists, illustrations, substitutes |
+| ProjMgmt | `ProjMgmtClient` | Project plans, activities, milestones |
+| NC | `NCClient` | Nonconformance tracking, quality issues |
+| DocMgmt | `DocMgmtClient` | Documents, attachments |
+| CADDocumentMgmt | `CADDocumentMgmtClient` | CAD documents, drawings |
+| ChangeMgmt | `ChangeMgmtClient` | Change notices, requests, tasks |
+| SupplierMgmt | `SupplierMgmtClient` | Suppliers, vendor parts |
+| MfgProcMgmt | `MfgProcMgmtClient` | Process plans, operations |
+| CEM | `CEMClient` | Customer experiences |
+| BACMgmt | `BACMgmtClient` | Baselines, configurations |
+| Workflow | `WorkflowClient` | Work items, activities |
+| Audit | `AuditClient` | Audit records, compliance |
+| DataAdmin | `DataAdminClient` | Containers, folders |
+| ServiceInfoMgmt | `ServiceInfoMgmtClient` | Service documentation |
+| UDI | `UDIClient` | Unique Device Identification |
+| RegMstr | `RegMstrClient` | Regulatory Master |
+| QMS | `QMSClient` | Quality Management (CAPA/NCR) |
+| PrincipalMgmt | `PrincipalMgmtClient` | Users, groups, roles |
+| PTC | `PTCClient` | Common entities, content download |
+| CAPA | `CAPAClient` | Corrective and Preventive Actions |
+| DocumentControl | `DocumentControlClient` | Controlled documents, training records |
+| ClfStructure | `ClfStructureClient` | Classification hierarchy, nodes |
+| DynamicDocMgmt | `DynamicDocMgmtClient` | Dynamic documents, burst configurations |
+| EffectivityMgmt | `EffectivityMgmtClient` | Part effectivity, serial/lot/date effectivity |
+| Factory | `FactoryClient` | Standard operations, procedures, SCC, resources |
+| NavCriteria | `NavCriteriaClient` | Navigation criteria, config specs, filters |
+
+---
+
+## Common Patterns
+
+### Query Parts and BOM
+
+```python
+from domains.ProdMgmt import ProdMgmtClient
+client = ProdMgmtClient(config_path="config.json")
+
+# Query parts
+parts = client.get_parts(top=50)
+released = client.get_parts_by_state("RELEASED")
+part = client.get_part_by_number("V0056726")
+
+# Get BOM
+bom = client.get_bom(part_id)
+for item in bom:
+    print(f"{item['child_part']['number']} | Qty: {item['quantity']}")
+```
+
+### Query Change Notices
+
+```python
+from domains.ChangeMgmt import ChangeMgmtClient
+client = ChangeMgmtClient(config_path="config.json")
+
+notices = client.get_change_notices()
+notice = client.get_change_notice_by_number("CN-001")
+tasks = client.get_change_notice_tasks(notice_id)
+```
+
+### Query Quality Records (CAPA/NCR)
+
+```python
+from domains.QMS import QMSClient
+client = QMSClient(config_path="config.json")
+
+capas = client.get_capas()
+open_capas = client.get_open_capas()
+ncrs = client.get_ncrs()
+```
+
+### Query CAPA Domain (Dedicated Client)
+
+```python
+from domains.CAPA import CAPAClient
+client = CAPAClient(config_path="config.json")
+
+# Get CAPAs with expanded navigation properties
+capa = client.get_capa_by_id(capa_id, expand=['Plan', 'PrimarySite'])
+plan_actions = client.get_action_plan_actions(plan_id)
+
+# Set CAPA state
+client.set_capa_state(capa_id, 'CLOSED')
+```
+
+### Query DocumentControl Domain
+
+```python
+from domains.DocumentControl import DocumentControlClient
+client = DocumentControlClient(config_path="config.json")
+
+# Get controlled documents
+docs = client.get_control_documents()
+doc = client.get_control_document_by_number("DOC-001")
+
+# Get training records
+records = client.get_training_records_by_user(user_id)
+```
+
+### Query ClfStructure (Classification Hierarchy)
+
+```python
+from domains.ClfStructure import ClfStructureClient
+client = ClfStructureClient(config_path="config.json")
+
+# Navigate classification hierarchy
+root_nodes = client.get_root_clf_nodes()
+children = client.get_child_clf_nodes(parent_id)
+path = client.get_classification_path(node_id)
+tree = client.get_classification_tree(max_depth=3)
+```
+
+### Get Document Attachments
+
+```python
+from domains.DocMgmt import DocMgmtClient
+client = DocMgmtClient(config_path="config.json")
+
+doc = client.get_document_by_number("DOC-001")
+attachments = client.get_document_attachments(doc_id)
+```
+
+### DynamicDocMgmt - Dynamic Documents
+
+```python
+from domains.DynamicDocMgmt import DynamicDocMgmtClient
+client = DynamicDocMgmtClient(config_path="config.json")
+
+# Query dynamic documents
+docs = client.get_dynamic_documents(top=50)
+doc = client.get_dynamic_document_by_number("DYN-DOC-001")
+
+# Get document with expanded navigation
+doc = client.get_dynamic_document_by_id(doc_id, expand=["Creator", "Master", "Attachments"])
+
+# Version control
+client.check_out_document(doc_id)
+client.check_in_document(doc_id, check_in_note="Updated content")
+client.revise_document(doc_id)
+
+# File upload (multi-stage)
+client.upload_stage1(doc_id, no_of_files=1)
+client.upload_stage3(doc_id, content_info={"FileName": "drawing.pdf"})
+
+# Lifecycle state
+client.set_document_state(doc_id, "RELEASED")
+```
+
+### EffectivityMgmt - Part Effectivity
+
+```python
+from domains.EffectivityMgmt import EffectivityMgmtClient
+client = EffectivityMgmtClient(config_path="config.json")
+
+# Query effectivity contexts
+contexts = client.get_part_effectivity_contexts(top=50)
+by_part = client.get_contexts_by_part(part_id)
+
+# Get effectivity managed entities
+entities = client.get_effectivity_managed_entities(top=50)
+effectivities = client.get_entity_effectivities(entity_id)
+
+# Query specific effectivity types
+date_effs = client.get_date_effectivities_by_range("2024-01-01", "2024-12-31")
+unit_effs = client.get_unit_effectivities_by_range(start_unit=100, end_unit=200)
+serial_effs = client.get_serial_number_effectivities()
+lot_effs = client.get_lot_effectivities()
+
+# Set effectivities
+client.set_effectivities_for_entity(entity_id, [
+    {"Type": "DateEffectivity", "StartDate": "2024-01-01", "EndDate": "2024-12-31"}
+])
+```
+
+### Factory - Standard Operations & Procedures
+
+```python
+from domains.Factory import FactoryClient
+client = FactoryClient(config_path="config.json")
+
+# Query standard operations
+operations = client.get_standard_operations(top=50)
+op = client.get_standard_operation_by_number("OP-001")
+
+# Get operation with expanded navigation
+op = client.get_standard_operation_by_id(op_id, expand=["Creator", "Master", "StandardProcedureUsages"])
+
+# Version control for operations
+client.check_out_operation(op_id, check_out_note="Updating operation")
+client.check_in_operation(op_id, check_in_note="Changes complete")
+client.revise_operation(op_id)
+
+# Lifecycle state management
+client.set_operation_state(op_id, "RELEASED")
+client.set_operations_state_bulk([op_id1, op_id2], "INWORK")
+
+# Standard Control Characteristics (SCC)
+sccs = client.get_standard_control_characteristics(top=50)
+scc = client.get_scc_by_number("SCC-001")
+
+# SCC with expanded navigation
+scc = client.get_scc_by_id(scc_id, expand=["Master", "ResourceUsages", "StandardProcedureUsages"])
+
+# SCC version control and state
+client.check_out_scc(scc_id)
+client.check_in_scc(scc_id, check_in_note="Updated")
+client.set_scc_state(scc_id, "RELEASED")
+
+# Update SCC related links
+client.update_scc_related_links(scc_id, test_run="TR-001", update_requests=[
+    {"LinkType": "ResourceUsage", "Action": "Add", "ResourceId": "RES-001"}
+])
+
+# Standard Procedures
+procedures = client.get_standard_procedures(top=50)
+proc = client.get_standard_procedure_by_number("PROC-001")
+client.set_procedure_state(proc_id, "RELEASED")
+
+# Resources
+resources = client.get_resources(top=50)
+resource = client.get_resource_by_number("RES-001")
+resource_usages = client.get_resource_usages(resource_id)
+```
+
+### NavCriteria - Navigation Criteria & Config Specs
+
+```python
+from domains.NavCriteria import NavCriteriaClient
+client = NavCriteriaClient(config_path="config.json")
+
+# Query navigation criteria
+criteria = client.get_navigation_criteria(top=50)
+criteria = client.get_navigation_criteria_by_name("MyConfig")
+shared = client.get_shared_criteria()
+
+# Build configuration specifications
+standard_spec = client.build_standard_config_spec(view="Manufacturing")
+baseline_spec = client.build_baseline_config_spec("OR:wt.proj.Baseline:12345")
+effectivity_spec = client.build_effectivity_date_config_spec(
+    start_date="2024-01-01T00:00:00Z",
+    end_date="2024-12-31T23:59:59Z"
+)
+
+# Build filters
+attr_filter = client.build_attribute_filter("Material", "Equals", "Steel")
+box_filter = client.build_box_spatial_filter(0, 0, 0, 100, 100, 100)
+option_filter = client.build_option_filter("Color", ["Red", "Blue"])
+
+# Create navigation criteria
+criteria = client.create_navigation_criteria(
+    name="ManufacturingView",
+    applicable_type="WTPart",
+    config_specs=[standard_spec],
+    filters=[attr_filter],
+    apply_to_top_level=True,
+    shared_to_all=True
+)
+
+# EPMDocument configuration
+epm_spec = client.build_epmdoc_standard_config_spec(view="Design")
+
+# Update criteria
+client.update_navigation_criteria(criteria_id, config_specs=[baseline_spec])
+```
+
+### NC - Nonconformance Management
+
+```python
+from domains.NC import NCClient
+client = NCClient(config_path="config.json")
+
+# Query nonconformances
+ncs = client.get_nonconformances(top=50)
+open_ncs = client.get_open_nonconformances()
+nc = client.get_nonconformance_by_number("NC-2024-001")
+
+# Get by state/priority/severity
+by_state = client.get_nonconformances_by_state("OPEN")
+by_priority = client.get_nonconformances_by_priority("HIGH")
+by_severity = client.get_nonconformances_by_severity("CRITICAL")
+
+# Get with expanded navigation
+nc = client.get_nonconformance_by_id(nc_id, expand=[
+    "AffectedObjects",
+    "ImmediateActions",
+    "Creator",
+    "Owner"
+])
+
+# Create nonconformance
+nc = client.create_nonconformance(
+    description="Material defect in batch A-123",
+    identified_date="2024-01-15T10:00:00Z",
+    source="Incoming Inspection",
+    priority="HIGH",
+    severity="MAJOR",
+    location="Warehouse A",
+    assigned_to="OR:wt.org.WTUser:12345"
+)
+
+# Manage affected objects
+affected = client.add_affected_object(
+    nc_id=nc["ID"],
+    name="Part-001",
+    number="PART-001",
+    quantity=100,
+    disposition="Scrap"
+)
+objects = client.get_affected_objects(nc_id)
+
+# Manage immediate actions
+action = client.add_immediate_action(
+    nc_id=nc["ID"],
+    description="Quarantine affected batch",
+    action_type="CONTAINMENT",
+    action_date="2024-01-15T12:00:00Z"
+)
+actions = client.get_immediate_actions(nc_id)
+
+# Lifecycle management
+client.set_nonconformance_state(nc_id, "IN_REVIEW")
+client.reserve_nonconformance(nc_id, reservation_note="Reviewing NC")
+client.undo_reservation_nonconformance(nc_id)
+
+# File attachment
+client.upload_attachment(nc_id, file_name="inspection_report.pdf", file_path="/path/to/file.pdf")
+```
+
+### ProdPlatformMgmt - Variant Specifications & Options
+
+```python
+from domains.ProdPlatformMgmt import ProdPlatformMgmtClient
+client = ProdPlatformMgmtClient(config_path="config.json")
+
+# Query variant specifications
+specs = client.get_variant_specifications(top=50)
+released = client.get_variant_specifications_by_state("RELEASED")
+spec = client.get_variant_specification_by_number("VS-2024-001")
+
+# Get with expanded navigation
+spec = client.get_variant_specification_by_id(spec_id, expand=[
+    "Options",
+    "OptionSets",
+    "Creator",
+    "Owner"
+])
+
+# Query options and option sets
+options = client.get_options(top=50)
+option = client.get_option_by_number("OPT-001")
+option_sets = client.get_option_sets(top=50)
+option_set = client.get_option_set_by_number("OS-001")
+
+# Get options for variant specification
+options = client.get_options_for_variant_spec(spec_id)
+option_sets = client.get_option_sets_for_variant_spec(spec_id)
+
+# Manage choices
+choices = client.get_choices(top=50)
+design_choices = client.get_design_choices_for_option(option_id)
+sales_choices = client.get_sales_choices_for_option(option_id)
+
+# Create variant specification
+spec = client.create_variant_specification(
+    name="Product Family A",
+    description="Variant specification for Product Family A",
+    effectivity="2024-01-01 to 2024-12-31"
+)
+
+# Create option set
+option_set = client.create_option_set(
+    name="Color Options",
+    expression="Color IN ('Red', 'Blue', 'Green')",
+    is_active=True
+)
+
+# Version control
+client.check_out_variant_specification(spec_id, check_out_note="Updating specification")
+client.check_in_variant_specification(spec_id, check_in_note="Changes complete")
+client.undo_check_out_variant_specification(spec_id)
+client.revise_variant_specification(spec_id, description="New revision")
+
+# Lifecycle state management
+client.set_variant_specification_state(spec_id, "RELEASED")
+client.set_variant_specifications_state_bulk([spec_id1, spec_id2], "INWORK")
+client.set_option_set_state(option_set_id, "RELEASED")
+client.set_choice_state(choice_id, "RELEASED")
+```
+
+### PartListMgmt - Illustrated Parts Lists
+
+```python
+from domains.PartListMgmt import PartListMgmtClient
+client = PartListMgmtClient(config_path="config.json")
+
+# Query Part Lists
+partlists = client.get_partlists(top=50)
+released = client.get_partlists_by_state("RELEASED")
+partlist = client.get_partlist_by_number("PL-001")
+
+# Get with expanded navigation
+partlist = client.get_partlist_by_id(partlist_id, expand=[
+    "Uses",
+    "Creator",
+    "Organization",
+    "Versions"
+])
+
+# Get Part List Items
+items = client.get_partlist_items(top=50)
+item = client.get_partlist_item_by_id(item_id)
+items = client.get_partlist_items_for_partlist(partlist_id)
+
+# Get Illustrations
+illustrations = client.get_illustrations(top=50)
+ill = client.get_illustration_by_id(ill_id)
+illustrations = client.get_illustrations_for_partlist(partlist_id)
+
+# Get Substitutes and Supplements
+substitutes = client.get_substitutes_for_item(item_id)
+supplements = client.get_supplements_for_item(item_id)
+
+# Version control
+client.check_out_partlist(partlist_id, check_out_note="Updating part list")
+client.check_in_partlist(partlist_id, check_in_note="Changes complete")
+client.undo_check_out_partlist(partlist_id)
+client.revise_partlist(partlist_id)
+
+# Bulk operations
+client.check_out_partlists_bulk([pl_id1, pl_id2], check_out_note="Bulk update")
+client.check_in_partlists_bulk([pl_id1, pl_id2], check_in_note="Bulk complete")
+client.revise_partlists_bulk([pl_id1, pl_id2])
+
+# Lifecycle state management
+client.set_partlist_state(partlist_id, "RELEASED")
+client.set_partlists_state_bulk([pl_id1, pl_id2], "RELEASED")
+
+# Update properties
+client.update_partlist_properties(partlist_id, updates=[
+    {"Name": "New Part List Name"}
+])
+client.update_partlist_item_properties(item_id, updates=[
+    {"Quantity": "10"}
+])
+```
+
+### ProjMgmt - Project Management
+
+```python
+from domains.ProjMgmt import ProjMgmtClient
+client = ProjMgmtClient(config_path="config.json")
+
+# Query Project Plans
+plans = client.get_project_plans(top=50)
+plan = client.get_project_plan_by_id(plan_id)
+plan = client.get_project_plan_by_name("Product Development 2026")
+
+# Get with expanded navigation
+plan = client.get_project_plan_by_id(plan_id, expand=[
+    "Activities",
+    "ImmediateChildren",
+    "Context"
+])
+
+# Query Activities
+activities = client.get_activities(top=50)
+activity = client.get_activity_by_id(activity_id)
+activities = client.get_activities_by_name("Design Review")
+activities = client.get_activities_by_plan_name("Product Development 2026")
+
+# Get specific types
+milestones = client.get_milestones(top=50)
+summaries = client.get_summary_activities(top=50)
+deliverables = client.get_deliverable_activities(top=50)
+
+# Navigation properties
+activities = client.get_activities_for_plan(plan_id)
+top_level = client.get_immediate_children(plan_id)
+children = client.get_activity_children(activity_id)
+owner = client.get_activity_owner(activity_id)
+deliverables = client.get_activity_deliverables(activity_id)
+
+# Create Project Plan
+plan = client.create_project_plan(
+    name="New Product Launch",
+    deadline="2026-12-31",
+    estimated_start="2026-06-01",
+    estimated_finish="2026-12-31"
+)
+
+# Create Activity
+activity = client.create_activity(
+    name="Phase 1: Design",
+    start_date="2026-05-01T00:00:00Z",
+    finish_date="2026-05-31T00:00:00Z",
+    summary=True
+)
+
+# Create Milestone
+milestone = client.create_activity(
+    name="Design Complete",
+    start_date="2026-05-31T00:00:00Z",
+    finish_date="2026-05-31T00:00:00Z",
+    milestone=True
+)
+
+# Add Activity to Plan
+client.add_activity_to_plan(plan_id, activity_id)
+
+# Create and add in one step
+activity = client.create_activity_in_plan(
+    plan_id=plan_id,
+    name="Testing Phase",
+    start_date="2026-06-01T00:00:00Z",
+    finish_date="2026-06-30T00:00:00Z"
+)
+
+# Update Activity
+client.update_activity(activity_id, percent_work_complete=75.0)
+client.update_activity(activity_id, status="IN_PROGRESS")
+
+# Update Project Plan
+client.update_project_plan(plan_id, percent_work_complete=50.0)
+```
+
+---
+
+## BOM Query (Uses Navigation)
+
+Since `GetBOM` may not be exposed, use the `Uses` navigation:
+
+```python
+# Method 1: Domain client
+bom = client.get_bom(part_id)
+
+# Method 2: Direct OData call
+uses = client.get_navigation("Parts", part_id, "Uses", expand=["Uses"])
+```
+
+---
+
+## File Structure
+
+```
+zephyr/
+├── SKILL.md              # This file (quick reference)
+├── config.example.json   # Configuration template
+├── scripts/
+│   ├── windchill_base.py         # Base client
+│   ├── windchill_odata_client.py # Comprehensive OData client
+│   ├── property_resolver.py      # Case-insensitive property resolution
+│   ├── output_formatter.py       # Output formatting
+│ └── domains/ # Domain-specific clients (USE THESE)
+│ ├── ProdMgmt/
+│ ├── DocMgmt/
+│ ├── ChangeMgmt/
+│ ├── CAPA/
+│ ├── DocumentControl/
+│ ├── ClfStructure/
+│ ├── DynamicDocMgmt/
+│ ├── EffectivityMgmt/
+│ ├── Factory/
+│ ├── NavCriteria/
+│ ├── NC/
+│ ├── ProdPlatformMgmt/
+│ ├── PartListMgmt/
+│ ├── ProjMgmt/
+│ └── ... (28 domains)
+└── references/ # Detailed documentation by domain
+ ├── ProdMgmt/
+ │ ├── ProdMgmt_REFERENCE.md
+ │ ├── ProdMgmt_Navigations.md
+ │ └── ProdMgmt_Entities.json
+ ├── ChangeMgmt/
+ ├── QMS/
+ ├── CAPA/
+ ├── DocumentControl/
+ ├── ClfStructure/
+ ├── DynamicDocMgmt/
+ ├── EffectivityMgmt/
+ ├── Factory/
+ ├── NavCriteria/
+ └── ... (24 domains)
+```
+
+---
 
 ## Reference Documentation
 
-See the `references/` directory for detailed documentation on each domain:
+For detailed usage, see `references/<Domain>/<Domain>_REFERENCE.md`:
 
-- **ProdMgmt**: Parts, BOMs, product structures
-- **DocMgmt**: Documents, attachments
-- **CADDocumentMgmt**: CAD documents, structures
-- **ChangeMgmt**: Change notices, requests, tasks
-- **SupplierMgmt**: Suppliers, sites, contacts
-- **MfgProcMgmt**: Process plans, operations
-- **Workflow**: Work items, activities
-- **QMS**: Quality actions, non-conformances, CAPA
-- **RegMstr**: Regulations, requirements, compliance
-- **DataAdmin**: Containers, folders
-- **PrincipalMgmt**: Users, groups, organizations
+| Domain | Reference File | Key Entities |
+|--------|----------------|--------------|
+| ProdMgmt | `references/ProdMgmt/ProdMgmt_REFERENCE.md` | Part, PartUse, BOM |
+| ChangeMgmt | `references/ChangeMgmt/ChangeMgmt_REFERENCE.md` | ChangeNotice, ChangeTask |
+| QMS | `references/QMS/QMS_REFERENCE.md` | CAPA, NCR, QualityAction |
+| DocMgmt | `references/DocMgmt/DocMgmt_REFERENCE.md` | Document, Attachment |
+| PTC | `references/PTC/PTC_REFERENCE.md` | Common types, OID format |
+| CAPA | `references/CAPA/CAPA_REFERENCE.md` | CAPA, CAPAActionPlan, Action |
+| DocumentControl | `references/DocumentControl/DocumentControl_REFERENCE.md` | ControlDocument, TrainingRecord |
+| ClfStructure | `references/ClfStructure/ClfStructure_REFERENCE.md` | ClfNode, ClassifiedObject |
+| DynamicDocMgmt | `references/DynamicDocMgmt/DynamicDocMgmt_REFERENCE.md` | DynamicDocument, BurstConfiguration |
+| EffectivityMgmt | `references/EffectivityMgmt/EffectivityMgmt_REFERENCE.md` | PartEffectivityContext, Effectivity |
+| Factory | `references/Factory/Factory_REFERENCE.md` | StandardOperation, StandardProcedure, StandardControlCharacteristic |
+| NavCriteria | `references/NavCriteria/NavCriteria_REFERENCE.md` | NavigationCriteria, CachedNavigationCriteria |
+| NC | `references/NC/NC_REFERENCE.md` | Nonconformance, AffectedObject, ImmediateAction |
+| ProdPlatformMgmt | `references/ProdPlatformMgmt/ProdPlatformMgmt_REFERENCE.md` | VariantSpecification, OptionSet, Option, Choice |
+| PartListMgmt | `references/PartListMgmt/PartListMgmt_REFERENCE.md` | PartList, PartListItem, Illustration, Substitute, Supplement |
+| ProjMgmt | `references/ProjMgmt/ProjMgmt_REFERENCE.md` | ProjectPlan, Activity |
+
+---
+
+## Configuration
+
+```json
+{
+  "odata_base_url": "https://windchill.example.com/Windchill/servlet/odata",
+  "auth_type": "basic",
+  "username": "your_username",
+  "password": "your_password"
+}
+```
+
+For OAuth 2.0:
+```json
+{
+  "odata_base_url": "https://windchill.example.com/Windchill/servlet/odata",
+  "auth_type": "oauth2",
+  "token_url": "https://auth.example.com/oauth2/token",
+  "client_id": "your_client_id",
+  "client_secret": "your_client_secret"
+}
+```
+
+---
+
+## Key Navigation Properties
+
+| Entity | Navigation | Purpose |
+|--------|------------|---------|
+| Part | `Uses` | BOM children |
+| Part | `UsedBy` | Parent assemblies |
+| Part | `Versions` | Version history |
+| Document | `Attachments` | File attachments |
+| ChangeNotice | `Tasks` | Change tasks |
+| ChangeNotice | `AffectedObjects` | Affected items |
+| CAPA | `Plan` | Action Plan |
+| CAPA | `PrimarySite` | Primary location |
+| CAPA | `AffectedObjects` | Affected items |
+| ClfNode | `Children` | Child classifications |
+| ClfNode | `ClassifiedObjects` | Objects in classification |
+| DynamicDocument | `Creator` | Document creator |
+| DynamicDocument | `Master` | Document master |
+| DynamicDocument | `Versions` | Version history |
+| DynamicDocument | `Attachments` | File attachments |
+| DynamicDocument | `Members` | Document members |
+| PartEffectivityContext | `Part` | Associated part |
+| PartEffectivityContext | `Effectivity` | Associated effectivity |
+| Effectivity | `PartEffectivity` | Part effectivity reference |
+| StandardOperation | `Folder` | Operation folder |
+| StandardOperation | `Master` | Operation master |
+| StandardOperation | `Versions` | Version history |
+| StandardOperation | `StandardProcedureUsages` | Procedure usages |
+| StandardControlCharacteristic | `Folder` | SCC folder |
+| StandardControlCharacteristic | `Master` | SCC master |
+| StandardControlCharacteristic | `ResourceUsages` | Resource usages |
+| StandardControlCharacteristic | `StandardProcedureUsages` | Procedure usages |
+| StandardProcedure | `Folder` | Procedure folder |
+| StandardProcedure | `Master` | Procedure master |
+| Resource | `Folder` | Resource folder |
+| Resource | `ResourceUsages` | Resource usages |
+
+---
+
+## Actions (39 total)
+
+See `references/PTC/actions.json` for full list. Common actions:
+
+**Unbound**: CreateAssociations, SetStateParts, ReviseParts, CheckOutParts
+
+**Bound**: CheckOut, CheckIn, UndoCheckOut, Revise, GetMultiLevelBOMRollup
+
+---
+
+## Deprecated Scripts
+
+**DO NOT USE** `scripts/old/` - Use domain clients instead:
+
+| Old Script | Use Instead |
+|------------|-------------|
+| query_parts.py | `ProdMgmtClient.get_parts()` |
+| query_change_notices.py | `ChangeMgmtClient.get_change_notices()` |
+| query_qms.py | `QMSClient.get_capas()` |
+| generic_query.py | `WindchillODataClient.query_entities()` |
+
+---
+
+## Troubleshooting
+
+| Error | Cause | Solution |
+|-------|-------|----------|
+| "Invalid domain request" | Double slash in URL | Check odata_base_url trailing slash |
+| "CSRF token missing" | POST without token | Get token from `/PTC/GetCSRFToken()` |
+| "$top not supported" | Single-entity navigation | Remove pagination params |
+| 7-8s response time | PTC demo server | Normal behavior, not a bug |

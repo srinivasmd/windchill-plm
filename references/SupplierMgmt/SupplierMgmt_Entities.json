@@ -1,0 +1,76 @@
+{
+  "domain": "SupplierMgmt",
+  "entities": {
+    "Manufacturers": {
+      "name": "Manufacturers",
+      "base_type": "PTC.SupplierMgmt.Suppliers",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "SourcingContext": {
+      "name": "SourcingContext",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        }
+      }
+    },
+    "Suppliers": {
+      "name": "Suppliers",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        }
+      }
+    },
+    "Vendors": {
+      "name": "Vendors",
+      "base_type": "PTC.SupplierMgmt.Suppliers",
+      "properties": {},
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "Manufacturers",
+      "entity_type": "PTC.SupplierMgmt.Manufacturers"
+    },
+    {
+      "name": "Suppliers",
+      "entity_type": "PTC.SupplierMgmt.Suppliers"
+    },
+    {
+      "name": "Vendors",
+      "entity_type": "PTC.SupplierMgmt.Vendors"
+    },
+    {
+      "name": "SourcingContexts",
+      "entity_type": "PTC.SupplierMgmt.SourcingContext"
+    }
+  ],
+  "actions": []
+}

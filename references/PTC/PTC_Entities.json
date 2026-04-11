@@ -1,0 +1,291 @@
+{
+  "domain": "PTC",
+  "entities": {
+    "ApplicationData": {
+      "name": "ApplicationData",
+      "base_type": "PTC.ContentItem",
+      "properties": {
+        "Content": {
+          "type": "PTC.Hyperlink",
+          "nullable": true
+        },
+        "FileName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FileSize": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "Format": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MimeType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Role": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ExternalStoredData": {
+      "name": "ExternalStoredData",
+      "base_type": "PTC.ContentItem",
+      "properties": {
+        "DisplayName": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "ExternalLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ContentItem": {
+      "name": "ContentItem",
+      "base_type": "",
+      "properties": {
+        "Category": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FormatIcon": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Creator": {
+          "type": "PTC.UserRef",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.UserRef",
+          "partner": ""
+        }
+      }
+    },
+    "URLData": {
+      "name": "URLData",
+      "base_type": "PTC.ContentItem",
+      "properties": {
+        "DisplayName": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "UrlLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "WindchillEntity": {
+      "name": "WindchillEntity",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ObjectReferenceable": {
+      "name": "ObjectReferenceable",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "UserRef": {
+      "name": "UserRef",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "DistinguishedName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "EMail": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FullName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MobilePhoneNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Status": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "UserDomain": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ContentInfo": {
+      "name": "ContentInfo",
+      "base_type": "",
+      "properties": {
+        "StreamId": {
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        "FileSize": {
+          "type": "Edm.Int32",
+          "nullable": true
+        },
+        "EncodedInfo": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FileName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MimeType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PrimaryContent": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Category": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Role": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "CacheDescriptor": {
+      "name": "CacheDescriptor",
+      "base_type": "",
+      "properties": {
+        "FileNames": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "FolderId": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterUrl": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReplicaUrl": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "StreamIds": {
+          "type": "Collection(Edm.Int64)",
+          "nullable": true
+        },
+        "VaultId": {
+          "type": "Edm.Int64",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [],
+  "actions": [
+    {
+      "name": "DownloadContentAsZip",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DownloadContentInfos",
+          "type": "Collection(PTC.DownloadContentInfo)"
+        }
+      ],
+      "return_type": "Edm.Stream"
+    }
+  ]
+}

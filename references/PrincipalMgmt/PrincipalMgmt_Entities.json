@@ -1,0 +1,200 @@
+{
+  "domain": "PrincipalMgmt",
+  "entities": {
+    "Principal": {
+      "name": "Principal",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "DistinguishedName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Status": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Organization": {
+      "name": "Organization",
+      "base_type": "PTC.PrincipalMgmt.Group",
+      "properties": {
+        "BusinessClassification": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ConferencingID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ConferencingURL": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "InternetDomain": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationID": {
+          "type": "PTC.PrincipalMgmt.OrgId",
+          "nullable": true
+        },
+        "PostalAddress": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WebSite": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Group": {
+      "name": "Group",
+      "base_type": "PTC.PrincipalMgmt.Principal",
+      "properties": {
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DomainName": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Users": {
+          "type": "Collection(PTC.PrincipalMgmt.User)",
+          "partner": ""
+        }
+      }
+    },
+    "User": {
+      "name": "User",
+      "base_type": "PTC.PrincipalMgmt.Principal",
+      "properties": {
+        "AllowLDAPSynchronization": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "AlternateUserName1": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AlternateUserName2": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AlternateUserName3": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AlternateUserName4": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "EMail": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FaxNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FullName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MobilePhoneNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PersonalCabinetDomain": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PostalAddress": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PrincipalType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "TelephoneNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UserDomain": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UserPreferredLanguage": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WebSite": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Groups": {
+          "type": "Collection(PTC.PrincipalMgmt.Group)",
+          "partner": ""
+        },
+        "LicenseGroups": {
+          "type": "Collection(PTC.PrincipalMgmt.LicenseGroup)",
+          "partner": ""
+        }
+      }
+    },
+    "LicenseGroup": {
+      "name": "LicenseGroup",
+      "base_type": "PTC.PrincipalMgmt.Group",
+      "properties": {},
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "Groups",
+      "entity_type": "PTC.PrincipalMgmt.Group"
+    },
+    {
+      "name": "Users",
+      "entity_type": "PTC.PrincipalMgmt.User"
+    },
+    {
+      "name": "Principals",
+      "entity_type": "PTC.PrincipalMgmt.Principal"
+    },
+    {
+      "name": "LicenseGroups",
+      "entity_type": "PTC.PrincipalMgmt.LicenseGroup"
+    }
+  ],
+  "actions": []
+}

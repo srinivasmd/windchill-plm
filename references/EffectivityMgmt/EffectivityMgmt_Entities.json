@@ -1,0 +1,354 @@
+{
+  "domain": "EffectivityMgmt",
+  "namespace": "PTC.EffectivityMgmt",
+  "generated": "2026-04-10T21:45:51.777210",
+  "source": "EffectivityMgmt_Metadata.xml",
+  "entities": {
+    "PartEffectivityContext": {
+      "name": "PartEffectivityContext",
+      "namespace": "PTC.EffectivityMgmt",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "AltReplacementType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ConfigurableModule": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        },
+        "DefaultTraceCode": {
+          "type": "PTC.EnumType",
+          "nullable": false,
+          "annotations": []
+        },
+        "DefaultUnit": {
+          "type": "PTC.EnumType",
+          "nullable": false,
+          "annotations": []
+        },
+        "EndItem": {
+          "type": "Edm.Boolean",
+          "nullable": false,
+          "annotations": []
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false,
+          "annotations": []
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonSortable",
+            "PTC.NonFilterable"
+          ]
+        },
+        "SubReplacementType": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "TypeIcon": {
+          "type": "PTC.Icon",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly",
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": "",
+          "contains_target": false
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "SerialNumberEffectivity": {
+      "name": "SerialNumberEffectivity",
+      "namespace": "PTC.EffectivityMgmt",
+      "base_type": "PTC.EffectivityMgmt.UnitEffectivity",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "BlockEffectivity": {
+      "name": "BlockEffectivity",
+      "namespace": "PTC.EffectivityMgmt",
+      "base_type": "PTC.EffectivityMgmt.UnitEffectivity",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "DateEffectivity": {
+      "name": "DateEffectivity",
+      "namespace": "PTC.EffectivityMgmt",
+      "base_type": "PTC.EffectivityMgmt.Effectivity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "DateRange": {
+          "type": "PTC.EffectivityMgmt.DateRange",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {}
+    },
+    "EffectivityManagedEntity": {
+      "name": "EffectivityManagedEntity",
+      "namespace": "PTC.EffectivityMgmt",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.ReadOnly"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "Effectivities": {
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)",
+          "partner": "",
+          "contains_target": true
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "MSNEffectivity": {
+      "name": "MSNEffectivity",
+      "namespace": "PTC.EffectivityMgmt",
+      "base_type": "PTC.EffectivityMgmt.UnitEffectivity",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "UnitEffectivity": {
+      "name": "UnitEffectivity",
+      "namespace": "PTC.EffectivityMgmt",
+      "base_type": "PTC.EffectivityMgmt.Effectivity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "UnitRange": {
+          "type": "PTC.EffectivityMgmt.UnitRange",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Effectivity": {
+      "name": "Effectivity",
+      "namespace": "PTC.EffectivityMgmt",
+      "base_type": "PTC.WindchillEntity",
+      "abstract": false,
+      "key": [],
+      "properties": {
+        "EffectivityQualifier": {
+          "type": "PTC.EnumType",
+          "nullable": true,
+          "annotations": []
+        }
+      },
+      "navigation_properties": {
+        "EffectivityContext": {
+          "type": "PTC.EffectivityMgmt.PartEffectivityContext",
+          "partner": "",
+          "contains_target": false
+        }
+      }
+    },
+    "LotEffectivity": {
+      "name": "LotEffectivity",
+      "namespace": "PTC.EffectivityMgmt",
+      "base_type": "PTC.EffectivityMgmt.UnitEffectivity",
+      "abstract": false,
+      "key": [],
+      "properties": {},
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "namespace": "PTC.EffectivityMgmt",
+      "name": "PartEffectivityContexts",
+      "entity_type": "PTC.EffectivityMgmt.PartEffectivityContext"
+    }
+  ],
+  "actions": [
+    {
+      "namespace": "PTC.EffectivityMgmt",
+      "name": "GetEffectivities",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "EffectivityManagables",
+          "type": "Collection(PTC.EffectivityMgmt.EffectivityManagedEntity)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.EffectivityMgmt.EffectivityManagedListItem)"
+    },
+    {
+      "namespace": "PTC.EffectivityMgmt",
+      "name": "SetEffectivities",
+      "is_bound": false,
+      "entity_set_path": "",
+      "parameters": [
+        {
+          "name": "EffectivityManaged",
+          "type": "Collection(PTC.EffectivityMgmt.EffectivityManagedEntity)",
+          "nullable": false
+        },
+        {
+          "name": "Effectivities",
+          "type": "Collection(PTC.EffectivityMgmt.Effectivity)",
+          "nullable": false
+        }
+      ],
+      "return_type": "Collection(PTC.EffectivityMgmt.EffectivityManagedListItem)"
+    }
+  ],
+  "complex_types": [
+    {
+      "namespace": "PTC.EffectivityMgmt",
+      "name": "DateRange",
+      "properties": [
+        {
+          "name": "StartDate",
+          "type": "Edm.DateTimeOffset"
+        },
+        {
+          "name": "EndDate",
+          "type": "Edm.DateTimeOffset"
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.EffectivityMgmt",
+      "name": "UnitRange",
+      "properties": [
+        {
+          "name": "RangeStart",
+          "type": "Edm.String"
+        },
+        {
+          "name": "RangeEnd",
+          "type": "Edm.String"
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.EffectivityMgmt",
+      "name": "EffectivityManagedListItem",
+      "properties": [
+        {
+          "name": "EffectivityManagedId",
+          "type": "Edm.String"
+        }
+      ]
+    }
+  ],
+  "enumerations": []
+}

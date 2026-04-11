@@ -1,0 +1,262 @@
+{
+  "domain": "CEM",
+  "entities": {
+    "CustomerExperience": {
+      "name": "CustomerExperience",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AdditionalInformation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Circumstance": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "CountryOfEvent": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "CountryOfOrigin": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Date": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "DateApproximate": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "EventLocation": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "HowReported": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PrimaryCode": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PrimaryCodePath": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Summary": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "PTC.Icon",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "AdditionalRelatedProducts": {
+          "type": "Collection(PTC.CEM.RelatedProduct)",
+          "partner": ""
+        },
+        "PrimaryRelatedProduct": {
+          "type": "PTC.CEM.RelatedProduct",
+          "partner": ""
+        },
+        "EntryLocation": {
+          "type": "PTC.QMS.Place",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "PrimaryRelatedPersonOrLocation": {
+          "type": "PTC.QMS.QualityContact",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "AdditionalRelatedPersonnelOrLocations": {
+          "type": "Collection(PTC.QMS.QualityContact)",
+          "partner": ""
+        }
+      }
+    },
+    "RelatedProduct": {
+      "name": "RelatedProduct",
+      "base_type": "",
+      "properties": {
+        "ActualOrSample": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "DateReturnExpected": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ExpectedReturn": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "LetterRequested": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OtherLotBatchNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Primary": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": false
+        },
+        "ReportedName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReportedNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReturnAuthorizationNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SerialLotNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UniqueIdentifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "UnitOfMeasure": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "WarrantyType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Subject": {
+          "type": "PTC.QMS.Subject",
+          "partner": ""
+        },
+        "ManufacturingLocation": {
+          "type": "PTC.QMS.Place",
+          "partner": ""
+        }
+      }
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "CustomerExperiences",
+      "entity_type": "PTC.CEM.CustomerExperience"
+    }
+  ],
+  "actions": [
+    {
+      "name": "SetStateCustomerExperiences",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CustomerExperiences",
+          "type": "Collection(PTC.CEM.CustomerExperience)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.CEM.CustomerExperience)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.CEM.CustomerExperience"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.CEM.CustomerExperience"
+    },
+    {
+      "name": "EditCustomerExperiencesSecurityLabels",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "CustomerExperiences",
+          "type": "Collection(PTC.CEM.CustomerExperience)"
+        }
+      ],
+      "return_type": "Collection(PTC.CEM.CustomerExperience)"
+    }
+  ]
+}

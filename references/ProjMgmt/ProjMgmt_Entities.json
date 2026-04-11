@@ -1,0 +1,242 @@
+{
+  "namespace": "PTC.ProjMgmt",
+  "entities": {
+    "Activity": {
+      "base_type": "",
+      "properties": {
+        "ActualFinishDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ActualStartDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "read_only": true
+        },
+        "Deadline": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Deliverable": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "read_only": true
+        },
+        "FinishDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "read_only": true
+        },
+        "IncludeInDHF": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "non_filterable": true,
+          "non_sortable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "read_only": true
+        },
+        "LineNumber": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "Milestone": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "read_only": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PercentWorkComplete": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "PlanName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RolledUpCost": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "StartDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Status": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "StatusDescription": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Summary": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "TotalCost": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "Deliverables": {
+          "type": "Collection(PTC.WindchillEntity)",
+          "nullable": true
+        },
+        "Children": {
+          "type": "Collection(PTC.ProjMgmt.Activity)",
+          "nullable": true
+        },
+        "ActivityOwner": {
+          "type": "PTC.PrincipalMgmt.User",
+          "nullable": true
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ProjectPlan": {
+      "base_type": "",
+      "properties": {
+        "ActualFinish": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ActualStart": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Cost": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "read_only": true
+        },
+        "Deadline": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Duration": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "Effort": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "EstimatedFinish": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "EstimatedStart": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FixedCost": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "read_only": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true,
+          "read_only": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PercentWorkComplete": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "RemainingEffort": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "Risk": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "RolledUpCost": {
+          "type": "Edm.Double",
+          "nullable": true,
+          "read_only": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Status": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Activities": {
+          "type": "Collection(PTC.ProjMgmt.Activity)",
+          "nullable": true
+        },
+        "ImmediateChildren": {
+          "type": "Collection(PTC.ProjMgmt.Activity)",
+          "nullable": true
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "ProjectPlans",
+      "entity_type": "PTC.ProjMgmt.ProjectPlan"
+    },
+    {
+      "name": "Activities",
+      "entity_type": "PTC.ProjMgmt.Activity"
+    }
+  ],
+  "actions": [
+    {
+      "name": "AddToPlan",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ProjectPlan",
+          "type": "PTC.ProjMgmt.ProjectPlan",
+          "nullable": false
+        },
+        {
+          "name": "Activity",
+          "type": "PTC.ProjMgmt.Activity",
+          "nullable": false
+        }
+      ],
+      "return_type": "PTC.ProjMgmt.ProjectPlan"
+    }
+  ],
+  "complex_types": []
+}

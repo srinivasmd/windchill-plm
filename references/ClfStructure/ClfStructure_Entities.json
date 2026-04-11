@@ -1,0 +1,221 @@
+{
+  "domain": "ClfStructure",
+  "namespace": "PTC.ClfStructure",
+  "generated": "2026-04-10T21:17:00.648280",
+  "source": "ClfStructure_Metadata.xml",
+  "entities": {
+    "ClfNode": {
+      "name": "ClfNode",
+      "namespace": "PTC.ClfStructure",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "DisplayName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "InternalName": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "HierarchicalPath": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Keywords": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Instantiable": {
+          "type": "Edm.Boolean",
+          "nullable": true,
+          "annotations": []
+        },
+        "Image": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "ClfNodeAttributes": {
+          "type": "Collection(PTC.ClfStructure.ClfAttributeType)",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {
+        "ChildNodes": {
+          "type": "Collection(PTC.ClfStructure.ClfNode)",
+          "partner": "",
+          "contains_target": false
+        },
+        "ParentNode": {
+          "type": "PTC.ClfStructure.ClfNode",
+          "partner": "",
+          "contains_target": false
+        },
+        "ClassifiedObjects": {
+          "type": "Collection(PTC.ClfStructure.ClassifiedObject)",
+          "partner": "",
+          "contains_target": true
+        }
+      }
+    },
+    "ClassifiedObject": {
+      "name": "ClassifiedObject",
+      "namespace": "PTC.ClfStructure",
+      "base_type": "",
+      "abstract": false,
+      "key": [
+        "ID"
+      ],
+      "properties": {
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": []
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "ClfBindingAttributeAndNodeValues": {
+          "type": "Collection(PTC.ClfStructure.ClassificationBindingAttributeValueType)",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonFilterable",
+            "PTC.NonSortable"
+          ]
+        },
+        "ClassificationAttributes": {
+          "type": "Collection(PTC.ClfStructure.ClassificationAttributeValueType)",
+          "nullable": true,
+          "annotations": [
+            "PTC.NonSortable"
+          ]
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "namespace": "PTC.ClfStructure",
+      "name": "ClfNodes",
+      "entity_type": "PTC.ClfStructure.ClfNode"
+    }
+  ],
+  "actions": [],
+  "complex_types": [
+    {
+      "namespace": "PTC.ClfStructure",
+      "name": "ClfAttributeType",
+      "properties": [
+        {
+          "name": "DisplayName",
+          "type": "Edm.String"
+        },
+        {
+          "name": "InternalName",
+          "type": "Edm.String"
+        },
+        {
+          "name": "DefaultValues",
+          "type": "Collection(Edm.String)"
+        },
+        {
+          "name": "Type",
+          "type": "Edm.String"
+        },
+        {
+          "name": "QuantityOfMeasure",
+          "type": "Edm.String"
+        },
+        {
+          "name": "Unit",
+          "type": "Edm.String"
+        },
+        {
+          "name": "Required",
+          "type": "Edm.Boolean"
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.ClfStructure",
+      "name": "ClassificationAttributeValueType",
+      "properties": [
+        {
+          "name": "DisplayName",
+          "type": "Edm.String"
+        },
+        {
+          "name": "InternalName",
+          "type": "Edm.String"
+        },
+        {
+          "name": "Type",
+          "type": "Edm.String"
+        },
+        {
+          "name": "Value",
+          "type": "Edm.String"
+        },
+        {
+          "name": "DisplayValue",
+          "type": "Edm.String"
+        }
+      ]
+    },
+    {
+      "namespace": "PTC.ClfStructure",
+      "name": "ClassificationBindingAttributeValueType",
+      "properties": [
+        {
+          "name": "clfBindingAttributeDisplayName",
+          "type": "Edm.String"
+        },
+        {
+          "name": "clfBindingAttributeInternalName",
+          "type": "Edm.String"
+        },
+        {
+          "name": "clfNodeID",
+          "type": "Edm.String"
+        },
+        {
+          "name": "clfNodeDisplayName",
+          "type": "Edm.String"
+        },
+        {
+          "name": "clfNodeInternalName",
+          "type": "Edm.String"
+        }
+      ]
+    }
+  ],
+  "enums": []
+}

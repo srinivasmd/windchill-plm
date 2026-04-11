@@ -1,0 +1,1293 @@
+{
+  "domain": "DocMgmt",
+  "entities": {
+    "SupportingDocument": {
+      "name": "SupportingDocument",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Method": {
+      "name": "Method",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "GarrettTRL": {
+      "name": "GarrettTRL",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {
+        "ComPtcGarrettProject": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "SoftwareConfigurationData": {
+      "name": "SoftwareConfigurationData",
+      "base_type": "PTC.DocMgmt.SoftwareDocument",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "WorkRecord": {
+      "name": "WorkRecord",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {
+        "Applicable_Departments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Applicable_Roles": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Business_Owner": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Computer_System_Identifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DHFCategory": {
+          "type": "Collection(PTC.EnumType)",
+          "nullable": true
+        },
+        "Date_Obsolete": {
+          "type": "Edm.Date",
+          "nullable": true
+        },
+        "DocumentClassification": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Effective_Date": {
+          "type": "Collection(Edm.Date)",
+          "nullable": true
+        },
+        "Equipment_Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Equipment_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Expiration_Date": {
+          "type": "Edm.Date",
+          "nullable": true
+        },
+        "Facility_Site": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Language": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Last_Periodic_Review_Date": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Legacy_Document_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Legacy_Document_Source": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Manufacturer": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Manufacturing_Process": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Next_Periodic_Review_Date": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Product_Family": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Product_Line": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Product_Model": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Quality_System_Reference_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Reason_for_Withdrawal": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Training_Required": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Translated_Document_Name": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "SupplierQuality": {
+      "name": "SupplierQuality",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ControlledDocument": {
+      "name": "ControlledDocument",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {
+        "Applicable_Departments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Applicable_Roles": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Business_Owner": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Computer_System_Identifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DHFCategory": {
+          "type": "Collection(PTC.EnumType)",
+          "nullable": true
+        },
+        "Date_Obsolete": {
+          "type": "Edm.Date",
+          "nullable": true
+        },
+        "DocumentClassification": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Effective_Date": {
+          "type": "Edm.Date",
+          "nullable": true
+        },
+        "Equipment_Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Equipment_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Expiration_Date": {
+          "type": "Edm.Date",
+          "nullable": true
+        },
+        "Facility_Site": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Language": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Last_Periodic_Review_Date": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Legacy_Document_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Legacy_Document_Source": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LinkToTraining": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Manufacturer": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Manufacturing_Process": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Next_Periodic_Review_Date": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Product_Family": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Product_Line": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Product_Model": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Quality_System_Reference_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Reason_for_Withdrawal": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TrainingDeadline": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TrainingInterval": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "TrainingIntervalLeadTime": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "TrainingOnRelease": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Training_Required": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Translated_Document_Name": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "DocumentUsageLink": {
+      "name": "DocumentUsageLink",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "StructureOrder": {
+          "type": "Edm.Int64",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "DocUsedBy": {
+          "type": "PTC.DocMgmt.Document",
+          "partner": ""
+        },
+        "DocUses": {
+          "type": "PTC.DocMgmt.Document",
+          "partner": ""
+        }
+      }
+    },
+    "ApprovedRecord": {
+      "name": "ApprovedRecord",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {
+        "Applicable_Departments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Applicable_Roles": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Business_Owner": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Computer_System_Identifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DHFCategory": {
+          "type": "Collection(PTC.EnumType)",
+          "nullable": true
+        },
+        "Date_Obsolete": {
+          "type": "Edm.Date",
+          "nullable": true
+        },
+        "DocumentClassification": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Effective_Date": {
+          "type": "Edm.Date",
+          "nullable": true
+        },
+        "Equipment_Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Equipment_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Expiration_Date": {
+          "type": "Edm.Date",
+          "nullable": true
+        },
+        "Facility_Site": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Language": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Last_Periodic_Review_Date": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Legacy_Document_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Legacy_Document_Source": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Manufacturer": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Manufacturing_Process": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Next_Periodic_Review_Date": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Product_Family": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Product_Line": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Product_Model": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Quality_System_Reference_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Reason_for_Withdrawal": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Training_Required": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Translated_Document_Name": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "PackagingAndLabeling": {
+      "name": "PackagingAndLabeling",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ContentInfo": {
+      "name": "ContentInfo",
+      "base_type": "",
+      "properties": {
+        "StreamId": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "FileSize": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "EncodedInfo": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FileName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MimeType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PrimaryContent": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Audit": {
+      "name": "Audit",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "DocumentUse": {
+      "name": "DocumentUse",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "StructureOrder": {
+          "type": "Edm.Int64",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Document": {
+      "name": "Document",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ChangeStatus": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Classification": {
+          "type": "PTC.ClassificationInfo",
+          "nullable": true
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DocTypeName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "GeneralStatus": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ShareStatus": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Title": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "USE_GOOGLE_EDITOR": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "DocUsageLinks": {
+          "type": "Collection(PTC.DocMgmt.DocumentUsageLink)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        },
+        "ReferencedByEngMatCatalogReferenceLink": {
+          "type": "Collection(PTC.ConfigurableLinks.EngMatCatalogReferenceLink)",
+          "partner": ""
+        },
+        "PrimaryContent": {
+          "type": "PTC.ContentItem",
+          "partner": ""
+        },
+        "Thumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.DocMgmt.Document)",
+          "partner": ""
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.DocMgmt.Document)",
+          "partner": ""
+        },
+        "DescribesEngMatCatalogDescribeLink": {
+          "type": "Collection(PTC.ConfigurableLinks.EngMatCatalogDescribeLink)",
+          "partner": ""
+        },
+        "Representations": {
+          "type": "Collection(PTC.Visualization.Representation)",
+          "partner": ""
+        },
+        "SmallThumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "General": {
+      "name": "General",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "MasterManufacturingRecord": {
+      "name": "MasterManufacturingRecord",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Equipment": {
+      "name": "Equipment",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "MaterialRecordsAndCertificates": {
+      "name": "MaterialRecordsAndCertificates",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Quality": {
+      "name": "Quality",
+      "base_type": "PTC.DocMgmt.ControlledDocument",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Agenda": {
+      "name": "Agenda",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "DocStructure": {
+      "name": "DocStructure",
+      "base_type": "",
+      "properties": {
+        "DocumentID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DocumentUseID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "HasChildren": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "HasUnresolvedObjectsByAccessRights": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "TreeId": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Document": {
+          "type": "PTC.DocMgmt.Document",
+          "partner": ""
+        },
+        "DocumentUse": {
+          "type": "PTC.DocMgmt.DocumentUse",
+          "partner": ""
+        },
+        "Structure": {
+          "type": "Collection(PTC.DocMgmt.DocStructure)",
+          "partner": ""
+        }
+      }
+    },
+    "Specification": {
+      "name": "Specification",
+      "base_type": "PTC.DocMgmt.ApprovedRecord",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "TestDocument": {
+      "name": "TestDocument",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ReferenceDocument": {
+      "name": "ReferenceDocument",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "SoftwareDocument": {
+      "name": "SoftwareDocument",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "InterCommData": {
+      "name": "InterCommData",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Record": {
+      "name": "Record",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {
+        "Applicable_Departments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Applicable_Roles": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Business_Owner": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Computer_System_Identifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DHFCategory": {
+          "type": "Collection(PTC.EnumType)",
+          "nullable": true
+        },
+        "Date_Obsolete": {
+          "type": "Edm.Date",
+          "nullable": true
+        },
+        "DocumentClassification": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Effective_Date": {
+          "type": "Collection(Edm.Date)",
+          "nullable": true
+        },
+        "Equipment_Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Equipment_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Expiration_Date": {
+          "type": "Edm.Date",
+          "nullable": true
+        },
+        "Facility_Site": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Language": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Last_Periodic_Review_Date": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Legacy_Document_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Legacy_Document_Source": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Manufacturer": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Manufacturing_Process": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Next_Periodic_Review_Date": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Product_Family": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Product_Line": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Product_Model": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Quality_System_Reference_Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Reason_for_Withdrawal": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Training_Required": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Translated_Document_Name": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "GovernanceDocument": {
+      "name": "GovernanceDocument",
+      "base_type": "PTC.DocMgmt.ControlledDocument",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Training": {
+      "name": "Training",
+      "base_type": "PTC.DocMgmt.ApprovedRecord",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Presentation": {
+      "name": "Presentation",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ProductRecordsAndCertificates": {
+      "name": "ProductRecordsAndCertificates",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "SoftwareBuild": {
+      "name": "SoftwareBuild",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {
+        "ComPtcIesAdapterName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ComPtcIesBuildDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ComPtcIesBuildDescription": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ComPtcIesBuildLabel": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ComPtcIesBuildStatus": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ComPtcIesBuildVersion": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ComPtcIesFileActivity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ComPtcIesLinesOfCode": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ComPtcIesRevisionHolder": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ComPtcIesSourceCodeArea": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Msds": {
+      "name": "Msds",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "PublishedContent": {
+      "name": "PublishedContent",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Minutes": {
+      "name": "Minutes",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "WorkInstruction": {
+      "name": "WorkInstruction",
+      "base_type": "PTC.DocMgmt.ControlledDocument",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "QMSDocument": {
+      "name": "QMSDocument",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Manual": {
+      "name": "Manual",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "QualityProductReport": {
+      "name": "QualityProductReport",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "TranslationDocument": {
+      "name": "TranslationDocument",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Plan": {
+      "name": "Plan",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "StandardOperatingProcedure": {
+      "name": "StandardOperatingProcedure",
+      "base_type": "PTC.DocMgmt.ControlledDocument",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "FacilityRecordsAndCertificates": {
+      "name": "FacilityRecordsAndCertificates",
+      "base_type": "PTC.DocMgmt.Record",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "WorkRequest": {
+      "name": "WorkRequest",
+      "base_type": "PTC.DocMgmt.WorkRecord",
+      "properties": {},
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "Documents",
+      "entity_type": "PTC.DocMgmt.Document"
+    }
+  ],
+  "actions": [
+    {
+      "name": "GetDocStructure",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Document",
+          "type": "PTC.DocMgmt.Document"
+        }
+      ],
+      "return_type": "PTC.DocMgmt.DocStructure"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Document",
+          "type": "PTC.DocMgmt.Document"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Document",
+          "type": "PTC.DocMgmt.Document"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.DocMgmt.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.DocMgmt.Document"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.DocMgmt.Document"
+    },
+    {
+      "name": "ReviseDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Documents",
+          "type": "Collection(PTC.DocMgmt.Document)"
+        }
+      ],
+      "return_type": "Collection(PTC.DocMgmt.Document)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.DocMgmt.Document"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.DocMgmt.Document"
+    },
+    {
+      "name": "SetStateDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Documents",
+          "type": "Collection(PTC.DocMgmt.Document)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.DocMgmt.Document)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.DocMgmt.Document"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.DocMgmt.Document"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.DocMgmt.Document"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.DocMgmt.Document"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.DocMgmt.Document"
+        }
+      ],
+      "return_type": "PTC.DocMgmt.Document"
+    },
+    {
+      "name": "CheckOutDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.DocMgmt.Document)"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.DocMgmt.Document)"
+    },
+    {
+      "name": "CheckInDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.DocMgmt.Document)"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.DocMgmt.Document)"
+    },
+    {
+      "name": "UndoCheckOutDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Workables",
+          "type": "Collection(PTC.DocMgmt.Document)"
+        }
+      ],
+      "return_type": "Collection(PTC.DocMgmt.Document)"
+    },
+    {
+      "name": "EditDocumentsSecurityLabels",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Documents",
+          "type": "Collection(PTC.DocMgmt.Document)"
+        }
+      ],
+      "return_type": "Collection(PTC.DocMgmt.Document)"
+    },
+    {
+      "name": "UpdateCommonProperties",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Document",
+          "type": "PTC.DocMgmt.Document"
+        },
+        {
+          "name": "Updates",
+          "type": "PTC.DocMgmt.Document"
+        }
+      ],
+      "return_type": "PTC.DocMgmt.Document"
+    },
+    {
+      "name": "DeleteDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Documents",
+          "type": "Collection(PTC.DocMgmt.Document)"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "CreateDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Documents",
+          "type": "Collection(PTC.DocMgmt.Document)"
+        }
+      ],
+      "return_type": "Collection(PTC.DocMgmt.Document)"
+    },
+    {
+      "name": "UpdateDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Documents",
+          "type": "Collection(PTC.DocMgmt.Document)"
+        }
+      ],
+      "return_type": "Collection(PTC.DocMgmt.Document)"
+    }
+  ]
+}

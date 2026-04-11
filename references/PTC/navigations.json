@@ -1,0 +1,490 @@
+{
+  "$schema": "odata-navigations",
+  "namespace": "PTC.ProdMgmt",
+  "description": "Navigation properties for quick lookup",
+  "navigations": {
+    "PartContent.Part": {
+      "source_entity": "PartContent",
+      "navigation_name": "Part",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartContents('{id}')/Part"
+    },
+    "PartContent.Creator": {
+      "source_entity": "PartContent",
+      "navigation_name": "Creator",
+      "target_entity": "User",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartContents('{id}')/Creator"
+    },
+    "PartContent.Modifier": {
+      "source_entity": "PartContent",
+      "navigation_name": "Modifier",
+      "target_entity": "User",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartContents('{id}')/Modifier"
+    },
+    "PartUse.Uses": {
+      "source_entity": "PartUse",
+      "navigation_name": "Uses",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartUses('{id}')/Uses"
+    },
+    "PartUse.UsedBy": {
+      "source_entity": "PartUse",
+      "navigation_name": "UsedBy",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartUses('{id}')/UsedBy"
+    },
+    "PartUse.Occurrences": {
+      "source_entity": "PartUse",
+      "navigation_name": "Occurrences",
+      "target_entity": "UsageOccurrence",
+      "is_collection": true,
+      "example_url": "ProdMgmt/PartUses('{id}')/Occurrences"
+    },
+    "PartDescribeLink.Describes": {
+      "source_entity": "PartDescribeLink",
+      "navigation_name": "Describes",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartDescribeLinks('{id}')/Describes"
+    },
+    "PartDescribeLink.DescribedBy": {
+      "source_entity": "PartDescribeLink",
+      "navigation_name": "DescribedBy",
+      "target_entity": "Document",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartDescribeLinks('{id}')/DescribedBy"
+    },
+    "PartReferenceLink.ReferencedBy": {
+      "source_entity": "PartReferenceLink",
+      "navigation_name": "ReferencedBy",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartReferenceLinks('{id}')/ReferencedBy"
+    },
+    "PartReferenceLink.References": {
+      "source_entity": "PartReferenceLink",
+      "navigation_name": "References",
+      "target_entity": "Document",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartReferenceLinks('{id}')/References"
+    },
+    "Baselineable.Context": {
+      "source_entity": "Baselineable",
+      "navigation_name": "Context",
+      "target_entity": "Container",
+      "is_collection": false,
+      "example_url": "ProdMgmt/Baselineables('{id}')/Context"
+    },
+    "Baselineable.Creator": {
+      "source_entity": "Baselineable",
+      "navigation_name": "Creator",
+      "target_entity": "User",
+      "is_collection": false,
+      "example_url": "ProdMgmt/Baselineables('{id}')/Creator"
+    },
+    "Baselineable.Modifier": {
+      "source_entity": "Baselineable",
+      "navigation_name": "Modifier",
+      "target_entity": "User",
+      "is_collection": false,
+      "example_url": "ProdMgmt/Baselineables('{id}')/Modifier"
+    },
+    "ManufacturerPart.OEMParts": {
+      "source_entity": "ManufacturerPart",
+      "navigation_name": "OEMParts",
+      "target_entity": "Part",
+      "is_collection": true,
+      "example_url": "ProdMgmt/ManufacturerParts('{id}')/OEMParts"
+    },
+    "Part.Uses": {
+      "source_entity": "Part",
+      "navigation_name": "Uses",
+      "target_entity": "PartUse",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/Uses"
+    },
+    "Part.UsedBy": {
+      "source_entity": "Part",
+      "navigation_name": "UsedBy",
+      "target_entity": "Part",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/UsedBy"
+    },
+    "Part.DescribedBy": {
+      "source_entity": "Part",
+      "navigation_name": "DescribedBy",
+      "target_entity": "PartDescribeLink",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/DescribedBy"
+    },
+    "Part.References": {
+      "source_entity": "Part",
+      "navigation_name": "References",
+      "target_entity": "PartReferenceLink",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/References"
+    },
+    "Part.Alternates": {
+      "source_entity": "Part",
+      "navigation_name": "Alternates",
+      "target_entity": "PartAlternateLink",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/Alternates"
+    },
+    "Part.Substitutes": {
+      "source_entity": "Part",
+      "navigation_name": "Substitutes",
+      "target_entity": "PartSubstituteLink",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/Substitutes"
+    },
+    "Part.Context": {
+      "source_entity": "Part",
+      "navigation_name": "Context",
+      "target_entity": "Container",
+      "is_collection": false,
+      "example_url": "ProdMgmt/Parts('{id}')/Context"
+    },
+    "Part.PPlan_LinkNav": {
+      "source_entity": "Part",
+      "navigation_name": "PPlan_LinkNav",
+      "target_entity": "ObjectReferenceable",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/PPlan_LinkNav"
+    },
+    "Part.Organization": {
+      "source_entity": "Part",
+      "navigation_name": "Organization",
+      "target_entity": "Organization",
+      "is_collection": false,
+      "example_url": "ProdMgmt/Parts('{id}')/Organization"
+    },
+    "Part.ExtendedData": {
+      "source_entity": "Part",
+      "navigation_name": "ExtendedData",
+      "target_entity": "ExtendedData",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/ExtendedData"
+    },
+    "Part.AssignedOptionSet": {
+      "source_entity": "Part",
+      "navigation_name": "AssignedOptionSet",
+      "target_entity": "OptionSet",
+      "is_collection": false,
+      "example_url": "ProdMgmt/Parts('{id}')/AssignedOptionSet"
+    },
+    "Part.PartDocAssociations": {
+      "source_entity": "Part",
+      "navigation_name": "PartDocAssociations",
+      "target_entity": "PartDocAssociation",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/PartDocAssociations"
+    },
+    "Part.Thumbnails": {
+      "source_entity": "Part",
+      "navigation_name": "Thumbnails",
+      "target_entity": "ContentItem",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/Thumbnails"
+    },
+    "Part.Creator": {
+      "source_entity": "Part",
+      "navigation_name": "Creator",
+      "target_entity": "User",
+      "is_collection": false,
+      "example_url": "ProdMgmt/Parts('{id}')/Creator"
+    },
+    "Part.Revisions": {
+      "source_entity": "Part",
+      "navigation_name": "Revisions",
+      "target_entity": "Part",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/Revisions"
+    },
+    "Part.Folder": {
+      "source_entity": "Part",
+      "navigation_name": "Folder",
+      "target_entity": "Folder",
+      "is_collection": false,
+      "example_url": "ProdMgmt/Parts('{id}')/Folder"
+    },
+    "Part.Attachments": {
+      "source_entity": "Part",
+      "navigation_name": "Attachments",
+      "target_entity": "ContentItem",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/Attachments"
+    },
+    "Part.ModuleVariantInformationLinks": {
+      "source_entity": "Part",
+      "navigation_name": "ModuleVariantInformationLinks",
+      "target_entity": "ModuleVariantInformationLink",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/ModuleVariantInformationLinks"
+    },
+    "Part.DownstreamEquivalanceLinks": {
+      "source_entity": "Part",
+      "navigation_name": "DownstreamEquivalanceLinks",
+      "target_entity": "EquivalenceLink",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/DownstreamEquivalanceLinks"
+    },
+    "Part.Versions": {
+      "source_entity": "Part",
+      "navigation_name": "Versions",
+      "target_entity": "Part",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/Versions"
+    },
+    "Part.MadeFromLink": {
+      "source_entity": "Part",
+      "navigation_name": "MadeFromLink",
+      "target_entity": "RawMaterialLink",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/MadeFromLink"
+    },
+    "Part.Effectivities": {
+      "source_entity": "Part",
+      "navigation_name": "Effectivities",
+      "target_entity": "Effectivity",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/Effectivities"
+    },
+    "Part.AXLEntries": {
+      "source_entity": "Part",
+      "navigation_name": "AXLEntries",
+      "target_entity": "AXLEntry",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/AXLEntries"
+    },
+    "Part.Representations": {
+      "source_entity": "Part",
+      "navigation_name": "Representations",
+      "target_entity": "Representation",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/Representations"
+    },
+    "Part.SmallThumbnails": {
+      "source_entity": "Part",
+      "navigation_name": "SmallThumbnails",
+      "target_entity": "ContentItem",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/SmallThumbnails"
+    },
+    "Part.PartMadeFrom": {
+      "source_entity": "Part",
+      "navigation_name": "PartMadeFrom",
+      "target_entity": "Part",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/PartMadeFrom"
+    },
+    "Part.Modifier": {
+      "source_entity": "Part",
+      "navigation_name": "Modifier",
+      "target_entity": "User",
+      "is_collection": false,
+      "example_url": "ProdMgmt/Parts('{id}')/Modifier"
+    },
+    "Part.UpstreamEquivalanceLinks": {
+      "source_entity": "Part",
+      "navigation_name": "UpstreamEquivalanceLinks",
+      "target_entity": "EquivalenceLink",
+      "is_collection": true,
+      "example_url": "ProdMgmt/Parts('{id}')/UpstreamEquivalanceLinks"
+    },
+    "ManagedBaseline.BaselineItems": {
+      "source_entity": "ManagedBaseline",
+      "navigation_name": "BaselineItems",
+      "target_entity": "Baselineable",
+      "is_collection": true,
+      "example_url": "ProdMgmt/ManagedBaselines('{id}')/BaselineItems"
+    },
+    "ManagedBaseline.Context": {
+      "source_entity": "ManagedBaseline",
+      "navigation_name": "Context",
+      "target_entity": "Container",
+      "is_collection": false,
+      "example_url": "ProdMgmt/ManagedBaselines('{id}')/Context"
+    },
+    "ManagedBaseline.Folder": {
+      "source_entity": "ManagedBaseline",
+      "navigation_name": "Folder",
+      "target_entity": "Folder",
+      "is_collection": false,
+      "example_url": "ProdMgmt/ManagedBaselines('{id}')/Folder"
+    },
+    "BOMRollupItem.Components": {
+      "source_entity": "BOMRollupItem",
+      "navigation_name": "Components",
+      "target_entity": "BOMRollupItem",
+      "is_collection": true,
+      "example_url": "ProdMgmt/BOMRollupItems('{id}')/Components"
+    },
+    "PartsReportListItem.Part": {
+      "source_entity": "PartsReportListItem",
+      "navigation_name": "Part",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartsReportListItems('{id}')/Part"
+    },
+    "ReplacementPart.Context": {
+      "source_entity": "ReplacementPart",
+      "navigation_name": "Context",
+      "target_entity": "Container",
+      "is_collection": false,
+      "example_url": "ProdMgmt/ReplacementParts('{id}')/Context"
+    },
+    "ReplacementPart.Organization": {
+      "source_entity": "ReplacementPart",
+      "navigation_name": "Organization",
+      "target_entity": "Organization",
+      "is_collection": false,
+      "example_url": "ProdMgmt/ReplacementParts('{id}')/Organization"
+    },
+    "PartSubstituteLink.SubstitutePart": {
+      "source_entity": "PartSubstituteLink",
+      "navigation_name": "SubstitutePart",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartSubstituteLinks('{id}')/SubstitutePart"
+    },
+    "PartSubstituteLink.Substitute": {
+      "source_entity": "PartSubstituteLink",
+      "navigation_name": "Substitute",
+      "target_entity": "ReplacementPart",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartSubstituteLinks('{id}')/Substitute"
+    },
+    "PartSubstituteLink.SubstituteFor": {
+      "source_entity": "PartSubstituteLink",
+      "navigation_name": "SubstituteFor",
+      "target_entity": "PartUse",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartSubstituteLinks('{id}')/SubstituteFor"
+    },
+    "PartAlternateLink.AlternatePart": {
+      "source_entity": "PartAlternateLink",
+      "navigation_name": "AlternatePart",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartAlternateLinks('{id}')/AlternatePart"
+    },
+    "PartAlternateLink.Alternate": {
+      "source_entity": "PartAlternateLink",
+      "navigation_name": "Alternate",
+      "target_entity": "ReplacementPart",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartAlternateLinks('{id}')/Alternate"
+    },
+    "PartAlternateLink.AlternateFor": {
+      "source_entity": "PartAlternateLink",
+      "navigation_name": "AlternateFor",
+      "target_entity": "ReplacementPart",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartAlternateLinks('{id}')/AlternateFor"
+    },
+    "AXLEntry.SourcingContext": {
+      "source_entity": "AXLEntry",
+      "navigation_name": "SourcingContext",
+      "target_entity": "SourcingContext",
+      "is_collection": false,
+      "example_url": "ProdMgmt/AXLEntrys('{id}')/SourcingContext"
+    },
+    "AXLEntry.ManufacturerPartReference": {
+      "source_entity": "AXLEntry",
+      "navigation_name": "ManufacturerPartReference",
+      "target_entity": "ManufacturerPart",
+      "is_collection": false,
+      "example_url": "ProdMgmt/AXLEntrys('{id}')/ManufacturerPartReference"
+    },
+    "AXLEntry.VendorPartReference": {
+      "source_entity": "AXLEntry",
+      "navigation_name": "VendorPartReference",
+      "target_entity": "VendorPart",
+      "is_collection": false,
+      "example_url": "ProdMgmt/AXLEntrys('{id}')/VendorPartReference"
+    },
+    "AXLEntry.OEMPartReference": {
+      "source_entity": "AXLEntry",
+      "navigation_name": "OEMPartReference",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/AXLEntrys('{id}')/OEMPartReference"
+    },
+    "PartStructureItem.Part": {
+      "source_entity": "PartStructureItem",
+      "navigation_name": "Part",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartStructureItems('{id}')/Part"
+    },
+    "PartStructureItem.PartUse": {
+      "source_entity": "PartStructureItem",
+      "navigation_name": "PartUse",
+      "target_entity": "PartUse",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartStructureItems('{id}')/PartUse"
+    },
+    "PartStructureItem.Occurrence": {
+      "source_entity": "PartStructureItem",
+      "navigation_name": "Occurrence",
+      "target_entity": "UsageOccurrence",
+      "is_collection": false,
+      "example_url": "ProdMgmt/PartStructureItems('{id}')/Occurrence"
+    },
+    "PartStructureItem.Components": {
+      "source_entity": "PartStructureItem",
+      "navigation_name": "Components",
+      "target_entity": "PartStructureItem",
+      "is_collection": true,
+      "example_url": "ProdMgmt/PartStructureItems('{id}')/Components"
+    },
+    "PartStructureItem.Alternates": {
+      "source_entity": "PartStructureItem",
+      "navigation_name": "Alternates",
+      "target_entity": "PartAlternateLink",
+      "is_collection": true,
+      "example_url": "ProdMgmt/PartStructureItems('{id}')/Alternates"
+    },
+    "PartStructureItem.Substitutes": {
+      "source_entity": "PartStructureItem",
+      "navigation_name": "Substitutes",
+      "target_entity": "PartSubstituteLink",
+      "is_collection": true,
+      "example_url": "ProdMgmt/PartStructureItems('{id}')/Substitutes"
+    },
+    "BOM.Part": {
+      "source_entity": "BOM",
+      "navigation_name": "Part",
+      "target_entity": "Part",
+      "is_collection": false,
+      "example_url": "ProdMgmt/BOMs('{id}')/Part"
+    },
+    "BOM.PartUse": {
+      "source_entity": "BOM",
+      "navigation_name": "PartUse",
+      "target_entity": "PartUse",
+      "is_collection": false,
+      "example_url": "ProdMgmt/BOMs('{id}')/PartUse"
+    },
+    "BOM.Occurrences": {
+      "source_entity": "BOM",
+      "navigation_name": "Occurrences",
+      "target_entity": "UsageOccurrence",
+      "is_collection": true,
+      "example_url": "ProdMgmt/BOMs('{id}')/Occurrences"
+    },
+    "BOM.Components": {
+      "source_entity": "BOM",
+      "navigation_name": "Components",
+      "target_entity": "BOM",
+      "is_collection": true,
+      "example_url": "ProdMgmt/BOMs('{id}')/Components"
+    }
+  }
+}

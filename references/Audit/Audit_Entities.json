@@ -1,0 +1,290 @@
+{
+  "domain": "Audit",
+  "entities": {
+    "AuditDetail": {
+      "name": "AuditDetail",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AuditFindingComment": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AuditFindingObservation": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "AuditorInstructions": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Criticality": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "NotApplicable": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "NotVerified": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ObjectiveEvidence": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OnSiteAuditScore": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "RemedialAction": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RequirementTrace": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SelfAuditScore": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "SubSection": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ChangeItem": {
+          "type": "PTC.Audit.ChangeItem",
+          "partner": ""
+        }
+      }
+    },
+    "Audit": {
+      "name": "Audit",
+      "base_type": "",
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "EndDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReservedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "StartDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "AuditDetails": {
+          "type": "Collection(PTC.Audit.AuditDetail)",
+          "partner": ""
+        },
+        "Auditor": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Thumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "SmallThumbnails": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "ChangeItem": {
+      "name": "ChangeItem",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "Audits",
+      "entity_type": "PTC.Audit.Audit"
+    }
+  ],
+  "actions": [
+    {
+      "name": "UndoReservation",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.Audit.Audit"
+        }
+      ],
+      "return_type": "PTC.Audit.Audit"
+    },
+    {
+      "name": "Reserve",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.Audit.Audit"
+        },
+        {
+          "name": "Duration",
+          "type": "Edm.Int32"
+        }
+      ],
+      "return_type": "PTC.Audit.Audit"
+    },
+    {
+      "name": "SetStateAudits",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Audits",
+          "type": "Collection(PTC.Audit.Audit)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.Audit.Audit)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.Audit.Audit"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.Audit.Audit"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Audit",
+          "type": "PTC.Audit.Audit"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Audit",
+          "type": "PTC.Audit.Audit"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    }
+  ]
+}

@@ -1,0 +1,2073 @@
+{
+  "domain": "ChangeMgmt",
+  "entities": {
+    "ReportedAgainstLinkItem": {
+      "name": "ReportedAgainstLinkItem",
+      "base_type": "",
+      "properties": {
+        "ApprovedQuantity": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Changeable": {
+          "type": "PTC.ChangeMgmt.Changeable",
+          "partner": ""
+        },
+        "VarianceSubstituteLinks": {
+          "type": "Collection(PTC.ChangeMgmt.VarianceSubstituteLinkItem)",
+          "partner": ""
+        },
+        "AffectedObjects": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        }
+      }
+    },
+    "ChangeItem": {
+      "name": "ChangeItem",
+      "base_type": "",
+      "properties": {
+        "Category": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DescriptionSummary": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "IsRemote": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LatestRevision": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "NeedDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ResolutionDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "Uri": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ReferenceObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        },
+        "AffectedObjects": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        },
+        "AffectsLinks": {
+          "type": "Collection(PTC.ChangeMgmt.AffectsLinkItem)",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "ProcessObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        }
+      }
+    },
+    "PendingEffectivity": {
+      "name": "PendingEffectivity",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "EffectivityQualifier": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "EffectivityContext": {
+          "type": "PTC.EffectivityMgmt.PartEffectivityContext",
+          "partner": ""
+        }
+      }
+    },
+    "PendingBlockEffectivity": {
+      "name": "PendingBlockEffectivity",
+      "base_type": "PTC.ChangeMgmt.PendingUnitEffectivity",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ChangeRequest": {
+      "name": "ChangeRequest",
+      "base_type": "PTC.ChangeMgmt.GenericChangeRequest",
+      "properties": {
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ChangeAdminI": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeAdmin)",
+          "nullable": true
+        },
+        "Complexity": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "NonRecurringCost": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ProposedSolution": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ProposedSolutionSummary": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RecurringCost": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "RequestPriority": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "ReservedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TeamTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ChangeAdministratorI": {
+          "type": "Collection(PTC.PrincipalMgmt.Principal)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "CRAffectLinks": {
+          "type": "Collection(PTC.ChangeMgmt.RelevantRequestDataLinkItem)",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        }
+      }
+    },
+    "VarianceSubstituteLinkItem": {
+      "name": "VarianceSubstituteLinkItem",
+      "base_type": "",
+      "properties": {
+        "Approved": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "ReferenceDesignator": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReplacementType": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Unit": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ReplacedWith": {
+          "type": "PTC.ProdMgmt.ReplacementPart",
+          "partner": ""
+        },
+        "ReplacementFor": {
+          "type": "PTC.ProdMgmt.PartUse",
+          "partner": ""
+        },
+        "AffectedObjectLink": {
+          "type": "PTC.ChangeMgmt.ReportedAgainstLinkItem",
+          "partner": ""
+        }
+      }
+    },
+    "SoftwareReportedAgainst": {
+      "name": "SoftwareReportedAgainst",
+      "base_type": "PTC.ChangeMgmt.ReportedAgainstLinkItem",
+      "properties": {
+        "ComPtcIesClosedBy": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "ComPtcIesCreatedBy": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "ComPtcIesRoleInBuild": {
+          "type": "Collection(PTC.EnumType)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ProcessLinkItem": {
+      "name": "ProcessLinkItem",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ProcessObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        }
+      }
+    },
+    "SupplierIssue": {
+      "name": "SupplierIssue",
+      "base_type": "PTC.ChangeMgmt.ProblemReport",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "GenericChangeRequest": {
+      "name": "GenericChangeRequest",
+      "base_type": "PTC.ChangeMgmt.ChangeItem",
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ProcessLinks": {
+          "type": "Collection(PTC.ChangeMgmt.ProcessLinkItem)",
+          "partner": ""
+        },
+        "ReferenceLinks": {
+          "type": "Collection(PTC.ChangeMgmt.ReferenceLinkItem)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "ChangeOrder": {
+      "name": "ChangeOrder",
+      "base_type": "PTC.ChangeMgmt.ChangeItem",
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ProcessLinks": {
+          "type": "Collection(PTC.ChangeMgmt.ProcessLinkItem)",
+          "partner": ""
+        },
+        "ResultingObjects": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        },
+        "UnincorporatedLinks": {
+          "type": "Collection(PTC.ChangeMgmt.UnincorporatedLinkItem)",
+          "partner": ""
+        },
+        "ReferenceLinks": {
+          "type": "Collection(PTC.ChangeMgmt.ReferenceLinkItem)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "CNAffectLinks": {
+          "type": "Collection(PTC.ChangeMgmt.AffectedActivityDataLinkItem)",
+          "partner": ""
+        },
+        "ResultingLinks": {
+          "type": "Collection(PTC.ChangeMgmt.ResultingLinkItem)",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "PendingSerialNumberEffectivity": {
+      "name": "PendingSerialNumberEffectivity",
+      "base_type": "PTC.ChangeMgmt.PendingUnitEffectivity",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ChangeIssue": {
+      "name": "ChangeIssue",
+      "base_type": "PTC.ChangeMgmt.ChangeItem",
+      "properties": {
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ProcessLinks": {
+          "type": "Collection(PTC.ChangeMgmt.ProcessLinkItem)",
+          "partner": ""
+        },
+        "CIAffectLinks": {
+          "type": "Collection(PTC.ChangeMgmt.ReportedAgainstLinkItem)",
+          "partner": ""
+        },
+        "ReferenceLinks": {
+          "type": "Collection(PTC.ChangeMgmt.ReferenceLinkItem)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "AffectedActivityDataLinkItem": {
+      "name": "AffectedActivityDataLinkItem",
+      "base_type": "",
+      "properties": {
+        "ChangeIntent": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DispositionComments": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "FinishedDisposition": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "InventoryDisposition": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OnOrderDisposition": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Changeable": {
+          "type": "PTC.ChangeMgmt.Changeable",
+          "partner": ""
+        },
+        "AffectedObjects": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        }
+      }
+    },
+    "Changeable": {
+      "name": "Changeable",
+      "base_type": "",
+      "properties": {
+        "ChangeStatus": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "HasHangingChange": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "HasPendingChange": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "HasResultingChange": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "HasVariance": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Location": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        },
+        "UnincorporatedByObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "UnincorporatedByChangeObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "AffectedByObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "ResultingByLinks": {
+          "type": "Collection(PTC.ChangeMgmt.ResultingLinkItem)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        },
+        "AffectedByLinks": {
+          "type": "Collection(PTC.ChangeMgmt.AffectsLinkItem)",
+          "partner": ""
+        },
+        "ResultedByObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        },
+        "AffectedByTasks": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "ResultedByChangeObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "UnincorporatedByLinks": {
+          "type": "Collection(PTC.ChangeMgmt.UnincorporatedLinkItem)",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "AffectedByChangeObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        }
+      }
+    },
+    "Deviation": {
+      "name": "Deviation",
+      "base_type": "PTC.ChangeMgmt.Variance",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "Waiver": {
+      "name": "Waiver",
+      "base_type": "PTC.ChangeMgmt.Variance",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ReferenceLinkItem": {
+      "name": "ReferenceLinkItem",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ReferenceObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        }
+      }
+    },
+    "PendingUnitEffectivity": {
+      "name": "PendingUnitEffectivity",
+      "base_type": "PTC.ChangeMgmt.PendingEffectivity",
+      "properties": {
+        "PendingUnitRange": {
+          "type": "PTC.EffectivityMgmt.UnitRange",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {}
+    },
+    "RelevantRequestDataLinkItem": {
+      "name": "RelevantRequestDataLinkItem",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Changeable": {
+          "type": "PTC.ChangeMgmt.Changeable",
+          "partner": ""
+        },
+        "AffectedObjects": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        }
+      }
+    },
+    "PendingMSNEffectivity": {
+      "name": "PendingMSNEffectivity",
+      "base_type": "PTC.ChangeMgmt.PendingUnitEffectivity",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "AffectsLinkItem": {
+      "name": "AffectsLinkItem",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "AffectedByObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "AffectedObjects": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        },
+        "AffectedByChangeObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        }
+      }
+    },
+    "PendingLotEffectivity": {
+      "name": "PendingLotEffectivity",
+      "base_type": "PTC.ChangeMgmt.PendingUnitEffectivity",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ResultingLinkItem": {
+      "name": "ResultingLinkItem",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ImpactIntent": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TargetTransition": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Changeable": {
+          "type": "PTC.ChangeMgmt.Changeable",
+          "partner": ""
+        },
+        "PendingEffectivities": {
+          "type": "Collection(PTC.ChangeMgmt.PendingEffectivity)",
+          "partner": ""
+        },
+        "ResultedByObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "ResultingObjects": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        },
+        "ResultedByChangeObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        }
+      }
+    },
+    "UnincorporatedLinkItem": {
+      "name": "UnincorporatedLinkItem",
+      "base_type": "",
+      "properties": {
+        "CreatedOn": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "Description": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "IncorporationStatus": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LastModified": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ResultedByObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "ResultingObjects": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        },
+        "UnincorporatedByObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        },
+        "UnincorporatedByChangeObjects": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeItem)",
+          "partner": ""
+        }
+      }
+    },
+    "ChangeNotice": {
+      "name": "ChangeNotice",
+      "base_type": "PTC.ChangeMgmt.ChangeOrder",
+      "properties": {
+        "ActualFinishDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ActualStartDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ChangeAdminI": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeAdmin)",
+          "nullable": true
+        },
+        "ChangeAdminII": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeAdmin)",
+          "nullable": true
+        },
+        "ChangeNoticeComplexity": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "EstimatedStartDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReservedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TeamTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ChangeAdministratorI": {
+          "type": "Collection(PTC.PrincipalMgmt.Principal)",
+          "partner": ""
+        },
+        "ChangeAdministratorII": {
+          "type": "Collection(PTC.PrincipalMgmt.Principal)",
+          "partner": ""
+        },
+        "ImplementationPlan": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeTask)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        }
+      }
+    },
+    "Variance": {
+      "name": "Variance",
+      "base_type": "PTC.ChangeMgmt.ChangeIssue",
+      "properties": {
+        "ApprovedQuantity": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ChangeAdminI": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeAdmin)",
+          "nullable": true
+        },
+        "CorrectiveAction": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "EffectOnCost": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "EffectOnSchedule": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "EffectOnSupport": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Reason": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReasonSummary": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Recurring": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ReservedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TeamTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VarianceCategory": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "VarianceOwners": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "ChangeAdministratorI": {
+          "type": "Collection(PTC.PrincipalMgmt.Principal)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        }
+      }
+    },
+    "ControlledDocChangeAndTraining": {
+      "name": "ControlledDocChangeAndTraining",
+      "base_type": "PTC.ChangeMgmt.ChangeNotice",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ControlledDocumentChangeTask": {
+      "name": "ControlledDocumentChangeTask",
+      "base_type": "PTC.ChangeMgmt.ChangeTask",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "ProblemReport": {
+      "name": "ProblemReport",
+      "base_type": "PTC.ChangeMgmt.ChangeIssue",
+      "properties": {
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ChangeAdminI": {
+          "type": "Collection(PTC.ChangeMgmt.ChangeAdmin)",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "IssuePriority": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Requester": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReservedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SupplierResponse": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TeamTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ChangeAdministratorI": {
+          "type": "Collection(PTC.PrincipalMgmt.Principal)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        }
+      }
+    },
+    "PendingDateEffectivity": {
+      "name": "PendingDateEffectivity",
+      "base_type": "PTC.ChangeMgmt.PendingEffectivity",
+      "properties": {
+        "PendingDateRange": {
+          "type": "PTC.EffectivityMgmt.DateRange",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {}
+    },
+    "ChangeTask": {
+      "name": "ChangeTask",
+      "base_type": "PTC.ChangeMgmt.ChangeItem",
+      "properties": {
+        "ActualFinishDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ActualStartDate": {
+          "type": "Edm.DateTimeOffset",
+          "nullable": true
+        },
+        "ChangeNoticeReference": {
+          "type": "PTC.ChangeMgmt.ChangeNoticeReference",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ReservedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Sequence": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Stage": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TeamTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ChangeNotice": {
+          "type": "PTC.ChangeMgmt.ChangeNotice",
+          "partner": ""
+        },
+        "Assignee": {
+          "type": "Collection(PTC.PrincipalMgmt.User)",
+          "partner": ""
+        },
+        "Reviewer": {
+          "type": "Collection(PTC.PrincipalMgmt.User)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "ResultingObjects": {
+          "type": "Collection(PTC.ChangeMgmt.Changeable)",
+          "partner": ""
+        },
+        "UnincorporatedLinks": {
+          "type": "Collection(PTC.ChangeMgmt.UnincorporatedLinkItem)",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "CNAffectLinks": {
+          "type": "Collection(PTC.ChangeMgmt.AffectedActivityDataLinkItem)",
+          "partner": ""
+        },
+        "ResultingLinks": {
+          "type": "Collection(PTC.ChangeMgmt.ResultingLinkItem)",
+          "partner": ""
+        },
+        "Attachments": {
+          "type": "Collection(PTC.ContentItem)",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "Variances",
+      "entity_type": "PTC.ChangeMgmt.Variance"
+    },
+    {
+      "name": "ChangeRequests",
+      "entity_type": "PTC.ChangeMgmt.ChangeRequest"
+    },
+    {
+      "name": "ChangeNotices",
+      "entity_type": "PTC.ChangeMgmt.ChangeNotice"
+    },
+    {
+      "name": "Changeables",
+      "entity_type": "PTC.ChangeMgmt.Changeable"
+    },
+    {
+      "name": "ProblemReports",
+      "entity_type": "PTC.ChangeMgmt.ProblemReport"
+    },
+    {
+      "name": "ChangeTasks",
+      "entity_type": "PTC.ChangeMgmt.ChangeTask"
+    }
+  ],
+  "actions": [
+    {
+      "name": "CreateChangeNoticeHierarchy",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ChangeNotice",
+          "type": "PTC.ChangeMgmt.ChangeNotice"
+        },
+        {
+          "name": "ChangeTask",
+          "type": "Collection(PTC.ChangeMgmt.ChangeTask)"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeNotice"
+    },
+    {
+      "name": "SetPendingEffectivities",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ResultingLinkItem",
+          "type": "Collection(PTC.ChangeMgmt.ResultingLinkItem)"
+        },
+        {
+          "name": "PendingEffectivities",
+          "type": "Collection(PTC.ChangeMgmt.PendingEffectivity)"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.PendingEffectivityManagedListItem)"
+    },
+    {
+      "name": "ReviseChangeNoticeWithChangeTasks",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeNotice",
+          "type": "PTC.ChangeMgmt.ChangeNotice"
+        },
+        {
+          "name": "ChangeTaskImpact",
+          "type": "Collection(PTC.ChangeMgmt.ChangeTaskImpact)"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeNotice"
+    },
+    {
+      "name": "Submit",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "submitnow",
+          "type": "PTC.ChangeMgmt.ChangeNotice"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeNotice"
+    },
+    {
+      "name": "Reserve",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.ChangeMgmt.ChangeNotice"
+        },
+        {
+          "name": "Duration",
+          "type": "Edm.Int32"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeNotice"
+    },
+    {
+      "name": "UndoReservation",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.ChangeMgmt.ChangeNotice"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeNotice"
+    },
+    {
+      "name": "SetStateChangeNotices",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ChangeNotices",
+          "type": "Collection(PTC.ChangeMgmt.ChangeNotice)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.ChangeNotice)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ChangeMgmt.ChangeNotice"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeNotice"
+    },
+    {
+      "name": "EditChangeNoticesSecurityLabels",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ChangeNotices",
+          "type": "Collection(PTC.ChangeMgmt.ChangeNotice)"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.ChangeNotice)"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeNotice",
+          "type": "PTC.ChangeMgmt.ChangeNotice"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeNotice",
+          "type": "PTC.ChangeMgmt.ChangeNotice"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "name": "ModifyPendingEffectivities",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ResultingLinkItem",
+          "type": "PTC.ChangeMgmt.ResultingLinkItem"
+        },
+        {
+          "name": "PendingEffectivities",
+          "type": "Collection(PTC.ChangeMgmt.PendingEffectivity)"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.PendingEffectivity)"
+    },
+    {
+      "name": "RemovePendingEffectivities",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ResultingLinkItem",
+          "type": "PTC.ChangeMgmt.ResultingLinkItem"
+        },
+        {
+          "name": "PendingEffectivities",
+          "type": "Collection(PTC.ChangeMgmt.PendingEffectivity)"
+        }
+      ],
+      "return_type": null
+    },
+    {
+      "name": "ReviseChangeIssue",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeIssue",
+          "type": "PTC.ChangeMgmt.ChangeIssue"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeIssue"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ChangeMgmt.Changeable"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.Changeable"
+    },
+    {
+      "name": "SetStateChangeables",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Changeables",
+          "type": "Collection(PTC.ChangeMgmt.Changeable)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.Changeable)"
+    },
+    {
+      "name": "ReviseChangeIssue",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeIssue",
+          "type": "PTC.ChangeMgmt.ProblemReport"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeIssue"
+    },
+    {
+      "name": "Reserve",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.ChangeMgmt.ProblemReport"
+        },
+        {
+          "name": "Duration",
+          "type": "Edm.Int32"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ProblemReport"
+    },
+    {
+      "name": "UndoReservation",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.ChangeMgmt.ProblemReport"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ProblemReport"
+    },
+    {
+      "name": "Submit",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "submitnow",
+          "type": "PTC.ChangeMgmt.ProblemReport"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ProblemReport"
+    },
+    {
+      "name": "SetStateProblemReports",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ProblemReports",
+          "type": "Collection(PTC.ChangeMgmt.ProblemReport)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.ProblemReport)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ChangeMgmt.ProblemReport"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ProblemReport"
+    },
+    {
+      "name": "EditProblemReportsSecurityLabels",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ProblemReports",
+          "type": "Collection(PTC.ChangeMgmt.ProblemReport)"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.ProblemReport)"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ProblemReport",
+          "type": "PTC.ChangeMgmt.ProblemReport"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ProblemReport",
+          "type": "PTC.ChangeMgmt.ProblemReport"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "name": "ReviseChangeIssue",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeIssue",
+          "type": "PTC.ChangeMgmt.Variance"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeIssue"
+    },
+    {
+      "name": "SetStateVariances",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Variances",
+          "type": "Collection(PTC.ChangeMgmt.Variance)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.Variance)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ChangeMgmt.Variance"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.Variance"
+    },
+    {
+      "name": "Submit",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "submitnow",
+          "type": "PTC.ChangeMgmt.Variance"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.Variance"
+    },
+    {
+      "name": "Reserve",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.ChangeMgmt.Variance"
+        },
+        {
+          "name": "Duration",
+          "type": "Edm.Int32"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.Variance"
+    },
+    {
+      "name": "UndoReservation",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.ChangeMgmt.Variance"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.Variance"
+    },
+    {
+      "name": "EditVariancesSecurityLabels",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Variances",
+          "type": "Collection(PTC.ChangeMgmt.Variance)"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.Variance)"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Variance",
+          "type": "PTC.ChangeMgmt.Variance"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Variance",
+          "type": "PTC.ChangeMgmt.Variance"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "name": "ReviseChangeRequest",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeRequest",
+          "type": "PTC.ChangeMgmt.ChangeRequest"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeRequest"
+    },
+    {
+      "name": "Submit",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "submitnow",
+          "type": "PTC.ChangeMgmt.ChangeRequest"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeRequest"
+    },
+    {
+      "name": "UndoReservation",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.ChangeMgmt.ChangeRequest"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeRequest"
+    },
+    {
+      "name": "Reserve",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.ChangeMgmt.ChangeRequest"
+        },
+        {
+          "name": "Duration",
+          "type": "Edm.Int32"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeRequest"
+    },
+    {
+      "name": "SetStateChangeRequests",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ChangeRequests",
+          "type": "Collection(PTC.ChangeMgmt.ChangeRequest)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.ChangeRequest)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ChangeMgmt.ChangeRequest"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeRequest"
+    },
+    {
+      "name": "EditChangeRequestsSecurityLabels",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ChangeRequests",
+          "type": "Collection(PTC.ChangeMgmt.ChangeRequest)"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.ChangeRequest)"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeRequest",
+          "type": "PTC.ChangeMgmt.ChangeRequest"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeRequest",
+          "type": "PTC.ChangeMgmt.ChangeRequest"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "name": "UndoReservation",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.ChangeMgmt.ChangeTask"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeTask"
+    },
+    {
+      "name": "Reserve",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "reservable",
+          "type": "PTC.ChangeMgmt.ChangeTask"
+        },
+        {
+          "name": "Duration",
+          "type": "Edm.Int32"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeTask"
+    },
+    {
+      "name": "SetStateChangeTasks",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ChangeTasks",
+          "type": "Collection(PTC.ChangeMgmt.ChangeTask)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.ChangeTask)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ChangeMgmt.ChangeTask"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ChangeMgmt.ChangeTask"
+    },
+    {
+      "name": "EditChangeTasksSecurityLabels",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ChangeTasks",
+          "type": "Collection(PTC.ChangeMgmt.ChangeTask)"
+        }
+      ],
+      "return_type": "Collection(PTC.ChangeMgmt.ChangeTask)"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeTask",
+          "type": "PTC.ChangeMgmt.ChangeTask"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "ChangeTask",
+          "type": "PTC.ChangeMgmt.ChangeTask"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "name": "DeleteChangeTasks",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "ChangeTasks",
+          "type": "Collection(PTC.ChangeMgmt.ChangeTask)"
+        }
+      ],
+      "return_type": null
+    }
+  ]
+}

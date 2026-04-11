@@ -1,0 +1,2143 @@
+{
+  "domain": "ServiceInfoMgmt",
+  "entities": {
+    "TableOfContent": {
+      "name": "TableOfContent",
+      "base_type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "GraphicalInformationElement": {
+      "name": "GraphicalInformationElement",
+      "base_type": "PTC.ServiceInfoMgmt.DynamicDocumentInformationElement",
+      "properties": {
+        "SisContentholderIterationInfoModifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisContentholderTitleFromContent": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "SisContentholderType": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Content": {
+          "type": "PTC.ServiceInfoMgmt.SIMDynamicDocument",
+          "partner": ""
+        }
+      }
+    },
+    "SIMDocument": {
+      "name": "SIMDocument",
+      "base_type": "PTC.DocMgmt.Document",
+      "properties": {},
+      "navigation_properties": {
+        "InformationElement": {
+          "type": "Collection(PTC.ServiceInfoMgmt.DocumentInformationElement)",
+          "partner": ""
+        }
+      }
+    },
+    "InformationBaseObject": {
+      "name": "InformationBaseObject",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "AssemblyMode": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "AuthoringLanguage": {
+          "type": "PTC.ServiceInfoMgmt.AuthoringLanguage",
+          "nullable": true
+        },
+        "BeltLength": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "CabinetName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ChangeStatus": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "CheckOutStatus": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "CheckoutState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Comments": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ConfigurableModule": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "CreatedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DefaultTraceCode": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "DefaultUnit": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "EndItem": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ExcludeContentFromOutput": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ExcludeTitleFromTableOfContents": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "FolderLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FolderName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "GeneralStatus": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "Identity": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ItemChoices": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Latest": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "LifeCycleTemplateName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "MasterID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ModifiedBy": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Name": {
+          "type": "Edm.String",
+          "nullable": false
+        },
+        "Number": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "OrganizationName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PPlan_Link": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "Part_Cost": {
+          "type": "Edm.Double",
+          "nullable": true
+        },
+        "PartsLink_Part_Binding_Attribute": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Revision": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ServiceDescription": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ShareStatus": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "Source": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "State": {
+          "type": "PTC.EnumType",
+          "nullable": true
+        },
+        "Supersedes": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "TranslationName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TypeIcon": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "Version": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "VersionID": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "View": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "WorkInProgressState": {
+          "type": "PTC.WorkInProgressType",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Uses": {
+          "type": "Collection(PTC.ServiceInfoMgmt.InformationUsageLink)",
+          "partner": ""
+        },
+        "UsedBy": {
+          "type": "Collection(PTC.ServiceInfoMgmt.InformationBaseObject)",
+          "partner": ""
+        },
+        "Context": {
+          "type": "PTC.DataAdmin.Container",
+          "partner": ""
+        },
+        "PPlan_LinkNav": {
+          "type": "Collection(PTC.ObjectReferenceable)",
+          "partner": ""
+        },
+        "Versions": {
+          "type": "Collection(PTC.ServiceInfoMgmt.InformationBaseObject)",
+          "partner": ""
+        },
+        "Organization": {
+          "type": "PTC.PrincipalMgmt.Organization",
+          "partner": ""
+        },
+        "Creator": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        },
+        "Representations": {
+          "type": "Collection(PTC.Visualization.Representation)",
+          "partner": ""
+        },
+        "Revisions": {
+          "type": "Collection(PTC.ServiceInfoMgmt.InformationBaseObject)",
+          "partner": ""
+        },
+        "Folder": {
+          "type": "PTC.DataAdmin.Folder",
+          "partner": ""
+        },
+        "Modifier": {
+          "type": "PTC.PrincipalMgmt.User",
+          "partner": ""
+        }
+      }
+    },
+    "InformationGroup": {
+      "name": "InformationGroup",
+      "base_type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+      "properties": {
+        "DefaultContentLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "HasRepresentation": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Representation": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "SisGroupVisualizationmapping": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "DocumentInformationElement": {
+      "name": "DocumentInformationElement",
+      "base_type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+      "properties": {
+        "SisContentholderIterationInfoModifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisContentholderTitleFromContent": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "SisContentholderType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "Symptoms": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Content": {
+          "type": "PTC.ServiceInfoMgmt.SIMDocument",
+          "partner": ""
+        }
+      }
+    },
+    "InformationStructure": {
+      "name": "InformationStructure",
+      "base_type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+      "properties": {
+        "AsicBundleName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AsicBundleVendor": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AsicBundleVersion": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AsicBundleVolumeId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DefaultContentLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "GwtThumbnail": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "HasRepresentation": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "IsPrimary": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "IsTemplate": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "Representation": {
+          "type": "PTC.Icon",
+          "nullable": true
+        },
+        "ServiceImpactEventsList": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "ServiceImpactSubscribersList": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "SisGroupVisualizationmapping": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "SIMDynamicDocument": {
+      "name": "SIMDynamicDocument",
+      "base_type": "PTC.DynamicDocMgmt.DynamicDocument",
+      "properties": {},
+      "navigation_properties": {
+        "InformationElement": {
+          "type": "Collection(PTC.ServiceInfoMgmt.DynamicDocumentInformationElement)",
+          "partner": ""
+        }
+      }
+    },
+    "TextualInformationElement": {
+      "name": "TextualInformationElement",
+      "base_type": "PTC.ServiceInfoMgmt.DynamicDocumentInformationElement",
+      "properties": {
+        "SisContentholderIterationInfoModifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisContentholderTitleFromContent": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "SisContentholderType": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "Content": {
+          "type": "PTC.ServiceInfoMgmt.SIMDynamicDocument",
+          "partner": ""
+        }
+      }
+    },
+    "Indexes": {
+      "name": "Indexes",
+      "base_type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+      "properties": {},
+      "navigation_properties": {}
+    },
+    "InformationUsageLink": {
+      "name": "InformationUsageLink",
+      "base_type": "PTC.WindchillEntity",
+      "properties": {
+        "EditType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "FootPrint": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "LineNumber": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "ObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PTCMultiLanguage": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "PartOccurrenceAssignedExpression": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "Quantity": {
+          "type": "Edm.Double",
+          "nullable": false
+        },
+        "ReferenceDesignatorRange": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SymbolName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "TraceCode": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        },
+        "Unit": {
+          "type": "PTC.EnumType",
+          "nullable": false
+        }
+      },
+      "navigation_properties": {
+        "Uses": {
+          "type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+          "partner": ""
+        },
+        "UsedBy": {
+          "type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+          "partner": ""
+        }
+      }
+    },
+    "PublicationSection": {
+      "name": "PublicationSection",
+      "base_type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+      "properties": {
+        "ApplyTitleFromContent": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DefaultContentLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "InsertLocationPubsection": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentContenttype": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentFolderId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentIterationInfoModifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentNameandchange": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentRepresentation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentVersion": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPubsectionContentLifeCycleState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPubsectionContentThePersistInfoModifyStamp": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "GenericInformationElement": {
+      "name": "GenericInformationElement",
+      "base_type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+      "properties": {
+        "DefaultContentLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "Structure": {
+      "name": "Structure",
+      "base_type": "",
+      "properties": {
+        "ServiceObjectId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ServiceObjectUseId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ServiceObjectName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ServiceObjectNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "ServiceObjectUsesLineNumber": {
+          "type": "Edm.Int64",
+          "nullable": true
+        },
+        "ServiceObjectType": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {
+        "ServiceObject": {
+          "type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+          "partner": ""
+        },
+        "ServiceObjectUse": {
+          "type": "PTC.ServiceInfoMgmt.InformationUsageLink",
+          "partner": ""
+        },
+        "Children": {
+          "type": "Collection(PTC.ServiceInfoMgmt.Structure)",
+          "partner": ""
+        }
+      }
+    },
+    "PublicationStructure": {
+      "name": "PublicationStructure",
+      "base_type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+      "properties": {
+        "ApplyTitleFromContent": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AsicBundleName": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AsicBundleVendor": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AsicBundleVersion": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "AsicBundleVolumeId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "DefaultContentLocation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "InsertLocationPubsection": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "IsTemplate": {
+          "type": "Edm.Boolean",
+          "nullable": true
+        },
+        "ServiceImpactEventsList": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "ServiceImpactSubscribersList": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        },
+        "SisPssectionContentContenttype": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentFolderId": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentIterationInfoModifier": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentNameandchange": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentNumber": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentRepresentation": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPssectionContentVersion": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPubsectionContentLifeCycleState": {
+          "type": "Edm.String",
+          "nullable": true
+        },
+        "SisPubsectionContentThePersistInfoModifyStamp": {
+          "type": "Edm.String",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    },
+    "DynamicDocumentInformationElement": {
+      "name": "DynamicDocumentInformationElement",
+      "base_type": "PTC.ServiceInfoMgmt.InformationBaseObject",
+      "properties": {
+        "Symptoms": {
+          "type": "Collection(Edm.String)",
+          "nullable": true
+        }
+      },
+      "navigation_properties": {}
+    }
+  },
+  "entity_sets": [
+    {
+      "name": "InformationGroups",
+      "entity_type": "PTC.ServiceInfoMgmt.InformationGroup"
+    },
+    {
+      "name": "TextualInformationElements",
+      "entity_type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+    },
+    {
+      "name": "DocumentInformationElements",
+      "entity_type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+    },
+    {
+      "name": "InformationStructures",
+      "entity_type": "PTC.ServiceInfoMgmt.InformationStructure"
+    },
+    {
+      "name": "PublicationStructures",
+      "entity_type": "PTC.ServiceInfoMgmt.PublicationStructure"
+    },
+    {
+      "name": "SIMDynamicDocuments",
+      "entity_type": "PTC.ServiceInfoMgmt.SIMDynamicDocument"
+    },
+    {
+      "name": "PublicationSections",
+      "entity_type": "PTC.ServiceInfoMgmt.PublicationSection"
+    },
+    {
+      "name": "GraphicalInformationElements",
+      "entity_type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+    },
+    {
+      "name": "Indexes",
+      "entity_type": "PTC.ServiceInfoMgmt.Indexes"
+    },
+    {
+      "name": "SIMDocuments",
+      "entity_type": "PTC.ServiceInfoMgmt.SIMDocument"
+    },
+    {
+      "name": "GenericInformationElements",
+      "entity_type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+    },
+    {
+      "name": "TableOfContents",
+      "entity_type": "PTC.ServiceInfoMgmt.TableOfContent"
+    }
+  ],
+  "actions": [
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Document",
+          "type": "PTC.ServiceInfoMgmt.SIMDocument"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.DocMgmt.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Document",
+          "type": "PTC.ServiceInfoMgmt.SIMDocument"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "GetDocStructure",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "Document",
+          "type": "PTC.ServiceInfoMgmt.SIMDocument"
+        }
+      ],
+      "return_type": "PTC.DocMgmt.DocStructure"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.SIMDocument"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.SIMDocument"
+    },
+    {
+      "name": "ReviseSIMDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "SIMDocuments",
+          "type": "Collection(PTC.ServiceInfoMgmt.SIMDocument)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.SIMDocument)"
+    },
+    {
+      "name": "SetStateSIMDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "SIMDocuments",
+          "type": "Collection(PTC.ServiceInfoMgmt.SIMDocument)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.SIMDocument)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.SIMDocument"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.SIMDocument"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.SIMDocument"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.SIMDocument"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.SIMDocument"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.SIMDocument"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.SIMDocument"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.SIMDocument"
+    },
+    {
+      "name": "SetStatePublicationStructures",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PublicationStructures",
+          "type": "Collection(PTC.ServiceInfoMgmt.PublicationStructure)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.PublicationStructure)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.PublicationStructure"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.PublicationStructure"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.PublicationStructure"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.PublicationStructure"
+    },
+    {
+      "name": "RevisePublicationStructures",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PublicationStructures",
+          "type": "Collection(PTC.ServiceInfoMgmt.PublicationStructure)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.PublicationStructure)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.PublicationStructure"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.PublicationStructure"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.PublicationStructure"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.PublicationStructure"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.PublicationStructure"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.PublicationStructure"
+    },
+    {
+      "name": "GetStructure",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "StructureRoot",
+          "type": "PTC.ServiceInfoMgmt.PublicationStructure"
+        },
+        {
+          "name": "NavigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.Structure"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.TableOfContent"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.TableOfContent"
+    },
+    {
+      "name": "ReviseTableOfContents",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "TableOfContents",
+          "type": "Collection(PTC.ServiceInfoMgmt.TableOfContent)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.TableOfContent)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.TableOfContent"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.TableOfContent"
+    },
+    {
+      "name": "SetStateTableOfContents",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "TableOfContents",
+          "type": "Collection(PTC.ServiceInfoMgmt.TableOfContent)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.TableOfContent)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.TableOfContent"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.TableOfContent"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.TableOfContent"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.TableOfContent"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.TableOfContent"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.TableOfContent"
+    },
+    {
+      "name": "UploadStage3Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "DynamicDocument",
+          "type": "PTC.ServiceInfoMgmt.SIMDynamicDocument"
+        },
+        {
+          "name": "ContentInfo",
+          "type": "Collection(PTC.DynamicDocMgmt.ContentInfo)"
+        }
+      ],
+      "return_type": "Collection(PTC.ApplicationData)"
+    },
+    {
+      "name": "UploadStage1Action",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "DynamicDocument",
+          "type": "PTC.ServiceInfoMgmt.SIMDynamicDocument"
+        },
+        {
+          "name": "NoOfFiles",
+          "type": "Edm.Int32"
+        },
+        {
+          "name": "DelegateName",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "Collection(PTC.CacheDescriptor)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.SIMDynamicDocument"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.SIMDynamicDocument"
+    },
+    {
+      "name": "SetStateSIMDynamicDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "SIMDynamicDocuments",
+          "type": "Collection(PTC.ServiceInfoMgmt.SIMDynamicDocument)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.SIMDynamicDocument)"
+    },
+    {
+      "name": "ReviseSIMDynamicDocuments",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "SIMDynamicDocuments",
+          "type": "Collection(PTC.ServiceInfoMgmt.SIMDynamicDocument)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.SIMDynamicDocument)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.SIMDynamicDocument"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.SIMDynamicDocument"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.ServiceInfoMgmt.SIMDynamicDocument"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.SIMDynamicDocument)"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.ServiceInfoMgmt.SIMDynamicDocument"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.SIMDynamicDocument)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "dynamicDocWorkable",
+          "type": "PTC.ServiceInfoMgmt.SIMDynamicDocument"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.SIMDynamicDocument)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+    },
+    {
+      "name": "ReviseGraphicalInformationElements",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "GraphicalInformationElements",
+          "type": "Collection(PTC.ServiceInfoMgmt.GraphicalInformationElement)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.GraphicalInformationElement)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+    },
+    {
+      "name": "SetStateGraphicalInformationElements",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "GraphicalInformationElements",
+          "type": "Collection(PTC.ServiceInfoMgmt.GraphicalInformationElement)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.GraphicalInformationElement)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.GraphicalInformationElement"
+    },
+    {
+      "name": "SetStateInformationGroups",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "InformationGroups",
+          "type": "Collection(PTC.ServiceInfoMgmt.InformationGroup)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.InformationGroup)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.InformationGroup"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.InformationGroup"
+    },
+    {
+      "name": "ReviseInformationGroups",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "InformationGroups",
+          "type": "Collection(PTC.ServiceInfoMgmt.InformationGroup)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.InformationGroup)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.InformationGroup"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.InformationGroup"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.InformationGroup"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.InformationGroup"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.InformationGroup"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.InformationGroup"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.InformationGroup"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.InformationGroup"
+    },
+    {
+      "name": "GetStructure",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "StructureRoot",
+          "type": "PTC.ServiceInfoMgmt.InformationGroup"
+        },
+        {
+          "name": "NavigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.Structure"
+    },
+    {
+      "name": "RevisePublicationSections",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PublicationSections",
+          "type": "Collection(PTC.ServiceInfoMgmt.PublicationSection)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.PublicationSection)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.PublicationSection"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.PublicationSection"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.PublicationSection"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.PublicationSection"
+    },
+    {
+      "name": "SetStatePublicationSections",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "PublicationSections",
+          "type": "Collection(PTC.ServiceInfoMgmt.PublicationSection)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.PublicationSection)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.PublicationSection"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.PublicationSection"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.PublicationSection"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.PublicationSection"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.PublicationSection"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.PublicationSection"
+    },
+    {
+      "name": "GetStructure",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "StructureRoot",
+          "type": "PTC.ServiceInfoMgmt.PublicationSection"
+        },
+        {
+          "name": "NavigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.Structure"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.InformationStructure"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.InformationStructure"
+    },
+    {
+      "name": "SetStateInformationStructures",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "InformationStructures",
+          "type": "Collection(PTC.ServiceInfoMgmt.InformationStructure)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.InformationStructure)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.InformationStructure"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.InformationStructure"
+    },
+    {
+      "name": "ReviseInformationStructures",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "InformationStructures",
+          "type": "Collection(PTC.ServiceInfoMgmt.InformationStructure)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.InformationStructure)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.InformationStructure"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.InformationStructure"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.InformationStructure"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.InformationStructure"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.InformationStructure"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.InformationStructure"
+    },
+    {
+      "name": "GetStructure",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "StructureRoot",
+          "type": "PTC.ServiceInfoMgmt.InformationStructure"
+        },
+        {
+          "name": "NavigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.Structure"
+    },
+    {
+      "name": "ReviseTextualInformationElements",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "TextualInformationElements",
+          "type": "Collection(PTC.ServiceInfoMgmt.TextualInformationElement)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.TextualInformationElement)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+    },
+    {
+      "name": "SetStateTextualInformationElements",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "TextualInformationElements",
+          "type": "Collection(PTC.ServiceInfoMgmt.TextualInformationElement)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.TextualInformationElement)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.TextualInformationElement"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+    },
+    {
+      "name": "ReviseGenericInformationElements",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "GenericInformationElements",
+          "type": "Collection(PTC.ServiceInfoMgmt.GenericInformationElement)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.GenericInformationElement)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+    },
+    {
+      "name": "SetStateGenericInformationElements",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "GenericInformationElements",
+          "type": "Collection(PTC.ServiceInfoMgmt.GenericInformationElement)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.GenericInformationElement)"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+    },
+    {
+      "name": "GetStructure",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "StructureRoot",
+          "type": "PTC.ServiceInfoMgmt.GenericInformationElement"
+        },
+        {
+          "name": "NavigationCriteriaId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.Structure"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.Indexes"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.Indexes"
+    },
+    {
+      "name": "ReviseIndexes",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Indexes",
+          "type": "Collection(PTC.ServiceInfoMgmt.Indexes)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.Indexes)"
+    },
+    {
+      "name": "SetStateIndexes",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "Indexes",
+          "type": "Collection(PTC.ServiceInfoMgmt.Indexes)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.Indexes)"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.Indexes"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.Indexes"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.Indexes"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.Indexes"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.Indexes"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.Indexes"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.Indexes"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.Indexes"
+    },
+    {
+      "name": "SetState",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "lifecycleManaged",
+          "type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+    },
+    {
+      "name": "SetStateDocumentInformationElements",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DocumentInformationElements",
+          "type": "Collection(PTC.ServiceInfoMgmt.DocumentInformationElement)"
+        },
+        {
+          "name": "State",
+          "type": "PTC.EnumType"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.DocumentInformationElement)"
+    },
+    {
+      "name": "ReviseDocumentInformationElements",
+      "is_bound": false,
+      "parameters": [
+        {
+          "name": "DocumentInformationElements",
+          "type": "Collection(PTC.ServiceInfoMgmt.DocumentInformationElement)"
+        }
+      ],
+      "return_type": "Collection(PTC.ServiceInfoMgmt.DocumentInformationElement)"
+    },
+    {
+      "name": "Revise",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "versioned",
+          "type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+        },
+        {
+          "name": "VersionId",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+    },
+    {
+      "name": "CheckIn",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+        },
+        {
+          "name": "CheckInNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        },
+        {
+          "name": "KeepCheckedOut",
+          "type": "Edm.Boolean"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+    },
+    {
+      "name": "CheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+        },
+        {
+          "name": "CheckOutNote",
+          "type": "Edm.String"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+    },
+    {
+      "name": "UndoCheckOut",
+      "is_bound": true,
+      "parameters": [
+        {
+          "name": "workable",
+          "type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+        }
+      ],
+      "return_type": "PTC.ServiceInfoMgmt.DocumentInformationElement"
+    }
+  ]
+}
