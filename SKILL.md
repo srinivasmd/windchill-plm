@@ -170,6 +170,28 @@ path = client.get_classification_path(node_id)
 tree = client.get_classification_tree(max_depth=3)
 ```
 
+### Query Suppliers
+
+```python
+from domains.SupplierMgmt import SupplierMgmtClient
+client = SupplierMgmtClient(config_path="config.json")
+
+# Query suppliers (returns Manufacturers and Vendors)
+suppliers = client.query_suppliers(top=50)
+
+# Get specific supplier by name
+supplier = client.get_supplier_by_name("Amphenol")
+
+# Get supplier by ID
+supplier = client.get_supplier_by_id("OR:com.ptc.windchill.suma.supplier.Manufacturer:2167863")
+
+# Query manufacturer parts
+mfg_parts = client.query_manufacturer_parts(filter_expr="Name eq 'Connector'")
+
+# Query vendor parts
+vendor_parts = client.query_vendor_parts(top=100)
+```
+
 ### Get Document Attachments
 
 ```python
@@ -590,11 +612,19 @@ client.update_project_plan(plan_id, percent_work_complete=50.0)
 Since `GetBOM` may not be exposed, use the `Uses` navigation:
 
 ```python
-# Method 1: Domain client
-bom = client.get_bom(part_id)
+# Method 1: Domain client (returns usage links only - no child part details)
+from domains.ProdMgmt import ProdMgmtClient
+client = ProdMgmtClient(config_path="config.json")
+bom = client.get_bom(part_id)  # Returns PartUsageLink objects
 
-# Method 2: Direct OData call
-uses = client.get_navigation("Parts", part_id, "Uses", expand=["Uses"])
+# Method 2: Direct OData call with $expand=Uses to get child part details
+from windchill_odata_client import WindchillODataClient
+client = WindchillODataClient(config_path="config.json")
+bom = client.query_entities(f"Parts('{part_id}')/Uses?$expand=Uses")
+
+for item in bom:
+    child = item.get('Uses', {})
+    print(f"{child.get('Number')} | {child.get('Name')} | Qty: {item.get('Quantity')}")
 ```
 
 ---
@@ -672,25 +702,39 @@ For detailed usage, see `references/<Domain>/<Domain>_REFERENCE.md`:
 
 ## Configuration
 
+**Basic Auth Format:**
 ```json
 {
-  "odata_base_url": "https://windchill.example.com/Windchill/servlet/odata",
-  "auth_type": "basic",
-  "username": "your_username",
-  "password": "your_password"
+ "server_url": "https://windchill.example.com/Windchill",
+ "odata_base_url": "https://windchill.example.com/Windchill/servlet/odata/",
+ "auth_type": "basic",
+ "basic": {
+   "username": "your_username",
+   "password": "your_password"
+ },
+ "verify_ssl": true,
+ "timeout": 30
 }
 ```
 
-For OAuth 2.0:
+**OAuth 2.0 Format:**
 ```json
 {
-  "odata_base_url": "https://windchill.example.com/Windchill/servlet/odata",
-  "auth_type": "oauth2",
-  "token_url": "https://auth.example.com/oauth2/token",
-  "client_id": "your_client_id",
-  "client_secret": "your_client_secret"
+ "server_url": "https://windchill.example.com/Windchill",
+ "odata_base_url": "https://windchill.example.com/Windchill/servlet/odata/",
+ "auth_type": "oauth",
+ "oauth": {
+   "client_id": "your_client_id",
+   "client_secret": "your_client_secret",
+   "token_url": "https://windchill.example.com/Windchill/oauth2/token",
+   "scope": "windchill"
+ },
+ "verify_ssl": true,
+ "timeout": 30
 }
 ```
+
+**Important:** Credentials are nested under `basic` or `oauth` object, not at root level. Config file location: `/home/ubuntu/.hermes/skills/zephyr/config.json` (gitignored).
 
 ---
 
@@ -763,3 +807,16 @@ See `references/PTC/actions.json` for full list. Common actions:
 | "CSRF token missing" | POST without token | Get token from `/PTC/GetCSRFToken()` |
 | "$top not supported" | Single-entity navigation | Remove pagination params |
 | 7-8s response time | PTC demo server | Normal behavior, not a bug |
+
+---
+
+## License
+
+Apache License 2.0. See [LICENSE](LICENSE) file for full text.
+
+**Key Points:**
+- Free to use, modify, and distribute
+- Must include license copy in distributions
+- Must retain copyright notices
+- Patent license granted by contributors
+- See [Apache 2.0 Summary](https://www.apache.org/licenses/LICENSE-2.0)

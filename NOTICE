@@ -1,0 +1,17 @@
+Zephyr - Windchill PLM REST API Client
+Copyright 2025 Windchill PLM Client Contributors
+
+This product includes software developed for interacting with
+PTC Windchill PLM REST APIs.
+
+================================================================================
+
+Third-Party Dependencies:
+
+- requests (Apache License 2.0)
+  https://github.com/psf/requests
+
+================================================================================
+
+This project is licensed under the Apache License, Version 2.0.
+See LICENSE file for full license text.

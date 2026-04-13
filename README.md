@@ -471,7 +471,24 @@ zephyr/
 
 ## License
 
-MIT License
+Apache License 2.0
+
+This project is licensed under the Apache License, Version 2.0 - see the [LICENSE](LICENSE) file for details.
+
+### Summary of Apache 2.0 License
+
+You are free to:
+- Use, reproduce, and distribute the software
+- Modify and create derivative works
+- Sublicense and distribute under different terms
+
+Conditions:
+- Include a copy of the Apache 2.0 License
+- Retain copyright and attribution notices
+- State significant changes to files
+- Include NOTICE file if present
+
+See [Apache License 2.0 Summary](https://www.apache.org/licenses/LICENSE-2.0) for full terms.
 
 ## Contributing
 
