@@ -102,62 +102,67 @@ part = client.get_part_by_number("PART-001")
 
 ### OData Filter Builder
 
-Zephyr includes a comprehensive OData filter builder for constructing complex queries:
+Zephyr includes a comprehensive OData filter builder (`odata_filter_builder.py`) for constructing complex queries.
+
+**NEW: `query_entities()` now accepts ODataFilter objects directly!**
 
 ```python
 import sys
 sys.path.insert(0, '/home/ubuntu/.hermes/skills/zephyr/scripts')
-from filter_builder import ODataFilter
+from odata_filter_builder import ODataFilter
+from domains.ProdMgmt import ProdMgmtClient
+
+client = ProdMgmtClient(config_path="config.json")
+
+# Method 1: Pass ODataFilter object directly (RECOMMENDED)
+f = ODataFilter().eq('State', 'RELEASED').and_contains('Name', 'Bracket')
+parts = client.query_entities('Parts', filter_expr=f)
+
+# Method 2: Raw string filter (works but no type safety)
+parts = client.query_entities('Parts', filter_expr="State eq 'RELEASED' and contains(Name, 'Bracket')")
 
 # Simple equality filter
-f = ODataFilter('Part').field('Number').eq('V0056726')
+f = ODataFilter().eq('Number', 'V0056726')
 # Result: "Number eq 'V0056726'"
 
 # Complex filter with AND/OR
-f = (ODataFilter('Part')
- .field('State').eq('RELEASED')
- .and_()
- .field('Quantity').gt(10))
+f = (ODataFilter()
+    .eq('State', 'RELEASED')
+    .and_gt('Quantity', 10))
 # Result: "State eq 'RELEASED' and Quantity gt 10"
 
 # String functions
-f = ODataFilter('Part').field('Name').contains('Engine')
+f = ODataFilter().contains('Name', 'Engine')
 # Result: "contains(Name, 'Engine')"
 
-# Grouped expressions
-f = (ODataFilter('Part')
- .group(ODataFilter('Part')
- .field('State').eq('RELEASED')
- .or_()
- .field('State').eq('APPROVED').build())
- .and_()
- .field('Quantity').gt(0))
-# Result: "(State eq 'RELEASED' or State eq 'APPROVED') and Quantity gt 0"
+# Grouped expressions with OR
+f = (ODataFilter()
+    .eq('State', 'RELEASED')
+    .or_(ODataFilter().eq('State', 'APPROVED')))
+# Result: "(State eq 'RELEASED' or State eq 'APPROVED')"
 
-# Use with domain clients
-from domains.ProdMgmt import ProdMgmtClient
-client = ProdMgmtClient(config_path="config.json")
-parts = client.query_entities('Parts', filter=f.build())
+# Type checking with isof
+f = ODataFilter().isof('WTPart')
+# Result: "isof('WTPart')"
 
-# Quick helper methods
-filter_expr = client.filter_in('Part', 'State', ['RELEASED', 'APPROVED'])
-# Result: "State eq 'RELEASED' or State eq 'APPROVED'"
+# Special properties (ID, CreatedBy, ModifiedBy, View)
+f = ODataFilter().by_id('OR:wt.part.WTPart:12345')
+# Result: "ID eq 'OR:wt.part.WTPart:12345'"
 
-filter_expr = client.filter_between('Part', 'Quantity', 10, 100)
-# Result: "Quantity ge 10 and Quantity le 100"
+f = ODataFilter().by_created_by('admin').and_by_modified_by('user1')
+# Result: "CreatedBy eq 'admin' and ModifiedBy eq 'user1'"
 ```
 
 **Supported OData Expressions:**
 
 | Category | Operators/Methods | Example |
 |----------|-------------------|---------|
-| Comparison | `eq`, `ne`, `gt`, `lt`, `ge`, `le` | `.field('Number').eq('V0056726')` |
-| Logical | `and_()`, `or_()`, `not_()` | `.and_().field('State').eq('RELEASED')` |
-| String | `startswith`, `endswith`, `contains` | `.field('Name').contains('Bracket')` |
-| Type Check | `isof` | `.field('ID').isof('WTPart')` |
-| Special Props | ID, CreatedBy, ModifiedBy, View | `.field('ID').eq('OR:wt.part.WTPart:12345')` |
-| Helpers | `filter_in`, `filter_between` | `client.filter_in('Part', 'State', [...])` |
-| Data Types | String, Int16/32/64, Boolean, DateTimeOffset, Single, Double | `.field('Quantity').gt(100)` |
+| Comparison | `eq`, `ne`, `gt`, `lt`, `ge`, `le` | `.eq('State', 'RELEASED')` |
+| Logical | `and_()`, `or_()`, `not_()` | `.and_(ODataFilter().eq('State', 'APPROVED'))` |
+| String | `startswith`, `endswith`, `contains` | `.contains('Name', 'Bracket')` |
+| Type Check | `isof` | `.isof('WTPart')` |
+| Special Props | ID, CreatedBy, ModifiedBy, View | `.by_id('OR:wt.part.WTPart:12345')` |
+| Data Types | String, Int16/32/64, Boolean, DateTimeOffset, Single, Double | `.gt('Quantity', 100)` |
 
 ---
 
