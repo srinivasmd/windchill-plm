@@ -22,6 +22,30 @@ tags:
 
 Zephyr is a Python client for interacting with PTC Windchill PLM REST APIs. Supports OAuth 2.0 and Basic authentication.
 
+---
+
+## Capabilities Summary (Read This First)
+
+Zephyr provides comprehensive OData query support for Windchill PLM:
+
+**OData Filter Expressions - FULLY SUPPORTED:**
+- Data types: String, Int16/32/64, Boolean, DateTimeOffset, Single, Double
+- Comparison: `eq`, `ne`, `gt`, `lt`, `ge`, `le`
+- Logical: `and`, `or`, `not`
+- String functions: `startswith`, `endswith`, `contains`
+- Type checking: `isof`
+- Special properties: `ID`, `CreatedBy`, `ModifiedBy`, `View`
+
+**Domain Clients Available:** 28 domains (ProdMgmt, DocMgmt, ChangeMgmt, QMS, CAPA, etc.)
+
+**Key Files:**
+- `AGENT_NOTES.md` - Critical learnings for AI agents (READ THIS)
+- `scripts/odata_filter_builder.py` - OData filter construction
+- `scripts/domains/<Domain>/client.py` - Domain-specific helpers
+- `references/CAPABILITIES.md` - Full capability reference
+
+---
+
 ## Quick Start
 
 1. Copy `config.example.json` to `config.json` in the skill directory
@@ -51,6 +75,8 @@ part = client.get_part_by_number("PART-001")
 
 | Issue | Solution |
 |-------|----------|
+| **NEW AGENTS: Read capabilities first** | See `references/CAPABILITIES.md` for full feature reference |
+| **Use ODataFilter, not raw strings** | `from odata_filter_builder import ODataFilter` |
 | **scripts/old/ is DEPRECATED** | Use domain clients in `scripts/domains/` instead |
 | **DO NOT create ad-hoc scripts** | Use existing domain clients directly - they support all query patterns |
 | **URL double-slash bug** | Client auto-fixes trailing slashes. If "Invalid domain request", check URLs. |
