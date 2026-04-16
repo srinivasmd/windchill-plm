@@ -657,14 +657,25 @@ class WindchillBaseClient:
     def search(self, entity_set: str, search_term: str,
                domain: str = None, top: int = 50) -> List[dict]:
         '''
-        Search entities by term.
-        
+        Search entities by term using Windchill full-text search.
+
+        IMPORTANT: This uses $search (full-text search) which searches across ALL fields
+        (Name, Number, Description, etc.) and matches substrings anywhere.
+
+        For field-specific filtering, use query_entities() with filter_expr instead:
+
+        Example - Search only Name field:
+            results = client.query_entities('Parts', filter_expr="contains(Name, 'engine')")
+
+        Example - Search only Number field:
+            results = client.query_entities('Parts', filter_expr="contains(Number, 'ASM')")
+
         Args:
-            entity_set: Entity set name
-            search_term: Search term
-            domain: OData domain
+            entity_set: Entity set name (e.g., 'Parts', 'Documents')
+            search_term: Search term (full-text search across all fields)
+            domain: OData domain (e.g., 'ProdMgmt', 'DocMgmt')
             top: Maximum results
-        
+
         Returns:
             List of matching entities
         '''
@@ -674,7 +685,7 @@ class WindchillBaseClient:
             search=search_term,
             top=top
         )
-    
+
     # =========================================================================
     # Generic Object Operations
     # =========================================================================

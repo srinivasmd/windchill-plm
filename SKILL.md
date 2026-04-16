@@ -34,7 +34,14 @@ sys.path.insert(0, '/home/ubuntu/.hermes/skills/zephyr/scripts')
 from domains.ProdMgmt import ProdMgmtClient
 
 client = ProdMgmtClient(config_path="config.json")
-parts = client.get_parts(top=10)
+
+# Query parts (use query_entities for Parts entity set)
+parts = client.query_entities('Parts', top=10)
+
+# Search parts by term
+results = client.search_parts('bracket', top=10)
+
+# Get part by number
 part = client.get_part_by_number("PART-001")
 ```
 
@@ -45,11 +52,14 @@ part = client.get_part_by_number("PART-001")
 | Issue | Solution |
 |-------|----------|
 | **scripts/old/ is DEPRECATED** | Use domain clients in `scripts/domains/` instead |
+| **DO NOT create ad-hoc scripts** | Use existing domain clients directly - they support all query patterns |
 | **URL double-slash bug** | Client auto-fixes trailing slashes. If "Invalid domain request", check URLs. |
 | **CSRF token required** | Header: `CSRF_NONCE: <token>` (NOT `X-PTC-CSRF-Token`) |
 | **OData properties case-sensitive** | Use `PropertyResolver` or pass dict to `_build_filter_from_dict()` |
 | **GetBOM not exposed** | Use `Uses` navigation: `client.get_bom(part_id)` |
 | **Slow API (7-8s/call)** | PTC demo servers are slow - this is expected, not a bug |
+| **ManufacturerParts in ProdMgmt** | ManufacturerParts/VendorParts are in ProdMgmt domain, NOT SupplierMgmt |
+| **search_* uses $search (full-text)** | `search_parts()`, `search_documents()` use full-text search across ALL fields. For field-specific filtering, use `query_entities()` with `filter_expr=\"contains(Name, 'term')\"` |
 
 ---
 
@@ -90,21 +100,130 @@ part = client.get_part_by_number("PART-001")
 
 ## Common Patterns
 
+### OData Filter Builder
+
+Zephyr includes a comprehensive OData filter builder for constructing complex queries:
+
+```python
+import sys
+sys.path.insert(0, '/home/ubuntu/.hermes/skills/zephyr/scripts')
+from filter_builder import ODataFilter
+
+# Simple equality filter
+f = ODataFilter('Part').field('Number').eq('V0056726')
+# Result: "Number eq 'V0056726'"
+
+# Complex filter with AND/OR
+f = (ODataFilter('Part')
+ .field('State').eq('RELEASED')
+ .and_()
+ .field('Quantity').gt(10))
+# Result: "State eq 'RELEASED' and Quantity gt 10"
+
+# String functions
+f = ODataFilter('Part').field('Name').contains('Engine')
+# Result: "contains(Name, 'Engine')"
+
+# Grouped expressions
+f = (ODataFilter('Part')
+ .group(ODataFilter('Part')
+ .field('State').eq('RELEASED')
+ .or_()
+ .field('State').eq('APPROVED').build())
+ .and_()
+ .field('Quantity').gt(0))
+# Result: "(State eq 'RELEASED' or State eq 'APPROVED') and Quantity gt 0"
+
+# Use with domain clients
+from domains.ProdMgmt import ProdMgmtClient
+client = ProdMgmtClient(config_path="config.json")
+parts = client.query_entities('Parts', filter=f.build())
+
+# Quick helper methods
+filter_expr = client.filter_in('Part', 'State', ['RELEASED', 'APPROVED'])
+# Result: "State eq 'RELEASED' or State eq 'APPROVED'"
+
+filter_expr = client.filter_between('Part', 'Quantity', 10, 100)
+# Result: "Quantity ge 10 and Quantity le 100"
+```
+
+**Supported OData Expressions:**
+
+| Category | Operators/Methods | Example |
+|----------|-------------------|---------|
+| Comparison | `eq`, `ne`, `gt`, `lt`, `ge`, `le` | `.field('Number').eq('V0056726')` |
+| Logical | `and_()`, `or_()`, `not_()` | `.and_().field('State').eq('RELEASED')` |
+| String | `startswith`, `endswith`, `contains` | `.field('Name').contains('Bracket')` |
+| Type Check | `isof` | `.field('ID').isof('WTPart')` |
+| Special Props | ID, CreatedBy, ModifiedBy, View | `.field('ID').eq('OR:wt.part.WTPart:12345')` |
+| Helpers | `filter_in`, `filter_between` | `client.filter_in('Part', 'State', [...])` |
+| Data Types | String, Int16/32/64, Boolean, DateTimeOffset, Single, Double | `.field('Quantity').gt(100)` |
+
+---
+
+### Pagination for Large Datasets
+
+Zephyr provides automatic pagination for handling large result sets:
+
+```python
+import sys
+sys.path.insert(0, '/home/ubuntu/.hermes/skills/zephyr/scripts')
+from domains.ProdMgmt import ProdMgmtClient
+
+client = ProdMgmtClient(config_path="config.json")
+
+# Get ALL parts (automatic pagination)
+all_parts = client.query_all('Parts', filter_expr="State eq 'RELEASED'")
+
+# With progress callback
+def progress(page, count, total):
+ print(f"Page {page}: {count} entities (total: {total})")
+all_parts = client.query_all('Parts', progress_callback=progress)
+
+# Memory-efficient iteration (generator)
+for part in client.query_iter('Parts', filter_expr="State eq 'RELEASED'"):
+ process_part(part) # Process one at a time
+
+# Count before fetching
+count = client.count_entities('Parts', filter_expr="State eq 'RELEASED'")
+print(f"Found {count} released parts")
+
+if count > 1000:
+ # Use iterator for memory efficiency
+ for part in client.query_iter('Parts'):
+ export_part(part)
+else:
+ # Safe to load all at once
+ parts = client.query_all('Parts')
+```
+
+**Pagination Methods:**
+
+| Method | Purpose | Memory Usage |
+|--------|---------|--------------|
+| `query_all()` | Fetch all entities as list | O(n) - loads all into memory |
+| `query_iter()` | Generator yielding one at a time | O(1) - constant memory |
+| `count_entities()` | Get count without fetching data | O(1) - no entity data |
+
 ### Query Parts and BOM
 
 ```python
 from domains.ProdMgmt import ProdMgmtClient
 client = ProdMgmtClient(config_path="config.json")
 
-# Query parts
-parts = client.get_parts(top=50)
-released = client.get_parts_by_state("RELEASED")
+# Query parts using query_entities
+parts = client.query_entities('Parts', top=50)
+
+# Search parts by term (full-text search)
+results = client.search_parts('bracket')
+
+# Get part by number
 part = client.get_part_by_number("V0056726")
 
 # Get BOM
 bom = client.get_bom(part_id)
 for item in bom:
-    print(f"{item['child_part']['number']} | Qty: {item['quantity']}")
+ print(f"{item['child_part']['number']} | Qty: {item['quantity']}")
 ```
 
 ### Query Change Notices
@@ -113,9 +232,11 @@ for item in bom:
 from domains.ChangeMgmt import ChangeMgmtClient
 client = ChangeMgmtClient(config_path="config.json")
 
-notices = client.get_change_notices()
-notice = client.get_change_notice_by_number("CN-001")
-tasks = client.get_change_notice_tasks(notice_id)
+# Query change notices using query_entities
+cns = client.query_entities('ChangeNotices', top=50)
+
+# Get change notice by number
+cn = client.get_change_notice_by_number("CN-2024-001")
 ```
 
 ### Query Quality Records (CAPA/NCR)
@@ -792,10 +913,25 @@ See `references/PTC/actions.json` for full list. Common actions:
 
 | Old Script | Use Instead |
 |------------|-------------|
-| query_parts.py | `ProdMgmtClient.get_parts()` |
-| query_change_notices.py | `ChangeMgmtClient.get_change_notices()` |
-| query_qms.py | `QMSClient.get_capas()` |
+| query_parts.py | `ProdMgmtClient.query_entities('Parts')` |
+| query_change_notices.py | `ChangeMgmtClient.query_entities('ChangeNotices')` |
+| query_qms.py | `QMSClient.query_entities('CAPAs')` or `CAPAClient` |
 | generic_query.py | `WindchillODataClient.query_entities()` |
+
+**DO NOT CREATE AD-HOC SCRIPTS** - Domain clients already support all query patterns:
+
+```python
+# Instead of creating a new script like search_docs_038.py, use:
+
+from domains.DocMgmt import DocMgmtClient
+client = DocMgmtClient(config_path="config.json")
+
+# Field-specific search (recommended)
+docs = client.query_entities('Documents', filter_expr="contains(Number, '038')")
+
+# Or use the search method for full-text search
+docs = client.search_documents('038')
+```
 
 ---
 

@@ -94,17 +94,28 @@ class ProdMgmtClient(WindchillBaseClient):
     
     def search_parts(self, search_term: str, top: int = 50) -> List[dict]:
         '''
-        Search parts by term.
-        
+        Search parts by term using Windchill full-text search.
+
+        IMPORTANT: This uses $search (full-text search) which searches across ALL fields
+        (Name, Number, Description, etc.) and matches substrings anywhere.
+
+        For field-specific filtering, use query_entities() with filter_expr instead:
+
+        Example - Search only Name field for 'part':
+            parts = client.query_entities('Parts', filter_expr="contains(Name, 'part')")
+
+        Example - Search only Number field:
+            parts = client.query_entities('Parts', filter_expr="contains(Number, 'ASM')")
+
         Args:
-            search_term: Search term
+            search_term: Search term (full-text search across all fields)
             top: Maximum results
-        
+
         Returns:
             List of matching parts
         '''
         return self.search('Parts', search_term, domain=self.DOMAIN, top=top)
-    
+
     def get_part_versions(self, part_id: str) -> List[dict]:
         '''
         Get all versions of a part.
