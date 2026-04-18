@@ -10,10 +10,10 @@ Use: Base domain with common operations
 Complete reference documentation for the Windchill Common PTC OData domain.
 
 ## Base URL
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/PTC/
+https://windchill.example.com/Windchill/servlet/odata/PTC/
 
 ## Metadata URL
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/PTC/$metadata
+https://windchill.example.com/Windchill/servlet/odata/PTC/$metadata
 
 ## Domain Overview
 

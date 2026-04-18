@@ -14,13 +14,13 @@ Complete reference documentation for the Windchill Data Administration OData dom
 ## Base URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/DataAdmin/
+https://windchill.example.com/Windchill/servlet/odata/DataAdmin/
 ```
 
 ## Metadata URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/DataAdmin/$metadata
+https://windchill.example.com/Windchill/servlet/odata/DataAdmin/$metadata
 ```
 
 ## Domain Overview

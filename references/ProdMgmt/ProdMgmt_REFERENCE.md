@@ -11,7 +11,7 @@ Client: `from domains.ProdMgmt import ProdMgmtClient`
 
 ## Base URL
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/ProdMgmt/
+https://windchill.example.com/Windchill/servlet/odata/ProdMgmt/
 ```
 
 ## Entity Sets

@@ -14,13 +14,13 @@ Complete reference documentation for the Windchill Regulatory Master OData domai
 ## Base URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/RegMstr/
+https://windchill.example.com/Windchill/servlet/odata/RegMstr/
 ```
 
 ## Metadata URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/RegMstr/$metadata
+https://windchill.example.com/Windchill/servlet/odata/RegMstr/$metadata
 ```
 
 ## Domain Overview

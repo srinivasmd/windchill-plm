@@ -14,7 +14,7 @@ This domain provides access to Windchill Service Information Management entities
 ## ServiceInfoMgmt API Endpoint
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/ServiceInfoMgmt/
+https://windchill.example.com/Windchill/servlet/odata/ServiceInfoMgmt/
 ```
 
 ## Metadata

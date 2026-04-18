@@ -14,13 +14,13 @@ Complete reference documentation for the Windchill Bulk Air Control Management O
 ## Base URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/BACMgmt/
+https://windchill.example.com/Windchill/servlet/odata/BACMgmt/
 ```
 
 ## Metadata URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/BACMgmt/$metadata
+https://windchill.example.com/Windchill/servlet/odata/BACMgmt/$metadata
 ```
 
 ## Domain Overview

@@ -11,12 +11,12 @@ Client: `from domains.CADDocumentMgmt import CADDocumentMgmtClient`
 
 ## Base URL
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/CADDocumentMgmt/
+https://windchill.example.com/Windchill/servlet/odata/CADDocumentMgmt/
 ```
 
 ## Metadata URL
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/CADDocumentMgmt/$metadata
+https://windchill.example.com/Windchill/servlet/odata/CADDocumentMgmt/$metadata
 ```
 
 ## Domain Overview

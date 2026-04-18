@@ -14,7 +14,7 @@ This domain provides access to Windchill workflow management entities including 
 ## Workflow API Endpoint
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/Workflow/
+https://windchill.example.com/Windchill/servlet/odata/Workflow/
 ```
 
 ## Metadata

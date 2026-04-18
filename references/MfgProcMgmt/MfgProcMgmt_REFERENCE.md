@@ -14,7 +14,7 @@ Complete reference documentation for the Windchill Manufacturing Process Managem
 ## Base URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/MfgProcMgmt/
+https://windchill.example.com/Windchill/servlet/odata/MfgProcMgmt/
 ```
 
 ## Domain Overview
