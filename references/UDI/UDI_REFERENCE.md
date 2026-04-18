@@ -14,7 +14,7 @@ This domain provides access to Windchill UDI (Unique Device Identification) enti
 ## UDI API Endpoint
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/UDI/
+https://windchill.example.com/Windchill/servlet/odata/UDI/
 ```
 
 ## Metadata

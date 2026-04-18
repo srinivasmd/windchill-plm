@@ -14,13 +14,13 @@ Complete reference documentation for the Windchill Quality Management System (QM
 ## Base URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/QMS/
+https://windchill.example.com/Windchill/servlet/odata/QMS/
 ```
 
 ## Metadata URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/QMS/$metadata
+https://windchill.example.com/Windchill/servlet/odata/QMS/$metadata
 ```
 
 ## Domain Overview

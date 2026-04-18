@@ -11,7 +11,7 @@ Client: `from domains.DocMgmt import DocMgmtClient`
 
 ## Base URL
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/DocMgmt/
+https://windchill.example.com/Windchill/servlet/odata/DocMgmt/
 ```
 
 ## Entity Set

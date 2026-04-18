@@ -14,13 +14,13 @@ Complete reference documentation for the Windchill Customer Experience Managemen
 ## Base URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/CEM/
+https://windchill.example.com/Windchill/servlet/odata/CEM/
 ```
 
 ## Metadata URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/CEM/$metadata
+https://windchill.example.com/Windchill/servlet/odata/CEM/$metadata
 ```
 
 ## Domain Overview

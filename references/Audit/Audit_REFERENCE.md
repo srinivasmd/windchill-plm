@@ -14,13 +14,13 @@ Complete reference documentation for the Windchill Audit OData domain.
 ## Base URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/Audit/
+https://windchill.example.com/Windchill/servlet/odata/Audit/
 ```
 
 ## Metadata URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/Audit/$metadata
+https://windchill.example.com/Windchill/servlet/odata/Audit/$metadata
 ```
 
 ## Domain Overview

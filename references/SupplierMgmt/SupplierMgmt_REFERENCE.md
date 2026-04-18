@@ -14,7 +14,7 @@ Complete reference for the Windchill PLM Supplier Management OData domain.
 ## Base URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/SupplierMgmt/
+https://windchill.example.com/Windchill/servlet/odata/SupplierMgmt/
 ```
 
 ## Entity Overview

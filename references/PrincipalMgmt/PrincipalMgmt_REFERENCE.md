@@ -14,13 +14,13 @@ Complete reference documentation for the Windchill Principal Management OData do
 ## Base URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/PrincipalMgmt/
+https://windchill.example.com/Windchill/servlet/odata/PrincipalMgmt/
 ```
 
 ## Metadata URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/PrincipalMgmt/$metadata
+https://windchill.example.com/Windchill/servlet/odata/PrincipalMgmt/$metadata
 ```
 
 ## Domain Overview

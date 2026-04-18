@@ -163,6 +163,8 @@ POST /DomainName/EntitySet('{id}')/PTC.DomainName.ActionName
 #### d. `{DomainName}_REFERENCE.md`
 Comprehensive usage guide combining entity info, key properties, and examples.
 
+**IMPORTANT:** Do NOT embed real server URLs in reference files. Use `https://windchill.example.com/Windchill` as the placeholder, matching `config.example.json`. Each user's actual server URL comes from their `config.json` (gitignored).
+
 #### e. Copy Metadata XML
 Place the original metadata XML in the reference folder.
 

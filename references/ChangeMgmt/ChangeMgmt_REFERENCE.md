@@ -14,13 +14,13 @@ Complete reference documentation for the Windchill Change Management OData domai
 ## Base URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/ChangeMgmt/
+https://windchill.example.com/Windchill/servlet/odata/ChangeMgmt/
 ```
 
 ## Metadata URL
 
 ```
-https://pp-2601081959j0.portal.ptc.io/Windchill/servlet/odata/ChangeMgmt/$metadata
+https://windchill.example.com/Windchill/servlet/odata/ChangeMgmt/$metadata
 ```
 
 ## Domain Overview

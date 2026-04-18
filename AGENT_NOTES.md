@@ -14,6 +14,7 @@ Critical implementation details and learnings for AI agents using this skill. Re
 | **URL Double-Slash Bug** | `odata_base_url` needs `.rstrip('/')` to avoid double-slash in URLs |
 | **Case-Sensitive Properties** | OData properties are case-sensitive: `Number` not `number` |
 | **Slow Demo Server** | PTC demo server is slow (7-8s per call is normal, not a bug) |
+| **No Real Server URLs in Reference Files** | Reference docs use `windchill.example.com` placeholder. Actual server comes from user's `config.json`. |
 
 ### Missing/Alternative Endpoints
 
