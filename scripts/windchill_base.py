@@ -45,6 +45,13 @@ try:
 except ImportError:
     PROPERTY_RESOLVER_AVAILABLE = False
 
+# Import OData filter builder for advanced filtering
+try:
+    from odata_filter_builder import ODataFilter, Filter, ODataType
+    ODATA_FILTER_BUILDER_AVAILABLE = True
+except ImportError:
+    ODATA_FILTER_BUILDER_AVAILABLE = False
+
 
 class ODataError(Exception):
     '''Exception raised for OData API errors.'''
@@ -349,17 +356,24 @@ class WindchillBaseClient:
     # =========================================================================
     
     def query_entities(self, entity_set: str, domain: str = None,
-                       filter_expr: str = None, select: str = None,
-                       expand: str = None, orderby: str = None,
-                       top: int = None, skip: int = None,
-                       search: str = None, count: bool = None) -> List[dict]:
-        '''
+        filter_expr: Union[str, 'ODataFilter'] = None, select: str = None,
+        expand: str = None, orderby: str = None,
+        top: int = None, skip: int = None,
+        search: str = None, count: bool = None) -> List[dict]:
+        """
         Query entities with OData options.
-        
+
         Args:
             entity_set: Entity set name (e.g., 'Parts', 'Documents')
             domain: OData domain (default: client's default_domain)
-            filter_expr: OData $filter expression
+            filter_expr: OData $filter expression as string OR ODataFilter object.
+                Supports all OData expressions:
+                - Data types: String, Int16, Int32, Int64, Boolean, DateTimeOffset, Single, Double
+                - Comparison operators: eq, ne, gt, lt, ge, le
+                - Logical operators: and, or, not
+                - String methods: startswith, endswith, contains
+                - Type checking: isof
+                - Special properties: ID, CreatedBy, ModifiedBy, View
             select: Comma-separated properties to select
             expand: Navigation properties to expand
             orderby: Order by expression
@@ -367,18 +381,32 @@ class WindchillBaseClient:
             skip: Number of results to skip
             search: Search term
             count: Include total count
-        
+
         Returns:
             List of entity dictionaries
-        '''
+
+        Examples:
+            # Using raw string filter
+            client.query_entities('Parts', filter_expr="Number eq 'V0056726'")
+
+            # Using ODataFilter for complex expressions
+            from odata_filter_builder import ODataFilter
+            f = ODataFilter().eq('State', 'RELEASED').and_contains('Name', 'Bracket')
+            client.query_entities('Parts', filter_expr=f)
+        """
+        # Handle ODataFilter objects
+        if filter_expr is not None and ODATA_FILTER_BUILDER_AVAILABLE:
+            if hasattr(filter_expr, 'build'):
+                filter_expr = filter_expr.build()
+
         url = self._build_url(
             entity_set,
             domain=domain,
             **{'$filter': filter_expr, '$select': select, '$expand': expand,
-               '$orderby': orderby, '$top': top, '$skip': skip,
-               '$search': search, '$count': count}
+            '$orderby': orderby, '$top': top, '$skip': skip,
+            '$search': search, '$count': count}
         )
-        
+
         data = self._request('GET', url)
         return data.get('value', [])
     
@@ -657,14 +685,25 @@ class WindchillBaseClient:
     def search(self, entity_set: str, search_term: str,
                domain: str = None, top: int = 50) -> List[dict]:
         '''
-        Search entities by term.
-        
+        Search entities by term using Windchill full-text search.
+
+        IMPORTANT: This uses $search (full-text search) which searches across ALL fields
+        (Name, Number, Description, etc.) and matches substrings anywhere.
+
+        For field-specific filtering, use query_entities() with filter_expr instead:
+
+        Example - Search only Name field:
+            results = client.query_entities('Parts', filter_expr="contains(Name, 'engine')")
+
+        Example - Search only Number field:
+            results = client.query_entities('Parts', filter_expr="contains(Number, 'ASM')")
+
         Args:
-            entity_set: Entity set name
-            search_term: Search term
-            domain: OData domain
+            entity_set: Entity set name (e.g., 'Parts', 'Documents')
+            search_term: Search term (full-text search across all fields)
+            domain: OData domain (e.g., 'ProdMgmt', 'DocMgmt')
             top: Maximum results
-        
+
         Returns:
             List of matching entities
         '''
@@ -674,7 +713,7 @@ class WindchillBaseClient:
             search=search_term,
             top=top
         )
-    
+
     # =========================================================================
     # Generic Object Operations
     # =========================================================================

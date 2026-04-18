@@ -72,17 +72,28 @@ class DocMgmtClient(WindchillBaseClient):
     
     def search_documents(self, search_term: str, top: int = 50) -> List[dict]:
         '''
-        Search documents by term.
-        
+        Search documents by term using Windchill full-text search.
+
+        IMPORTANT: This uses $search (full-text search) which searches across ALL fields
+        (Name, Number, Description, etc.) and matches substrings anywhere.
+
+        For field-specific filtering, use query_entities() with filter_expr instead:
+
+        Example - Search only Name field for 'manual':
+            docs = client.query_entities('Documents', filter_expr="contains(Name, 'manual')")
+
+        Example - Search only Number field:
+            docs = client.query_entities('Documents', filter_expr="contains(Number, 'DOC')")
+
         Args:
-            search_term: Search term
+            search_term: Search term (full-text search across all fields)
             top: Maximum results
-        
+
         Returns:
             List of matching documents
         '''
         return self.search('Documents', search_term, domain=self.DOMAIN, top=top)
-    
+
     def get_document_versions(self, document_id: str) -> List[dict]:
         '''
         Get all versions of a document.
