@@ -60,6 +60,9 @@ test_output/
 temp/
 tmp/
 
+# Response cache (file-based persistence)
+response_cache/
+
 # =============================================================================
 # Ignore metadata XML files (not used by scripts, can be regenerated)
 # =============================================================================
