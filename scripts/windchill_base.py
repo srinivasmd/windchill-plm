@@ -589,14 +589,20 @@ class WindchillBaseClient:
         Returns:
             Navigation property value (single entity or collection)
         '''
-        url = self._build_url(
-            entity_set,
-            entity_id=entity_id,
-            domain=domain,
-            **{'$select': select, '$expand': expand}
-        )
-        url += f"/{navigation}"
-        
+        # Build base URL without query params first, then add navigation,
+        # then add query params. This ensures the URL structure is:
+        # /Parts('id')/Uses?$expand=Uses  (NOT /Parts('id')?$expand=Uses/Uses)
+        base_url = self._get_base_url(domain)
+        url = f"{base_url}/{entity_set}('{entity_id}')/{navigation}"
+
+        params = []
+        if select:
+            params.append(f"$select={select}")
+        if expand:
+            params.append(f"$expand={expand}")
+        if params:
+            url += '?' + '&'.join(params)
+
         self._set_cache_context(entity_set, domain)
         data = self._request('GET', url)
         self._clear_cache_context()

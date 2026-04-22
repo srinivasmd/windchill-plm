@@ -156,19 +156,19 @@ class ProdMgmtClient(WindchillBaseClient):
     # BOM Structure
     # =========================================================================
     
-    def get_bom(self, part_id: str, expand_uses: bool = False) -> List[dict]:
+    def get_bom(self, part_id: str, expand_uses: bool = True) -> List[dict]:
         '''
         Get Bill of Materials for a part.
-        
+
         Args:
-            part_id: Part ID
-            expand_uses: Expand Uses navigation property
-        
+            part_id: Part ID (OID like OR:wt.part.WTPart:12345)
+            expand_uses: Expand Uses nav to include child part details (default True)
+
         Returns:
-            List of BOM lines
+            List of BOM lines with Quantity, Unit, and child Part (Uses) details
         '''
         expand = 'Uses' if expand_uses else None
-        return self.get_navigation('Parts', part_id, 'Uses', domain=self.DOMAIN)
+        return self.get_navigation('Parts', part_id, 'Uses', domain=self.DOMAIN, expand=expand)
     
     def get_part_children(self, part_id: str) -> List[dict]:
         '''

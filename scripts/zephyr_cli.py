@@ -208,9 +208,14 @@ def format_bom(bom_items: List[Dict], parent_number: str = None) -> str:
     lines.append('-' * 62)
 
     for item in bom_items:
-        part = item.get('Part', item.get('Uses', {}))
+        # 'Uses' is the child Part (from $expand=Uses on PartUse navigation)
+        # 'Part' may also appear in some response shapes
+        part = item.get('Uses', item.get('Part', {}))
         number = part.get('Number', 'N/A') if isinstance(part, dict) else 'N/A'
         name = part.get('Name', 'N/A') if isinstance(part, dict) else 'N/A'
+        # Handle enum-type Name (rare but possible)
+        if isinstance(name, dict):
+            name = name.get('Display', name.get('Value', 'N/A'))
         qty = item.get('Quantity', item.get('Amount', 1))
         if isinstance(name, str) and len(name) > 35:
             name = name[:32] + '...'
@@ -386,13 +391,15 @@ def cmd_bom(args):
 
 def _print_bom_tree(node: Dict, indent: int = 0):
     """Recursively print BOM tree structure."""
-    part = node.get('Part', {})
-    number = part.get('Number', 'N/A')
-    name = part.get('Name', 'N/A')
-    prefix = '  ' * indent + ('+-- ' if indent > 0 else '')
+    part = node.get('Uses', node.get('Part', {}))
+    number = part.get('Number', 'N/A') if isinstance(part, dict) else 'N/A'
+    name = part.get('Name', 'N/A') if isinstance(part, dict) else 'N/A'
+    if isinstance(name, dict):
+        name = name.get('Display', name.get('Value', 'N/A'))
+    prefix = ' ' * indent + ('+-- ' if indent > 0 else '')
     print(f"{prefix}{number}: {name}")
-    for use in node.get('Uses', []):
-        child = use.get('Child', {})
+    for use in node.get('Components', node.get('Uses', [])):
+        child = use.get('Uses', use.get('Child', use.get('Part', {})))
         if child:
             _print_bom_tree(child, indent + 1)
 
