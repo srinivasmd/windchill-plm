@@ -145,11 +145,15 @@ Fully supported per PTC Windchill REST Services specification:
 ```python
 from odata_filter_builder import ODataFilter, Filter
 
-# Simple equality
-f = ODataFilter().eq('State', 'RELEASED')
+# Simple equality (for string/number properties)
+f = ODataFilter().eq('Name', 'Bracket')
+
+# Enum properties - MUST use /Value suffix
+f = ODataFilter().eq('State/Value', 'RELEASED')
+f = ODataFilter().eq('Priority/Value', 'High')
 
 # Multiple conditions
-f = ODataFilter().eq('State', 'RELEASED').and_gt('Quantity', 100)
+f = ODataFilter().eq('State/Value', 'RELEASED').and_gt('Quantity', 100)
 
 # String functions
 f = ODataFilter().contains('Name', 'Bracket')
@@ -164,8 +168,8 @@ f = ODataFilter().isof('WTPart')
 
 # Complex boolean logic
 f = Filter.or_(
-    Filter.and_(Filter.eq('State', 'RELEASED'), Filter.contains('Name', 'Bracket')),
-    Filter.and_(Filter.eq('State', 'APPROVED'), Filter.startswith('Number', 'ASM'))
+ Filter.and_(Filter.eq('State/Value', 'RELEASED'), Filter.contains('Name', 'Bracket')),
+ Filter.and_(Filter.eq('State/Value', 'APPROVED'), Filter.startswith('Number', 'ASM'))
 )
 
 # Use with query_entities
@@ -199,6 +203,8 @@ results = client.query_entities('Parts', filter_expr=f)
 | "$top not supported" | Single-entity navigation | Remove pagination params for single entity queries |
 | 7-8s response time | PTC demo server | Normal behavior, not a bug |
 | Property not found | Case mismatch | Use exact case: `Number` not `number` |
+| 400 "types not compatible" | Enum compared to string | Use `/Value` suffix: `State/Value eq 'X'` not `State eq 'X'` |
+| NameError `CACHE_MANAGER_AVAILABLE` | Missing import block | Add `try/except ImportError` block defining `_AVAILABLE` flag |
 
 ---
 
