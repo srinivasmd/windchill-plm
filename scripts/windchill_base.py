@@ -47,10 +47,17 @@ except ImportError:
 
 # Import OData filter builder for advanced filtering
 try:
-    from odata_filter_builder import ODataFilter, Filter, ODataType
-    ODATA_FILTER_BUILDER_AVAILABLE = True
+ from odata_filter_builder import ODataFilter, Filter, ODataType
+ ODATA_FILTER_BUILDER_AVAILABLE = True
 except ImportError:
-    ODATA_FILTER_BUILDER_AVAILABLE = False
+ ODATA_FILTER_BUILDER_AVAILABLE = False
+
+# Import response cache manager for query caching
+try:
+ from cache_manager import CacheManager
+ CACHE_MANAGER_AVAILABLE = True
+except ImportError:
+ CACHE_MANAGER_AVAILABLE = False
 
 
 class ODataError(Exception):
