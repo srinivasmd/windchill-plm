@@ -103,8 +103,11 @@ part = client.get_part_by_number("PART-001")
 | **DO NOT create ad-hoc scripts** | Use existing domain clients directly - they support all query patterns |
 | **URL double-slash bug** | Client auto-fixes trailing slashes. If "Invalid domain request", check URLs. |
 | **CSRF token required** | Header: `CSRF_NONCE: <token>` (NOT `X-PTC-CSRF-Token`) |
-| **OData properties case-sensitive** | Use `PropertyResolver` or pass dict to `_build_filter_from_dict()` |
-| **GetBOM not exposed** | Use `Uses` navigation: `client.get_bom(part_id)` |
+| **OData properties case-sensitive** | Properties are PascalCase: `Number` not `number`, `Name` not `name`, `ContainerID` not `containerID`. Wrong case = 400 error. |
+| **Enum properties need /Value** | PTC.EnumType props (State, Status, Priority, Severity) require `/Value`: `State/Value eq 'RELEASED'` NOT `State eq 'RELEASED'`. CLI auto-corrects. |
+| **Navigation URL order** | `/{nav}` segment must come BEFORE `?$expand=` params. Wrong order = 400 error. |
+| **BOM child details via Uses** | PartUse links lack child Number/Name by default. `get_bom()` auto-expands `$expand=Uses`. Read from `item['Uses']['Number']`. |
+| **GetBOM not exposed** | Use `Uses` navigation: `client.get_bom(part_id)` (auto-expands child part details) |
 | **Slow API (7-8s/call)** | PTC demo servers are slow - this is expected, not a bug |
 | **ManufacturerParts in ProdMgmt** | ManufacturerParts/VendorParts are in ProdMgmt domain, NOT SupplierMgmt |
 | **search_* uses $search (full-text)** | `search_parts()`, `search_documents()` use full-text search across ALL fields. For field-specific filtering, use `query_entities()` with `filter_expr=\"contains(Name, 'term')\"` |
@@ -862,20 +865,18 @@ client.update_project_plan(plan_id, percent_work_complete=50.0)
 Since `GetBOM` may not be exposed, use the `Uses` navigation:
 
 ```python
-# Method 1: Domain client (returns usage links only - no child part details)
+# Domain client (RECOMMENDED) - auto-expands child part details
 from domains.ProdMgmt import ProdMgmtClient
 client = ProdMgmtClient(config_path="config.json")
-bom = client.get_bom(part_id)  # Returns PartUsageLink objects
-
-# Method 2: Direct OData call with $expand=Uses to get child part details
-from windchill_odata_client import WindchillODataClient
-client = WindchillODataClient(config_path="config.json")
-bom = client.query_entities(f"Parts('{part_id}')/Uses?$expand=Uses")
+bom = client.get_bom(part_id)  # Returns PartUsageLink objects with child Part details
 
 for item in bom:
+    # Child part details are in the 'Uses' key (from $expand=Uses)
     child = item.get('Uses', {})
     print(f"{child.get('Number')} | {child.get('Name')} | Qty: {item.get('Quantity')}")
 ```
+
+**IMPORTANT:** PartUse links do NOT include child Number/Name by default. `get_bom()` uses `$expand=Uses` to inline the child Part. Always read child details from `item['Uses']`, not `item['Part']`.
 
 ---
 
@@ -1073,6 +1074,10 @@ docs = client.search_documents('038')
 | "CSRF token missing" | POST without token | Get token from `/PTC/GetCSRFToken()` |
 | "$top not supported" | Single-entity navigation | Remove pagination params |
 | 7-8s response time | PTC demo server | Normal behavior, not a bug |
+| 400 "types not compatible" | Enum compared to string | Use `Property/Value eq 'X'` (e.g. `State/Value eq 'RELEASED'`) |
+| 400 with filter | Property name wrong case | Use PascalCase: `Number` not `number`, `Name` not `name` |
+| 400 on navigation with $expand | URL has params before nav segment | Navigation must come before `?` in URL |
+| BOM shows N/A for Number/Name | Missing child part expand | `get_bom()` auto-expands `$expand=Uses`; read `item['Uses']['Number']` |
 
 ---
 
