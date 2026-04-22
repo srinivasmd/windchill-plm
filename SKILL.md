@@ -45,8 +45,22 @@ Zephyr provides comprehensive OData query support for Windchill PLM:
 - Cache stats tracking (hits, misses, hit rate)
 - Zero external dependencies (stdlib only)
 
+**CLI - TERMINAL INTERFACE:**
+- 30+ subcommands: parts, documents, bom, search, count, domains, cache, etc.
+- Auto-corrects common OData filter mistakes (enum /Value suffix)
+- Tabular and JSON output formats
+- Run: `python scripts/zephyr_cli.py <command> [options]`
+
+**Async Query Manager - PARALLEL QUERIES:**
+- Parallel HTTP via aiohttp with semaphore concurrency control
+- Retry with exponential backoff for transient failures
+- Parallel BOM traversal and batch entity fetching
+- Falls back to synchronous when aiohttp is unavailable
+
 **Key Files:**
 - `AGENT_NOTES.md` - Critical learnings for AI agents (READ THIS)
+- `scripts/zephyr_cli.py` - Terminal CLI for quick queries
+- `scripts/async_query_manager.py` - Parallel query engine
 - `scripts/odata_filter_builder.py` - OData filter construction
 - `scripts/cache_manager.py` - Response caching (memory + file, TTL, LRU)
 - `scripts/domains/<Domain>/client.py` - Domain-specific helpers
