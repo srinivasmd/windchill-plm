@@ -85,7 +85,7 @@ class SupplierMgmtClient(WindchillBaseClient):
         '''
         suppliers = self.query_entities(
             'Suppliers',
-            filter_expr=f"name eq '{name}'",
+            filter_expr=f"Name eq '{name}'",
             top=1
         )
         if not suppliers:

@@ -86,7 +86,7 @@ class UDIClient(WindchillBaseClient):
         '''
         records = self.query_entities(
             'UDIRecords',
-            filter_expr=f"deviceIdentifier eq '{di}'",
+            filter_expr=f"DeviceIdentifier eq '{di}'",
             top=1
         )
         if not records:

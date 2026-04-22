@@ -84,7 +84,7 @@ class DataAdminClient(WindchillBaseClient):
             List of containers
         '''
         if org_id:
-            return self.query_entities('Containers', filter_expr=f"organizationID eq '{org_id}'")
+            return self.query_entities('Containers', filter_expr=f"OrganizationID eq '{org_id}'")
         return self.query_entities('Containers')
     
     # =========================================================================

@@ -86,7 +86,7 @@ class PrincipalMgmtClient(WindchillBaseClient):
         '''
         users = self.query_entities(
             'Users',
-            filter_expr=f"name eq '{name}'",
+            filter_expr=f"Name eq '{name}'",
             top=1
         )
         if not users:
@@ -105,7 +105,7 @@ class PrincipalMgmtClient(WindchillBaseClient):
         '''
         users = self.query_entities(
             'Users',
-            filter_expr=f"email eq '{email}'",
+            filter_expr=f"Email eq '{email}'",
             top=1
         )
         if not users:
@@ -153,7 +153,7 @@ class PrincipalMgmtClient(WindchillBaseClient):
         '''
         groups = self.query_entities(
             'Groups',
-            filter_expr=f"name eq '{name}'",
+            filter_expr=f"Name eq '{name}'",
             top=1
         )
         if not groups:

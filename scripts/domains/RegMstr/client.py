@@ -86,7 +86,7 @@ class RegMstrClient(WindchillBaseClient):
         '''
         regs = self.query_entities(
             'Registrations',
-            filter_expr=f"number eq '{number}'",
+            filter_expr=f"Number eq '{number}'",
             top=1
         )
         if not regs:
@@ -109,7 +109,7 @@ class RegMstrClient(WindchillBaseClient):
         '''
         return self.query_entities(
             'Registrations',
-            filter_expr=f"market eq '{market}'"
+            filter_expr=f"Market eq '{market}'"
         )
     
     def get_registration_markets(self, registration_id: str) -> List[dict]:

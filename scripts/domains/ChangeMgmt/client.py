@@ -61,7 +61,7 @@ class ChangeMgmtClient(WindchillBaseClient):
         '''
         notices = self.query_entities(
             'ChangeNotices',
-            filter_expr=f"number eq '{number}'",
+            filter_expr=f"Number eq '{number}'",
             expand=expand,
             top=1
         )
@@ -99,7 +99,7 @@ class ChangeMgmtClient(WindchillBaseClient):
         '''
         requests = self.query_entities(
             'ChangeRequests',
-            filter_expr=f"number eq '{number}'",
+            filter_expr=f"Number eq '{number}'",
             expand=expand,
             top=1
         )
@@ -137,7 +137,7 @@ class ChangeMgmtClient(WindchillBaseClient):
         '''
         tasks = self.query_entities(
             'ChangeTasks',
-            filter_expr=f"number eq '{number}'",
+            filter_expr=f"Number eq '{number}'",
             expand=expand,
             top=1
         )

@@ -62,7 +62,7 @@ class DocMgmtClient(WindchillBaseClient):
         '''
         docs = self.query_entities(
             'Documents',
-            filter_expr=f"number eq '{number}'",
+            filter_expr=f"Number eq '{number}'",
             expand=expand,
             top=1
         )
@@ -161,7 +161,7 @@ class DocMgmtClient(WindchillBaseClient):
             List of folders
         '''
         if container_id:
-            return self.query_entities('Folders', filter_expr=f"containerID eq '{container_id}'")
+            return self.query_entities('Folders', filter_expr=f"ContainerID eq '{container_id}'")
         return self.query_entities('Folders')
     
     def get_folder_by_id(self, folder_id: str) -> dict:

@@ -87,7 +87,7 @@ class QMSClient(WindchillBaseClient):
         '''
         capas = self.query_entities(
             'CAPAs',
-            filter_expr=f"number eq '{number}'",
+            filter_expr=f"Number eq '{number}'",
             top=1
         )
         if not capas:

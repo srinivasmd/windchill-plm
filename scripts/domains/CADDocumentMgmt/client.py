@@ -62,7 +62,7 @@ class CADDocumentMgmtClient(WindchillBaseClient):
         '''
         docs = self.query_entities(
             'CADDocuments',
-            filter_expr=f"number eq '{number}'",
+            filter_expr=f"Number eq '{number}'",
             expand=expand,
             top=1
         )
