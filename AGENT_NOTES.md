@@ -14,6 +14,8 @@ Critical implementation details and learnings for AI agents using this skill. Re
 | **URL Double-Slash Bug** | `odata_base_url` needs `.rstrip('/')` to avoid double-slash in URLs |
 | **Case-Sensitive Properties** | OData filter properties are PascalCase: `Number` not `number`, `Name` not `name`, `ContainerID` not `containerID`. Wrong case = 400 error. Fixed 17 bugs across 11 domain clients in commit 37a93c2. |
 | **Enum Properties Need /Value** | PTC.EnumType properties (State, Priority, Severity, Status, etc.) require `/Value` in filters: `State/Value eq 'RELEASED'` (NOT `State eq 'RELEASED'`). Direct comparison = 400 error "types not compatible". CLI auto-corrects common enum names. Fixed in commit 8fbe72a. |
+| **Navigation URL Order** | `get_navigation()` must place `/{nav}` segment BEFORE `?$expand=` query params. Wrong order produces `Parts('id')?$expand=Uses/Uses` (400 error). Correct: `Parts('id')/Uses?$expand=Uses`. Fixed in commit e16ab00. |
+| **BOM Child Part via Uses** | PartUse links don't include child Number/Name by default. Need `$expand=Uses` on the Uses navigation to include child Part details inline. The 'Uses' key (not 'Part') holds the child part in BOM responses. |
 | **Slow Demo Server** | PTC demo server is slow (7-8s per call is normal, not a bug) |
 | **No Real Server URLs in Reference Files** | Reference docs use `windchill.example.com` placeholder. Actual server comes from user's `config.json`. |
 | **Missing Import Blocks** | Every optional module (cache_manager, odata_filter_builder, property_resolver) MUST have a `try/except ImportError` block defining its `_AVAILABLE` flag. Forgetting this causes `NameError` at runtime. |
