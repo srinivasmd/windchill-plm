@@ -110,7 +110,7 @@ class ProjMgmtClient(WindchillBaseClient):
         '''
         return self.query_entities(
             'ProjectPlans',
-            filter_expr=f"Status eq '{status}'",
+            filter_expr=f"Status/Value eq '{status}'",
             top=top
         )
     
@@ -192,7 +192,7 @@ class ProjMgmtClient(WindchillBaseClient):
         '''
         return self.query_entities(
             'Activities',
-            filter_expr=f"Status eq '{status}'",
+            filter_expr=f"Status/Value eq '{status}'",
             top=top
         )
     

@@ -5,15 +5,23 @@ Zephyr CLI - Command-line interface for PTC Windchill PLM.
 Quick one-off queries from the terminal, shell scripts, and CI pipelines.
 
 Usage:
-    zephyr parts --filter "State eq 'RELEASED'" --top 20
-    zephyr bom PART-001
-    zephyr search bracket
-    zephyr get OR:wt.part.WTPart:12345
-    zephyr documents --filter "contains(Name,'spec')" --top 10
-    zephyr changes --state RELEASED
-    zephyr domains                          # list all available domains
-    zephyr cache stats                       # show cache statistics
-    zephyr cache clear                       # clear all cached responses
+ zephyr parts --filter "State/Value eq 'RELEASED'" --top 20
+ zephyr bom PART-001
+ zephyr search bracket
+ zephyr get OR:wt.part.WTPart:12345
+ zephyr documents --filter "contains(Name,'spec')" --top 10
+ zephyr changes --state RELEASED
+ zephyr domains # list all available domains
+ zephyr cache stats # show cache statistics
+ zephyr cache clear # clear all cached responses
+
+OData Filter Notes:
+ - Enum properties (State, Priority, Severity, Status) require /Value:
+     State/Value eq 'RELEASED'   (NOT: State eq 'RELEASED')
+ - String properties use direct comparison:
+     Number eq 'PART-001'
+     contains(Name,'bracket')
+ - All property names are PascalCase: Number, Name, State (not number, name)
 """
 # Copyright 2025 Windchill PLM Client Contributors
 #
@@ -245,6 +253,24 @@ def cmd_query(args):
         filter_expr = f"Number eq '{args.number}'"
     else:
         filter_expr = args.filter
+
+    # Auto-correct Windchill enum properties in filter expressions
+    # Enum properties require /Value suffix: State eq 'X' -> State/Value eq 'X'
+    WINDCHILL_ENUM_PROPERTIES = {
+        'State', 'Status', 'Priority', 'Severity', 'AssemblyMode',
+        'CheckoutState', 'ChangeStatus', 'GeneralStatus', 'CheckOutStatus',
+        'LifecycleState', 'DocTypeName',
+    }
+    if filter_expr:
+        import re as _re
+        enum_fix_re = _re.compile(
+            r'\b(' + '|'.join(WINDCHILL_ENUM_PROPERTIES) + r')\s+eq\s+\''
+        )
+        corrected = enum_fix_re.sub(r"\1/Value eq '", filter_expr)
+        if corrected != filter_expr:
+            print(f"Note: Auto-corrected filter: {filter_expr} -> {corrected}",
+                  file=sys.stderr)
+            filter_expr = corrected
 
     # Build query
     kwargs = {}
