@@ -15,6 +15,7 @@ Critical implementation details and learnings for AI agents using this skill. Re
 | **Case-Sensitive Properties** | OData properties are case-sensitive: `Number` not `number` |
 | **Slow Demo Server** | PTC demo server is slow (7-8s per call is normal, not a bug) |
 | **No Real Server URLs in Reference Files** | Reference docs use `windchill.example.com` placeholder. Actual server comes from user's `config.json`. |
+| **Missing Import Blocks** | Every optional module (cache_manager, odata_filter_builder, property_resolver) MUST have a `try/except ImportError` block defining its `_AVAILABLE` flag. Forgetting this causes `NameError` at runtime. |
 
 ### Missing/Alternative Endpoints
 
