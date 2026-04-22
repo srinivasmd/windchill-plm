@@ -1,1 +1,26 @@
-{"server_url": "https://windchill.example.com/Windchill", "auth_type": "oauth", "oauth": {"client_id": "your-client-id", "client_secret": "your-client-secret", "token_url": "https://windchill.example.com/Windchill/oauth2/token", "scope": "windchill"}, "verify_ssl": true, "timeout": 30}
+{
+  "server_url": "https://windchill.example.com/Windchill",
+  "odata_base_url": "https://windchill.example.com/Windchill/servlet/odata",
+  "auth_type": "oauth",
+  "oauth": {
+    "client_id": "your-client-id",
+    "client_secret": "your-client-secret",
+    "token_url": "https://windchill.example.com/Windchill/oauth2/token",
+    "scope": "windchill"
+  },
+  "verify_ssl": true,
+  "timeout": 30,
+  "cache": {
+    "enabled": true,
+    "ttl": 300,
+    "max_entries": 256,
+    "file_cache": true,
+    "max_size_mb": 50,
+    "default_ttls": {
+      "ProdMgmt:Parts": 600,
+      "ChangeMgmt:ChangeNotices": 120,
+      "DocMgmt:Documents": 300,
+      "Workflow:WorkItems": 60
+    }
+  }
+}

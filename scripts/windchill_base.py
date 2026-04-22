@@ -114,10 +114,22 @@ class WindchillBaseClient:
         
         self._setup_auth()
         self._load_metadata()
-    
-    # =========================================================================
-    # Configuration and Authentication
-    # =========================================================================
+        
+        # Initialize response cache
+        self._cache = None
+        if CACHE_MANAGER_AVAILABLE:
+            self._cache = CacheManager.from_config(
+                self.config,
+                cache_dir=SKILL_DIR
+            )
+        
+        # Track current entity set for cache invalidation
+        self._current_entity_set = None
+        self._current_domain = None
+        
+        # =========================================================================
+        # Configuration and Authentication
+        # =========================================================================
     
 
     # =========================================================================
@@ -327,8 +339,28 @@ class WindchillBaseClient:
     # Core HTTP Operations
     # =========================================================================
     
+    def _set_cache_context(self, entity_set: str = None, domain: str = None):
+        '''Set current entity set and domain for cache tracking.'''
+        self._current_entity_set = entity_set
+        self._current_domain = domain or self.default_domain
+    
+    def _clear_cache_context(self):
+        '''Clear cache context after request.'''
+        self._current_entity_set = None
+        self._current_domain = None
+
     def _request(self, method: str, url: str, **kwargs) -> dict:
-        '''Make HTTP request and handle response.'''
+        '''Make HTTP request and handle response. GET requests are cached.'''
+        # Cache lookup for GET requests
+        if method.upper() == 'GET' and self._cache is not None:
+            cached = self._cache.get(
+                url, method='GET',
+                domain=self._current_domain,
+                entity_set=self._current_entity_set
+            )
+            if cached is not None:
+                return cached
+
         headers = kwargs.pop('headers', {})
         headers.update({'Accept': 'application/json'})
         
@@ -349,7 +381,24 @@ class WindchillBaseClient:
         if response.status_code == 204:
             return {}
         
-        return response.json()
+        result = response.json()
+        
+        # Cache successful GET responses
+        if method.upper() == 'GET' and self._cache is not None:
+            self._cache.put(
+                url, result, method='GET',
+                domain=self._current_domain,
+                entity_set=self._current_entity_set
+            )
+        
+        # Invalidate cache on write operations
+        if method.upper() in ('POST', 'PATCH', 'DELETE') and self._cache is not None:
+            if self._current_domain and self._current_entity_set:
+                self._cache.invalidate_on_write(
+                    self._current_domain, self._current_entity_set
+                )
+        
+        return result
     
     # =========================================================================
     # Entity Operations
@@ -399,15 +448,20 @@ class WindchillBaseClient:
             if hasattr(filter_expr, 'build'):
                 filter_expr = filter_expr.build()
 
+        # Set cache context for this query
+        effective_domain = domain or self.default_domain
+        self._set_cache_context(entity_set, effective_domain)
+
         url = self._build_url(
             entity_set,
             domain=domain,
             **{'$filter': filter_expr, '$select': select, '$expand': expand,
-            '$orderby': orderby, '$top': top, '$skip': skip,
-            '$search': search, '$count': count}
+               '$orderby': orderby, '$top': top, '$skip': skip,
+               '$search': search, '$count': count}
         )
 
         data = self._request('GET', url)
+        self._clear_cache_context()
         return data.get('value', [])
     
     def get_entity(self, entity_set: str, entity_id: str,
@@ -433,7 +487,10 @@ class WindchillBaseClient:
             **{'$select': select, '$expand': expand}
         )
         
-        return self._request('GET', url)
+        self._set_cache_context(entity_set, domain)
+        result = self._request('GET', url)
+        self._clear_cache_context()
+        return result
     
     def create_entity(self, entity_set: str, entity_data: dict,
                       domain: str = None) -> dict:
@@ -453,7 +510,10 @@ class WindchillBaseClient:
         headers = self._add_csrf_header()
         headers['Content-Type'] = 'application/json'
         
-        return self._request('POST', url, json=entity_data, headers=headers)
+        self._set_cache_context(entity_set, domain)
+        result = self._request('POST', url, json=entity_data, headers=headers)
+        self._clear_cache_context()
+        return result
     
     def update_entity(self, entity_set: str, entity_id: str,
                       entity_data: dict, domain: str = None) -> dict:
@@ -474,7 +534,10 @@ class WindchillBaseClient:
         headers = self._add_csrf_header()
         headers['Content-Type'] = 'application/json'
         
-        return self._request('PATCH', url, json=entity_data, headers=headers)
+        self._set_cache_context(entity_set, domain)
+        result = self._request('PATCH', url, json=entity_data, headers=headers)
+        self._clear_cache_context()
+        return result
     
     def delete_entity(self, entity_set: str, entity_id: str,
                       domain: str = None) -> bool:
@@ -493,7 +556,9 @@ class WindchillBaseClient:
         
         headers = self._add_csrf_header()
         
+        self._set_cache_context(entity_set, domain)
         self._request('DELETE', url, headers=headers)
+        self._clear_cache_context()
         return True
     
     # =========================================================================
@@ -525,7 +590,9 @@ class WindchillBaseClient:
         )
         url += f"/{navigation}"
         
+        self._set_cache_context(entity_set, domain)
         data = self._request('GET', url)
+        self._clear_cache_context()
         return data.get('value', data)
     
     def get_navigation_info(self, entity_type: str = None) -> dict:
@@ -713,6 +780,56 @@ class WindchillBaseClient:
             search=search_term,
             top=top
         )
+
+    # =========================================================================
+    # Cache Control
+    # =========================================================================
+    
+    def cache_stats(self) -> dict:
+        '''Get cache statistics (hits, misses, hit rate, size).'''
+        if self._cache is None:
+            return {'enabled': False}
+        return self._cache.stats()
+    
+    def cache_clear(self):
+        '''Clear all cached entries.'''
+        if self._cache is not None:
+            self._cache.clear()
+    
+    def cache_cleanup(self) -> dict:
+        '''Remove expired entries from cache. Returns cleanup counts.'''
+        if self._cache is None:
+            return {'memory': 0, 'file': 0}
+        return self._cache.cleanup()
+    
+    def cache_invalidate(self, domain: str, entity_set: str) -> int:
+        '''
+        Invalidate cached entries for a specific entity set.
+        
+        Args:
+            domain: OData domain (e.g., 'ProdMgmt')
+            entity_set: Entity set name (e.g., 'Parts')
+        
+        Returns:
+            Number of entries invalidated
+        '''
+        if self._cache is None:
+            return 0
+        return self._cache.invalidate_on_write(domain, entity_set)
+    
+    def cache_invalidate_domain(self, domain: str) -> int:
+        '''
+        Invalidate all cached entries for an entire domain.
+        
+        Args:
+            domain: OData domain (e.g., 'ProdMgmt')
+        
+        Returns:
+            Number of entries invalidated
+        '''
+        if self._cache is None:
+            return 0
+        return self._cache.invalidate_domain(domain)
 
     # =========================================================================
     # Generic Object Operations

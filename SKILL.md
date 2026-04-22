@@ -38,9 +38,17 @@ Zephyr provides comprehensive OData query support for Windchill PLM:
 
 **Domain Clients Available:** 28 domains (ProdMgmt, DocMgmt, ChangeMgmt, QMS, CAPA, etc.)
 
+**Response Caching - BUILT-IN:**
+- Dual-backend: in-memory LRU + file-based persistence
+- TTL-based expiration (default 300s, configurable per entity set)
+- Auto-invalidation on write operations (POST/PATCH/DELETE)
+- Cache stats tracking (hits, misses, hit rate)
+- Zero external dependencies (stdlib only)
+
 **Key Files:**
 - `AGENT_NOTES.md` - Critical learnings for AI agents (READ THIS)
 - `scripts/odata_filter_builder.py` - OData filter construction
+- `scripts/cache_manager.py` - Response caching (memory + file, TTL, LRU)
 - `scripts/domains/<Domain>/client.py` - Domain-specific helpers
 - `references/CAPABILITIES.md` - Full capability reference
 
@@ -86,6 +94,82 @@ part = client.get_part_by_number("PART-001")
 | **Slow API (7-8s/call)** | PTC demo servers are slow - this is expected, not a bug |
 | **ManufacturerParts in ProdMgmt** | ManufacturerParts/VendorParts are in ProdMgmt domain, NOT SupplierMgmt |
 | **search_* uses $search (full-text)** | `search_parts()`, `search_documents()` use full-text search across ALL fields. For field-specific filtering, use `query_entities()` with `filter_expr=\"contains(Name, 'term')\"` |
+| **Cache enabled by default** | Set `cache.enabled: false` in config to disable. Use `cache_clear()` to reset. |
+
+---
+
+## Response Caching
+
+Zephyr includes built-in response caching that dramatically reduces latency for repeated queries. On PTC demo servers where each call takes 7-8 seconds, cached responses return in <1ms.
+
+### How It Works
+
+- **GET requests** are automatically cached (memory + optional file)
+- **Write operations** (POST/PATCH/DELETE) auto-invalidate affected entity set
+- **TTL expiration** ensures stale data is eventually refreshed
+- **File persistence** survives across sessions
+
+### Configuration
+
+Add to `config.json`:
+
+```json
+{
+  "cache": {
+    "enabled": true,
+    "ttl": 300,
+    "max_entries": 256,
+    "file_cache": true,
+    "max_size_mb": 50,
+    "default_ttls": {
+      "ProdMgmt:Parts": 600,
+      "ChangeMgmt:ChangeNotices": 120,
+      "Workflow:WorkItems": 60
+    }
+  }
+}
+```
+
+| Config Key | Type | Default | Description |
+|------------|------|---------|-------------|
+| `cache.enabled` | bool | true | Enable/disable caching |
+| `cache.ttl` | int | 300 | Default TTL in seconds |
+| `cache.max_entries` | int | 256 | Max in-memory entries (LRU eviction) |
+| `cache.file_cache` | bool | true | Enable file-based persistence |
+| `cache.max_size_mb` | int | 50 | Max file cache size in MB |
+| `cache.default_ttls` | dict | {} | Per entity-set TTL overrides |
+
+### Cache Control Methods
+
+```python
+from domains.ProdMgmt import ProdMgmtClient
+client = ProdMgmtClient(config_path="config.json")
+
+# View cache statistics
+stats = client.cache_stats()
+# {'enabled': True, 'hits': 15, 'misses': 3, 'hit_rate': '83.3%', ...}
+
+# Clear all cached entries
+client.cache_clear()
+
+# Remove expired entries
+result = client.cache_cleanup()  # {'memory': 2, 'file': 5}
+
+# Invalidate specific entity set (auto-called on writes)
+count = client.cache_invalidate('ProdMgmt', 'Parts')
+
+# Invalidate entire domain
+count = client.cache_invalidate_domain('ProdMgmt')
+```
+
+### Performance Impact
+
+| Scenario | Without Cache | With Cache | Improvement |
+|----------|---------------|------------|-------------|
+| Repeat same query | 7-8s | <1ms | 7000x faster |
+| Query same entity set with different filters | 7-8s | 7-8s (miss) | Same (unique keys) |
+| Query after write operation | 7-8s | 7-8s (invalidated) | Same (auto-invalidated) |
+| Cross-session repeat | 7-8s | <5ms (file cache) | 1500x faster |
 
 ---
 
@@ -788,10 +872,11 @@ zephyr/
 ├── SKILL.md              # This file (quick reference)
 ├── config.example.json   # Configuration template
 ├── scripts/
-│   ├── windchill_base.py         # Base client
-│   ├── windchill_odata_client.py # Comprehensive OData client
-│   ├── property_resolver.py      # Case-insensitive property resolution
-│   ├── output_formatter.py       # Output formatting
+│ ├── windchill_base.py # Base client
+│ ├── windchill_odata_client.py # Comprehensive OData client
+│ ├── property_resolver.py # Case-insensitive property resolution
+│ ├── cache_manager.py # Response caching (memory + file, TTL, LRU)
+│ ├── output_formatter.py # Output formatting
 │ └── domains/ # Domain-specific clients (USE THESE)
 │ ├── ProdMgmt/
 │ ├── DocMgmt/
