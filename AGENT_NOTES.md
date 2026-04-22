@@ -12,7 +12,7 @@ Critical implementation details and learnings for AI agents using this skill. Re
 |-------|--------|
 | **CSRF Header Name** | Use `CSRF_NONCE` (NOT `X-PTC-CSRF-Token`) |
 | **URL Double-Slash Bug** | `odata_base_url` needs `.rstrip('/')` to avoid double-slash in URLs |
-| **Case-Sensitive Properties** | OData properties are case-sensitive: `Number` not `number` |
+| **Case-Sensitive Properties** | OData filter properties are PascalCase: `Number` not `number`, `Name` not `name`, `ContainerID` not `containerID`. Wrong case = 400 error. Fixed 17 bugs across 11 domain clients in commit 37a93c2. |
 | **Slow Demo Server** | PTC demo server is slow (7-8s per call is normal, not a bug) |
 | **No Real Server URLs in Reference Files** | Reference docs use `windchill.example.com` placeholder. Actual server comes from user's `config.json`. |
 | **Missing Import Blocks** | Every optional module (cache_manager, odata_filter_builder, property_resolver) MUST have a `try/except ImportError` block defining its `_AVAILABLE` flag. Forgetting this causes `NameError` at runtime. |
