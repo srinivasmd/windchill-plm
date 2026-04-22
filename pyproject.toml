@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools>=64", "wheel"]
+build-backend = "setuptools.backends._legacy:_Backend"
+
+[project]
+name = "zephyr-windchill"
+version = "1.0.0"
+description = "Zephyr - CLI and Python client for PTC Windchill PLM REST APIs"
+readme = "README.md"
+license = {text = "Apache-2.0"}
+requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.20",
+]
+
+[project.scripts]
+zephyr = "zephyr_cli:main"
+
+[tool.setuptools]
+py-modules = [
+    "zephyr_cli",
+    "windchill_base",
+    "windchill_odata_client",
+    "property_resolver",
+    "odata_filter_builder",
+    "cache_manager",
+    "output_formatter",
+]
+packages = [
+    "domains",
+]
+
+[tool.setuptools.package-dir]
+"" = "scripts"
+
+[tool.setuptools.packages.find]
+where = ["scripts"]
