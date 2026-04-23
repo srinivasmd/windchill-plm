@@ -73,16 +73,29 @@ class CADDocumentMgmtClient(WindchillBaseClient):
     def query_cad_documents(self, filter_expr: str = None, top: int = 50) -> List[dict]:
         '''
         Query CAD documents.
-        
+
         Args:
             filter_expr: OData filter expression
             top: Maximum results
-        
+
         Returns:
             List of CAD documents
         '''
         return self.query_entities('CADDocuments', filter_expr=filter_expr, top=top)
-    
+
+    def search_cad_documents(self, search_term: str, top: int = 50) -> List[dict]:
+        '''
+        Search CAD documents by term using Windchill full-text search.
+
+        Args:
+            search_term: Search term
+            top: Maximum results
+
+        Returns:
+            List of matching CAD documents
+        '''
+        return self.search('CADDocuments', search_term, domain=self.DOMAIN, top=top)
+
     # =========================================================================
     # CAD Structure Navigation
     # =========================================================================

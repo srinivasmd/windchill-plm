@@ -72,16 +72,29 @@ class ChangeMgmtClient(WindchillBaseClient):
     def query_change_notices(self, filter_expr: str = None, top: int = 50) -> List[dict]:
         '''
         Query change notices.
-        
+
         Args:
             filter_expr: OData filter expression
             top: Maximum results
-        
+
         Returns:
             List of change notices
         '''
         return self.query_entities('ChangeNotices', filter_expr=filter_expr, top=top)
-    
+
+    def search_change_notices(self, search_term: str, top: int = 50) -> List[dict]:
+        '''
+        Search change notices by term using Windchill full-text search.
+
+        Args:
+            search_term: Search term
+            top: Maximum results
+
+        Returns:
+            List of matching change notices
+        '''
+        return self.search('ChangeNotices', search_term, domain=self.DOMAIN, top=top)
+
     # =========================================================================
     # Change Request
     # =========================================================================
@@ -110,15 +123,28 @@ class ChangeMgmtClient(WindchillBaseClient):
     def query_change_requests(self, filter_expr: str = None, top: int = 50) -> List[dict]:
         '''
         Query change requests.
-        
+
         Args:
             filter_expr: OData filter expression
             top: Maximum results
-        
+
         Returns:
             List of change requests
         '''
         return self.query_entities('ChangeRequests', filter_expr=filter_expr, top=top)
+
+    def search_change_requests(self, search_term: str, top: int = 50) -> List[dict]:
+        '''
+        Search change requests by term using Windchill full-text search.
+
+        Args:
+            search_term: Search term
+            top: Maximum results
+
+        Returns:
+            List of matching change requests
+        '''
+        return self.search('ChangeRequests', search_term, domain=self.DOMAIN, top=top)
     
     # =========================================================================
     # Change Task

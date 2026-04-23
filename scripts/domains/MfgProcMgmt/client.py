@@ -72,16 +72,29 @@ class MfgProcMgmtClient(WindchillBaseClient):
     def query_process_plans(self, filter_expr: str = None, top: int = 50) -> List[dict]:
         '''
         Query process plans.
-        
+
         Args:
             filter_expr: OData filter expression
             top: Maximum results
-        
+
         Returns:
             List of process plans
         '''
         return self.query_entities('ProcessPlans', filter_expr=filter_expr, top=top)
-    
+
+    def search_process_plans(self, search_term: str, top: int = 50) -> List[dict]:
+        '''
+        Search process plans by term using Windchill full-text search.
+
+        Args:
+            search_term: Search term
+            top: Maximum results
+
+        Returns:
+            List of matching process plans
+        '''
+        return self.search('ProcessPlans', search_term, domain=self.DOMAIN, top=top)
+
     # =========================================================================
     # Operations
     # =========================================================================

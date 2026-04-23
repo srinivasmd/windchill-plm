@@ -51,15 +51,28 @@ class SupplierMgmtClient(WindchillBaseClient):
     def query_suppliers(self, filter_expr: str = None, top: int = 50) -> List[dict]:
         '''
         Query suppliers.
-        
+
         Args:
             filter_expr: OData filter expression
             top: Maximum results
-        
+
         Returns:
             List of suppliers
         '''
         return self.query_entities('Suppliers', filter_expr=filter_expr, top=top)
+
+    def search_suppliers(self, search_term: str, top: int = 50) -> List[dict]:
+        '''
+        Search suppliers by term using Windchill full-text search.
+
+        Args:
+            search_term: Search term
+            top: Maximum results
+
+        Returns:
+            List of matching suppliers
+        '''
+        return self.search('Suppliers', search_term, domain=self.DOMAIN, top=top)
     
     def get_supplier_by_id(self, supplier_id: str) -> dict:
         '''
