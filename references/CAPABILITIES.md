@@ -103,10 +103,10 @@ client = <Domain>Client(config_path="config.json")
 | Domain | Purpose | Key Entity Sets |
 |--------|---------|-----------------|
 | **ProdMgmt** | Parts, BOMs, product structures | Parts, PartUsages |
-| **DocMgmt** | Documents, attachments | Documents, Folders |
+| **DocMgmt** | Documents, attachments | Documents |
 | **CADDocumentMgmt** | CAD models, drawings | CADDocuments |
 | **ChangeMgmt** | Change notices, requests | ChangeNotices, ChangeTasks |
-| **QMS** | Quality management | CAPAs, NCRs, QualityActions |
+| **QMS** | Quality management | Quality, NCRs, QualityActions |
 | **CAPA** | Corrective/Preventive Actions | CAPAs, CAPAActionPlans |
 | **NC** | Nonconformance tracking | Nonconformances, AffectedObjects |
 | **SupplierMgmt** | Suppliers, vendor parts | Manufacturers, VendorParts |
@@ -117,15 +117,15 @@ client = <Domain>Client(config_path="config.json")
 | **ProjMgmt** | Project plans, activities | ProjectPlans, Activities |
 | **PartListMgmt** | Illustrated parts lists | PartLists, PartListItems |
 | **ClfStructure** | Classification hierarchy | ClfNodes, ClassifiedObjects |
-| **DocumentControl** | Controlled documents | ControlDocuments, TrainingRecords |
+| **DocumentControl** | Controlled documents | TrainingRecords |
 | **DynamicDocMgmt** | Dynamic documents | DynamicDocuments, BurstConfigurations |
 | **EffectivityMgmt** | Part effectivity | PartEffectivityContexts, Effectivities |
 | **Factory** | Standard operations, SCCs | StandardOperations, StandardProcedures |
 | **NavCriteria** | Navigation criteria | NavigationCriteria, CachedNavigationCriteria |
 | **ProdPlatformMgmt** | Variant specifications | VariantSpecifications, Options |
-| **ServiceInfoMgmt** | Service documentation | ServiceDocuments |
+| **ServiceInfoMgmt** | Service documentation | SIMDocuments |
 | **RegMstr** | Regulatory master | RegMstrRecords |
-| **UDI** | Unique Device Identification | UDIRecords |
+| **UDI** | Unique Device Identification | UDISuperSets |
 | **CEM** | Customer experiences | CustomerExperiences |
 | **DataAdmin** | Containers, folders | Containers, Folders |
 | **PTC** | Common utilities, content download | (Cross-domain) |
@@ -307,9 +307,9 @@ results = client.query_entities('Parts', filter_expr=f)
 | Domain | Entity Sets |
 |--------|-------------|
 | ProdMgmt | Parts, PartUsages, Manufacturers |
-| DocMgmt | Documents, Folders, Attachments |
+| DocMgmt | Documents, Attachments |
 | ChangeMgmt | ChangeNotices, ChangeTasks, ChangeRequests |
-| QMS | CAPAs, NCRs, QualityActions |
+| QMS | Quality, NCRs, QualityActions |
 | SupplierMgmt | Manufacturers, VendorParts, Suppliers |
 | Workflow | WorkItems, Activities |
 

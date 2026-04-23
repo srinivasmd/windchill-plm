@@ -83,7 +83,7 @@ class PTCClient(WindchillBaseClient):
             ...     f.write(zip_data)
         '''
         # Get CSRF token
-        csrf_token = self._get_csrf_token()
+        csrf_token = self.get_csrf_token()
         
         # Build action URL
         url = f"{self.odata_base_url.rstrip('/')}/PTC.DownloadContentAsZip"
