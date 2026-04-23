@@ -29,7 +29,7 @@ references/
 | SupplierMgmt | Suppliers, vendor parts |
 | MfgProcMgmt | Process plans, operations |
 | CEM | Customer experiences |
-| BACMgmt | Baselines, configurations |
+| BACMgmt | Baselines, configurations (entity set: BACReceivedDeliveries) |
 | Workflow | Work items, activities |
 | Audit | Audit records, compliance |
 | DataAdmin | Containers, folders |

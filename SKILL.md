@@ -367,8 +367,27 @@ client = ChangeMgmtClient(config_path="config.json")
 # Query change notices using query_entities
 cns = client.query_entities('ChangeNotices', top=50)
 
+# Search change notices by term (full-text search)
+results = client.search_change_notices('bracket')
+
+# Search change requests by term (full-text search)
+results = client.search_change_requests('design update')
+
 # Get change notice by number
 cn = client.get_change_notice_by_number("CN-2024-001")
+```
+
+### Query CAD Documents
+
+```python
+from domains.CADDocumentMgmt import CADDocumentMgmtClient
+client = CADDocumentMgmtClient(config_path="config.json")
+
+# Query CAD documents
+docs = client.query_entities('CADDocuments', top=50)
+
+# Search CAD documents by term (full-text search)
+results = client.search_cad_documents('bracket')
 ```
 
 ### Query Quality Records (CAPA/NCR)
@@ -432,6 +451,9 @@ client = SupplierMgmtClient(config_path="config.json")
 # Query suppliers (returns Manufacturers and Vendors)
 suppliers = client.query_suppliers(top=50)
 
+# Search suppliers by term (full-text search)
+results = client.search_suppliers('amphenol')
+
 # Get specific supplier by name
 supplier = client.get_supplier_by_name("Amphenol")
 
@@ -443,6 +465,19 @@ mfg_parts = client.query_manufacturer_parts(filter_expr="Name eq 'Connector'")
 
 # Query vendor parts
 vendor_parts = client.query_vendor_parts(top=100)
+```
+
+### Query Process Plans
+
+```python
+from domains.MfgProcMgmt import MfgProcMgmtClient
+client = MfgProcMgmtClient(config_path="config.json")
+
+# Query process plans
+plans = client.query_entities('ProcessPlans', top=50)
+
+# Search process plans by term (full-text search)
+results = client.search_process_plans('assembly')
 ```
 
 ### Get Document Attachments
@@ -1046,7 +1081,7 @@ See `references/PTC/actions.json` for full list. Common actions:
 |------------|-------------|
 | query_parts.py | `ProdMgmtClient.query_entities('Parts')` |
 | query_change_notices.py | `ChangeMgmtClient.query_entities('ChangeNotices')` |
-| query_qms.py | `QMSClient.query_entities('CAPAs')` or `CAPAClient` |
+| query_qms.py | `QMSClient.query_entities('Quality')` or `CAPAClient` |
 | generic_query.py | `WindchillODataClient.query_entities()` |
 
 **DO NOT CREATE AD-HOC SCRIPTS** - Domain clients already support all query patterns:
