@@ -7,6 +7,65 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.0] - 2026-04-23
+
+A feature and bugfix release adding CLI terminal interface, async query manager,
+and critical OData compatibility fixes for Windchill PLM. 2,254 lines added across 22 files.
+
+### Added
+
+#### CLI Terminal Interface
+- `zephyr_cli.py`: Full-featured terminal CLI with 30+ subcommands (736 lines)
+- Commands: parts, documents, bom, search, count, domains, cache, etc.
+- Tabular and JSON output formats
+- Auto-corrects common OData filter mistakes (enum /Value suffix, PascalCase properties)
+- Search registry: maps CLI resource names to domain client search_* methods
+- Run: `python scripts/zephyr_cli.py <command> [options]`
+
+#### Async Query Manager
+- `async_query_manager.py`: Parallel HTTP via aiohttp with semaphore concurrency control (1,217 lines)
+- Retry with exponential backoff for transient failures
+- Parallel BOM traversal and batch entity fetching
+- Falls back to synchronous when aiohttp is unavailable
+- Integrated into domain clients via `query_all()`, `query_iter()`, `count_entities()`
+
+#### New Domain Client Search Methods
+- SupplierMgmt: `search_suppliers()` — full-text supplier search
+- CADDocumentMgmt: `search_cad_documents()` — full-text CAD document search
+- ChangeMgmt: `search_change_notices()`, `search_change_requests()` — full-text search
+- MfgProcMgmt: `search_process_plans()` — full-text process plan search
+- Every domain now has both `search_*()` ($search) and `query_*()` ($filter) methods
+
+### Changed
+
+- SKILL.md: +74 lines — CLI docs, async query manager, search_* method examples for 5 domains
+- CAPABILITIES.md: Entity set names corrected to match actual Windchill API endpoints
+- DOMAIN_CLIENT_GUIDE.md: +79 lines — entity set verification pattern, search method pattern, domain testing procedure
+- AGENT_NOTES.md: +27 lines — 3 new pitfalls (search_* vs query_*, enum /Value, BOM $expand=Uses)
+- Removed: `FEATURE_PROPOSALS.md` (stale planning doc), `pyproject.toml` (not needed for agent skill)
+
+### Fixed
+
+#### OData Compatibility (Critical Fixes)
+- **8 wrong entity set names** in CLI DOMAIN_REGISTRY causing 404 errors:
+  - Baselines → BACReceivedDeliveries (BACMgmt)
+  - ControlDocuments → TrainingRecords (DocumentControl)
+  - Folders → ProjectContainers (DataAdmin)
+  - WorkflowProcesses → WorkItems (Workflow)
+  - LifecycleTemplates → WorkItems (Workflow)
+  - CAPAs → Quality (QMS)
+  - Registrations → RegulatorySubmissions (RegMstr)
+  - UDIRecords → UDISuperSets (UDI)
+  - ServiceDocuments → SIMDocuments (ServiceInfoMgmt)
+- **OData filter property names must be PascalCase** — `Number` not `number`, `Name` not `name` (17 property name fixes)
+- **Enum properties require /Value suffix** — `State/Value eq 'RELEASED'` not `State eq 'RELEASED'` (400 error without /Value)
+- **BOM child part details** — `get_bom()` now defaults `expand_uses=True` and auto-expands `$expand=Uses` to include child Number/Name
+- **Navigation URL order** — `/{nav}` segment must come BEFORE `?$expand=` query params (400 error if reversed)
+- **PTC client** — fixed `_get_csrf_token()` → `get_csrf_token()` method call
+- **windchill_base.py** — fixed missing CacheManager import
+
+---
+
 ## [1.2.0] - 2026-04-22
 
 A major feature release adding OData filter expressions, dual-backend response caching,
@@ -110,6 +169,7 @@ and agent portability documentation. 4,701 lines added across 94 files.
 
 ---
 
-[1.2.0]: https://github.com/srinivasmd/zephyr/releases/tag/v1.2.0
-[1.1.0]: https://github.com/srininasmd/zephyr/releases/tag/v1.1.0
-[1.0.0]: https://github.com/srinivasmd/zephyr/releases/tag/v1.0.0
+[1.3.0]: https://github.com/srinivasmd/windchill-plm/releases/tag/v1.3.0
+[1.2.0]: https://github.com/srinivasmd/windchill-plm/releases/tag/v1.2.0
+[1.1.0]: https://github.com/srinivasmd/windchill-plm/releases/tag/v1.1.0
+[1.0.0]: https://github.com/srinivasmd/windchill-plm/releases/tag/v1.0.0
