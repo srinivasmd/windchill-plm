@@ -286,11 +286,65 @@ Every domain client should include:
 - `get_{entity}_by_number()` - Get by business identifier
 - `get_{entity}_{navigation}()` - Navigation property accessors
 - `set_{entity}_state()` - Lifecycle state change (if applicable)
+- `search_{entities}()` - Full-text search (uses base class `search()` method)
+
+### Search Method Pattern
+Every domain client MUST include a `search_{entity}()` method for CLI integration. Without it, `zephyr search <term> --domain <name>` will fail with 400 errors because the CLI falls back to passing the search term as a filter expression.
+
+```python
+def search_{entities}(self, search_term: str, top: int = 50) -> List[dict]:
+    '''Search {entities} by term using Windchill full-text search.'''
+    return self.search('{EntitySet}', search_term, domain=self.DOMAIN, top=top)
+```
+
+### Domain Testing Procedure
+After creating or updating a domain client, verify against the live server:
+
+```python
+# 1. Test list operation
+client.query_entities('{EntitySet}', top=1)  # Should return 200
+
+# 2. Test search operation  
+client.search('{EntitySet}', 'test', top=3)  # Should return 200
+
+# 3. Test filter with enum
+client.query_entities('{EntitySet}', filter_expr="State/Value eq 'RELEASED'", top=3)
+
+# 4. Test CLI integration
+# python zephyr_cli.py {resource} --top 1 --json
+# python zephyr_cli.py search test --domain {resource} --top 3 --json
+```
 
 ### Entity Set Naming
 Entity sets typically follow pattern: `{Entity}s` (plural)
 - Parts, Documents, ChangeNotices, CAPAs
 - Exception: Some use singular naming
+
+**IMPORTANT:** Always verify entity set names against the live Windchill server's metadata. The metadata XML entity set names may differ from what the OData endpoint actually exposes. Use this verification pattern:
+```python
+# Fetch actual entity sets from server metadata
+from windchill_base import WindchillBaseClient
+client = WindchillBaseClient(config_path='config.json')
+resp = client.session.get(f"{client.odata_base_url.rstrip('/')}/{domain}/$metadata")
+# Parse <EntitySet Name="..."> from the XML
+# Compare against DOMAIN_REGISTRY entity_set values
+
+# Quick test: query with top=1
+client.query_entities('{EntitySet}', top=1)  # 404 = wrong entity set name
+```
+
+Common entity set name mismatches found:
+| DOMAIN_REGISTRY Name | Actual Windchill Name | Domain |
+|---------------------|----------------------|--------|
+| Baselines | BACReceivedDeliveries | BACMgmt |
+| ControlDocuments | TrainingRecords | DocumentControl |
+| Folders | ProjectContainers | DataAdmin |
+| WorkflowProcesses | WorkItems | Workflow |
+| LifecycleTemplates | WorkItems | Workflow |
+| CAPAs | Quality | QMS |
+| Registrations | RegulatorySubmissions | RegMstr |
+| UDIRecords | UDISuperSets | UDI |
+| ServiceDocuments | SIMDocuments | ServiceInfoMgmt |
 
 ### Navigation Property Naming
 Common navigation properties:
@@ -439,6 +493,31 @@ def generate_domain_from_metadata(domain_name: str, xml_path: str, output_refs: 
 ```
 
 ## Key Learnings from NC Domain Implementation
+
+### OData Property Names are PascalCase
+Windchill OData properties are **case-sensitive** and use PascalCase:
+- `Number` not `number`, `Name` not `name`, `ContainerID` not `containerID`
+- Wrong case = 400 error
+- When generating filter expressions, ALWAYS match the exact case from metadata
+
+### Enum Properties Require /Value Suffix
+Properties typed as `PTC.EnumType` (State, Status, Priority, Severity, etc.) cannot be compared directly to string literals:
+- WRONG: `State eq 'RELEASED'` -- 400 error "types PTC.EnumType and Edm.String not compatible"
+- CORRECT: `State/Value eq 'RELEASED'`
+- Check the metadata XML for `Type="PTC.EnumType"` or `Type="NullableEnumType"` properties
+- CLI auto-corrects common enum names, but domain client code must use correct syntax
+
+### Navigation URL Structure
+When calling `get_navigation()` with `$expand`, the URL MUST place the navigation segment BEFORE query params:
+- CORRECT: `/Parts('id')/Uses?$expand=Uses`
+- WRONG: `/Parts('id')?$expand=Uses/Uses` (appending /nav after params)
+- The `get_navigation()` method handles this internally -- do NOT manually append navigation segments to `_build_url()` output
+
+### BOM Child Part Details via $expand=Uses
+PartUse links returned by the `Uses` navigation do NOT include child part Number/Name by default. You must:
+1. Pass `expand='Uses'` to `get_navigation()` when fetching BOM
+2. Read child details from `item['Uses']` (the expanded Part object), NOT `item['Part']`
+3. The `Uses` key on PartUse links points to the child Part when expanded
 
 ### Containment Navigation
 When `ContainsTarget="true"`, entities are contained within parent:
